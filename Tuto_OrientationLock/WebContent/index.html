@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+
+        <meta charset="UTF-8" />
+        <meta name=viewport content="width=device-width, initial-scale=1">
+
+        <title>My responsive Portrait</title>
+
+        <script src="lib/phaser.js"></script>
+        <script src="js/Main.js"></script>
+
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+            }
+            #turn {
+                width: 100%; 
+                height: 100%;
+				position: fixed;
+				top: 0px;
+				left: 0px;
+				background-color: white;
+				background-image: url('assets/playportrait.png');
+				background-repeat: no-repeat;
+				background-position: center center;
+				display: none;
+            }
+            
+            @media screen and (orientation: landscape) {
+                #turn {
+                    width: 100%; 
+	                height: 100%;
+	                position: fixed;
+	                top: 0px;
+	                left: 0px;
+	                background-color: white;
+	                background-image: url('assets/playportrait.png');
+	                background-repeat: no-repeat;
+	                background-position: center center;
+	                display: none;
+                }
+            }
+            
+            @media screen and (orientation: portrait) {
+                #turn {
+                    width: 100%; 
+                    height: 100%;
+                    position: fixed;
+                    top: 0px;
+                    left: 0px;
+                    background-color: white;
+                    background-image: url('assets/playportrait.png');
+                    background-repeat: no-repeat;
+                    background-position: center center;
+                    display: none;
+                }
+            }
+        </style>
+
+    </head>
+     
+    <body>
+        <div id="turn"></div>
+    </body>
+</html>
