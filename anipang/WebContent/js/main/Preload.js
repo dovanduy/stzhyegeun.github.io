@@ -113,9 +113,12 @@ function loadStart() {
 	loadingText.setText("Loading ...");
 };
 
-function fileComplete(progress, cacheKey, success, totalLoaded, totalFiles) {};
+function fileComplete(progress, cacheKey, success, totalLoaded, totalFiles) {
+	loadingText.setText("File Complete (" + cacheKey + ") : " + progress + "% - " + totalLoaded + " / " + totalFiles);
+};
 
 function loadComplete() {
+	loadingText.setText("Load Complete");
 	// 바인딩을 제거하지 않으면 다른 스테이트의 로딩 완료 시, 여기서 또 처리됨.
 	game.load.onLoadStart.remove(loadStart, this);
 	game.load.onFileComplete.remove(fileComplete, this);
