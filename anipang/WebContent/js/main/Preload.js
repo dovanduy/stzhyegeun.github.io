@@ -115,6 +115,13 @@ function loadStart() {
 function fileComplete(progress, cacheKey, success, totalLoaded, totalFiles) {};
 
 function loadComplete() {
+	// 바인딩을 제거하지 않으면 다른 스테이트의 로딩 완료 시, 여기서 또 처리됨.
+	game.load.onLoadStart.remove(loadStart, this);
+	game.load.onFileComplete.remove(fileComplete, this);
+	game.load.onLoadComplete.remove(loadComplete, this);
+	
+	// 혹은 game.state.current에서 현재 스테이트명과 동일한지 체크하는 방법도 있다.
+	
 	if (USE_FB_INTEGRATION == true) {
 		
 		this.WaitUserLogin();
