@@ -1,0 +1,99 @@
+{
+  "settings": {
+    "sceneWidth": 1200,
+    "sceneHeight": 800,
+    "generateOnSave": true,
+    "enableStepping": false
+  },
+  "world": {
+    "type": "group",
+    "id": "3d23851b-2277-4a90-b3b4-ac31a828c2d7",
+    "info": {
+      "editorName": "Loading",
+      "children": [
+        {
+          "type": "image",
+          "id": "23c1167f-2046-45ac-bb74-e5b8eb9004d6",
+          "asset": "0",
+          "info": {
+            "editorName": "loading_bg",
+            "y": 60
+          }
+        },
+        {
+          "type": "image",
+          "id": "995e06f5-a29b-4ef4-8496-25184b20bedf",
+          "asset": "1",
+          "info": {
+            "editorName": "loading_logo",
+            "x": 363,
+            "y": 72
+          }
+        },
+        {
+          "type": "image",
+          "id": "f9a9b5c1-b6a7-4f6e-a2cd-ed9d23400041",
+          "asset": "2",
+          "info": {
+            "editorName": "loading_bar",
+            "x": 640,
+            "y": 620,
+            "anchor.x": 0.5,
+            "anchor.y": 0.5
+          }
+        },
+        {
+          "type": "image",
+          "id": "d77c3478-5c1b-470c-822b-1845c9516003",
+          "asset": "3",
+          "info": {
+            "editorName": "loading_gage",
+            "editorPublic": true,
+            "x": 465,
+            "y": 611
+          }
+        },
+        {
+          "type": "image",
+          "id": "1f4cd379-17a1-4164-9970-a5a9233c64d4",
+          "asset": "4",
+          "info": {
+            "editorName": "loading_star",
+            "editorPublic": true,
+            "x": 465,
+            "y": 620,
+            "anchor.x": 0.5,
+            "anchor.y": 0.5
+          }
+        }
+      ]
+    }
+  },
+  "asset-table": {
+    "0": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "preload",
+      "asset": "loading_bg"
+    },
+    "1": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "preload",
+      "asset": "loading_logo"
+    },
+    "2": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "preload",
+      "asset": "loading_bar"
+    },
+    "3": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "preload",
+      "asset": "loading_gage"
+    },
+    "4": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "preload",
+      "asset": "loading_star"
+    }
+  }
+}

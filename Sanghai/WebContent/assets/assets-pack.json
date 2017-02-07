@@ -1,0 +1,1261 @@
+{
+    "preload": [
+        {
+            "type": "image",
+            "key": "loading_bg",
+            "url": "assets/images/Preload/title_nomal_bg.png",
+            "overwrite": true
+        },
+        {
+            "type": "image",
+            "key": "loading_logo",
+            "url": "assets/images/Preload/title_nomal_logo.png",
+            "overwrite": true
+        },
+        {
+            "type": "script",
+            "key": "PreloadScene",
+            "url": "assets/canvas/PreloadScene.js"
+        },
+        {
+            "type": "image",
+            "key": "loading_bar",
+            "url": "assets/images/Preload/loading_bar.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "loading_gage",
+            "url": "assets/images/Preload/loading_gage.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "loading_star",
+            "url": "assets/images/Preload/loading_star.png",
+            "overwrite": false
+        }
+    ],
+    "boot": [{
+        "type": "image",
+        "key": "stz_logo",
+        "url": "assets/images/Boot/stz_logo.png",
+        "overwrite": false
+    }],
+    "mainmenu": [],
+    "blocks": [
+        {
+            "type": "image",
+            "key": "Signal_GtoR_1",
+            "url": "assets/images/Level/Block/Base/Signal_GtoR_1.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "Signal_GtoR_2",
+            "url": "assets/images/Level/Block/Base/Signal_GtoR_2.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "Signal_GtoR_3",
+            "url": "assets/images/Level/Block/Base/Signal_GtoR_3.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "Signal_GtoR_4",
+            "url": "assets/images/Level/Block/Base/Signal_GtoR_4.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "Signal_RtoY_1",
+            "url": "assets/images/Level/Block/Base/Signal_RtoY_1.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "Signal_RtoY_2",
+            "url": "assets/images/Level/Block/Base/Signal_RtoY_2.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "Signal_RtoY_3",
+            "url": "assets/images/Level/Block/Base/Signal_RtoY_3.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "Signal_RtoY_4",
+            "url": "assets/images/Level/Block/Base/Signal_RtoY_4.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "Signal_YtoG_1",
+            "url": "assets/images/Level/Block/Base/Signal_YtoG_1.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "Signal_YtoG_2",
+            "url": "assets/images/Level/Block/Base/Signal_YtoG_2.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "Signal_YtoG_3",
+            "url": "assets/images/Level/Block/Base/Signal_YtoG_3.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "Signal_YtoG_4",
+            "url": "assets/images/Level/Block/Base/Signal_YtoG_4.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "blank_focus",
+            "url": "assets/images/Level/Block/Base/blank_focus.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "blank_noMatch",
+            "url": "assets/images/Level/Block/Base/blank_noMatch.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_base_001_1",
+            "url": "assets/images/Level/Block/Base/pae_base_001_1.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_base_001_10",
+            "url": "assets/images/Level/Block/Base/pae_base_001_10.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_base_002_1",
+            "url": "assets/images/Level/Block/Base/pae_base_002_1.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_base_003_1",
+            "url": "assets/images/Level/Block/Base/pae_base_003_1.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_base_004_1",
+            "url": "assets/images/Level/Block/Base/pae_base_004_1.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_base_005_1",
+            "url": "assets/images/Level/Block/Base/pae_base_005_1.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_base_006_1",
+            "url": "assets/images/Level/Block/Base/pae_base_006_1.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_base_007_1",
+            "url": "assets/images/Level/Block/Base/pae_base_007_1.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_base_008_1",
+            "url": "assets/images/Level/Block/Base/pae_base_008_1.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_base_009_1",
+            "url": "assets/images/Level/Block/Base/pae_base_009_1.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_base_010_1",
+            "url": "assets/images/Level/Block/Base/pae_base_010_1.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_base_011_1",
+            "url": "assets/images/Level/Block/Base/pae_base_011_1.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_base_012_1",
+            "url": "assets/images/Level/Block/Base/pae_base_012_1.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_base_013_1",
+            "url": "assets/images/Level/Block/Base/pae_base_013_1.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_base_014_1",
+            "url": "assets/images/Level/Block/Base/pae_base_014_1.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_base_015_1",
+            "url": "assets/images/Level/Block/Base/pae_base_015_1.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_base_ink_1",
+            "url": "assets/images/Level/Block/Base/pae_base_ink_1.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_base_signal_g",
+            "url": "assets/images/Level/Block/Base/pae_base_signal_g.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_base_signal_r",
+            "url": "assets/images/Level/Block/Base/pae_base_signal_r.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_base_signal_y",
+            "url": "assets/images/Level/Block/Base/pae_base_signal_y.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_base_signal_yf",
+            "url": "assets/images/Level/Block/Base/pae_base_signal_yf.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_base_sp",
+            "url": "assets/images/Level/Block/Base/pae_base_sp.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_bonus",
+            "url": "assets/images/Level/Block/Base/pae_bonus.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_disturb_001",
+            "url": "assets/images/Level/Block/Base/pae_disturb_001.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_frost",
+            "url": "assets/images/Level/Block/Base/pae_frost.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_shadow_001",
+            "url": "assets/images/Level/Block/Base/pae_shadow_001.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_upper_friend_frame",
+            "url": "assets/images/Level/Block/Base/pae_upper_friend_frame.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "stone_light",
+            "url": "assets/images/Level/Block/Base/stone_light.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "card_pae_1",
+            "url": "assets/images/Level/Block/Type/card_pae_1.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "card_pae_2",
+            "url": "assets/images/Level/Block/Type/card_pae_2.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "card_pae_3",
+            "url": "assets/images/Level/Block/Type/card_pae_3.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "card_pae_4",
+            "url": "assets/images/Level/Block/Type/card_pae_4.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_001",
+            "url": "assets/images/Level/Block/Type/pae_001.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_001_hard",
+            "url": "assets/images/Level/Block/Type/pae_001_hard.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_002",
+            "url": "assets/images/Level/Block/Type/pae_002.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_002_hard",
+            "url": "assets/images/Level/Block/Type/pae_002_hard.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_003",
+            "url": "assets/images/Level/Block/Type/pae_003.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_003_hard",
+            "url": "assets/images/Level/Block/Type/pae_003_hard.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_004",
+            "url": "assets/images/Level/Block/Type/pae_004.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_004_hard",
+            "url": "assets/images/Level/Block/Type/pae_004_hard.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_005",
+            "url": "assets/images/Level/Block/Type/pae_005.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_005_hard",
+            "url": "assets/images/Level/Block/Type/pae_005_hard.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_006",
+            "url": "assets/images/Level/Block/Type/pae_006.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_006_hard",
+            "url": "assets/images/Level/Block/Type/pae_006_hard.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_007",
+            "url": "assets/images/Level/Block/Type/pae_007.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_007_hard",
+            "url": "assets/images/Level/Block/Type/pae_007_hard.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_008",
+            "url": "assets/images/Level/Block/Type/pae_008.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_008_hard",
+            "url": "assets/images/Level/Block/Type/pae_008_hard.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_009",
+            "url": "assets/images/Level/Block/Type/pae_009.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_009_hard",
+            "url": "assets/images/Level/Block/Type/pae_009_hard.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_010",
+            "url": "assets/images/Level/Block/Type/pae_010.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_010_hard",
+            "url": "assets/images/Level/Block/Type/pae_010_hard.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_011",
+            "url": "assets/images/Level/Block/Type/pae_011.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_011_hard",
+            "url": "assets/images/Level/Block/Type/pae_011_hard.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_012",
+            "url": "assets/images/Level/Block/Type/pae_012.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_012_hard",
+            "url": "assets/images/Level/Block/Type/pae_012_hard.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_013",
+            "url": "assets/images/Level/Block/Type/pae_013.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_013_hard",
+            "url": "assets/images/Level/Block/Type/pae_013_hard.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_014",
+            "url": "assets/images/Level/Block/Type/pae_014.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_014_hard",
+            "url": "assets/images/Level/Block/Type/pae_014_hard.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_015",
+            "url": "assets/images/Level/Block/Type/pae_015.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_015_hard",
+            "url": "assets/images/Level/Block/Type/pae_015_hard.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_016",
+            "url": "assets/images/Level/Block/Type/pae_016.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_016_hard",
+            "url": "assets/images/Level/Block/Type/pae_016_hard.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_017",
+            "url": "assets/images/Level/Block/Type/pae_017.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_017_hard",
+            "url": "assets/images/Level/Block/Type/pae_017_hard.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_018",
+            "url": "assets/images/Level/Block/Type/pae_018.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_018_hard",
+            "url": "assets/images/Level/Block/Type/pae_018_hard.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_019",
+            "url": "assets/images/Level/Block/Type/pae_019.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_019_hard",
+            "url": "assets/images/Level/Block/Type/pae_019_hard.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_020",
+            "url": "assets/images/Level/Block/Type/pae_020.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_020_hard",
+            "url": "assets/images/Level/Block/Type/pae_020_hard.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_021",
+            "url": "assets/images/Level/Block/Type/pae_021.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_021_hard",
+            "url": "assets/images/Level/Block/Type/pae_021_hard.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_022",
+            "url": "assets/images/Level/Block/Type/pae_022.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_022_hard",
+            "url": "assets/images/Level/Block/Type/pae_022_hard.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_023",
+            "url": "assets/images/Level/Block/Type/pae_023.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_023_hard",
+            "url": "assets/images/Level/Block/Type/pae_023_hard.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_024",
+            "url": "assets/images/Level/Block/Type/pae_024.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_024_hard",
+            "url": "assets/images/Level/Block/Type/pae_024_hard.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_025",
+            "url": "assets/images/Level/Block/Type/pae_025.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_025_hard",
+            "url": "assets/images/Level/Block/Type/pae_025_hard.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_026",
+            "url": "assets/images/Level/Block/Type/pae_026.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_026_hard",
+            "url": "assets/images/Level/Block/Type/pae_026_hard.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_027",
+            "url": "assets/images/Level/Block/Type/pae_027.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_027_hard",
+            "url": "assets/images/Level/Block/Type/pae_027_hard.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_028",
+            "url": "assets/images/Level/Block/Type/pae_028.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_028_hard",
+            "url": "assets/images/Level/Block/Type/pae_028_hard.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_029",
+            "url": "assets/images/Level/Block/Type/pae_029.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_029_hard",
+            "url": "assets/images/Level/Block/Type/pae_029_hard.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_030",
+            "url": "assets/images/Level/Block/Type/pae_030.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_030_hard",
+            "url": "assets/images/Level/Block/Type/pae_030_hard.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_031",
+            "url": "assets/images/Level/Block/Type/pae_031.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_032",
+            "url": "assets/images/Level/Block/Type/pae_032.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_033",
+            "url": "assets/images/Level/Block/Type/pae_033.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_033_hard",
+            "url": "assets/images/Level/Block/Type/pae_033_hard.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_034",
+            "url": "assets/images/Level/Block/Type/pae_034.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_034_hard",
+            "url": "assets/images/Level/Block/Type/pae_034_hard.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_035",
+            "url": "assets/images/Level/Block/Type/pae_035.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_035_hard",
+            "url": "assets/images/Level/Block/Type/pae_035_hard.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_036",
+            "url": "assets/images/Level/Block/Type/pae_036.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_036_hard",
+            "url": "assets/images/Level/Block/Type/pae_036_hard.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_037",
+            "url": "assets/images/Level/Block/Type/pae_037.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_037_hard",
+            "url": "assets/images/Level/Block/Type/pae_037_hard.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_038",
+            "url": "assets/images/Level/Block/Type/pae_038.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_038_hard",
+            "url": "assets/images/Level/Block/Type/pae_038_hard.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_039",
+            "url": "assets/images/Level/Block/Type/pae_039.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_039_hard",
+            "url": "assets/images/Level/Block/Type/pae_039_hard.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_040",
+            "url": "assets/images/Level/Block/Type/pae_040.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_040_hard",
+            "url": "assets/images/Level/Block/Type/pae_040_hard.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_043",
+            "url": "assets/images/Level/Block/Type/pae_043.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_044",
+            "url": "assets/images/Level/Block/Type/pae_044.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_045",
+            "url": "assets/images/Level/Block/Type/pae_045.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_046",
+            "url": "assets/images/Level/Block/Type/pae_046.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_047",
+            "url": "assets/images/Level/Block/Type/pae_047.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_048",
+            "url": "assets/images/Level/Block/Type/pae_048.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_049",
+            "url": "assets/images/Level/Block/Type/pae_049.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_049_hard",
+            "url": "assets/images/Level/Block/Type/pae_049_hard.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_050",
+            "url": "assets/images/Level/Block/Type/pae_050.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_050_hard",
+            "url": "assets/images/Level/Block/Type/pae_050_hard.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_051",
+            "url": "assets/images/Level/Block/Type/pae_051.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_051_hard",
+            "url": "assets/images/Level/Block/Type/pae_051_hard.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_052",
+            "url": "assets/images/Level/Block/Type/pae_052.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_052_hard",
+            "url": "assets/images/Level/Block/Type/pae_052_hard.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_053",
+            "url": "assets/images/Level/Block/Type/pae_053.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_053_hard",
+            "url": "assets/images/Level/Block/Type/pae_053_hard.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_054",
+            "url": "assets/images/Level/Block/Type/pae_054.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_054_hard",
+            "url": "assets/images/Level/Block/Type/pae_054_hard.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_055",
+            "url": "assets/images/Level/Block/Type/pae_055.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_055_hard",
+            "url": "assets/images/Level/Block/Type/pae_055_hard.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_056",
+            "url": "assets/images/Level/Block/Type/pae_056.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_056_hard",
+            "url": "assets/images/Level/Block/Type/pae_056_hard.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_057",
+            "url": "assets/images/Level/Block/Type/pae_057.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_057_hard",
+            "url": "assets/images/Level/Block/Type/pae_057_hard.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_058",
+            "url": "assets/images/Level/Block/Type/pae_058.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_058_hard",
+            "url": "assets/images/Level/Block/Type/pae_058_hard.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_059",
+            "url": "assets/images/Level/Block/Type/pae_059.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_059_hard",
+            "url": "assets/images/Level/Block/Type/pae_059_hard.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_060",
+            "url": "assets/images/Level/Block/Type/pae_060.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_060_hard",
+            "url": "assets/images/Level/Block/Type/pae_060_hard.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_061",
+            "url": "assets/images/Level/Block/Type/pae_061.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_061_hard",
+            "url": "assets/images/Level/Block/Type/pae_061_hard.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_062",
+            "url": "assets/images/Level/Block/Type/pae_062.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_062_hard",
+            "url": "assets/images/Level/Block/Type/pae_062_hard.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_063",
+            "url": "assets/images/Level/Block/Type/pae_063.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_063_hard",
+            "url": "assets/images/Level/Block/Type/pae_063_hard.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_064",
+            "url": "assets/images/Level/Block/Type/pae_064.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_064_hard",
+            "url": "assets/images/Level/Block/Type/pae_064_hard.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_065",
+            "url": "assets/images/Level/Block/Type/pae_065.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_065_hard",
+            "url": "assets/images/Level/Block/Type/pae_065_hard.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_disturb_002",
+            "url": "assets/images/Level/Block/Type/pae_disturb_002.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_disturb_003",
+            "url": "assets/images/Level/Block/Type/pae_disturb_003.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_disturb_004",
+            "url": "assets/images/Level/Block/Type/pae_disturb_004.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_electric_001",
+            "url": "assets/images/Level/Block/Type/pae_electric_001.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_last_friend",
+            "url": "assets/images/Level/Block/Type/pae_last_friend.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_mission_001",
+            "url": "assets/images/Level/Block/Type/pae_mission_001.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_mission_002",
+            "url": "assets/images/Level/Block/Type/pae_mission_002.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_piece_1",
+            "url": "assets/images/Level/Block/Type/pae_piece_1.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_piece_2",
+            "url": "assets/images/Level/Block/Type/pae_piece_2.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_piece_3",
+            "url": "assets/images/Level/Block/Type/pae_piece_3.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_season_1",
+            "url": "assets/images/Level/Block/Type/pae_season_1.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_season_2",
+            "url": "assets/images/Level/Block/Type/pae_season_2.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_season_3",
+            "url": "assets/images/Level/Block/Type/pae_season_3.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_season_4",
+            "url": "assets/images/Level/Block/Type/pae_season_4.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_set_100_1_1",
+            "url": "assets/images/Level/Block/Type/pae_set_100_1_1.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_set_100_1_2",
+            "url": "assets/images/Level/Block/Type/pae_set_100_1_2.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_set_100_2_1",
+            "url": "assets/images/Level/Block/Type/pae_set_100_2_1.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_set_100_2_2",
+            "url": "assets/images/Level/Block/Type/pae_set_100_2_2.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_set_100_3_1",
+            "url": "assets/images/Level/Block/Type/pae_set_100_3_1.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_set_100_3_2",
+            "url": "assets/images/Level/Block/Type/pae_set_100_3_2.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_set_100_4_1",
+            "url": "assets/images/Level/Block/Type/pae_set_100_4_1.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_set_100_4_2",
+            "url": "assets/images/Level/Block/Type/pae_set_100_4_2.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_set_100_5_1",
+            "url": "assets/images/Level/Block/Type/pae_set_100_5_1.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_set_100_5_2",
+            "url": "assets/images/Level/Block/Type/pae_set_100_5_2.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_set_100_6_1",
+            "url": "assets/images/Level/Block/Type/pae_set_100_6_1.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_set_100_6_2",
+            "url": "assets/images/Level/Block/Type/pae_set_100_6_2.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_set_100_7_1",
+            "url": "assets/images/Level/Block/Type/pae_set_100_7_1.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_set_100_7_2",
+            "url": "assets/images/Level/Block/Type/pae_set_100_7_2.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_set_100_8_1",
+            "url": "assets/images/Level/Block/Type/pae_set_100_8_1.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_set_100_8_2",
+            "url": "assets/images/Level/Block/Type/pae_set_100_8_2.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_sp_001",
+            "url": "assets/images/Level/Block/Type/pae_sp_001.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_sp_002",
+            "url": "assets/images/Level/Block/Type/pae_sp_002.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_sp_003",
+            "url": "assets/images/Level/Block/Type/pae_sp_003.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_sp_004",
+            "url": "assets/images/Level/Block/Type/pae_sp_004.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_sp_005",
+            "url": "assets/images/Level/Block/Type/pae_sp_005.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_sp_006",
+            "url": "assets/images/Level/Block/Type/pae_sp_006.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pae_sp_007",
+            "url": "assets/images/Level/Block/Type/pae_sp_007.png",
+            "overwrite": false
+        }
+    ],
+    "meta": {
+        "generated": "1486458654854",
+        "app": "Phaser Editor",
+        "url": "http://phasereditor.boniatillo.com",
+        "version": "1.0",
+        "copyright": "Arian Fornaris (c) 2015,2016"
+    }
+}

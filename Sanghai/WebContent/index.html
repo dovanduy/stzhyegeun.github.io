@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+	
+		<meta charset="UTF-8" />
+		<meta name=viewport content="width=device-width, initial-scale=1">
+		
+		<title>Sanghai Anipang</title>
+		
+		<script src="//stzhyegeun.github.io/libs/phaser.js"></script>
+		<script src="js/Main.js"></script>
+		<script src="js/Boot.js"></script>
+		<script src="js/Menu.js"></script>
+		<script src="js/Preload.js"></script>
+		<script src="js/Level.js"></script>
+		
+		<style>
+		body {
+			background: black;
+			margin: 0;
+			padding: 0;
+		}
+
+        #portrait {
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            background-color: white;
+            /*background-image: url('assets/images/playportrait.png');*/
+            background-repeat: no-repeat;
+            background-position: center center;
+        }        
+        
+        /* iphone portrait */
+        @media only screen 
+            and (orientation: landscape) {
+            #portrait {display: none;}
+        }
+        
+        @media only screen
+            and (orientation: portrait) {
+            #portrait {display: block;}
+        } 	
+		
+		</style>
+	
+	</head>
+	
+	<body>
+	   <div id="portrait">
+	       <p>Play Landscape</p>
+	   </div>
+	</body>
+</html>
