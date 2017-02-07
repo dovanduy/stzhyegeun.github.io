@@ -19,17 +19,31 @@ Preload.prototype.preload = function() {
 	
 	this.aniLoading = this.game.add.sprite(155, 451, "PREIMAGE");
 	this.aniLoading.animations.add("aniLoading", Phaser.Animation.generateFrameNames("loading", 0, 2, ".png", 4), 10, true);
-	this.aniLoading.animations.play("aniLoading");
-	
-	this.load.pack("start", "assets/assets-pack.json");
-	this.game.load.spritesheet("GEMS", "assets/start/block/blocks.png", 81, 82);
-	this.game.load.atlas("EFFECTS", "assets/start/effect/effect.png", "assets/start/effect/effect.json", Phaser.Loader.TEXTURE_ATLAS_JSON_ARRAY);
-	this.game.load.atlas("BESTSCORE", "assets/start/effect/bestScore.png", "assets/start/effect/bestScore.json", Phaser.Loader.TEXTURE_ATLAS_JSON_ARRAY);
-	this.game.load.bitmapFont('comboFont', 'assets/start/font/comboFont.png', 'assets/start/font/comboFont.xml');
-	this.game.load.bitmapFont('textScore', 'assets/start/font/textScoreFont.png', 'assets/start/font/textScoreFont.xml');
-	this.game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
-	this.game.load.atlas("TXTTOUCHED", "assets/start/UI/txtTounched.png", "assets/start/UI/txtTounched.json", Phaser.Loader.TEXTURE_ATLAS_JSON_ARRAY);
+	this.aniLoading.animations.play("aniLoading");	
 };
+
+Preload.prototype.create = function() {
+	
+	game.load.onLoadStart.add(loadStart, this);
+	game.load.onFileComplete.add(fileComplete, this);
+	game.load.onLoadComplete.add(loadComplete, this);
+	
+	loadingText = game.add.text(32, 32, "", {fill: "#ffffff"});
+	StartLoadResources();
+};
+
+function StartLoadResources() {
+	game.load.pack("start", "assets/assets-pack.json");
+	game.load.spritesheet("GEMS", "assets/start/block/blocks.png", 81, 82);
+	game.load.atlas("EFFECTS", "assets/start/effect/effect.png", "assets/start/effect/effect.json", Phaser.Loader.TEXTURE_ATLAS_JSON_ARRAY);
+	game.load.atlas("BESTSCORE", "assets/start/effect/bestScore.png", "assets/start/effect/bestScore.json", Phaser.Loader.TEXTURE_ATLAS_JSON_ARRAY);
+	game.load.bitmapFont('comboFont', 'assets/start/font/comboFont.png', 'assets/start/font/comboFont.xml');
+	game.load.bitmapFont('textScore', 'assets/start/font/textScoreFont.png', 'assets/start/font/textScoreFont.xml');
+	game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
+	game.load.atlas("TXTTOUCHED", "assets/start/UI/txtTounched.png", "assets/start/UI/txtTounched.json", Phaser.Loader.TEXTURE_ATLAS_JSON_ARRAY);
+	
+	game.load.start();
+}
 
 Preload.prototype.WaitUserLogin = function() {
 	this.scene.fGroupAnimTimeOver.visible = false;
@@ -47,7 +61,7 @@ Preload.prototype.WaitUserLogin = function() {
         USER_DATA.init();
 		this.game.state.start("Menu");
 	});
-}
+};
 
 var LoginStatusChangeCallback = function(response) {
 	if (response.status === 'connected') {
@@ -94,8 +108,13 @@ Preload.prototype.LoginToFacebook = function() {
 	});
 };
 
-Preload.prototype.create = function() {
-	
+function loadStart() {
+	loadingText.setText("Loading ...");
+};
+
+function fileComplete(progress, cacheKey, success, totalLoaded, totalFiles) {};
+
+function loadComplete() {
 	if (USE_FB_INTEGRATION == true) {
 		
 		this.WaitUserLogin();
@@ -110,5 +129,6 @@ Preload.prototype.create = function() {
 		FB_DATA.init();
 		this.game.state.start("Menu");
 	}
-
 };
+
+
