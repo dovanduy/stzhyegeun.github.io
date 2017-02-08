@@ -20,15 +20,6 @@ Menu.prototype.preload = function() {
 Menu.prototype.create = function() {
 
 	// 백그라운드 이미지 설정
-	/*
-	var background = this.add.sprite(this.world.centerX, this.world.centerY, "ingame_bg1");
-	background.anchor.set(0.5, 0.5);
-	background.scale.set(this.world.width / background.width, this.world.height / background.height);
-	
-	this.scene.fBackground.add(background);
-	this.scene.bringToTop(this.scene.fButtons);
-	*/
-	
 	this.MakeBackground(this.currentEpisode, this.scene);
 	this.MakeStageTextOnButton(this.currentEpisode, this.scene);
 	
@@ -72,17 +63,18 @@ Menu.OnBtnLeftSelected = function(sprite, pointer) {
 	// Tween
 	tempScene.fBackground.position.x = -1 * this.game.world.width;
 	tempScene.fButtons.position.x = -1 * this.game.world.width;
-	
-	this.game.add.tween(this.scene.fBackground).to({x: this.game.world.width}, 1000, "Linear", true);
-	this.game.add.tween(this.scene.fButtons).to({x: this.game.world.width}, 1000, "Linear", true);
-	this.game.add.tween(tempScene.fBackground).to({x: 0}, 1000, "Linear", true);
-	this.game.add.tween(tempScene.fButtons).to({x: 0}, 1000, "Linear", true);
-	
-	this.scene = tempScene;
-	
-	this.scene.fBtn_left.events.onInputDown.add(Menu.OnBtnLeftSelected, this);
-	this.scene.fBtn_right.events.onInputDown.add(Menu.OnBtnRightSelected, this);
-	
+
+	// NOTE @hyegeun 왜 this.scene는 씬에서 바로 트윈이 가능한데 tempScene은 바로 트윈이 안되는지 알아보자
+	this.game.add.tween(this.scene).to({x: this.game.world.width}, 1000, "Quart.easeOut", true).onComplete.addOnce(function() {
+		this.scene.destroy(true);
+		this.scene = tempScene;
+		this.scene.fBtn_left.events.onInputDown.add(Menu.OnBtnLeftSelected, this);
+		this.scene.fBtn_right.events.onInputDown.add(Menu.OnBtnRightSelected, this);
+	}, this);
+	//this.game.add.tween(this.scene.fBackground).to({x: this.game.world.width}, 1000, "Quart.easeOut", true);
+	//this.game.add.tween(this.scene.fButtons).to({x: this.game.world.width}, 1000, "Quart.easeOut", true);
+	this.game.add.tween(tempScene.fBackground).to({x: 0}, 1000, "Quart.easeOut", true);
+	this.game.add.tween(tempScene.fButtons).to({x: 0}, 1000, "Quart.easeOut", true);
 };
 
 Menu.OnBtnRightSelected = function(sprite, pointer) {
@@ -102,16 +94,16 @@ Menu.OnBtnRightSelected = function(sprite, pointer) {
 	tempScene.fBackground.position.x = this.game.world.width;
 	tempScene.fButtons.position.x = this.game.world.width;
 	
-	this.game.add.tween(this.scene.fBackground).to({x: -1 * this.game.world.width}, 1000, "Linear", true);
-	this.game.add.tween(this.scene.fButtons).to({x: -1 * this.game.world.width}, 1000, "Linear", true);
-	this.game.add.tween(tempScene.fBackground).to({x: 0}, 1000, "Linear", true);
-	this.game.add.tween(tempScene.fButtons).to({x: 0}, 1000, "Linear", true);
-	
-	this.scene = tempScene;
-	
-	this.scene.fBtn_left.events.onInputDown.add(Menu.OnBtnLeftSelected, this);
-	this.scene.fBtn_right.events.onInputDown.add(Menu.OnBtnRightSelected, this);
-
+	this.game.add.tween(this.scene).to({x: -1 * this.game.world.width}, 1000, "Quart.easeOut", true).onComplete.addOnce(function() {
+		this.scene.destroy(true);
+		this.scene = tempScene;
+		this.scene.fBtn_left.events.onInputDown.add(Menu.OnBtnLeftSelected, this);
+		this.scene.fBtn_right.events.onInputDown.add(Menu.OnBtnRightSelected, this);		
+	}, this);
+	//this.game.add.tween(this.scene.fBackground).to({x: -1 * this.game.world.width}, 1000, "Linear", true);
+	//this.game.add.tween(this.scene.fButtons).to({x: -1 * this.game.world.width}, 1000, "Linear", true);
+	this.game.add.tween(tempScene.fBackground).to({x: 0}, 1000, "Quart.easeOut", true);
+	this.game.add.tween(tempScene.fButtons).to({x: 0}, 1000, "Quart.easeOut", true);
 };
 
 
