@@ -28,17 +28,17 @@ Preload.prototype.create = function() {
 };
 
 Preload.OnLoadStart = function() {
-	console.log("[Preload] OnLoadStart");
+	StzCommon.StzLog.print("[Preload] OnLoadStart");
 }
 
 Preload.OnFileComplete = function(progress, cacheKey, success, totalLoaded, totalFiles) {
-	console.log("[Preload] OnLoadFileComplete (" + cacheKey + ") - " + progress + "%, " + totalLoaded + " / " + totalFiles);
+	StzCommon.StzLog.print("[Preload] OnLoadFileComplete (" + cacheKey + ") - " + progress + "%, " + totalLoaded + " / " + totalFiles);
 	this.scene.fLoading_gage.scale.x = (progress / 100);
 	this.scene.fLoading_star.position.x = this.scene.fLoading_gage.position.x + this.scene.fLoading_gage.width;
 }
 
 Preload.OnLoadComplete = function() {
-	console.log("[Preload] OnLoadComplete");
+	StzCommon.StzLog.print("[Preload] OnLoadComplete");
 	this.game.load.onLoadStart.remove(Preload.OnLoadStart);
 	this.game.load.onFileComplete.remove(Preload.OnFileComplete);
 	this.game.load.onLoadComplete.remove(Preload.OnLoadComplete);

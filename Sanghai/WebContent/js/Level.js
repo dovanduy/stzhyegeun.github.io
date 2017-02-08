@@ -10,8 +10,8 @@ var proto = Object.create(Phaser.State);
 Level.prototype = proto;
 
 Level.prototype.create = function() {
-	this.addMonkey();
-	this.moveMonkey();
+	//this.addMonkey();
+	//this.moveMonkey();
 };
 
 Level.prototype.addMonkey = function() {

@@ -47,15 +47,15 @@ Boot.prototype.StartLoadPreloadResources = function() {
 };
 
 Boot.OnLoadStart = function() {
-	console.log("[Boot] OnLoadStart");
+	StzCommon.StzLog.print("[Boot] OnLoadStart");
 };
 
 Boot.OnFileComplete = function(progress, cacheKey, success, totalLoaded, totalFiles) {
-	console.log("[Boot] OnLoadFileComplete (" + cacheKey + ") - " + progress + "%, " + totalLoaded + " / " + totalFiles);
+	StzCommon.StzLog.print("[Boot] OnLoadFileComplete (" + cacheKey + ") - " + progress + "%, " + totalLoaded + " / " + totalFiles);
 };
 
 Boot.OnLoadComplete = function() {
-	console.log("[Boot] OnLoadComplete");
+	StzCommon.StzLog.print("[Boot] OnLoadComplete");
 	this.game.load.onLoadStart.remove(Boot.OnLoadStart);
 	this.game.load.onFileComplete.remove(Boot.OnFileComplete, this);
 	this.game.load.onLoadComplete.remove(Boot.OnLoadComplete, this);

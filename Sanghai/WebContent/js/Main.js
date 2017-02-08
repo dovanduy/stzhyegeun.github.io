@@ -1,4 +1,5 @@
-window.onload = function() {
+window.onRequireLoad = function() {
+//var gameStart = function() {
 	
 	// Create your Phaser game and inject it into an auto-created canvas.
 	// We did it in a window.onload event, but you can do it anywhere (requireJS
