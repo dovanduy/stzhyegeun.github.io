@@ -12,10 +12,11 @@ Preload.prototype = proto;
 Preload.prototype.preload = function() {
 	
 	this.scene = new PreloadScene(this.game);
-	this.scene.fLoading_gage.scale.x = 0;
 };
 
 Preload.prototype.create = function() {
+	
+	this.scene.fLoading_gage.scale.x = 0;
 	
 	this.game.load.onLoadStart.add(Preload.OnLoadStart, this);
 	this.game.load.onFileComplete.add(Preload.OnFileComplete, this);
@@ -42,4 +43,6 @@ Preload.OnLoadComplete = function() {
 	this.game.load.onLoadStart.remove(Preload.OnLoadStart);
 	this.game.load.onFileComplete.remove(Preload.OnFileComplete);
 	this.game.load.onLoadComplete.remove(Preload.OnLoadComplete);
+	
+	this.game.state.start("Menu");
 }
