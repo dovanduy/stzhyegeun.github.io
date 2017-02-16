@@ -108,7 +108,6 @@ Level.prototype.addDragonBones = function(){
 
     var armature = dragonBones.makeArmaturePhaser(config, skeletonJSON, atlasJson, texture);
 
-
     //var armature = dragonBones.makePhaserArmature(armatureName, skeletonId, animationId, skeletonData, atlasJson, texture, partsList, atlasId);
     // get the root display object from the armature
     var bonesBase = armature.getDisplay();
