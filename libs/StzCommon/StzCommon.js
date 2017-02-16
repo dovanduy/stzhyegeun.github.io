@@ -1,7 +1,7 @@
 define(function (require) {
 	// load modules
 	var baseLog = require('./StzLog');
-	var baseAnimation = require('./StzAnimation');
+	var baseAnimation = require('./animations/StzAnimation');
 	
 	if (StzGameConfig === undefined) {
 		throw "StzGameConfig is undefined";
