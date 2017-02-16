@@ -260,5 +260,5 @@ dragonBones.makeArmaturePhaser = function (config, skeletonJSON, atlasJson, text
     dragonBones.animation.WorldClock.clock.add(armature);
     //play the requested timeline
     armature.animation.gotoAndPlay(animationId, 0.2);
-    return armature
+    return armature;
 };
