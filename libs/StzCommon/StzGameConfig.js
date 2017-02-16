@@ -1,9 +1,11 @@
 define(function() {
 	var StzGameConfig = {};
 	
-	StzGameConfig.debug_mode = false;
-	StzGameConfig.stage_per_episode = 12;
-	StzGameConfig.episode_count = 12;
+	StzGameConfig.DEBUG_MODE = false;
+	StzGameConfig.STAGE_PER_EPISODE = 12;
+	StzGameConfig.TOTAL_EPISODE_COUNT = 12;
+    StzGameConfig.LOCK_ORIENTATION = "LANDSCAPE";
+    // StzGameConfig.LOCK_ORIENTATION = "PORTRAIT";
 	
 	return StzGameConfig;
 });

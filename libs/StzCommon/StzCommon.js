@@ -7,7 +7,7 @@ define(function (require) {
 		this.StzLog = new baseLog();
 		this.StzConfig = config;
 		
-		this.StzLog.log_enabled = this.StzConfig.debug_mode;
+		this.StzLog.log_enabled = this.StzConfig.DEBUG_MODE;
 	}
 	
 	// module global accessor

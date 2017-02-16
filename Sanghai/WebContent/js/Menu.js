@@ -39,8 +39,8 @@ Menu.prototype.MakeBackground = function(inEpisodeNumber, inParent) {
 
 Menu.prototype.MakeStageTextOnButton = function(inEpisodeNumber, inParent) {
 	
-	for (var i = 1; i <= StzCommon.StzConfig.stage_per_episode; i++) {
-		var stageNumber = ((inEpisodeNumber - 1) * StzCommon.StzConfig.stage_per_episode) + i;
+	for (var i = 1; i <= StzCommon.StzConfig.STAGE_PER_EPISODE; i++) {
+		var stageNumber = ((inEpisodeNumber - 1) * StzCommon.StzConfig.STAGE_PER_EPISODE) + i;
 		inParent['fTxt_stage_' + i] = this.add.text(inParent['fBtn_stage_'+i].x, inParent['fBtn_stage_'+i].y, ""+stageNumber);
 		inParent['fTxt_stage_' + i].anchor.set(0.5, 0.5);
 		inParent.fButtons.add(inParent['fTxt_stage_' + i]);
@@ -79,7 +79,7 @@ Menu.OnBtnLeftSelected = function(sprite, pointer) {
 
 Menu.OnBtnRightSelected = function(sprite, pointer) {
 	
-	if (this.currentEpisode >= StzCommon.StzConfig.episode_count) {
+	if (this.currentEpisode >= StzCommon.StzConfig.TOTAL_EPISODE_COUNT) {
 		return;
 	}
 	// Update episode number
