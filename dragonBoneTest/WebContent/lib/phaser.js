@@ -70201,19 +70201,25 @@ Phaser.AnimationParser = {
     * @param {object} json - The JSON data from the Texture Atlas. Must be in JSON Hash format.
     * @return {Phaser.FrameData} A FrameData object containing the parsed frames.
     */
+
     JSONDataHash: function (game, json) {
 
         //  Let's create some frames then
     	var data = new Phaser.FrameData();
         //  Malformed?
+
         if (!json['frames'])
         {
+            /*
         	if(json['SubTexture']){
+                // NOTE @youngsun
         		data = this.JSONDataHashFlash(game,json);
         		return data;
         	}
+            */
             console.warn("Phaser.AnimationParser.JSONDataHash: Invalid Texture Atlas JSON given, missing 'frames' object");
             console.log(json);
+
             return;
         }
 
@@ -70254,41 +70260,6 @@ Phaser.AnimationParser = {
 
     },
 
-    JSONDataHashFlash: function (game, json) {
-        //  By this stage frames is a fully parsed array
-        var frames = json['SubTexture'];
-        var newFrame;
-        var i = 0;
-
-        var data = new Phaser.FrameData();
-        
-        for (i=0; i<frames.length;i++)
-        {
-            newFrame = data.addFrame(new Phaser.Frame(
-                i,
-                frames[i].x,
-                frames[i].y,
-                frames[i].width,
-                frames[i].height,
-                frames[i].name
-            ));
-
-            if (frames[i])
-            {
-                newFrame.setTrim(
-                    false,
-                    frames[i].width,
-                    frames[i].height,
-                    0,
-                    0,
-                    frames[i].width,
-                    frames[i].height
-                );
-            }
-        }
-
-        return data;
-    },
     /**
     * Parse the XML data and extract the animation frame data from it.
     *
