@@ -1,7 +1,8 @@
 define(function (require) {
 	// load modules
 	var baseLog = require('./StzLog');
-
+	var baseAnimation = require('./StzAnimation');
+	
 	if (StzGameConfig === undefined) {
 		throw "StzGameConfig is undefined";
 		return;
@@ -9,6 +10,7 @@ define(function (require) {
 	
 	function StzCommonCreator() {
 		this.StzLog = new baseLog();
+		this.StzAnimation = new baseAnimation();
 		this.StzLog.log_enabled = StzGameConfig.DEBUG_MODE;
 	}
 	
