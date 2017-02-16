@@ -1,13 +1,15 @@
 define(function (require) {
 	// load modules
 	var baseLog = require('./StzLog');
-	var config = require('./StzGameConfig'); 
+	
+	if (StzGameConfig === undefined) {
+		throw "StzGameConfig is undefined";
+		return;
+	}
 	
 	function StzCommonCreator() {
 		this.StzLog = new baseLog();
-		this.StzConfig = config;
-		
-		this.StzLog.log_enabled = this.StzConfig.DEBUG_MODE;
+		this.StzLog.log_enabled = StzGameConfig.DEBUG_MODE;
 	}
 	
 	// module global accessor

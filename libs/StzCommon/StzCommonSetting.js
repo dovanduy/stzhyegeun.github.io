@@ -32,10 +32,10 @@ function setLockOrientationElements() {
         "background-position": "center center"
     });
 	
-	if (StzCommon.StzConfig.LOCK_ORIENTATION == "PORTRAIT") {
+	if (StzGameConfig.LOCK_ORIENTATION == "PORTRAIT") {
 		$('#css_lock_orientation').text('@media only screen and (orientation: portrait) { #lock_orientation_view {display: none;}} @media only screen and (orientation: landscape) { #lock_orientation_view {display: block;}}');
 		$('#lock_orientation_view').css("background-image", "url('//stzhyegeun.github.io/libs/StzCommon/image/playportrait.png'");
-	} else if (StzCommon.StzConfig.LOCK_ORIENTATION == "LANDSCAPE") {
+	} else if (StzGameConfig.LOCK_ORIENTATION == "LANDSCAPE") {
 		$('#css_lock_orientation').text('@media only screen and (orientation: portrait) { #lock_orientation_view {display: block;}} @media only screen and (orientation: landscape) { #lock_orientation_view {display: none;}}');
 		$('#lock_orientation_view').css("background-image", "url('//stzhyegeun.github.io/libs/StzCommon/image/playlandscape.png'");
 	}
