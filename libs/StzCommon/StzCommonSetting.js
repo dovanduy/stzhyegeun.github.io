@@ -7,7 +7,7 @@ requirejs.config({
 });
 
 
-requirejs(['StzCommon', 'jquery'], function(_instance, $) {
+requirejs(['StzCommon', 'jquery', 'phaser_nine_patch'], function(_instance, $) {
 	
 	setLockOrientationElements();
 });
