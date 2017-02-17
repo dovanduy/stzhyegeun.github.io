@@ -6,8 +6,7 @@ requirejs.config({
         dragonBones: "//stzhyegeun.github.io/libs/StzCommon/plugin/dragonBones",
         phaser_atlas: "//stzhyegeun.github.io/libs/StzCommon/plugin/phaser_atlas",
         phaser_dragonbones: "//stzhyegeun.github.io/libs/StzCommon/plugin/phaser_dragonbones",
-        phaser_spine: "//stzhyegeun.github.io/libs/StzCommon/plugin/phaser-spine"
-     
+        phaser_spine: "//stzhyegeun.github.io/libs/StzCommon/plugin/phaser_spine"
 	}
 });
 
