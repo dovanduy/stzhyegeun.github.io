@@ -2,18 +2,12 @@ requirejs.config({
 	paths: {
 		app: 'StzCommonSetting',
         jquery: "//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min",
-        phaser_nine_patch: "//stzhyegeun.github.io/libs/StzCommon/plugin/nine-patch-phaser-plugin",
-        dragonBones: "//stzhyegeun.github.io/libs/StzCommon/plugin/dragonBones",
-        phaser_atlas: "//stzhyegeun.github.io/libs/StzCommon/plugin/phaser_atlas",
-        phaser_dragonbones: "//stzhyegeun.github.io/libs/StzCommon/plugin/phaser_dragonbones",
-        phaser_spine: "//stzhyegeun.github.io/libs/StzCommon/plugin/phaser_spine"
+        phaser_nine_patch: "//stzhyegeun.github.io/libs/StzCommon/plugin/nine-patch-phaser-plugin"
 	}
 });
 
 
-requirejs(['StzCommon', 'jquery', 'phaser_nine_patch'
-           ,'dragonBones','phaser_atlas','phaser_dragonbones'
-           ,'phaser_spine'], function(_instance, $) {
+requirejs(['StzCommon', 'jquery', 'phaser_nine_patch'], function(_instance, $) {
 	
 	setLockOrientationElements();
 });
