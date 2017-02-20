@@ -1,0 +1,159 @@
+{
+  "settings": {
+    "sceneWidth": 640,
+    "sceneHeight": 360,
+    "generateOnSave": true,
+    "enableStepping": false
+  },
+  "world": {
+    "type": "group",
+    "id": "e67e12a8-74cb-4696-9fa4-37acad5a118e",
+    "info": {
+      "editorName": "test",
+      "children": [
+        {
+          "type": "image",
+          "id": "4c039ee5-8d68-4abe-8cfa-50ba00b16874",
+          "asset": "0",
+          "info": {
+            "editorName": "worldmap1",
+            "x": 50,
+            "y": 68
+          }
+        },
+        {
+          "type": "image",
+          "id": "da97591a-2aed-4d4c-8c71-445f4a9dc85a",
+          "asset": "1",
+          "info": {
+            "editorName": "worldmap2",
+            "x": -1858,
+            "y": -342
+          }
+        },
+        {
+          "type": "image",
+          "id": "d454d1e9-cc7a-44c0-89eb-e2b4bafdf38d",
+          "asset": "2",
+          "info": {
+            "editorName": "worldmap3",
+            "x": -1348,
+            "y": -620
+          }
+        },
+        {
+          "type": "image",
+          "id": "818ac014-e785-4d72-8663-a6b8ebc04247",
+          "asset": "3",
+          "info": {
+            "editorName": "worldmap4",
+            "x": -1519,
+            "y": -932
+          }
+        },
+        {
+          "type": "image",
+          "id": "02265738-4747-4c8b-8e9a-cfbc7e6fde47",
+          "asset": "4",
+          "info": {
+            "editorName": "worldmap5",
+            "x": 41,
+            "y": -1531
+          }
+        },
+        {
+          "type": "image",
+          "id": "a442d28b-f14a-4689-99b3-b92d6fa1a11b",
+          "asset": "5",
+          "info": {
+            "editorName": "worldmap6",
+            "x": 36,
+            "y": -1920
+          }
+        },
+        {
+          "type": "image",
+          "id": "0b013d9c-42f4-47a6-9f50-08bd85f9063d",
+          "asset": "6",
+          "info": {
+            "editorName": "worldmap7",
+            "x": 37,
+            "y": -2321
+          }
+        },
+        {
+          "type": "image",
+          "id": "c418dbbc-6371-4c80-bf43-b8407b8cdb40",
+          "asset": "7",
+          "info": {
+            "editorName": "worldmap8",
+            "x": 43,
+            "y": -2722
+          }
+        },
+        {
+          "type": "image",
+          "id": "6059e93a-fc48-4d0f-905c-1bc0d28c23fd",
+          "asset": "4",
+          "info": {
+            "editorName": "worldmap51",
+            "x": -1672,
+            "y": -1971
+          }
+        },
+        {
+          "type": "image",
+          "id": "0bfa3e92-6a29-4a8a-b0bf-9df10fa344c8",
+          "asset": "7",
+          "info": {
+            "editorName": "worldmap81",
+            "x": 44,
+            "y": -1139
+          }
+        }
+      ]
+    }
+  },
+  "asset-table": {
+    "0": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "worldmap",
+      "asset": "worldmap1"
+    },
+    "1": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "worldmap",
+      "asset": "worldmap2"
+    },
+    "2": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "worldmap",
+      "asset": "worldmap3"
+    },
+    "3": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "worldmap",
+      "asset": "worldmap4"
+    },
+    "4": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "worldmap",
+      "asset": "worldmap5"
+    },
+    "5": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "worldmap",
+      "asset": "worldmap6"
+    },
+    "6": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "worldmap",
+      "asset": "worldmap7"
+    },
+    "7": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "worldmap",
+      "asset": "worldmap8"
+    }
+  }
+}

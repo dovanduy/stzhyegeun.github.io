@@ -90,10 +90,17 @@
             "key": "worldmap8",
             "url": "assets/images/worldmap/worldmap8.png",
             "overwrite": false
+        },
+        {
+            "type": "atlas",
+            "key": "btnStage",
+            "textureURL": "assets/images/worldmap/btnStage.png",
+            "atlasURL": "assets/images/worldmap/btnStage.json",
+            "format": "TEXTURE_ATLAS_JSON_ARRAY"
         }
     ],
     "meta": {
-        "generated": "1487568379720",
+        "generated": "1487589149906",
         "app": "Phaser Editor",
         "url": "http://phasereditor.boniatillo.com",
         "version": "1.0",
