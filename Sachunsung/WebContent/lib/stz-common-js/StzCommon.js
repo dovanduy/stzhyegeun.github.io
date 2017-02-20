@@ -11,9 +11,10 @@ define(function (require) {
 	var baseUtil = require('./StzUtility');
 	
 	function StzCommonCreator() {
+		// StzLog setup
 		this.StzLog = new baseLog();
 		this.StzLog.log_enabled = StzGameConfig.DEBUG_MODE;
-
+		// StzUtility setup
 		this.StzUtil = new baseUtil();
 	}
 	
