@@ -1,0 +1,102 @@
+{
+    "boot": [{
+        "type": "image",
+        "key": "stz_logo",
+        "url": "assets/images/Boot/stz_logo.png",
+        "overwrite": false
+    }],
+    "preload": [
+        {
+            "type": "image",
+            "key": "btnOffWorld",
+            "url": "assets/images/Preload/btnOffWorld.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "btnOnWorld",
+            "url": "assets/images/Preload/btnOnWorld.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "loading_bar",
+            "url": "assets/images/Preload/loading_bar.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "loading_bg",
+            "url": "assets/images/Preload/loading_bg.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "loading_gage",
+            "url": "assets/images/Preload/loading_gage.png",
+            "overwrite": false
+        },
+        {
+            "type": "script",
+            "key": "PreloadScene",
+            "url": "assets/canvas/PreloadScene.js"
+        }
+    ],
+    "worldmap": [
+        {
+            "type": "image",
+            "key": "worldmap1",
+            "url": "assets/images/worldmap/worldmap1.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "worldmap2",
+            "url": "assets/images/worldmap/worldmap2.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "worldmap3",
+            "url": "assets/images/worldmap/worldmap3.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "worldmap4",
+            "url": "assets/images/worldmap/worldmap4.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "worldmap5",
+            "url": "assets/images/worldmap/worldmap5.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "worldmap6",
+            "url": "assets/images/worldmap/worldmap6.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "worldmap7",
+            "url": "assets/images/worldmap/worldmap7.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "worldmap8",
+            "url": "assets/images/worldmap/worldmap8.png",
+            "overwrite": false
+        }
+    ],
+    "meta": {
+        "generated": "1487568379720",
+        "app": "Phaser Editor",
+        "url": "http://phasereditor.boniatillo.com",
+        "version": "1.0",
+        "copyright": "Arian Fornaris (c) 2015,2016"
+    }
+}
