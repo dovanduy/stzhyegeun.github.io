@@ -14,22 +14,21 @@ function PreloadScene(aGame, aParent) {
 
 	/* --- pre-init-end --- */
 
-	this.game.add.sprite(0, 60, 'loading_bg', null, this);
+	var group = this.game.add.group(this);
 
-	this.game.add.sprite(363, 72, 'loading_logo', null, this);
+	this.game.add.sprite(0, 0, 'loading_bg', null, group);
 
-	var loading_bar = this.game.add.sprite(640, 620, 'loading_bar', null, this);
-	loading_bar.anchor.setTo(0.5, 0.5);
+	var loading_bar = this.game.add.sprite(64, 739, 'loading_bar', null, group);
 
-	var loading_gage = this.game.add.sprite(461, 612, 'loading_gage', null, this);
+	var loading_gage = this.game.add.sprite(74, 749, 'loading_gage', null, group);
 
-	var loading_star = this.game.add.sprite(465, 618, 'loading_star', null, this);
-	loading_star.anchor.setTo(0.5, 0.5);
+	var btnOnWorld = this.game.add.button(116, 571, 'btnOnWorld', this.OnClickBtnOnWorld, this, null, null, null, null, group);
 
 	 // public fields
 
+	this.fLoading_bar = loading_bar;
 	this.fLoading_gage = loading_gage;
-	this.fLoading_star = loading_star;
+	this.fBtnOnWorld = btnOnWorld;
 
 	/* --- post-init-begin --- */
 
