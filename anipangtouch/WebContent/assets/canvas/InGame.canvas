@@ -1,0 +1,232 @@
+{
+  "settings": {
+    "sceneWidth": 960,
+    "sceneHeight": 1280,
+    "generateOnSave": true,
+    "enableStepping": false
+  },
+  "world": {
+    "type": "group",
+    "id": "769e12ec-a118-4d68-93da-86ca3abf9884",
+    "info": {
+      "editorName": "InGame",
+      "children": [{
+        "type": "group",
+        "id": "3368cc16-45ef-449c-9bbb-1d9d8b0013b1",
+        "info": {
+          "editorName": "blockBoard",
+          "editorPublic": true,
+          "x": 102,
+          "y": 280,
+          "children": [
+            {
+              "type": "group",
+              "id": "9afee07a-bcd1-4bea-b14d-c844006b57c6",
+              "info": {
+                "editorName": "blockBoardRow_8",
+                "y": 640,
+                "children": [{
+                  "type": "atlas-sprite",
+                  "id": "d54f1833-6218-413e-916b-8893ac580909",
+                  "asset": "0",
+                  "info": {"editorName": "ingame_block_0_0_png9"}
+                }]
+              }
+            },
+            {
+              "type": "group",
+              "id": "6b780684-7ec2-4b86-bd95-05dc570db195",
+              "info": {
+                "editorName": "blockBoardRow_7",
+                "y": 560,
+                "children": [{
+                  "type": "atlas-sprite",
+                  "id": "20c398db-85fe-4c64-86be-5c347ab101d1",
+                  "asset": "0",
+                  "info": {"editorName": "ingame_block_0_0_png8"}
+                }]
+              }
+            },
+            {
+              "type": "group",
+              "id": "97028495-f50b-4083-a7d7-3ee1b77f3699",
+              "info": {
+                "editorName": "blockBoardRow_6",
+                "y": 480,
+                "children": [{
+                  "type": "atlas-sprite",
+                  "id": "0ab08c7a-a8b3-488e-b542-0fbff7ec9301",
+                  "asset": "0",
+                  "info": {"editorName": "ingame_block_0_0_png7"}
+                }]
+              }
+            },
+            {
+              "type": "group",
+              "id": "ed8a92cd-39de-44d2-8b76-98bfa2086884",
+              "info": {
+                "editorName": "blockBoardRow_5",
+                "y": 400,
+                "children": [{
+                  "type": "atlas-sprite",
+                  "id": "9bdf2391-a037-4571-a17d-583f136bef4b",
+                  "asset": "0",
+                  "info": {"editorName": "ingame_block_0_0_png6"}
+                }]
+              }
+            },
+            {
+              "type": "group",
+              "id": "bc44383d-3051-4ec8-8eff-24b106830c99",
+              "info": {
+                "editorName": "blockBoardRow_4",
+                "y": 320,
+                "children": [{
+                  "type": "atlas-sprite",
+                  "id": "b5ce9f35-918b-4c00-94d8-dd2a4d3ce8ae",
+                  "asset": "0",
+                  "info": {"editorName": "ingame_block_0_0_png5"}
+                }]
+              }
+            },
+            {
+              "type": "group",
+              "id": "8acfaf50-1441-4b72-909a-a40126787bfd",
+              "info": {
+                "editorName": "blockBoardRow_3",
+                "y": 240,
+                "children": [{
+                  "type": "atlas-sprite",
+                  "id": "b13893ad-f990-485f-9d10-67b39d3ef8a8",
+                  "asset": "0",
+                  "info": {"editorName": "ingame_block_0_0_png4"}
+                }]
+              }
+            },
+            {
+              "type": "group",
+              "id": "69c4464a-f519-4232-b474-5471e5519146",
+              "info": {
+                "editorName": "blockBoardRow_2",
+                "y": 160,
+                "children": [{
+                  "type": "atlas-sprite",
+                  "id": "8e720c5d-7b4c-4400-8c04-1dc76e68b9de",
+                  "asset": "0",
+                  "info": {"editorName": "ingame_block_0_0_png3"}
+                }]
+              }
+            },
+            {
+              "type": "group",
+              "id": "8d771ba7-01d6-47b8-ae5b-3ce7e69375ee",
+              "info": {
+                "editorName": "blockBoardRow_1",
+                "y": 80,
+                "children": [{
+                  "type": "atlas-sprite",
+                  "id": "4c6f970f-b058-474e-8edd-6130216c51d9",
+                  "asset": "0",
+                  "info": {"editorName": "ingame_block_0_0_png2"}
+                }]
+              }
+            },
+            {
+              "type": "group",
+              "id": "82814548-4ffb-4aef-9015-9100b285d24d",
+              "info": {
+                "editorName": "blockBoardRow_0",
+                "children": [
+                  {
+                    "type": "atlas-sprite",
+                    "id": "9790f66a-c55b-463b-90c7-e140a8e46410",
+                    "asset": "0",
+                    "info": {
+                      "editorName": "ingame_block_0_0_png1",
+                      "x": 84
+                    }
+                  },
+                  {
+                    "type": "atlas-sprite",
+                    "id": "236aa981-493c-414b-ace2-6facf4d67c02",
+                    "asset": "0",
+                    "info": {
+                      "editorName": "ingame_block_0_0_png10",
+                      "x": 168
+                    }
+                  },
+                  {
+                    "type": "atlas-sprite",
+                    "id": "b818f06a-134e-47ff-a591-667224c4e1a3",
+                    "asset": "0",
+                    "info": {
+                      "editorName": "ingame_block_0_0_png101",
+                      "x": 252
+                    }
+                  },
+                  {
+                    "type": "atlas-sprite",
+                    "id": "f4d46331-f124-45b3-aaea-697aac65e6b7",
+                    "asset": "0",
+                    "info": {
+                      "editorName": "ingame_block_0_0_png1011",
+                      "x": 336
+                    }
+                  },
+                  {
+                    "type": "atlas-sprite",
+                    "id": "290aaee2-9508-46d0-a66a-571dd186cfb6",
+                    "asset": "0",
+                    "info": {
+                      "editorName": "ingame_block_0_0_png10111",
+                      "x": 420
+                    }
+                  },
+                  {
+                    "type": "atlas-sprite",
+                    "id": "4dfbe65e-cd96-43b8-a313-0c354c0302ac",
+                    "asset": "0",
+                    "info": {
+                      "editorName": "ingame_block_0_0_png101111",
+                      "x": 504
+                    }
+                  },
+                  {
+                    "type": "atlas-sprite",
+                    "id": "3fd61887-996d-42ab-a2c7-2d2630a22a95",
+                    "asset": "0",
+                    "info": {
+                      "editorName": "ingame_block_0_0_png101112",
+                      "x": 588
+                    }
+                  },
+                  {
+                    "type": "atlas-sprite",
+                    "id": "4134c5d3-f089-4c37-87cf-797a7aae6b83",
+                    "asset": "0",
+                    "info": {
+                      "editorName": "ingame_block_0_0_png101113",
+                      "x": 672
+                    }
+                  },
+                  {
+                    "type": "atlas-sprite",
+                    "id": "16cf96f9-4ae3-457a-a49a-9531f14e23f3",
+                    "asset": "0",
+                    "info": {"editorName": "ingame_block_0_0_png"}
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }]
+    }
+  },
+  "asset-table": {"0": {
+    "file": "WebContent/assets/assets-pack.json",
+    "section": "ingame",
+    "asset": "ingame_block_base",
+    "sprite": "ingame_block_0_0.png"
+  }}
+}
