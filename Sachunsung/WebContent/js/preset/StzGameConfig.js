@@ -1,8 +1,8 @@
 var StzGameConfig = {};
 
 // Preset Setting -- do not delete!!!
-StzGameConfig.DEBUG_MODE = false;
-StzGameConfig.LOCK_ORIENTATION = "LANDSCAPE";
+StzGameConfig.DEBUG_MODE = true;
+StzGameConfig.LOCK_ORIENTATION = "PORTRAIT";
 //StzGameConfig.LOCK_ORIENTATION = "PORTRAIT";
 
 // Custom Setting

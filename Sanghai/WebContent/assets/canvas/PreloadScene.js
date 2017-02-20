@@ -21,7 +21,7 @@ function PreloadScene(aGame, aParent) {
 	var loading_bar = this.game.add.sprite(640, 620, 'loading_bar', null, this);
 	loading_bar.anchor.setTo(0.5, 0.5);
 
-	var loading_gage = this.game.add.sprite(465, 611, 'loading_gage', null, this);
+	var loading_gage = this.game.add.sprite(461, 612, 'loading_gage', null, this);
 
 	var loading_star = this.game.add.sprite(465, 618, 'loading_star', null, this);
 	loading_star.anchor.setTo(0.5, 0.5);
