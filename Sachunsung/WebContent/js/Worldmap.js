@@ -10,6 +10,7 @@ Worldmap.prototype = proto;
 
 Worldmap.prototype = {
 		worldMapCount: 0,
+		worldMapOneSize:403,
 		stageDataArray: [],
 		speedMult : 0.7,
 		friction : 0.99
@@ -29,7 +30,7 @@ Worldmap.prototype.preload = function() {
 };
 
 Worldmap.prototype.create = function() {
-	var worldmapBmd = this.game.make.bitmapData(this.game.width, 403*(this.worldMapCount));
+	var worldmapBmd = this.game.make.bitmapData(this.game.width, this.worldMapOneSize*(this.worldMapCount));
 	worldmapBmd = this.makeWorldMap(worldmapBmd);
 
 	this.scrollingMap = this.game.add.image(0, 0, worldmapBmd);
@@ -117,29 +118,29 @@ Worldmap.prototype.update = function() {
 };
 
 Worldmap.prototype.makeWorldMap = function(worldmapBmd) {
-	var temp = this.game.make.bitmapData(this.game.width, 403);
+	var temp = this.game.make.bitmapData(this.game.width, this.worldMapOneSize);
 	
 	for(var i =4; i <= this.worldMapCount; i++){
 		var str = 'worldmap'+(5+((i-1)%4));
 		temp.copy(str);
 		
-		worldmapBmd.draw(temp,0,  403*(this.worldMapCount-i));
+		worldmapBmd.draw(temp,0,  this.worldMapOneSize*(this.worldMapCount-i));
 	}
 	
 	temp.copy('worldmap4');
-	worldmapBmd.draw(temp,0,  403*(this.worldMapCount-4));
+	worldmapBmd.draw(temp,0,  this.worldMapOneSize*(this.worldMapCount-4));
 
 	temp.copy('worldmap3');
 	
-	worldmapBmd.draw(temp,0,  403*(this.worldMapCount-3));
+	worldmapBmd.draw(temp,0,  this.worldMapOneSize*(this.worldMapCount-3));
 	
 	temp.copy('worldmap2');
 	
-	worldmapBmd.draw(temp,0,  403*(this.worldMapCount-2));
+	worldmapBmd.draw(temp,0,  this.worldMapOneSize*(this.worldMapCount-2));
 	
 	temp.copy('worldmap1');
 	
-	worldmapBmd.draw(temp,0,  403*(this.worldMapCount-1));
+	worldmapBmd.draw(temp,0,  this.worldMapOneSize*(this.worldMapCount-1));
 	
 	return worldmapBmd;
 };
@@ -160,7 +161,7 @@ Worldmap.prototype.makeButton = function() {
 		var button;
 		
 		if(this.stageDataArray[i].name == this.currentEpisode){
-			this.scrollingMap.y = -this.stageDataArray[i].y + 403;
+			this.scrollingMap.y = -this.stageDataArray[i].y + this.worldMapOneSize;
 			this.scrollingMap.isBeingDragged = true;
 			button = this.game.add.button(this.stageDataArray[i].x, this.stageDataArray[i].y, 'btnStage', null, this, 
 					'normal2ClickedStage.png', 'normal2ClickedStage.png', 'normal2Stage.png', 'normal2ClickedStage.png');
@@ -208,7 +209,7 @@ Worldmap.prototype.setStagePoint = function(worldmapNum, worldmapInNum, stageDat
 	}
 	var test2 = 4*(test-1) + worldmapInNum-1;
 	stageData.x = this.worldMapPointArray[test2].x;
-	stageData.y = 403*(this.worldMapCount-(worldmapNum+1)) + this.worldMapPointArray[test2].y;
+	stageData.y = this.worldMapOneSize*(this.worldMapCount-(worldmapNum+1)) + this.worldMapPointArray[test2].y;
 	
 	return stageData;
 };
