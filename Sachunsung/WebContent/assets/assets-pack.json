@@ -40,6 +40,14 @@
             "type": "script",
             "key": "PreloadScene",
             "url": "assets/canvas/PreloadScene.js"
+        },
+        {
+            "type": "bitmapFont",
+            "key": "textScoreFont",
+            "textureURL": "assets/images/Font/textScoreFont.png",
+            "atlasURL": "assets/images/Font/textScoreFont.xml",
+            "xSpacing": 0,
+            "ySpacing": 0
         }
     ],
     "worldmap": [
@@ -100,7 +108,7 @@
         }
     ],
     "meta": {
-        "generated": "1487589149906",
+        "generated": "1487653287755",
         "app": "Phaser Editor",
         "url": "http://phasereditor.boniatillo.com",
         "version": "1.0",
