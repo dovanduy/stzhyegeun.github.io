@@ -20,66 +20,41 @@ function InGame(aGame, aParent) {
 	var blockBoardRow_8 = this.game.add.group(blockBoard);
 	blockBoardRow_8.position.setTo(0, 640);
 
-	this.game.add.sprite(0, 0, 'ingame_block_base', 'ingame_block_0_0.png', blockBoardRow_8);
-
 	var blockBoardRow_7 = this.game.add.group(blockBoard);
 	blockBoardRow_7.position.setTo(0, 560);
-
-	this.game.add.sprite(0, 0, 'ingame_block_base', 'ingame_block_0_0.png', blockBoardRow_7);
 
 	var blockBoardRow_6 = this.game.add.group(blockBoard);
 	blockBoardRow_6.position.setTo(0, 480);
 
-	this.game.add.sprite(0, 0, 'ingame_block_base', 'ingame_block_0_0.png', blockBoardRow_6);
-
 	var blockBoardRow_5 = this.game.add.group(blockBoard);
 	blockBoardRow_5.position.setTo(0, 400);
-
-	this.game.add.sprite(0, 0, 'ingame_block_base', 'ingame_block_0_0.png', blockBoardRow_5);
 
 	var blockBoardRow_4 = this.game.add.group(blockBoard);
 	blockBoardRow_4.position.setTo(0, 320);
 
-	this.game.add.sprite(0, 0, 'ingame_block_base', 'ingame_block_0_0.png', blockBoardRow_4);
-
 	var blockBoardRow_3 = this.game.add.group(blockBoard);
 	blockBoardRow_3.position.setTo(0, 240);
-
-	this.game.add.sprite(0, 0, 'ingame_block_base', 'ingame_block_0_0.png', blockBoardRow_3);
 
 	var blockBoardRow_2 = this.game.add.group(blockBoard);
 	blockBoardRow_2.position.setTo(0, 160);
 
-	this.game.add.sprite(0, 0, 'ingame_block_base', 'ingame_block_0_0.png', blockBoardRow_2);
-
 	var blockBoardRow_1 = this.game.add.group(blockBoard);
 	blockBoardRow_1.position.setTo(0, 80);
 
-	this.game.add.sprite(0, 0, 'ingame_block_base', 'ingame_block_0_0.png', blockBoardRow_1);
-
 	var blockBoardRow_0 = this.game.add.group(blockBoard);
-
-	this.game.add.sprite(84, 0, 'ingame_block_base', 'ingame_block_0_0.png', blockBoardRow_0);
-
-	this.game.add.sprite(168, 0, 'ingame_block_base', 'ingame_block_0_0.png', blockBoardRow_0);
-
-	this.game.add.sprite(252, 0, 'ingame_block_base', 'ingame_block_0_0.png', blockBoardRow_0);
-
-	this.game.add.sprite(336, 0, 'ingame_block_base', 'ingame_block_0_0.png', blockBoardRow_0);
-
-	this.game.add.sprite(420, 0, 'ingame_block_base', 'ingame_block_0_0.png', blockBoardRow_0);
-
-	this.game.add.sprite(504, 0, 'ingame_block_base', 'ingame_block_0_0.png', blockBoardRow_0);
-
-	this.game.add.sprite(588, 0, 'ingame_block_base', 'ingame_block_0_0.png', blockBoardRow_0);
-
-	this.game.add.sprite(672, 0, 'ingame_block_base', 'ingame_block_0_0.png', blockBoardRow_0);
-
-	this.game.add.sprite(0, 0, 'ingame_block_base', 'ingame_block_0_0.png', blockBoardRow_0);
 
 	 // public fields
 
 	this.fBlockBoard = blockBoard;
+	this.fBlockBoardRow_8 = blockBoardRow_8;
+	this.fBlockBoardRow_7 = blockBoardRow_7;
+	this.fBlockBoardRow_6 = blockBoardRow_6;
+	this.fBlockBoardRow_5 = blockBoardRow_5;
+	this.fBlockBoardRow_4 = blockBoardRow_4;
+	this.fBlockBoardRow_3 = blockBoardRow_3;
+	this.fBlockBoardRow_2 = blockBoardRow_2;
+	this.fBlockBoardRow_1 = blockBoardRow_1;
+	this.fBlockBoardRow_0 = blockBoardRow_0;
 
 	/* --- post-init-begin --- */
 

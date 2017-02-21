@@ -47,6 +47,10 @@ Menu.prototype.MakeStageTextOnButton = function(inEpisodeNumber, inParent) {
 	}
 };
 
+Menu.OnBtnStageSelected = function(inStageNumber) {
+	
+}
+
 Menu.OnBtnLeftSelected = function(sprite, pointer) {
 	
 	if (this.currentEpisode <= 1) {
