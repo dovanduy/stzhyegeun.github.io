@@ -1,8 +1,9 @@
+var indicatorAnimation;
 
 function Worldmap() {
 	Phaser.State.call(this);
 	
-	this.currentEpisode = 15;
+	this.currentEpisode = 1;
 }
 
 var proto = Object.create(Phaser.State);
@@ -27,9 +28,17 @@ Worldmap.prototype.worldMapPointArray = [{x:243, y:334} ,{x:221, y:230} ,{x:218,
 		
 Worldmap.prototype.preload = function() {
 	this.worldMapCount = Math.ceil(StzGameConfig.TOTAL_EPISODE_COUNT/4) + 1;
+	
+	indicatorAnimation = new DragonBones(this.game,{name:"indicator_image", path:'assets/images/Animation/EffectIndicator/texture.png'}, 
+				{name:"indicator_atlas", path:'assets/images/Animation/EffectIndicator/texture.json'},
+				"indicatorAtlas",
+				{name:"indicator", path:'assets/images/Animation/EffectIndicator/skeleton.json'});
 };
 
 Worldmap.prototype.create = function() {
+	dragonBones.game = this.game;
+	this.game.time.events.loop(20, this.update, this);
+	
 	var worldmapBmd = this.game.make.bitmapData(this.game.width, this.worldMapOneSize*(this.worldMapCount));
 	worldmapBmd = this.makeWorldMap(worldmapBmd);
 
@@ -66,6 +75,7 @@ Worldmap.prototype.create = function() {
 };
 
 Worldmap.prototype.update = function() {
+	dragonBones.animation.WorldClock.clock.advanceTime(0.02);
 	
 	 if(this.scrollingMap.isBeingDragged){
          // save current map position
@@ -164,8 +174,11 @@ Worldmap.prototype.makeButton = function() {
 		if(this.stageDataArray[i].name == this.currentEpisode){
 			this.scrollingMap.y = -this.stageDataArray[i].y + this.worldMapOneSize;
 			this.scrollingMap.isBeingDragged = true;
+		
 			button = this.game.add.button(this.stageDataArray[i].x, this.stageDataArray[i].y, 'btnStage', null, this, 
 					'normal2ClickedStage.png', 'normal2ClickedStage.png', 'normal2Stage.png', 'normal2ClickedStage.png');
+			indicatorAnimation.loadAnimation(17,-18,'idle_1');
+			button.addChild(indicatorAnimation.getBoneBase());
 		}
 		else if(this.stageDataArray[i].isClear == false)
 		{

@@ -85,6 +85,10 @@ bonesBase.y = y;
 this.ingame.world.add(bonesBase);
 };
 
+DragonBones.prototype.getBoneBase = function(){
+	return this.armature.getDisplay();
+};
+
 DragonBones.prototype.getAnimationData = function(){
 	return this.armature.animation;
 };
