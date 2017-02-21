@@ -7,4 +7,4 @@ StzGameConfig.LOCK_ORIENTATION = "PORTRAIT";
 
 // Custom Setting
 StzGameConfig.STAGE_PER_EPISODE = 12;
-StzGameConfig.TOTAL_EPISODE_COUNT = 51;
+StzGameConfig.TOTAL_EPISODE_COUNT = 41;
