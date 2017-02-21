@@ -1,8 +1,9 @@
+var indicatorAnimation;
 
 function Worldmap() {
 	Phaser.State.call(this);
 	
-	this.currentEpisode = 50;
+	this.currentEpisode = 1;
 }
 
 var proto = Object.create(Phaser.State);
@@ -10,15 +11,16 @@ Worldmap.prototype = proto;
 
 Worldmap.prototype = {
 		worldMapCount: 0,
+		worldMapOneSize:403,
 		stageDataArray: [],
-		speedMult : 0.7,
+		speedMult : 1.0,
 		friction : 0.99
 };
 
 Worldmap.prototype.worldMapPointArray = [{x:243, y:334} ,{x:221, y:230} ,{x:218, y:98}, {x:225, y:31}, //2
                                       {x:159, y:356}, {x:324, y:356}, {x:309, y:162}, {x:172, y:67}, //3
                                       {x:138, y:337}, {x:321, y:346}, {x:260, y:173}, {x:147, y:80}, //4
-                                      {x:205, y:350}, {x:218, y:98}, {x:315, y:140}, {x:142, y:82}, //5
+                                      {x:205, y:350}, {x:315, y:140}, {x:218, y:98}, {x:142, y:82}, //5
                                       {x:341, y:339}, {x:95, y:301}, {x:299, y:181}, {x:409, y:80}, //6
                                       {x:343, y:370}, {x:181, y:216}, {x:383, y:169}, {x:229, y:61}, //7
                                       {x:193, y:363}, {x:137, y:168}, {x:304, y:282}, {x:325, y:73}, //8
@@ -26,10 +28,18 @@ Worldmap.prototype.worldMapPointArray = [{x:243, y:334} ,{x:221, y:230} ,{x:218,
 		
 Worldmap.prototype.preload = function() {
 	this.worldMapCount = Math.ceil(StzGameConfig.TOTAL_EPISODE_COUNT/4) + 1;
+	
+	indicatorAnimation = new DragonBones(this.game,{name:"indicator_image", path:'assets/images/Animation/EffectIndicator/texture.png'}, 
+				{name:"indicator_atlas", path:'assets/images/Animation/EffectIndicator/texture.json'},
+				"indicatorAtlas",
+				{name:"indicator", path:'assets/images/Animation/EffectIndicator/skeleton.json'});
 };
 
 Worldmap.prototype.create = function() {
-	var worldmapBmd = this.game.make.bitmapData(this.game.width, 403*(this.worldMapCount));
+	dragonBones.game = this.game;
+	this.game.time.events.loop(20, this.update, this);
+	
+	var worldmapBmd = this.game.make.bitmapData(this.game.width, this.worldMapOneSize*(this.worldMapCount));
 	worldmapBmd = this.makeWorldMap(worldmapBmd);
 
 	this.scrollingMap = this.game.add.image(0, 0, worldmapBmd);
@@ -65,6 +75,7 @@ Worldmap.prototype.create = function() {
 };
 
 Worldmap.prototype.update = function() {
+	dragonBones.animation.WorldClock.clock.advanceTime(0.02);
 	
 	 if(this.scrollingMap.isBeingDragged){
          // save current map position
@@ -117,29 +128,30 @@ Worldmap.prototype.update = function() {
 };
 
 Worldmap.prototype.makeWorldMap = function(worldmapBmd) {
-	var temp = this.game.make.bitmapData(this.game.width, 403);
+	var temp = this.game.make.bitmapData(this.game.width, this.worldMapOneSize);
 	
 	for(var i =4; i <= this.worldMapCount; i++){
+		
 		var str = 'worldmap'+(5+((i-1)%4));
 		temp.copy(str);
 		
-		worldmapBmd.draw(temp,0,  403*(this.worldMapCount-i));
+		worldmapBmd.draw(temp,0,  this.worldMapOneSize*(this.worldMapCount-i));
 	}
 	
 	temp.copy('worldmap4');
-	worldmapBmd.draw(temp,0,  403*(this.worldMapCount-4));
+	worldmapBmd.draw(temp,0,  this.worldMapOneSize*(this.worldMapCount-4));
 
 	temp.copy('worldmap3');
 	
-	worldmapBmd.draw(temp,0,  403*(this.worldMapCount-3));
+	worldmapBmd.draw(temp,0,  this.worldMapOneSize*(this.worldMapCount-3));
 	
 	temp.copy('worldmap2');
 	
-	worldmapBmd.draw(temp,0,  403*(this.worldMapCount-2));
+	worldmapBmd.draw(temp,0,  this.worldMapOneSize*(this.worldMapCount-2));
 	
 	temp.copy('worldmap1');
 	
-	worldmapBmd.draw(temp,0,  403*(this.worldMapCount-1));
+	worldmapBmd.draw(temp,0,  this.worldMapOneSize*(this.worldMapCount-1));
 	
 	return worldmapBmd;
 };
@@ -160,10 +172,13 @@ Worldmap.prototype.makeButton = function() {
 		var button;
 		
 		if(this.stageDataArray[i].name == this.currentEpisode){
-			this.scrollingMap.y = -this.stageDataArray[i].y + 403;
+			this.scrollingMap.y = -this.stageDataArray[i].y + this.worldMapOneSize;
 			this.scrollingMap.isBeingDragged = true;
+		
 			button = this.game.add.button(this.stageDataArray[i].x, this.stageDataArray[i].y, 'btnStage', null, this, 
 					'normal2ClickedStage.png', 'normal2ClickedStage.png', 'normal2Stage.png', 'normal2ClickedStage.png');
+			indicatorAnimation.loadAnimation(17,-18,'idle_1');
+			button.addChild(indicatorAnimation.getBoneBase());
 		}
 		else if(this.stageDataArray[i].isClear == false)
 		{
@@ -208,7 +223,7 @@ Worldmap.prototype.setStagePoint = function(worldmapNum, worldmapInNum, stageDat
 	}
 	var test2 = 4*(test-1) + worldmapInNum-1;
 	stageData.x = this.worldMapPointArray[test2].x;
-	stageData.y = 403*(this.worldMapCount-(worldmapNum+1)) + this.worldMapPointArray[test2].y;
+	stageData.y = this.worldMapOneSize*(this.worldMapCount-(worldmapNum+1)) + this.worldMapPointArray[test2].y;
 	
 	return stageData;
 };
