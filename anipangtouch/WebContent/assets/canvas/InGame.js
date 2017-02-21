@@ -14,6 +14,8 @@ function InGame(aGame, aParent) {
 
 	/* --- pre-init-end --- */
 
+	this.game.add.sprite(0, 0, 'preload_bg', null, this);
+
 	var blockBoard = this.game.add.group(this);
 	blockBoard.position.setTo(102, 280);
 
