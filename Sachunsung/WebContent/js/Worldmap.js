@@ -2,7 +2,7 @@
 function Worldmap() {
 	Phaser.State.call(this);
 	
-	this.currentEpisode = 50;
+	this.currentEpisode = 15;
 }
 
 var proto = Object.create(Phaser.State);
@@ -121,6 +121,7 @@ Worldmap.prototype.makeWorldMap = function(worldmapBmd) {
 	var temp = this.game.make.bitmapData(this.game.width, this.worldMapOneSize);
 	
 	for(var i =4; i <= this.worldMapCount; i++){
+		
 		var str = 'worldmap'+(5+((i-1)%4));
 		temp.copy(str);
 		
