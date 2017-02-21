@@ -3,6 +3,17 @@ define(function () {
 		
 	}
 	
+	StzUtil.prototype.loadJavascript = function(inUrl, inCallback, inContext) {
+		$.ajax({
+			url: inUrl,
+			dataType: 'script', 
+			success: function() {
+				(inCallback).call(inContext);	
+			}, 
+			aync: true
+		});
+	};
+	
 	// REFER @http://stackoverflow.com/questions/966225/how-can-i-create-a-two-dimensional-array-in-javascript/966938#966938
 	StzUtil.prototype.createArray = function(inLength) {
 		

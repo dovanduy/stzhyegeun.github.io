@@ -67,10 +67,15 @@
             "textureURL": "assets/images/ingame/ingame_board.png",
             "atlasURL": "assets/images/ingame/ingame_board.json",
             "format": "TEXTURE_ATLAS_JSON_ARRAY"
+        },
+        {
+            "type": "script",
+            "key": "InGame",
+            "url": "assets/canvas/InGame.js"
         }
     ],
     "meta": {
-        "generated": "1487323939932",
+        "generated": "1487576718731",
         "app": "Phaser Editor",
         "url": "http://phasereditor.boniatillo.com",
         "version": "1.0",

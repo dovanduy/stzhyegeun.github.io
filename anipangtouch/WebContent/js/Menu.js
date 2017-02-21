@@ -66,6 +66,7 @@ Menu.OnClickMainMenuButtons = function(sprite, pointer) {
 		var buttonNumber = sprite.name.match(/fBtn_stage_(.*)/m)[1];
 		var stageNumber = this.GetStageNumber(this.currentEpisode, buttonNumber); 
 		StzCommon.StzLog.print("[Menu] OnClickMainMenuButtons - click: " + stageNumber);
+		Menu.OnBtnStageSelected.apply(this, [stageNumber]);
 		
 	} else if (btnArrowRegExp.test(sprite.name)) {
 		// 방향 버튼인 경우
@@ -138,6 +139,22 @@ Menu.OnBtnRightSelected = function(sprite, pointer) {
 	
 	this.game.add.tween(tempScene.fBackground).to({x: 0}, 1000, "Quart.easeOut", true);
 	this.game.add.tween(tempScene.fButtons).to({x: 0}, 1000, "Quart.easeOut", true);
+};
+
+
+Menu.OnBtnStageSelected = function(inStageNumber) {
+
+	/*
+	this.game.add.tween(this.scene).to({y: -1 * this.game.world.height}, 1000, "Quart.easeIn", true).onComplete.addOnce(function() {
+		this.scene.destroy(true);
+		this.scene = gameScene;
+	}, this);
+	
+	this.game.add.tween(gameScene).TouchEvent({y: 0}, 1000, "Quart.easeIn", true);
+	*/
+	this.game.add.tween(this.scene).to({y: this.world.height}, 1000, "Quart.easeOut", true).onComplete.addOnce(function() {
+		this.game.state.start("Level", true, false, inStageNumber);		
+	}, this);
 };
 
 
