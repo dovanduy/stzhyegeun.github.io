@@ -162,7 +162,7 @@ Worldmap.prototype.makeWorldMap = function(worldmapBmd) {
 Worldmap.prototype.makeButton = function() {
 
 	for(var i=0; i < StzGameConfig.TOTAL_EPISODE_COUNT; i++){
-		var stageData = {name:"", isClear:false, StageInGameData:null, x:0,y:0};
+		var stageData = {name:"", isClear:false, stageInGameData:null, x:0,y:0};
 		
 		stageData = this.setStageData(i+1, stageData);
 		stageData = this.setStagePoint(Math.floor(i/4)+1, (i%4)+1, stageData);
@@ -205,7 +205,7 @@ Worldmap.prototype.makeButton = function() {
 Worldmap.prototype.onBtnClick = function(sprite, pointer){
 	StzCommon.StzLog.print("[Menu] onBtnClick - sprite: " + sprite.name);
 	
-	this.storyMapInfoPopup.init(sprite.name);
+	this.storyMapInfoPopup.init(this.stageDataArray[sprite.name - 1]);
 	this.storyMapInfoPopup.onShow();
 };
 

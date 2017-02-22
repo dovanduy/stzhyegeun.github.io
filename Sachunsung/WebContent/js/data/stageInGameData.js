@@ -35,6 +35,4 @@ function stageInGameData(ingame, stageNum) {
 	this.blockSetCount =  parseInt(xml[0].getElementsByTagName('stage')[0].getElementsByTagName('blockSetCount')[0].childNodes[0].nodeValue);
 	this.difficulty =  parseInt(xml[0].getElementsByTagName('stage')[0].getElementsByTagName('difficulty')[0].childNodes[0].nodeValue);
 	this.event = (xml[0].getElementsByTagName('stage')[0].getElementsByTagName('event')[0].childNodes[0].nodeValue == 'true');
-	
-	
 }

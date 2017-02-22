@@ -40,8 +40,11 @@ function StoryMapInfo(aGame, aParent) {
 	var starRight = this.game.add.sprite(295, 208, 'storyMapInfo', 'star.png', group);
 	starRight.angle = 16.676002355406787;
 
+	var txtTimePos = this.game.add.group(group);
+	txtTimePos.position.setTo(280, 492);
+
 	var txtNamePos = this.game.add.group(group);
-	txtNamePos.position.setTo(290, 162);
+	txtNamePos.position.setTo(290, 165);
 
 	 // public fields
 
@@ -50,6 +53,7 @@ function StoryMapInfo(aGame, aParent) {
 	this.fStarCenter = starCenter;
 	this.fStarLeft = starLeft;
 	this.fStarRight = starRight;
+	this.fTxtTimePos = txtTimePos;
 	this.fTxtNamePos = txtNamePos;
 
 	/* --- post-init-begin --- */
