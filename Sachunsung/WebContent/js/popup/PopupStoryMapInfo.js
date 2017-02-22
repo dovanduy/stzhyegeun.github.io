@@ -1,6 +1,10 @@
-PopupStoryMapInfo.prototype.game;
 
-function PopupStoryMapInfo(ingame) {
+PopupStoryMapInfo.prototype = {
+		game:null,
+		txtStageName:null
+};
+
+function PopupStoryMapInfo(ingame, aParent) {
 	this.game = ingame;
 	this.scene = new StoryMapInfo(ingame);
 	
@@ -8,9 +12,14 @@ function PopupStoryMapInfo(ingame) {
 	
 	this.scene.fBtnClose.inputEnabled = true;
 	this.scene.fBtnClose.events.onInputDown.add(this.onClose, this);
+	
+	this.txtStageName = this.game.add.bitmapText(this.scene.fTxtNamePos.x, this.scene.fTxtNamePos.y, 'textScoreFont', name, 35, this.group);
+	this.txtStageName.anchor.set(0.5);
+	this.scene.add(this.txtStageName);
 }
 
 PopupStoryMapInfo.prototype.init = function(name){
+	this.txtStageName.text = name;
 	
 };
 
