@@ -17,6 +17,7 @@ function BlockModel(inKind, inType, indexRow, indexCol) {
 	};
 	this.match_label = -1;
 	this.view = null;
+	this.emitter = null;
 }
 
 
@@ -27,6 +28,16 @@ function BlockModel(inKind, inType, indexRow, indexCol) {
 BlockModel.prototype.getImageKeyname = function() {
 	var imageKeyName = this.block_kind + "_" + this.block_type + ".png";
 	return imageKeyName;
+};
+
+
+BlockModel.prototype.createEmitter = function(inGame) {
+	this.emitter = inGame.add.emitter(0, 0, 10);
+	this.emitter.makeParticles('ingame_block_base', this.getImageKeyname());
+	
+	// http://www.html5gamedevs.com/topic/5306-absolute-position-of-sprite/
+	this.emitter.x = this.view.world.x + StzGameConfig.BLOCK_WIDTH / 2;
+	this.emitter.y = this.view.world.y + StzGameConfig.BLOCK_HEIGHT / 2;
 };
 
 
