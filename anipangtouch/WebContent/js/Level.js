@@ -190,6 +190,26 @@ Level.prototype.reArrangeBlockBoard = function() {
 			
 		}
 		
+		// 블럭 재생성
+		if (existBlockCount > 0) {
+			
+			for (var newRowIndex = 0; newRowIndex < StzGameConfig.ROW_COUNT; newRowIndex++) {
+				var currentBlockModel = this.blockBoardModel[newRowIndex][colIndex];
+				
+				StzCommon.StzLog.assert(currentBlockModel !== null, "[Level (reArrangeBlockBoard)] currentBlockModel === null : (" + newRowIndex + ", " + colIndex + ")");
+				
+				if (currentBlockModel.view === null) {
+					var blockKind = StzEBlockKind.NORMAL;
+					var blockColor = StzCommon.StzUtil.createRandomInteger(Number(StzEBlockColor.MAX));
+					var targetGroup = this.scene['fBlockBoardRow_' + newRowIndex];
+
+					this.blockBoardModel[newRowIndex][colIndex].block_kind = blockKind;
+					this.blockBoardModel[newRowIndex][colIndex].block_color = blockColor;
+					this.blockBoardModel[newRowIndex][colIndex].createView(this.game, targetGroup, this.onTouchBlock, this);
+				} 
+			}
+		}
+		
 	}
 };
 
