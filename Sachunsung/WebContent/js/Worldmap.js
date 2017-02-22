@@ -4,6 +4,7 @@ function Worldmap() {
 	Phaser.State.call(this);
 	
 	this.currentEpisode = 5;
+	this.currentMakeStage = 10;
 }
 
 var proto = Object.create(Phaser.State);
@@ -73,7 +74,7 @@ Worldmap.prototype.create = function() {
      }, this);
     
 	this.makeButton();
-	this.storyMapInfoPopup = new PopupStoryMapInfo(this.game);
+	this.storyMapInfoPopup = new PopupStoryMapInfo(this.game, this); 
 };
 
 Worldmap.prototype.update = function() {
@@ -161,7 +162,7 @@ Worldmap.prototype.makeWorldMap = function(worldmapBmd) {
 Worldmap.prototype.makeButton = function() {
 
 	for(var i=0; i < StzGameConfig.TOTAL_EPISODE_COUNT; i++){
-		var stageData = {name:"", isClear:false,x:0,y:0};
+		var stageData = {name:"", isClear:false, stageInGameData:null, x:0,y:0};
 		
 		stageData = this.setStageData(i+1, stageData);
 		stageData = this.setStagePoint(Math.floor(i/4)+1, (i%4)+1, stageData);
@@ -204,7 +205,7 @@ Worldmap.prototype.makeButton = function() {
 Worldmap.prototype.onBtnClick = function(sprite, pointer){
 	StzCommon.StzLog.print("[Menu] onBtnClick - sprite: " + sprite.name);
 	
-	this.storyMapInfoPopup.init(sprite.name);
+	this.storyMapInfoPopup.init(this.stageDataArray[sprite.name - 1]);
 	this.storyMapInfoPopup.onShow();
 };
 
@@ -222,17 +223,26 @@ Worldmap.prototype.setStageData = function(stageNum, stageData){
 	stageData.name = stageNum;
 	stageData.isClear = this.currentEpisode > stageNum? true: false;
 	
+    if(stageNum <= this.currentMakeStage){
+    	stageData.stageInGameData = new stageInGameData(this.game, stageNum);
+    }
+    else{
+    	stageData.stageInGameData = null;
+    }
+	
 	return stageData;
 };
 
 Worldmap.prototype.setStagePoint = function(worldmapNum, worldmapInNum, stageData){
-	var test = worldmapNum;
-	if(test >= 8){
-		 test = 4 + worldmapNum%4;
+	var temp = worldmapNum;
+	
+	if(temp >= 8){
+		temp = 4 + worldmapNum%4;
 	}
-	var test2 = 4*(test-1) + worldmapInNum-1;
-	stageData.x = this.worldMapPointArray[test2].x;
-	stageData.y = this.worldMapOneSize*(this.worldMapCount-(worldmapNum+1)) + this.worldMapPointArray[test2].y;
+	var worldMapPointArrayNumber = 4*(temp-1) + worldmapInNum-1;
+	
+	stageData.x = this.worldMapPointArray[worldMapPointArrayNumber].x;
+	stageData.y = this.worldMapOneSize*(this.worldMapCount-(worldmapNum+1)) + this.worldMapPointArray[worldMapPointArrayNumber].y;
 	
 	return stageData;
 };
