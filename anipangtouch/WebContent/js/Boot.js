@@ -29,6 +29,8 @@ Boot.prototype.preload = function() {
 
 Boot.prototype.create = function() {
 	
+	this.game.stage.backgroundColor = "#ffffff";
+	
 	var logo = this.game.add.image(this.game.width / 2, this.game.height / 2, 'stz_logo').anchor.set(0.5, 0.5);
 	logo.alpha = 0;
 	
