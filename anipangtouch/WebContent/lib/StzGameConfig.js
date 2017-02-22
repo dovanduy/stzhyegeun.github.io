@@ -20,6 +20,7 @@ StzGameConfig.COL_COUNT = 9;
 
 // 인게임 블럭의 대분류
 var StzEBlockKind = {};
+StzEBlockKind.NONE = "ingame_none";
 StzEBlockKind.NORMAL = "ingame_block_0";
 StzEBlockKind.CAN = "ingame_block_10001";
 StzEBlockKind.WOOD_BOX = "ingame_block_10003";
@@ -36,16 +37,20 @@ StzEBlockKind.MISSION_EGG = "ingame_block_mission_40002";
 StzEBlockKind.SPECIAL_LASER = "ingame_special_2002";
 StzEBlockKind.SPECIAL_BOMB = "ingame_special_2004";
 
+var StzEBlockColor = {};
+StzEBlockColor.NONE = "";
+StzEBlockColor.YELLOW = "1";
+StzEBlockColor.RED = "2";
+StzEBlockColor.WHITE = "3";
+StzEBlockColor.GREEN = "4";
+StzEBlockColor.BLUE = "5";
+StzEBlockColor.ORANGE = "6";
+StzEBlockColor.MAX = "6";
+
+
 // 인게임 블럭의 Kind에 따른 소분류
 var StzEBlockKindType = {};
-StzEBlockKindType.NORMAL_YELLOW = "1";
-StzEBlockKindType.NORMAL_RED = "2";
-StzEBlockKindType.NORMAL_WHITE = "3";
-StzEBlockKindType.NORMAL_GREEN = "4";
-StzEBlockKindType.NORMAL_BLUE = "5";
-StzEBlockKindType.NORMAL_ORANGE = "6";
-StzEBlockKindType.NORMAL_COLOR_MAX = "6";
-
+StzEBlockKindType.NONE = "";
 StzEBlockKindType.NORMAL_LINE = "2002";
 StzEBlockKindType.NORMAL_BOMB = "2004";
 StzEBlockKindType.NORMAL_THUNDER = "2005";

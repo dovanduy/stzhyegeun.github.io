@@ -20,48 +20,6 @@ Level.prototype.init = function(inStageNumber) {
 	this.levelTouchEnabled = true;
 };
 
-Level.prototype.onTouchBlock = function(sprite, pointer, model) {
-	if (this.levelTouchEnabled === false) {
-		return;
-	}
-	
-	StzCommon.StzLog.print("[Level (onTouchBlock)] touched! row:" + model.block_index.row + " | col: " + model.block_index.col);
-	
-	var matchedKey = this.isMatchedBlock(model);
-	if (matchedKey === false) {
-		this.levelTouchEnabled = false;
-		
-		var bounce = this.game.add.tween(model.view);
-		bounce.to({x: model.view.x - 10}, 50, Phaser.Easing.Bounce.InOut, true, 0, 1, true);
-		bounce.onComplete.addOnce(function() {
-			this.levelTouchEnabled = true;
-		}, this);
-		
-		return;
-	}
-	
-	
-	this.levelTouchEnabled = false;
-	for (var blockIndex in this.matchedBlocksList[matchedKey]) {
-		var currentModel = this.matchedBlocksList[matchedKey][blockIndex];
-		currentModel.createEmitter(this.game);
-		/*
-		currentModel.emitter.events.onDestroy.addOnce(function() {
-			if (--emitterCount <= 0) {
-				this.levelTouchEnabled = true;
-			}
-		}, this);
-		*/
-		currentModel.emitter.start(true, 500, null, 10);
-		currentModel.view.kill();
-		currentModel.view = null;
-		
-		//this.blockBoardModel[model.block_index.row][model.block_index.col] = null;
-	}
-	this.game.time.events.add(500, function() {
-		this.levelTouchEnabled = true;
-	}, this);
-};
 
 Level.prototype.create = function() {
 	this.scene = new InGame(this.game);
@@ -71,12 +29,12 @@ Level.prototype.create = function() {
 			for (var colIndex = 0; colIndex < StzGameConfig.COL_COUNT; colIndex++) {
 				
 				var blockKind = StzEBlockKind.NORMAL;
-				var blockKindType = StzCommon.StzUtil.createRandomInteger(Number(StzEBlockKindType.NORMAL_COLOR_MAX));
+				var blockColor = StzCommon.StzUtil.createRandomInteger(Number(StzEBlockColor.MAX));
 				//var blockKindType = Math.floor(Math.random() * Number(StzEBlockKindType.NORMAL_COLOR_MAX) + 1);
-				this.blockBoardModel[rowIndex][colIndex] = new BlockModel(blockKind, blockKindType, rowIndex, colIndex);
+				this.blockBoardModel[rowIndex][colIndex] = new BlockModel(blockKind, blockColor, StzEBlockKindType.NONE, rowIndex, colIndex);
 				
 				var targetGroup = this.scene['fBlockBoardRow_' + rowIndex];
-				this.blockBoardModel[rowIndex][colIndex].view = this.blockBoardModel[rowIndex][colIndex].createView(this.game, targetGroup, this.onTouchBlock, this); 
+				this.blockBoardModel[rowIndex][colIndex].createView(this.game, targetGroup, this.onTouchBlock, this); 
 			}
 		}
 		StzCommon.StzLog.print("[Level] create - blockBoardModel");
@@ -98,6 +56,144 @@ Level.prototype.create = function() {
 		this.updateMatchedBlockImage();
 	}, this);
 };
+
+
+Level.prototype.onTouchBlock = function(sprite, pointer, model) {
+	if (this.levelTouchEnabled === false) {
+		return;
+	}
+	
+	StzCommon.StzLog.print("[Level (onTouchBlock)] touched! row:" + model.block_index.row + " | col: " + model.block_index.col);
+	
+	var matchedKey = this.isMatchedBlock(model);
+	if (matchedKey === false) {
+		this.levelTouchEnabled = false;
+		
+		var bounce = this.game.add.tween(model.view);
+		bounce.to({x: model.view.x - 10}, 50, Phaser.Easing.Bounce.InOut, true, 0, 1, true);
+		bounce.onComplete.addOnce(function() {
+			this.levelTouchEnabled = true;
+		}, this);
+		
+		return;
+	}
+	
+	this.levelTouchEnabled = false;
+	for (var blockIndex in this.matchedBlocksList[matchedKey]) {
+		var currentModel = this.matchedBlocksList[matchedKey][blockIndex];
+		
+		if (currentModel.view === null) {
+			StzCommon.StzLog.print("[Level (onTouchBlock)] ");
+		}
+		currentModel.createEmitter(this.game);
+		/*
+		currentModel.emitter.events.onDestroy.addOnce(function() {
+			if (--emitterCount <= 0) {
+				this.levelTouchEnabled = true;
+			}
+		}, this);
+		*/
+		
+		currentModel.block_kind = StzEBlockKind.NONE;
+		currentModel.block_color = StzEBlockColor.NONE;
+		currentModel.block_type = StzEBlockKindType.NONE;
+		currentModel.view.parent.remove(currentModel.view);
+		currentModel.view.kill();
+		currentModel.view = null;
+		currentModel.emitter.start(true, 500, null, 10);
+		
+		//this.blockBoardModel[model.block_index.row][model.block_index.col] = null;
+	}
+	this.game.time.events.add(500, function() {
+		// 보드 리어레인지
+		this.reArrangeBlockBoard();
+		
+		// 매치 리스트 재생성
+		this.matchedBlocksList = [];
+		for (var rowIndex = 0; rowIndex < StzGameConfig.ROW_COUNT; rowIndex++) {
+			for (var colIndex = 0; colIndex < StzGameConfig.COL_COUNT; colIndex++) {
+
+				var checkArray = this.checkMatchesIteration(this.blockBoardModel[rowIndex][colIndex], []);
+				if (checkArray != null && checkArray != undefined && checkArray.length > 1) {
+					var keyName = rowIndex + "|" + colIndex;
+					this.matchedBlocksList[keyName] = checkArray;
+				}
+			}
+		}
+		this.updateMatchedBlockImage();
+		this.levelTouchEnabled = true;
+	}, this);
+};
+
+
+Level.prototype.reArrangeBlockBoard = function() {
+	for (var colIndex = 0; colIndex < StzGameConfig.COL_COUNT; colIndex++) {
+		
+		// Check All blockmodel data exist in column
+		var existBlockCount = 0;
+		for (var rowIndex = StzGameConfig.ROW_COUNT - 1; rowIndex >= 0; rowIndex--) {
+			var currentBlockModel = this.blockBoardModel[rowIndex][colIndex];
+			
+			StzCommon.StzLog.assert(currentBlockModel !== undefined, "[Level (reArrangeBlockBoard)] no BlockModel at index (" + rowIndex + ", " + colIndex + ")");
+			if (currentBlockModel.view === null) {
+				// 블럭이 없는 경우
+				
+				// Get first exist block model 
+				var firstBlockModel = (function() {
+					var indexOffset = 1;
+					var result = null; 
+					do {
+						if (rowIndex < indexOffset) {
+							break;
+						}
+						
+						StzCommon.StzLog.print("[Level (reArrangeBlockBoard)] get BlockData (" + (rowIndex - indexOffset) + ", " + colIndex + ")");
+						result = this.blockBoardModel[rowIndex - indexOffset][colIndex];
+						if (result.view === null) {
+							indexOffset++;
+						} else {
+							break;
+						}
+					} while(rowIndex - indexOffset >= 0);
+					
+					return result;
+				}).call(this);
+				
+				if (firstBlockModel !== null && firstBlockModel.view !== null) {
+					// 위쪽에 블럭이 있는 경우
+					
+					// 레퍼런스 체인지
+					
+					
+					currentBlockModel.block_kind = firstBlockModel.block_kind;
+					currentBlockModel.block_color = firstBlockModel.block_color;
+					currentBlockModel.block_type = firstBlockModel.block_type;
+					
+					firstBlockModel.block_kind = StzEBlockKind.NONE;
+					firstBlockModel.block_color = StzEBlockColor.NONE;
+					firstBlockModel.block_type = StzEBlockKindType.NONE;
+					firstBlockModel.view.parent.remove(firstBlockModel.view);
+					firstBlockModel.view.kill();
+					firstBlockModel.view = null;
+					
+					var targetGroup = this.scene['fBlockBoardRow_' + currentBlockModel.block_index.row];
+					currentBlockModel.createView(this.game, targetGroup, this.onTouchBlock, this);
+					//this.blockBoardModel[rowIndex][colIndex].createView(this.game, targetGroup, this.onTouchBlock, this);
+
+					// 소속 그룹 체인지
+					//this.scene['fBlockBoardRow_' + currentBlockModel.block_index.row].add(currentBlockModel.view);
+				}
+			} else {
+				// 블럭이 존재하는 경우
+				existBlockCount++;
+			}
+			
+		}
+		
+	}
+};
+
+
 
 
 /**
@@ -180,13 +276,13 @@ Level.prototype.updateMatchedBlockImage = function() {
 				specialType = StzEBlockKindType.NORMAL_BOMB;
 			} else if (this.matchedBlocksList[matchedKey].length >= 5) {
 				specialType = StzEBlockKindType.NORMAL_LINE + "_" + StzCommon.StzUtil.createRandomInteger(1);
+			} else {
+				specialType = StzEBlockKindType.NONE;
 			}
 			
-			if (specialType !== "") {
-				for (var blockIndex in this.matchedBlocksList[matchedKey]) {
-					this.matchedBlocksList[matchedKey][blockIndex].block_type = this.matchedBlocksList[matchedKey][blockIndex].block_type + "_" + specialType; 
-					this.matchedBlocksList[matchedKey][blockIndex].updateView();
-				}
+			for (var blockIndex in this.matchedBlocksList[matchedKey]) {
+				this.matchedBlocksList[matchedKey][blockIndex].block_type = specialType; 
+				this.matchedBlocksList[matchedKey][blockIndex].updateView();
 			}
 		}
 	}
@@ -220,28 +316,28 @@ Level.prototype.checkMatchesIteration = function (inBlockModel, inArray) {
 		
 		if (nextTopBlock != null
 				&& inArray.indexOf(nextTopBlock) < 0 
-				&& nextTopBlock.block_type == currentSearchModel.block_type) {
+				&& nextTopBlock.block_color == currentSearchModel.block_color) {
 			inArray.push(nextTopBlock);
 			searchCandidates.push(nextTopBlock);
 		}
 		
 		if (nextBottomBlock != null
 				&& inArray.indexOf(nextBottomBlock) < 0
-				&& nextBottomBlock.block_type == currentSearchModel.block_type) {
+				&& nextBottomBlock.block_color == currentSearchModel.block_color) {
 			inArray.push(nextBottomBlock);
 			searchCandidates.push(nextBottomBlock);
 		} 
 		
 		if (nextLeftBlock != null
 				&& inArray.indexOf(nextLeftBlock) < 0
-				&& nextLeftBlock.block_type == currentSearchModel.block_type) {
+				&& nextLeftBlock.block_color == currentSearchModel.block_color) {
 			inArray.push(nextLeftBlock);
 			searchCandidates.push(nextLeftBlock);
 		} 
 		
 		if (nextRightBlock != null
 				&& inArray.indexOf(nextRightBlock) < 0
-				&& nextRightBlock.block_type == currentSearchModel.block_type) {
+				&& nextRightBlock.block_color == currentSearchModel.block_color) {
 			inArray.push(nextRightBlock);
 			searchCandidates.push(nextRightBlock);
 		} 
@@ -281,19 +377,19 @@ Level.prototype.checkMatches = function(inBlockModel, inArray) {
 	var nextLeftBlock = this.getNextBlock(inBlockModel, "left");
 	var nextRightBlock = this.getNextBlock(inBlockModel, "right");
 	
-	if (nextTopBlock != null && nextTopBlock.model.block_type == inBlockModel.block_type) {
+	if (nextTopBlock != null && nextTopBlock.model.block_color == inBlockModel.block_color) {
 		return this.checkMatches(nextTopBlock.model, inArray);
 	}
 	
-	if (nextBottomBlock != null && nextBottomBlock.model.block_type == inBlockModel.block_type) {
+	if (nextBottomBlock != null && nextBottomBlock.model.block_color == inBlockModel.block_color) {
 		return this.checkMatches(nextBottomBlock.model, inArray);
 	} 
 	
-	if (nextLeftBlock != null && nextLeftBlock.model.block_type == inBlockModel.block_type) {
+	if (nextLeftBlock != null && nextLeftBlock.model.block_color == inBlockModel.block_color) {
 		return this.checkMatches(nextLeftBlock.model, inArray);
 	} 
 	
-	if (nextRightBlock != null && nextRightBlock.model.block_type == inBlockModel.block_type) {
+	if (nextRightBlock != null && nextRightBlock.model.block_color == inBlockModel.block_color) {
 		return this.checkMatches(nextRightBlock.model, inArray);
 	} 
 

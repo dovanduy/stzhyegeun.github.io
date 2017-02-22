@@ -4,8 +4,9 @@
  * @param inType 블럭 소분류
  * @returns
  */
-function BlockModel(inKind, inType, indexRow, indexCol) {
+function BlockModel(inKind, inColor, inType, indexRow, indexCol) {
 	this.block_kind = inKind;
+	this.block_color = inColor;
 	this.block_type = inType;
 	this.block_index = {
 		'row': (indexRow === undefined ? 0 : indexRow),
@@ -26,7 +27,7 @@ function BlockModel(inKind, inType, indexRow, indexCol) {
  * @returns {String}
  */
 BlockModel.prototype.getImageKeyname = function() {
-	var imageKeyName = this.block_kind + "_" + this.block_type + ".png";
+	var imageKeyName = this.block_kind + "_" + this.block_color + (this.block_type === StzEBlockKindType.NONE ? "" : "_" + this.block_type) + ".png";
 	return imageKeyName;
 };
 
@@ -52,7 +53,9 @@ BlockModel.prototype.createView = function(inGame, inParent, inTouchCallback, in
 		}
 	}, this);
 	
-	return result;
+	this.view = result;
+	
+	return this.view;
 };
 
 BlockModel.prototype.updateView = function() {
