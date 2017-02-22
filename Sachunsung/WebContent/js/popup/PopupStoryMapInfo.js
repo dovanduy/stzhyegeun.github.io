@@ -2,17 +2,23 @@
 PopupStoryMapInfo.prototype = {
 		game:null,
 		txtStageName:null,
-		txtInGameTime:null
+		txtInGameTime:null,
+		aParent:null
 };
 
 function PopupStoryMapInfo(ingame, aParent) {
 	this.game = ingame;
+	this.aParent = aParent;
+	
 	this.scene = new StoryMapInfo(ingame);
 	
 	this.scene.visible = false;
 	
 	this.scene.fBtnClose.inputEnabled = true;
 	this.scene.fBtnClose.events.onInputDown.add(this.onClose, this);
+	
+	this.scene.fBtnStart.inputEnabled = true;
+	this.scene.fBtnStart.events.onInputDown.add(this.onStart, this);
 	
 	this.txtStageName = this.game.add.bitmapText(this.scene.fTxtNamePos.x, this.scene.fTxtNamePos.y, 'textScoreFont', name, 35, this.group);
 	this.txtStageName.anchor.set(0.5);
@@ -44,6 +50,24 @@ PopupStoryMapInfo.prototype.onClose = function(){
 	this.scene.visible = false;
 };
 
+PopupStoryMapInfo.prototype.onStart = function(){
+	StzCommon.StzLog.print("[PopupStoryMapInfo] onStart");
+	
+	this.aParent.onDestory();
+	
+	this.game.state.start("Preload");
+};
+
+PopupStoryMapInfo.prototype.onDestory = function(){
+	StzCommon.StzLog.print("[PopupStoryMapInfo] onDestory");
+	this.scene.destroy(true);
+};
+
+/**
+ * TODO 나중에 시간 관련 함수 만들어서 정리
+ * @param s
+ * @returns {String}
+ */
 function secondToMS(s){
 	var second = s%60;
 	var minutes = Math.floor(s/60);
