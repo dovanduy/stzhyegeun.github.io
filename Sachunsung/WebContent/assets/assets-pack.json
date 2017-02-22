@@ -105,10 +105,22 @@
             "textureURL": "assets/images/worldmap/btnStage.png",
             "atlasURL": "assets/images/worldmap/btnStage.json",
             "format": "TEXTURE_ATLAS_JSON_ARRAY"
+        },
+        {
+            "type": "atlas",
+            "key": "storyMapInfo",
+            "textureURL": "assets/images/worldmap/storyMapInfo.png",
+            "atlasURL": "assets/images/worldmap/storyMapInfo.json",
+            "format": "TEXTURE_ATLAS_JSON_ARRAY"
+        },
+        {
+            "type": "script",
+            "key": "script",
+            "url": "assets/canvas/StoryMapInfo.js"
         }
     ],
     "meta": {
-        "generated": "1487653287755",
+        "generated": "1487728096506",
         "app": "Phaser Editor",
         "url": "http://phasereditor.boniatillo.com",
         "version": "1.0",
