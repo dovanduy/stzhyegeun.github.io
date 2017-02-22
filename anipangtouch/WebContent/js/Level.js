@@ -16,20 +16,51 @@ Level.prototype.init = function(inStageNumber) {
 	this.blockBoardModel = StzCommon.StzUtil.createArray(StzGameConfig.ROW_COUNT, StzGameConfig.COL_COUNT);
 	// 블럭의 모양을 변경하기 위해 매칭된 블럭의 갯수가 필요하다.
 	this.matchedBlocksList = [];
+	// 레벨 터치 enabled
+	this.levelTouchEnabled = true;
 };
 
 Level.prototype.onTouchBlock = function(sprite, pointer, model) {
+	if (this.levelTouchEnabled === false) {
+		return;
+	}
+	
 	StzCommon.StzLog.print("[Level (onTouchBlock)] touched! row:" + model.block_index.row + " | col: " + model.block_index.col);
 	
 	var matchedKey = this.isMatchedBlock(model);
 	if (matchedKey === false) {
+		this.levelTouchEnabled = false;
+		
+		var bounce = this.game.add.tween(model.view);
+		bounce.to({x: model.view.x - 10}, 50, Phaser.Easing.Bounce.InOut, true, 0, 1, true);
+		bounce.onComplete.addOnce(function() {
+			this.levelTouchEnabled = true;
+		}, this);
+		
 		return;
 	}
 	
+	
+	this.levelTouchEnabled = false;
 	for (var blockIndex in this.matchedBlocksList[matchedKey]) {
-		this.matchedBlocksList[matchedKey][blockIndex].view.kill();
-		this.blockBoardModel[model.block_index.row][model.block_index.col] = null;
+		var currentModel = this.matchedBlocksList[matchedKey][blockIndex];
+		currentModel.createEmitter(this.game);
+		/*
+		currentModel.emitter.events.onDestroy.addOnce(function() {
+			if (--emitterCount <= 0) {
+				this.levelTouchEnabled = true;
+			}
+		}, this);
+		*/
+		currentModel.emitter.start(true, 500, null, 10);
+		currentModel.view.kill();
+		currentModel.view = null;
+		
+		//this.blockBoardModel[model.block_index.row][model.block_index.col] = null;
 	}
+	this.game.time.events.add(500, function() {
+		this.levelTouchEnabled = true;
+	}, this);
 };
 
 Level.prototype.create = function() {
