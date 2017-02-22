@@ -3,7 +3,7 @@ var indicatorAnimation;
 function Worldmap() {
 	Phaser.State.call(this);
 	
-	this.currentEpisode = 1;
+	this.currentEpisode = 5;
 }
 
 var proto = Object.create(Phaser.State);
@@ -14,7 +14,8 @@ Worldmap.prototype = {
 		worldMapOneSize:403,
 		stageDataArray: [],
 		speedMult : 1.0,
-		friction : 0.99
+		friction : 0.99,
+		storyMapInfoPopup:null
 };
 
 Worldmap.prototype.worldMapPointArray = [{x:243, y:334} ,{x:221, y:230} ,{x:218, y:98}, {x:225, y:31}, //2
@@ -72,6 +73,7 @@ Worldmap.prototype.create = function() {
      }, this);
     
 	this.makeButton();
+	this.storyMapInfoPopup = new PopupStoryMapInfo(this.game);
 };
 
 Worldmap.prototype.update = function() {
@@ -175,7 +177,7 @@ Worldmap.prototype.makeButton = function() {
 			this.scrollingMap.y = -this.stageDataArray[i].y + this.worldMapOneSize;
 			this.scrollingMap.isBeingDragged = true;
 		
-			button = this.game.add.button(this.stageDataArray[i].x, this.stageDataArray[i].y, 'btnStage', null, this, 
+			button = this.game.add.button(this.stageDataArray[i].x, this.stageDataArray[i].y, 'btnStage', this.onBtnClick, this, 
 					'normal2ClickedStage.png', 'normal2ClickedStage.png', 'normal2Stage.png', 'normal2ClickedStage.png');
 			indicatorAnimation.loadAnimation(17,-18,'idle_1');
 			button.addChild(indicatorAnimation.getBoneBase());
@@ -186,10 +188,10 @@ Worldmap.prototype.makeButton = function() {
 					'disableStage.png', 'disableStage.png', 'disableStage.png', 'disableStage.png');
 		}
 		else{
-			button = this.game.add.button(this.stageDataArray[i].x, this.stageDataArray[i].y, 'btnStage', null, this, 
+			button = this.game.add.button(this.stageDataArray[i].x, this.stageDataArray[i].y, 'btnStage', this.onBtnClick, this, 
 					'normalClickedStage.png', 'normalClickedStage.png', 'normalStage.png', 'normalClickedStage.png');
 		}
-		
+		button.name = (i+1).toString();
 		button.x = button.x - button.width/2;
 		button.y = button.y - button.height/2;
 		
@@ -197,6 +199,13 @@ Worldmap.prototype.makeButton = function() {
 		
 		this.scrollingMap.addChild(button);
 	}
+};
+
+Worldmap.prototype.onBtnClick = function(sprite, pointer){
+	StzCommon.StzLog.print("[Menu] onBtnClick - sprite: " + sprite.name);
+	
+	this.storyMapInfoPopup.init(sprite.name);
+	this.storyMapInfoPopup.onShow();
 };
 
 Worldmap.prototype.setTextField = function(button, stageData){

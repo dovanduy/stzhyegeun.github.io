@@ -1,0 +1,200 @@
+{
+  "settings": {
+    "sceneWidth": 640,
+    "sceneHeight": 360,
+    "generateOnSave": true,
+    "enableStepping": false
+  },
+  "world": {
+    "type": "group",
+    "id": "8c887a61-3a47-4990-b00c-5681a5522a3d",
+    "info": {
+      "editorName": "StoryMapInfo",
+      "children": [{
+        "type": "group",
+        "id": "ef56c36c-8a8e-4400-a79e-2f72aa4f9220",
+        "info": {
+          "editorName": "group",
+          "children": [
+            {
+              "type": "atlas-sprite",
+              "id": "ce000359-1ce7-4776-a403-98cba4a24724",
+              "asset": "0",
+              "info": {
+                "editorName": "bgBack",
+                "x": 20,
+                "y": 170
+              }
+            },
+            {
+              "type": "atlas-sprite",
+              "id": "3972189f-6e53-4f09-ba58-3bbe22c90fee",
+              "asset": "1",
+              "info": {
+                "editorName": "bg",
+                "x": 28,
+                "y": 179
+              }
+            },
+            {
+              "type": "atlas-sprite",
+              "id": "77c9afd5-4af7-419b-8b3f-d3beb9346f63",
+              "asset": "2",
+              "info": {
+                "editorName": "timeBg",
+                "x": 151,
+                "y": 427
+              }
+            },
+            {
+              "type": "atlas-sprite",
+              "id": "14fdddf6-f5d9-43ba-beee-fc9db5aee891",
+              "asset": "3",
+              "info": {
+                "editorName": "viewerLine",
+                "x": 24,
+                "y": 302
+              }
+            },
+            {
+              "type": "atlas-sprite",
+              "id": "d731bf9b-1f04-4815-baca-cc8eca7a843d",
+              "asset": "4",
+              "info": {
+                "editorName": "viewer",
+                "x": 56,
+                "y": 322
+              }
+            },
+            {
+              "type": "button",
+              "id": "aaee990e-ed7c-4c6e-a88a-9b816204e00a",
+              "asset": "5",
+              "info": {
+                "editorName": "btnStart",
+                "editorPublic": true,
+                "x": 141,
+                "y": 564,
+                "overFrame": "bntStartClicked.png",
+                "downFrame": "bntStartClicked.png",
+                "upFrame": "btnStart.png"
+              }
+            },
+            {
+              "type": "atlas-sprite",
+              "id": "68a6549f-e9be-4a24-8756-4e97b4768967",
+              "asset": "6",
+              "info": {
+                "editorName": "upPanel",
+                "x": 28,
+                "y": 134
+              }
+            },
+            {
+              "type": "atlas-sprite",
+              "id": "d3838caf-abf7-47d4-be48-c8d20b1874f3",
+              "asset": "7",
+              "info": {
+                "editorName": "btnClose",
+                "editorPublic": true,
+                "x": 420,
+                "y": 151
+              }
+            },
+            {
+              "type": "atlas-sprite",
+              "id": "00fe99c1-0fab-4c02-9ae6-ed8d0e8be870",
+              "asset": "8",
+              "info": {
+                "editorName": "starCenter",
+                "editorPublic": true,
+                "x": 202,
+                "y": 196
+              }
+            },
+            {
+              "type": "atlas-sprite",
+              "id": "30c10e03-5e05-43ed-83be-417f40c9d5e9",
+              "asset": "8",
+              "info": {
+                "editorName": "starLeft",
+                "editorPublic": true,
+                "x": 109,
+                "y": 226,
+                "rotation": -0.32611642979490535
+              }
+            },
+            {
+              "type": "atlas-sprite",
+              "id": "0d7a85e1-81b6-4417-9390-fd084d4ed4a6",
+              "asset": "8",
+              "info": {
+                "editorName": "starRight",
+                "editorPublic": true,
+                "x": 295,
+                "y": 208,
+                "rotation": 0.29105114717217806
+              }
+            }
+          ]
+        }
+      }]
+    }
+  },
+  "asset-table": {
+    "0": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "worldmap",
+      "asset": "storyMapInfo",
+      "sprite": "Bitmap 4.png"
+    },
+    "1": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "worldmap",
+      "asset": "storyMapInfo",
+      "sprite": "bg.png"
+    },
+    "2": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "worldmap",
+      "asset": "storyMapInfo",
+      "sprite": "timeBg.png"
+    },
+    "3": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "worldmap",
+      "asset": "storyMapInfo",
+      "sprite": "viewerLine.png"
+    },
+    "4": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "worldmap",
+      "asset": "storyMapInfo",
+      "sprite": "viewer.png"
+    },
+    "5": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "worldmap",
+      "asset": "storyMapInfo",
+      "sprite": "btnStart.png"
+    },
+    "6": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "worldmap",
+      "asset": "storyMapInfo",
+      "sprite": "upPanel.png"
+    },
+    "7": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "worldmap",
+      "asset": "storyMapInfo",
+      "sprite": "btnClose.png"
+    },
+    "8": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "worldmap",
+      "asset": "storyMapInfo",
+      "sprite": "star.png"
+    }
+  }
+}

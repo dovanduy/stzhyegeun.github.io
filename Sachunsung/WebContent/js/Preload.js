@@ -14,9 +14,7 @@ Preload.prototype.preload = function() {
 };
 
 Preload.prototype.create = function() {
-	
-	this.scene.fLoading_gage.scale.x = 0;
-	
+
 	this.scene.fBtnOnWorld.visible = false;
 	this.scene.fBtnOnWorld.events.onInputDown.add(this.onTouchedBtnWorld, this);
 	
@@ -36,7 +34,15 @@ Preload.OnLoadStart = function() {
 
 Preload.OnFileComplete = function(progress, cacheKey, success, totalLoaded, totalFiles) {
 	StzCommon.StzLog.print("[Preload] OnLoadFileComplete (" + cacheKey + ") - " + progress + "%, " + totalLoaded + " / " + totalFiles);
-	this.scene.fLoading_gage.scale.x = (progress / 100);
+	
+	var currentBarWidth = (progress / 100) * StzGameConfig.PRELOAD_BAR_MAX_WIDTH;
+	if (currentBarWidth <= StzGameConfig.PRELOAD_BAR_MIN_WIDTH) {
+		return;
+	}
+	
+	var imgLoadingBar = this.scene.fLoadingBar.children[0];
+	if(imgLoadingBar == null) return;
+	imgLoadingBar.targetWidth = currentBarWidth;
 };
 
 Preload.OnLoadComplete = function() {

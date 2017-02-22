@@ -12,55 +12,48 @@
     "id": "60f44675-8e9d-424d-b87d-b2a97ac0f934",
     "info": {
       "editorName": "PreloadScene",
-      "children": [{
-        "type": "group",
-        "id": "f2f901ae-dbe4-40b7-bef7-77e6232010ed",
-        "info": {
-          "editorName": "group",
-          "children": [
-            {
-              "type": "image",
-              "id": "66211ebc-e762-4da4-ad89-e92980a25bb0",
-              "asset": "0",
-              "info": {"editorName": "loading_bg"}
-            },
-            {
-              "type": "image",
-              "id": "592faf8b-613c-4643-af8a-54b5f1c3fe2b",
-              "asset": "1",
-              "info": {
-                "editorName": "loading_bar",
-                "editorPublic": true,
-                "x": 64,
-                "y": 739
-              }
-            },
-            {
-              "type": "image",
-              "id": "40aa2aea-3abf-40fc-8543-d0de7521f608",
-              "asset": "2",
-              "info": {
-                "editorName": "loading_gage",
-                "editorPublic": true,
-                "x": 74,
-                "y": 749
-              }
-            },
-            {
-              "type": "button",
-              "id": "00e4500b-0d6e-4bae-bf85-84d8cf52e1c8",
-              "asset": "3",
-              "info": {
-                "editorName": "btnOnWorld",
-                "editorPublic": true,
-                "x": 116,
-                "y": 571,
-                "callback": "this.OnClickBtnOnWorld"
-              }
-            }
-          ]
+      "children": [
+        {
+          "type": "image",
+          "id": "66211ebc-e762-4da4-ad89-e92980a25bb0",
+          "asset": "0",
+          "info": {"editorName": "loading_bg"}
+        },
+        {
+          "type": "image",
+          "id": "592faf8b-613c-4643-af8a-54b5f1c3fe2b",
+          "asset": "1",
+          "info": {
+            "editorName": "loadingBg",
+            "editorPublic": true,
+            "x": 64,
+            "y": 739
+          }
+        },
+        {
+          "type": "group",
+          "id": "f2f901ae-dbe4-40b7-bef7-77e6232010ed",
+          "info": {
+            "editorName": "loadingBar",
+            "editorPublic": true,
+            "x": 72,
+            "y": 749,
+            "children": []
+          }
+        },
+        {
+          "type": "button",
+          "id": "00e4500b-0d6e-4bae-bf85-84d8cf52e1c8",
+          "asset": "2",
+          "info": {
+            "editorName": "btnOnWorld",
+            "editorPublic": true,
+            "x": 116,
+            "y": 571,
+            "callback": "this.OnClickBtnOnWorld"
+          }
         }
-      }]
+      ]
     }
   },
   "asset-table": {
@@ -75,11 +68,6 @@
       "asset": "loading_bar"
     },
     "2": {
-      "file": "WebContent/assets/assets-pack.json",
-      "section": "preload",
-      "asset": "loading_gage"
-    },
-    "3": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "preload",
       "asset": "btnOnWorld"

@@ -1,0 +1,92 @@
+{"frames": [
+
+{
+	"filename": "bg.png",
+	"frame": {"x":433,"y":1,"w":416,"h":366},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":416,"h":366},
+	"sourceSize": {"w":416,"h":366}
+},
+{
+	"filename": "Bitmap 4.png",
+	"frame": {"x":1,"y":1,"w":430,"h":384},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":430,"h":384},
+	"sourceSize": {"w":430,"h":384}
+},
+{
+	"filename": "bntStartClicked.png",
+	"frame": {"x":291,"y":387,"w":204,"h":78},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":204,"h":78},
+	"sourceSize": {"w":204,"h":78}
+},
+{
+	"filename": "btnClose.png",
+	"frame": {"x":703,"y":437,"w":55,"h":55},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":55,"h":55},
+	"sourceSize": {"w":55,"h":55}
+},
+{
+	"filename": "btnStart.png",
+	"frame": {"x":497,"y":369,"w":204,"h":78},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":204,"h":78},
+	"sourceSize": {"w":204,"h":78}
+},
+{
+	"filename": "star.png",
+	"frame": {"x":703,"y":369,"w":62,"h":66},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":2,"w":62,"h":66},
+	"sourceSize": {"w":66,"h":70}
+},
+{
+	"filename": "timeBg.png",
+	"frame": {"x":1,"y":387,"w":288,"h":90},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":288,"h":90},
+	"sourceSize": {"w":288,"h":90}
+},
+{
+	"filename": "upPanel.png",
+	"frame": {"x":851,"y":1,"w":414,"h":271},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":414,"h":271},
+	"sourceSize": {"w":414,"h":271}
+},
+{
+	"filename": "viewer.png",
+	"frame": {"x":1042,"y":274,"w":145,"h":193},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":145,"h":193},
+	"sourceSize": {"w":145,"h":193}
+},
+{
+	"filename": "viewerLine.png",
+	"frame": {"x":851,"y":274,"w":189,"h":227},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":189,"h":227},
+	"sourceSize": {"w":189,"h":227}
+}],
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "storyMapInfo.png",
+	"format": "RGBA8888",
+	"size": {"w":1266,"h":502},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:787849bd46c1b4d7275001915986f044:86c2d465b3b69e2b18fc0bf387d0c321:da0a7cad32ddd82968d5c720a4c4e371$"
+}
+}
