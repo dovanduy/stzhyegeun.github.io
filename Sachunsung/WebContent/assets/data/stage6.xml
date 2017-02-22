@@ -7,7 +7,7 @@
       <countHint>0</countHint>
       <boardWidth>10</boardWidth>
       <boardHeight>11</boardHeight>
-      <limitTime>60</limitTime>
+      <limitTime>22</limitTime>
       <blockSetCount>4</blockSetCount>
       <difficulty>1</difficulty>
       <event>false</event>
