@@ -15,6 +15,8 @@ function BlockModel(inKind, inType, indexRow, indexCol) {
 		'x': (indexCol === undefined ? 0 : this.block_index.col * StzGameConfig.BLOCK_WIDTH),
 		'y': 0
 	};
+	this.match_label = -1;
+	this.view = null;
 }
 
 
@@ -28,7 +30,24 @@ BlockModel.prototype.getImageKeyname = function() {
 };
 
 
-BlockModel.prototype.createView = function(inGame, inParent) {
+BlockModel.prototype.createView = function(inGame, inParent, inTouchCallback, inTouchCallbackContext) {
 	var result = inGame.add.sprite(this.block_position.x, this.block_position.y, 'ingame_block_base', this.getImageKeyname(), inParent);
+	result.inputEnabled = true;
+	result.input.enabled = true;
+	
+	result.events.onInputDown.add(function(sprite, pointer) {
+		if (inTouchCallback !== undefined) {
+			inTouchCallback.apply(inTouchCallbackContext, [sprite, pointer, this]);
+		}
+	}, this);
+	
 	return result;
+};
+
+BlockModel.prototype.updateView = function() {
+	if (this.view === null) {
+		return;
+	} 
+	
+	this.view.loadTexture('ingame_block_base', this.getImageKeyname(), true);
 };

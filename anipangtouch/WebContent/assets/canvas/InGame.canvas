@@ -10,108 +10,120 @@
     "id": "769e12ec-a118-4d68-93da-86ca3abf9884",
     "info": {
       "editorName": "InGame",
-      "children": [{
-        "type": "group",
-        "id": "3368cc16-45ef-449c-9bbb-1d9d8b0013b1",
-        "info": {
-          "editorName": "blockBoard",
-          "editorPublic": true,
-          "x": 102,
-          "y": 280,
-          "children": [
-            {
-              "type": "group",
-              "id": "9afee07a-bcd1-4bea-b14d-c844006b57c6",
-              "info": {
-                "editorName": "blockBoardRow_8",
-                "editorPublic": true,
-                "y": 640,
-                "children": []
+      "children": [
+        {
+          "type": "image",
+          "id": "2c037595-07f9-443c-b642-c138c94f17fd",
+          "asset": "0",
+          "info": {"editorName": "preload_bg"}
+        },
+        {
+          "type": "group",
+          "id": "3368cc16-45ef-449c-9bbb-1d9d8b0013b1",
+          "info": {
+            "editorName": "blockBoard",
+            "editorPublic": true,
+            "x": 102,
+            "y": 280,
+            "children": [
+              {
+                "type": "group",
+                "id": "9afee07a-bcd1-4bea-b14d-c844006b57c6",
+                "info": {
+                  "editorName": "blockBoardRow_8",
+                  "editorPublic": true,
+                  "y": 640,
+                  "children": []
+                }
+              },
+              {
+                "type": "group",
+                "id": "6b780684-7ec2-4b86-bd95-05dc570db195",
+                "info": {
+                  "editorName": "blockBoardRow_7",
+                  "editorPublic": true,
+                  "y": 560,
+                  "children": []
+                }
+              },
+              {
+                "type": "group",
+                "id": "97028495-f50b-4083-a7d7-3ee1b77f3699",
+                "info": {
+                  "editorName": "blockBoardRow_6",
+                  "editorPublic": true,
+                  "y": 480,
+                  "children": []
+                }
+              },
+              {
+                "type": "group",
+                "id": "ed8a92cd-39de-44d2-8b76-98bfa2086884",
+                "info": {
+                  "editorName": "blockBoardRow_5",
+                  "editorPublic": true,
+                  "y": 400,
+                  "children": []
+                }
+              },
+              {
+                "type": "group",
+                "id": "bc44383d-3051-4ec8-8eff-24b106830c99",
+                "info": {
+                  "editorName": "blockBoardRow_4",
+                  "editorPublic": true,
+                  "y": 320,
+                  "children": []
+                }
+              },
+              {
+                "type": "group",
+                "id": "8acfaf50-1441-4b72-909a-a40126787bfd",
+                "info": {
+                  "editorName": "blockBoardRow_3",
+                  "editorPublic": true,
+                  "y": 240,
+                  "children": []
+                }
+              },
+              {
+                "type": "group",
+                "id": "69c4464a-f519-4232-b474-5471e5519146",
+                "info": {
+                  "editorName": "blockBoardRow_2",
+                  "editorPublic": true,
+                  "y": 160,
+                  "children": []
+                }
+              },
+              {
+                "type": "group",
+                "id": "8d771ba7-01d6-47b8-ae5b-3ce7e69375ee",
+                "info": {
+                  "editorName": "blockBoardRow_1",
+                  "editorPublic": true,
+                  "y": 80,
+                  "children": []
+                }
+              },
+              {
+                "type": "group",
+                "id": "82814548-4ffb-4aef-9015-9100b285d24d",
+                "info": {
+                  "editorName": "blockBoardRow_0",
+                  "editorPublic": true,
+                  "children": []
+                }
               }
-            },
-            {
-              "type": "group",
-              "id": "6b780684-7ec2-4b86-bd95-05dc570db195",
-              "info": {
-                "editorName": "blockBoardRow_7",
-                "editorPublic": true,
-                "y": 560,
-                "children": []
-              }
-            },
-            {
-              "type": "group",
-              "id": "97028495-f50b-4083-a7d7-3ee1b77f3699",
-              "info": {
-                "editorName": "blockBoardRow_6",
-                "editorPublic": true,
-                "y": 480,
-                "children": []
-              }
-            },
-            {
-              "type": "group",
-              "id": "ed8a92cd-39de-44d2-8b76-98bfa2086884",
-              "info": {
-                "editorName": "blockBoardRow_5",
-                "editorPublic": true,
-                "y": 400,
-                "children": []
-              }
-            },
-            {
-              "type": "group",
-              "id": "bc44383d-3051-4ec8-8eff-24b106830c99",
-              "info": {
-                "editorName": "blockBoardRow_4",
-                "editorPublic": true,
-                "y": 320,
-                "children": []
-              }
-            },
-            {
-              "type": "group",
-              "id": "8acfaf50-1441-4b72-909a-a40126787bfd",
-              "info": {
-                "editorName": "blockBoardRow_3",
-                "editorPublic": true,
-                "y": 240,
-                "children": []
-              }
-            },
-            {
-              "type": "group",
-              "id": "69c4464a-f519-4232-b474-5471e5519146",
-              "info": {
-                "editorName": "blockBoardRow_2",
-                "editorPublic": true,
-                "y": 160,
-                "children": []
-              }
-            },
-            {
-              "type": "group",
-              "id": "8d771ba7-01d6-47b8-ae5b-3ce7e69375ee",
-              "info": {
-                "editorName": "blockBoardRow_1",
-                "editorPublic": true,
-                "y": 80,
-                "children": []
-              }
-            },
-            {
-              "type": "group",
-              "id": "82814548-4ffb-4aef-9015-9100b285d24d",
-              "info": {
-                "editorName": "blockBoardRow_0",
-                "editorPublic": true,
-                "children": []
-              }
-            }
-          ]
+            ]
+          }
         }
-      }]
+      ]
     }
   },
-  "asset-table": {}
+  "asset-table": {"0": {
+    "file": "WebContent/assets/assets-pack.json",
+    "section": "preload",
+    "asset": "preload_bg"
+  }}
 }

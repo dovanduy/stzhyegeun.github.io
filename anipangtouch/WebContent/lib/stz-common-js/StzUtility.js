@@ -3,6 +3,12 @@ define(function () {
 		
 	}
 	
+	/**
+	 * 자바스크립트를 동적으로 로드하는 함수
+	 * @param inUrl
+	 * @param inCallback
+	 * @param inContext
+	 */
 	StzUtil.prototype.loadJavascript = function(inUrl, inCallback, inContext) {
 		$.ajax({
 			url: inUrl,
@@ -14,7 +20,11 @@ define(function () {
 		});
 	};
 	
-	// REFER @http://stackoverflow.com/questions/966225/how-can-i-create-a-two-dimensional-array-in-javascript/966938#966938
+	
+	/**
+	 * 다차원 배열을 생성하는 함수
+	 * REFER @http://stackoverflow.com/questions/966225/how-can-i-create-a-two-dimensional-array-in-javascript/966938#966938
+	 */
 	StzUtil.prototype.createArray = function(inLength) {
 		
 		function inlineCreateArray(inlineLength) {
@@ -30,6 +40,14 @@ define(function () {
 		}
 		
 		return inlineCreateArray.apply(this, arguments);
+	};
+	
+
+	StzUtil.prototype.createRandomInteger = function(inMaxValue) {
+		
+		StzCommon.StzLog.assert(typeof(inMaxValue) === 'number', "[StzUtility (createRandomInteger)] Invalid parameter type!");
+		
+		return Math.floor(Math.random() * Number(inMaxValue) + 1);
 	};
 	
 	return StzUtil;

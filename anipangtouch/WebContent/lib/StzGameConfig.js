@@ -39,7 +39,7 @@ StzEBlockKind.SPECIAL_BOMB = "ingame_special_2004";
 // 인게임 블럭의 Kind에 따른 소분류
 var StzEBlockKindType = {};
 StzEBlockKindType.NORMAL_YELLOW = "1";
-StzEBlockKindType.NORMAL_RED_BASE = "2";
+StzEBlockKindType.NORMAL_RED = "2";
 StzEBlockKindType.NORMAL_WHITE = "3";
 StzEBlockKindType.NORMAL_GREEN = "4";
 StzEBlockKindType.NORMAL_BLUE = "5";
