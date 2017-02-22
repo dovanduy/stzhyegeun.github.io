@@ -40,14 +40,6 @@
             "type": "script",
             "key": "PreloadScene",
             "url": "assets/canvas/PreloadScene.js"
-        },
-        {
-            "type": "bitmapFont",
-            "key": "textScoreFont",
-            "textureURL": "assets/images/Font/textScoreFont.png",
-            "atlasURL": "assets/images/Font/textScoreFont.xml",
-            "xSpacing": 0,
-            "ySpacing": 0
         }
     ],
     "worldmap": [
@@ -177,10 +169,26 @@
             "key": "stage10",
             "url": "assets/data/stage10.xml",
             "overwrite": false
+        },
+        {
+            "type": "bitmapFont",
+            "key": "textScoreFont",
+            "textureURL": "assets/images/Font/textScoreFont.png",
+            "atlasURL": "assets/images/Font/textScoreFont.xml",
+            "xSpacing": 0,
+            "ySpacing": 0
+        },
+        {
+            "type": "bitmapFont",
+            "key": "comboFont",
+            "textureURL": "assets/images/Font/comboFont.png",
+            "atlasURL": "assets/images/Font/comboFont.xml",
+            "xSpacing": 0,
+            "ySpacing": 0
         }
     ],
     "meta": {
-        "generated": "1487745588487",
+        "generated": "1487747550303",
         "app": "Phaser Editor",
         "url": "http://phasereditor.boniatillo.com",
         "version": "1.0",
