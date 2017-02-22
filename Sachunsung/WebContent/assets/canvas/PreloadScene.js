@@ -14,26 +14,30 @@ function PreloadScene(aGame, aParent) {
 
 	/* --- pre-init-end --- */
 
-	var group = this.game.add.group(this);
+	this.game.add.sprite(0, 0, 'loading_bg', null, this);
 
-	this.game.add.sprite(0, 0, 'loading_bg', null, group);
+	var loadingBg = this.game.add.sprite(64, 739, 'loading_bar', null, this);
 
-	var loading_bar = this.game.add.sprite(64, 739, 'loading_bar', null, group);
+	var loadingBar = this.game.add.group(this);
+	loadingBar.position.setTo(72, 749);
 
-	var loading_gage = this.game.add.sprite(74, 749, 'loading_gage', null, group);
-
-	var btnOnWorld = this.game.add.button(116, 571, 'btnOnWorld', this.OnClickBtnOnWorld, this, null, null, null, null, group);
+	var btnOnWorld = this.game.add.button(116, 571, 'btnOnWorld', this.OnClickBtnOnWorld, this, null, null, null, null, this);
 
 	 // public fields
 
-	this.fLoading_bar = loading_bar;
-	this.fLoading_gage = loading_gage;
+	this.fLoadingBg = loadingBg;
+	this.fLoadingBar = loadingBar;
 	this.fBtnOnWorld = btnOnWorld;
 
 	/* --- post-init-begin --- */
 
 	// you can insert code here
-
+	this.game.cache.addNinePatch('ImageLoadingBar', 'loading_gage', null, 10, 10, 0, 17);
+	
+	var imgLoadingBar = new Phaser.NinePatchImage(this.game, 0, 0, 'ImageLoadingBar');
+	imgLoadingBar.targetWidth = StzGameConfig.PRELOAD_BAR_MIN_WIDTH;
+	imgLoadingBar.UpdateImageSizes();
+	this.fLoadingBar.add(imgLoadingBar);
 	/* --- post-init-end --- */
 }
 
