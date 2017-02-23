@@ -163,8 +163,6 @@ Level.prototype.reArrangeBlockBoard = function() {
 					// 위쪽에 블럭이 있는 경우
 					
 					// 레퍼런스 체인지
-					
-					
 					currentBlockModel.block_kind = firstBlockModel.block_kind;
 					currentBlockModel.block_color = firstBlockModel.block_color;
 					currentBlockModel.block_type = firstBlockModel.block_type;
@@ -191,7 +189,7 @@ Level.prototype.reArrangeBlockBoard = function() {
 		}
 		
 		// 블럭 재생성
-		if (existBlockCount > 0) {
+		if (existBlockCount < StzGameConfig.ROW_COUNT) {
 			
 			for (var newRowIndex = 0; newRowIndex < StzGameConfig.ROW_COUNT; newRowIndex++) {
 				var currentBlockModel = this.blockBoardModel[newRowIndex][colIndex];
