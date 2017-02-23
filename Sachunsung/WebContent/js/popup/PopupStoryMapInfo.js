@@ -55,7 +55,7 @@ PopupStoryMapInfo.prototype.onStart = function(){
 	
 	this.aParent.onDestory();
 	
-	this.game.state.start("Preload");
+	this.game.state.start("InGame");
 };
 
 PopupStoryMapInfo.prototype.onDestory = function(){

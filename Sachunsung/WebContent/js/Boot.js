@@ -28,6 +28,10 @@ Boot.prototype.preload = function() {
 	this.game.load.onFileComplete.add(Boot.OnFileComplete, this);
 	this.game.load.onLoadComplete.add(Boot.OnLoadComplete, this);
 	
+	this.game.state.add("Worldmap", Worldmap);
+	this.game.state.add("Preload", Preload);
+	this.game.state.add("InGame", InGame);
+	
 	// boot 스테이트에서 사용할 리소스 로드 
 	this.load.pack("boot", "assets/assets-pack.json");
 	this.load.pack("preload", "assets/assets-pack.json");

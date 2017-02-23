@@ -23,6 +23,7 @@ Preload.prototype.create = function() {
 	this.game.load.onLoadComplete.add(Preload.OnLoadComplete, this);
 	
 	this.game.load.pack("worldmap", "assets/assets-pack.json");
+	this.game.load.pack("inGame", "assets/assets-pack.json");
 	
 	this.game.load.start();
 };
