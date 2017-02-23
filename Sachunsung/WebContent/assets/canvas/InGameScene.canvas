@@ -1,0 +1,111 @@
+{
+  "settings": {
+    "sceneWidth": 640,
+    "sceneHeight": 360,
+    "generateOnSave": true,
+    "enableStepping": false
+  },
+  "world": {
+    "type": "group",
+    "id": "57d5c4bc-df0c-48ff-94dc-8ed98d9482a0",
+    "info": {
+      "editorName": "InGameScene",
+      "children": [
+        {
+          "type": "atlas-sprite",
+          "id": "c0a132b4-a9e6-4fd4-9317-c910c9c0ca6d",
+          "asset": "0",
+          "info": {"editorName": "mainStage_png"}
+        },
+        {
+          "type": "atlas-sprite",
+          "id": "4099001e-cb27-45ee-94e6-07854f1b89b9",
+          "asset": "1",
+          "info": {
+            "editorName": "redBlind_png",
+            "editorPublic": true,
+            "editorShow": false,
+            "x": 1,
+            "y": 117
+          }
+        },
+        {
+          "type": "atlas-sprite",
+          "id": "7b0eb102-47dc-4b9b-8b61-92062b71dc25",
+          "asset": "2",
+          "info": {"editorName": "upLeftPanel_png"}
+        },
+        {
+          "type": "atlas-sprite",
+          "id": "b5624ce7-6e82-40a3-9899-4b140a43cc0a",
+          "asset": "3",
+          "info": {
+            "editorName": "upPanel_png",
+            "x": 119
+          }
+        },
+        {
+          "type": "atlas-sprite",
+          "id": "241fd2f2-cab2-4820-b7f6-3a6e8726a309",
+          "asset": "4",
+          "info": {
+            "editorName": "mainGage_png",
+            "x": 174,
+            "y": 6
+          }
+        },
+        {
+          "type": "button",
+          "id": "7998c831-d69f-4f8e-bd44-38c6400c0549",
+          "asset": "5",
+          "info": {
+            "editorName": "btnPause_png",
+            "x": 446,
+            "y": 2,
+            "overFrame": "btnPause.png",
+            "downFrame": "btnStart.png",
+            "upFrame": "btnPause.png"
+          }
+        }
+      ]
+    }
+  },
+  "asset-table": {
+    "0": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "inGame",
+      "asset": "inGameUI",
+      "sprite": "mainStage.png"
+    },
+    "1": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "inGame",
+      "asset": "inGameUI",
+      "sprite": "redBlind.png"
+    },
+    "2": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "inGame",
+      "asset": "inGameUI",
+      "sprite": "upLeftPanel.png"
+    },
+    "3": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "inGame",
+      "asset": "inGameUI",
+      "sprite": "upPanel.png"
+    },
+    "4": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "inGame",
+      "asset": "inGameUI",
+      "sprite": "mainGage.png"
+    },
+    "5": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "inGame",
+      "asset": "inGameUI",
+      "sprite": "btnPause.png"
+    }
+  }
+}

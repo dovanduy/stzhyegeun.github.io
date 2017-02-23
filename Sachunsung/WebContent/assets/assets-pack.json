@@ -107,7 +107,7 @@
         },
         {
             "type": "script",
-            "key": "script",
+            "key": "StoryMapInfo",
             "url": "assets/canvas/StoryMapInfo.js"
         },
         {
@@ -187,8 +187,29 @@
             "ySpacing": 0
         }
     ],
+    "inGame": [
+        {
+            "type": "atlas",
+            "key": "block",
+            "textureURL": "assets/images/inGame/block.png",
+            "atlasURL": "assets/images/inGame/block.json",
+            "format": "TEXTURE_ATLAS_JSON_ARRAY"
+        },
+        {
+            "type": "atlas",
+            "key": "inGameUI",
+            "textureURL": "assets/images/inGame/inGameUI.png",
+            "atlasURL": "assets/images/inGame/inGameUI.json",
+            "format": "TEXTURE_ATLAS_JSON_ARRAY"
+        },
+        {
+            "type": "script",
+            "key": "InGameScene",
+            "url": "assets/canvas/InGameScene.js"
+        }
+    ],
     "meta": {
-        "generated": "1487747550303",
+        "generated": "1487846554374",
         "app": "Phaser Editor",
         "url": "http://phasereditor.boniatillo.com",
         "version": "1.0",
