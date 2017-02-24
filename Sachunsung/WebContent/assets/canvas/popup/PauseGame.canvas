@@ -1,0 +1,182 @@
+{
+  "settings": {
+    "sceneWidth": 640,
+    "sceneHeight": 360,
+    "generateOnSave": true,
+    "enableStepping": false
+  },
+  "world": {
+    "type": "group",
+    "id": "e5f6ddc5-2915-4951-8270-deb375fd2bd9",
+    "info": {
+      "editorName": "PauseGame",
+      "children": [{
+        "type": "group",
+        "id": "96809e3b-fdae-4519-b34f-fd2ce9c23353",
+        "info": {
+          "editorName": "popupPauseGame",
+          "children": [
+            {
+              "type": "atlas-sprite",
+              "id": "8078bc5a-de0f-43c1-bc51-1c2b8148cf62",
+              "asset": "0",
+              "info": {
+                "editorName": "ribon_png",
+                "x": 86,
+                "y": 163
+              }
+            },
+            {
+              "type": "atlas-sprite",
+              "id": "b635cf72-95a2-4da2-a32e-33b6e2ebdf65",
+              "asset": "1",
+              "info": {
+                "editorName": "bg_png",
+                "x": 61,
+                "y": 236
+              }
+            },
+            {
+              "type": "atlas-sprite",
+              "id": "198837dc-1f47-4155-9a8c-38a887d9bae1",
+              "asset": "2",
+              "info": {
+                "editorName": "bgLine_png",
+                "x": 57,
+                "y": 236
+              }
+            },
+            {
+              "type": "button",
+              "id": "eaaf2b1d-675c-44a0-a172-af2c505e7227",
+              "asset": "3",
+              "info": {
+                "editorName": "btnRestart",
+                "editorPublic": true,
+                "x": 78,
+                "y": 461,
+                "overFrame": "btnRestart.png",
+                "downFrame": "btnRestartClicked.png",
+                "upFrame": "btnRestart.png"
+              }
+            },
+            {
+              "type": "button",
+              "id": "6e31fa01-e421-4f30-af2e-ef36ec55c466",
+              "asset": "4",
+              "info": {
+                "editorName": "btnContinue",
+                "editorPublic": true,
+                "x": 78,
+                "y": 303,
+                "overFrame": "btnContinue.png",
+                "downFrame": "btnContinueClicked.png",
+                "upFrame": "btnContinue.png"
+              }
+            },
+            {
+              "type": "button",
+              "id": "2ab5d731-f55b-489e-8f11-8fd263227c93",
+              "asset": "5",
+              "info": {
+                "editorName": "btnClose",
+                "editorPublic": true,
+                "x": 78,
+                "y": 380,
+                "overFrame": "btnClose.png",
+                "downFrame": "btnCloseClicked.png",
+                "upFrame": "btnClose.png"
+              }
+            },
+            {
+              "type": "atlas-sprite",
+              "id": "65e8681a-fec7-444b-8412-fc1fcbdb5c52",
+              "asset": "6",
+              "info": {
+                "editorName": "upBg_png",
+                "x": 72,
+                "y": 257
+              }
+            },
+            {
+              "type": "atlas-sprite",
+              "id": "eddd4917-ce76-4535-b34f-11f82c5b9d7f",
+              "asset": "7",
+              "info": {
+                "editorName": "pause_png",
+                "x": 113,
+                "y": 264
+              }
+            },
+            {
+              "type": "atlas-sprite",
+              "id": "5c6472c7-1a74-47d6-9f99-61991c7ce5d6",
+              "asset": "8",
+              "info": {
+                "editorName": "iconPig_png",
+                "x": 78,
+                "y": 261
+              }
+            }
+          ]
+        }
+      }]
+    }
+  },
+  "asset-table": {
+    "0": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "inGame",
+      "asset": "inGameUI",
+      "sprite": "ribon.png"
+    },
+    "1": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "inGame",
+      "asset": "inGameUI",
+      "sprite": "bg.png"
+    },
+    "2": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "inGame",
+      "asset": "inGameUI",
+      "sprite": "bgLine.png"
+    },
+    "3": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "inGame",
+      "asset": "inGameUI",
+      "sprite": "btnRestart.png"
+    },
+    "4": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "inGame",
+      "asset": "inGameUI",
+      "sprite": "btnContinue.png"
+    },
+    "5": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "inGame",
+      "asset": "inGameUI",
+      "sprite": "btnClose.png"
+    },
+    "6": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "inGame",
+      "asset": "inGameUI",
+      "sprite": "upBg.png"
+    },
+    "7": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "inGame",
+      "asset": "inGameUI",
+      "sprite": "pause.png"
+    },
+    "8": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "inGame",
+      "asset": "inGameUI",
+      "sprite": "iconPig.png"
+    }
+  }
+}
