@@ -3,13 +3,15 @@ requirejs.config({
         app: 'StzCommonSetting',
         "stzcommon" : "./StzCommon",
         "jquery" : "//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min",
-        "phaser_nine_patch" : "//stzhyegeun.github.io/libs/StzCommon/plugin/nine-patch-phaser-plugin"
+        "phaser_nine_patch" : "//stzhyegeun.github.io/libs/StzCommon/plugin/nine-patch-phaser-plugin", 
+        "peer" : "//cdn.peerjs.com/0.3/peer.min" 
     }
 });
 
 
-requirejs(['stzcommon', 'jquery', 'phaser_nine_patch'], function() {
+requirejs(['stzcommon', 'jquery', 'phaser_nine_patch', 'peer'], function() {
     setLockOrientationElements();   
+    window.onRequireLoad();
 });
 
 
