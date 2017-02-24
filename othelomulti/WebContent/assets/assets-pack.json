@@ -1,7 +1,91 @@
-{"meta": {
-    "app": "Phaser Editor",
-    "copyright": "Arian Fornaris (boniatillo.com) 2015",
-    "generated": "1440908975979",
-    "version": "1.0",
-    "url": "http://boniatillo.com"
-}}
+{
+    "ingame": [
+        {
+            "type": "image",
+            "key": "bg-game-1x",
+            "url": "assets/images/bg-game-1x.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "bg-game-2x",
+            "url": "assets/images/bg-game-2x.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "btn-level-1x",
+            "url": "assets/images/btn-level-1x.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "btn-level-2x",
+            "url": "assets/images/btn-level-2x.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "chip-black-1x",
+            "url": "assets/images/chip-black-1x.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "chip-black-2x",
+            "url": "assets/images/chip-black-2x.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "chip-mini-black-1x",
+            "url": "assets/images/chip-mini-black-1x.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "chip-mini-black-2x",
+            "url": "assets/images/chip-mini-black-2x.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "chip-white-1x",
+            "url": "assets/images/chip-white-1x.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "chip-white-2x",
+            "url": "assets/images/chip-white-2x.png",
+            "overwrite": false
+        }
+    ],
+    "boot": [
+        {
+            "type": "image",
+            "key": "playlandscape",
+            "url": "lib/stz-common-js/image/playlandscape.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "playportrait",
+            "url": "lib/stz-common-js/image/playportrait.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "stz_logo",
+            "url": "lib/stz-common-js/image/stz_logo.png",
+            "overwrite": false
+        }
+    ],
+    "meta": {
+        "generated": "1487927474895",
+        "app": "Phaser Editor",
+        "url": "http://phasereditor.boniatillo.com",
+        "version": "1.0",
+        "copyright": "Arian Fornaris (c) 2015,2016"
+    }
+}
