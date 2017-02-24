@@ -12,97 +12,120 @@
       "editorName": "InGameScene",
       "children": [
         {
-          "type": "atlas-sprite",
-          "id": "c0a132b4-a9e6-4fd4-9317-c910c9c0ca6d",
-          "asset": "0",
-          "info": {"editorName": "mainStage_png"}
-        },
-        {
-          "type": "atlas-sprite",
-          "id": "490b5191-8777-4ee6-a52e-cb45a8c878a2",
-          "asset": "1",
+          "type": "group",
+          "id": "34c85c97-2a02-4ae9-8e89-efc11b046e3e",
           "info": {
-            "editorName": "leftLine_png",
-            "y": 66
-          }
-        },
-        {
-          "type": "atlas-sprite",
-          "id": "31d7b9bf-02ba-42f4-8fae-56a227fd5fa4",
-          "asset": "2",
-          "info": {
-            "editorName": "rightLine_png",
-            "x": 457,
-            "y": 66
-          }
-        },
-        {
-          "type": "atlas-sprite",
-          "id": "78f15327-7f1d-4d75-8c70-4b2da5ad2344",
-          "asset": "3",
-          "info": {
-            "editorName": "downLine_png",
-            "y": 654
-          }
-        },
-        {
-          "type": "atlas-sprite",
-          "id": "0ac8e531-d107-4326-8f5a-baf997968e88",
-          "asset": "4",
-          "info": {"editorName": "upLine_png"}
-        },
-        {
-          "type": "atlas-sprite",
-          "id": "4099001e-cb27-45ee-94e6-07854f1b89b9",
-          "asset": "5",
-          "info": {
-            "editorName": "redBlind_png",
-            "editorPick": false,
+            "editorName": "groupUI",
             "editorPublic": true,
-            "editorShow": false,
-            "x": 1,
-            "y": 117
+            "children": [
+              {
+                "type": "atlas-sprite",
+                "id": "c0a132b4-a9e6-4fd4-9317-c910c9c0ca6d",
+                "asset": "0",
+                "info": {"editorName": "mainStage_png"}
+              },
+              {
+                "type": "atlas-sprite",
+                "id": "490b5191-8777-4ee6-a52e-cb45a8c878a2",
+                "asset": "1",
+                "info": {
+                  "editorName": "leftLine_png",
+                  "y": 66
+                }
+              },
+              {
+                "type": "atlas-sprite",
+                "id": "31d7b9bf-02ba-42f4-8fae-56a227fd5fa4",
+                "asset": "2",
+                "info": {
+                  "editorName": "rightLine_png",
+                  "x": 457,
+                  "y": 66
+                }
+              },
+              {
+                "type": "atlas-sprite",
+                "id": "78f15327-7f1d-4d75-8c70-4b2da5ad2344",
+                "asset": "3",
+                "info": {
+                  "editorName": "downLine_png",
+                  "y": 654
+                }
+              },
+              {
+                "type": "atlas-sprite",
+                "id": "0ac8e531-d107-4326-8f5a-baf997968e88",
+                "asset": "4",
+                "info": {"editorName": "upLine_png"}
+              },
+              {
+                "type": "atlas-sprite",
+                "id": "4099001e-cb27-45ee-94e6-07854f1b89b9",
+                "asset": "5",
+                "info": {
+                  "editorName": "redBlind_png",
+                  "editorPick": false,
+                  "editorPublic": true,
+                  "editorShow": false,
+                  "x": 1,
+                  "y": 117
+                }
+              },
+              {
+                "type": "atlas-sprite",
+                "id": "7b0eb102-47dc-4b9b-8b61-92062b71dc25",
+                "asset": "6",
+                "info": {"editorName": "upLeftPanel_png"}
+              },
+              {
+                "type": "atlas-sprite",
+                "id": "b5624ce7-6e82-40a3-9899-4b140a43cc0a",
+                "asset": "7",
+                "info": {
+                  "editorName": "upPanel_png",
+                  "x": 119
+                }
+              },
+              {
+                "type": "atlas-sprite",
+                "id": "241fd2f2-cab2-4820-b7f6-3a6e8726a309",
+                "asset": "8",
+                "info": {
+                  "editorName": "mainGage_png",
+                  "x": 174,
+                  "y": 6,
+                  "scale.x": 0.956489194172891,
+                  "scale.y": 0.8429090315415085
+                }
+              },
+              {
+                "type": "button",
+                "id": "7998c831-d69f-4f8e-bd44-38c6400c0549",
+                "asset": "9",
+                "info": {
+                  "editorName": "btnPause",
+                  "editorPublic": true,
+                  "x": 437,
+                  "y": -2,
+                  "scale.x": 1.3054541868894243,
+                  "scale.y": 1.5574191410420477,
+                  "overFrame": "btnPause.png",
+                  "downFrame": "btnStart.png",
+                  "upFrame": "btnPause.png"
+                }
+              }
+            ]
           }
         },
         {
           "type": "atlas-sprite",
-          "id": "7b0eb102-47dc-4b9b-8b61-92062b71dc25",
-          "asset": "6",
-          "info": {"editorName": "upLeftPanel_png"}
-        },
-        {
-          "type": "atlas-sprite",
-          "id": "b5624ce7-6e82-40a3-9899-4b140a43cc0a",
-          "asset": "7",
+          "id": "f0943c52-9b4f-4f5d-997d-b7a63ee350c0",
+          "asset": "10",
           "info": {
-            "editorName": "upPanel_png",
-            "x": 119
-          }
-        },
-        {
-          "type": "atlas-sprite",
-          "id": "241fd2f2-cab2-4820-b7f6-3a6e8726a309",
-          "asset": "8",
-          "info": {
-            "editorName": "mainGage_png",
-            "x": 174,
-            "y": 6
-          }
-        },
-        {
-          "type": "button",
-          "id": "7998c831-d69f-4f8e-bd44-38c6400c0549",
-          "asset": "9",
-          "info": {
-            "editorName": "btnPause",
+            "editorName": "gameGo",
             "editorPublic": true,
-            "x": 437,
-            "y": -2,
-            "scale.x": 1.3054541868894243,
-            "scale.y": 1.5574191410420477,
-            "overFrame": "btnPause.png",
-            "downFrame": "btnStart.png",
-            "upFrame": "btnPause.png"
+            "x": 87,
+            "y": 319
           }
         }
       ]
@@ -168,6 +191,12 @@
       "section": "inGame",
       "asset": "inGameUI",
       "sprite": "btnPause.png"
+    },
+    "10": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "inGame",
+      "asset": "inGameUI",
+      "sprite": "gameReady.png"
     }
   }
 }
