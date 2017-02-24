@@ -16,6 +16,14 @@ function InGameScene(aGame, aParent) {
 
 	this.game.add.sprite(0, 0, 'inGameUI', 'mainStage.png', this);
 
+	this.game.add.sprite(0, 66, 'inGameUI', 'leftLine.png', this);
+
+	this.game.add.sprite(457, 66, 'inGameUI', 'rightLine.png', this);
+
+	this.game.add.sprite(0, 654, 'inGameUI', 'downLine.png', this);
+
+	this.game.add.sprite(0, 0, 'inGameUI', 'upLine.png', this);
+
 	var redBlind_png = this.game.add.sprite(1, 117, 'inGameUI', 'redBlind.png', this);
 
 	this.game.add.sprite(0, 0, 'inGameUI', 'upLeftPanel.png', this);
@@ -24,11 +32,13 @@ function InGameScene(aGame, aParent) {
 
 	this.game.add.sprite(174, 6, 'inGameUI', 'mainGage.png', this);
 
-	this.game.add.button(446, 2, 'inGameUI', null, this, 'btnPause.png', 'btnPause.png', 'btnStart.png', 'btnPause.png', this);
+	var btnPause = this.game.add.button(437, -2, 'inGameUI', null, this, 'btnPause.png', 'btnPause.png', 'btnStart.png', 'btnPause.png', this);
+	btnPause.scale.setTo(1.3054541868894243, 1.5574191410420477);
 
 	 // public fields
 
 	this.fRedBlind_png = redBlind_png;
+	this.fBtnPause = btnPause;
 
 	/* --- post-init-begin --- */
 

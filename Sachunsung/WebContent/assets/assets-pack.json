@@ -108,7 +108,7 @@
         {
             "type": "script",
             "key": "StoryMapInfo",
-            "url": "assets/canvas/StoryMapInfo.js"
+            "url": "assets/canvas/popup/StoryMapInfo.js"
         },
         {
             "type": "text",
@@ -206,10 +206,15 @@
             "type": "script",
             "key": "InGameScene",
             "url": "assets/canvas/InGameScene.js"
+        },
+        {
+            "type": "script",
+            "key": "PauseGame",
+            "url": "assets/canvas/popup/PauseGame.js"
         }
     ],
     "meta": {
-        "generated": "1487846554374",
+        "generated": "1487901942670",
         "app": "Phaser Editor",
         "url": "http://phasereditor.boniatillo.com",
         "version": "1.0",
