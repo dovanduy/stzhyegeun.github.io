@@ -3,7 +3,7 @@ var indicatorAnimation;
 function Worldmap() {
 	Phaser.State.call(this);
 	
-	this.currentEpisode = 5;
+	this.currentEpisode = 9;
 	this.currentMakeStage = 10;
 }
 

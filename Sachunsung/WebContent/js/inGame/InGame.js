@@ -28,7 +28,7 @@ InGame.prototype.create = function() {
 	this.isReady = false;
 	
 	this.scene.fRedBlind_png.visible = false;
-	
+
 	this.scene.fBtnPause.inputEnabled = true;
 	this.scene.fBtnPause.events.onInputDown.add(this.onPause, this);
 	
@@ -66,6 +66,8 @@ InGame.prototype.showReadyMessage = function() {
 		tween.onComplete.addOnce(function() {
 			this.scene.fGameGo.visible = false;
 			this.isPause = false;
+			
+			this.shuffleBlock();
 		},this);
 	},this);
 };
@@ -97,10 +99,45 @@ InGame.prototype.createBlock = function() {
 	this.blocksCount = blockNum;
 };
 
+InGame.prototype.shuffleBlock = function() {
+	var tempArray = [];
+	for(var i=0;i<this.blocksCount;i++){
+		tempArray.push(this.blocks[i].getBlockPos());
+	}
+	
+	tempArray = this.shuffleArray(tempArray);
+	
+	for(var i=0;i<this.blocksCount;i++){
+		this.blocks[i].setBlockPos(tempArray[i]);
+		this.blocks[i].startBlockShow();
+	}
+};
+
+InGame.prototype.shuffleArray = function(array) {
+	  var currentIndex = array.length, temporaryValue, randomIndex;
+
+	  // While there remain elements to shuffle...
+	  while (0 !== currentIndex) {
+
+	    // Pick a remaining element...
+	    randomIndex = Math.floor(Math.random() * currentIndex);
+	    currentIndex -= 1;
+
+	    // And swap it with the current element.
+	    temporaryValue = array[currentIndex];
+	    array[currentIndex] = array[randomIndex];
+	    array[randomIndex] = temporaryValue;
+	  }
+
+	  return array;
+};
+
 InGame.prototype.onPause = function() {
 	this.storyMapInfoPopup.onShow();
 };
 
 InGame.prototype.onDestory = function() {
 	this.storyMapInfoPopup.onDestory();
+	
+	this.blocks = [];
 };
