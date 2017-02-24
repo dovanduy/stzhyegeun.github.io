@@ -59,30 +59,21 @@
             "key": "chip-white-2x",
             "url": "assets/images/chip-white-2x.png",
             "overwrite": false
-        }
-    ],
-    "boot": [
-        {
-            "type": "image",
-            "key": "playlandscape",
-            "url": "lib/stz-common-js/image/playlandscape.png",
-            "overwrite": false
         },
         {
-            "type": "image",
-            "key": "playportrait",
-            "url": "lib/stz-common-js/image/playportrait.png",
-            "overwrite": false
-        },
-        {
-            "type": "image",
-            "key": "stz_logo",
-            "url": "lib/stz-common-js/image/stz_logo.png",
-            "overwrite": false
+            "type": "script",
+            "key": "InGameScene",
+            "url": "assets/canvas/InGameScene.js"
         }
     ],
+    "boot": [{
+        "type": "image",
+        "key": "stz_logo",
+        "url": "lib/stz-common-js/image/stz_logo.png",
+        "overwrite": false
+    }],
     "meta": {
-        "generated": "1487927474895",
+        "generated": "1487929902732",
         "app": "Phaser Editor",
         "url": "http://phasereditor.boniatillo.com",
         "version": "1.0",
