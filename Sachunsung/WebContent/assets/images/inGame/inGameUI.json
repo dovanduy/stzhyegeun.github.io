@@ -2,7 +2,7 @@
 
 {
 	"filename": "bg.png",
-	"frame": {"x":0,"y":308,"w":366,"h":314},
+	"frame": {"x":0,"y":576,"w":366,"h":314},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":366,"h":314},
@@ -10,7 +10,7 @@
 },
 {
 	"filename": "bgLine.png",
-	"frame": {"x":366,"y":308,"w":369,"h":319},
+	"frame": {"x":366,"y":576,"w":369,"h":319},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":369,"h":319},
@@ -18,7 +18,7 @@
 },
 {
 	"filename": "btnClose.png",
-	"frame": {"x":328,"y":172,"w":328,"h":68},
+	"frame": {"x":801,"y":63,"w":328,"h":68},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":328,"h":68},
@@ -26,7 +26,7 @@
 },
 {
 	"filename": "btnCloseClicked.png",
-	"frame": {"x":0,"y":172,"w":328,"h":68},
+	"frame": {"x":0,"y":131,"w":328,"h":68},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":328,"h":68},
@@ -34,7 +34,7 @@
 },
 {
 	"filename": "btnContinue.png",
-	"frame": {"x":328,"y":240,"w":328,"h":68},
+	"frame": {"x":1129,"y":63,"w":328,"h":68},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":328,"h":68},
@@ -42,7 +42,7 @@
 },
 {
 	"filename": "btnContinueClicked.png",
-	"frame": {"x":0,"y":240,"w":328,"h":68},
+	"frame": {"x":328,"y":131,"w":328,"h":68},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":328,"h":68},
@@ -58,7 +58,7 @@
 },
 {
 	"filename": "btnRestart.png",
-	"frame": {"x":656,"y":172,"w":328,"h":68},
+	"frame": {"x":984,"y":131,"w":328,"h":68},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":328,"h":68},
@@ -66,7 +66,7 @@
 },
 {
 	"filename": "btnRestartClicked.png",
-	"frame": {"x":480,"y":104,"w":328,"h":68},
+	"frame": {"x":656,"y":131,"w":328,"h":68},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":328,"h":68},
@@ -90,7 +90,7 @@
 },
 {
 	"filename": "downLine.png",
-	"frame": {"x":125,"y":38,"w":480,"h":63},
+	"frame": {"x":1032,"y":0,"w":480,"h":63},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":480,"h":63},
@@ -98,11 +98,27 @@
 },
 {
 	"filename": "enableStar.png",
-	"frame": {"x":15,"y":0,"w":15,"h":14},
+	"frame": {"x":17,"y":0,"w":15,"h":14},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":15,"h":14},
 	"sourceSize": {"w":15,"h":14}
+},
+{
+	"filename": "gameGo.png",
+	"frame": {"x":0,"y":335,"w":335,"h":241},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":335,"h":241},
+	"sourceSize": {"w":335,"h":241}
+},
+{
+	"filename": "gameReady.png",
+	"frame": {"x":335,"y":335,"w":335,"h":241},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":335,"h":241},
+	"sourceSize": {"w":335,"h":241}
 },
 {
 	"filename": "iconPig.png",
@@ -113,8 +129,16 @@
 	"sourceSize": {"w":33,"h":32}
 },
 {
+	"filename": "lastPang.png",
+	"frame": {"x":1312,"y":131,"w":371,"h":204},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":371,"h":204},
+	"sourceSize": {"w":371,"h":204}
+},
+{
 	"filename": "leftLine.png",
-	"frame": {"x":758,"y":308,"w":25,"h":589},
+	"frame": {"x":735,"y":576,"w":25,"h":589},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":25,"h":589},
@@ -122,7 +146,7 @@
 },
 {
 	"filename": "line.png",
-	"frame": {"x":30,"y":0,"w":2,"h":14},
+	"frame": {"x":15,"y":0,"w":2,"h":14},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":2,"h":14},
@@ -138,11 +162,19 @@
 },
 {
 	"filename": "mainStage.png",
-	"frame": {"x":480,"y":897,"w":480,"h":800},
+	"frame": {"x":1263,"y":576,"w":480,"h":800},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":480,"h":800},
 	"sourceSize": {"w":480,"h":800}
+},
+{
+	"filename": "noMoreMove.png",
+	"frame": {"x":1340,"y":335,"w":335,"h":241},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":335,"h":241},
+	"sourceSize": {"w":335,"h":241}
 },
 {
 	"filename": "pause.png",
@@ -154,7 +186,7 @@
 },
 {
 	"filename": "redBlind.png",
-	"frame": {"x":0,"y":897,"w":480,"h":681},
+	"frame": {"x":783,"y":576,"w":480,"h":681},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":480,"h":681},
@@ -162,7 +194,7 @@
 },
 {
 	"filename": "ribon.png",
-	"frame": {"x":605,"y":38,"w":321,"h":66},
+	"frame": {"x":0,"y":63,"w":321,"h":66},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":321,"h":66},
@@ -170,11 +202,27 @@
 },
 {
 	"filename": "rightLine.png",
-	"frame": {"x":735,"y":308,"w":23,"h":589},
+	"frame": {"x":760,"y":576,"w":23,"h":589},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":23,"h":589},
 	"sourceSize": {"w":23,"h":589}
+},
+{
+	"filename": "stageClear.png",
+	"frame": {"x":1005,"y":335,"w":335,"h":241},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":335,"h":241},
+	"sourceSize": {"w":335,"h":241}
+},
+{
+	"filename": "timeOver.png",
+	"frame": {"x":670,"y":335,"w":335,"h":241},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":335,"h":241},
+	"sourceSize": {"w":335,"h":241}
 },
 {
 	"filename": "upBg.png",
@@ -186,7 +234,7 @@
 },
 {
 	"filename": "upLeftPanel.png",
-	"frame": {"x":0,"y":38,"w":125,"h":61},
+	"frame": {"x":907,"y":0,"w":125,"h":61},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":125,"h":61},
@@ -194,7 +242,7 @@
 },
 {
 	"filename": "upLine.png",
-	"frame": {"x":0,"y":104,"w":480,"h":67},
+	"frame": {"x":321,"y":63,"w":480,"h":67},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":480,"h":67},
@@ -213,8 +261,8 @@
 	"version": "1.0",
 	"image": "inGameUI.png",
 	"format": "RGBA8888",
-	"size": {"w":984,"h":1697},
+	"size": {"w":1743,"h":1376},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:e9a4ca8f4a95a2b30723337036c259d9:24f7675dab3e5e0172e0618374dd4dbd:8336dcd25fbab227545f83fa865c6ce4$"
+	"smartupdate": "$TexturePacker:SmartUpdate:ef631baf071d4d6c8970a1866d6ae17c:15a3c24f61a4d1ef98ee314460780ba4:8336dcd25fbab227545f83fa865c6ce4$"
 }
 }
