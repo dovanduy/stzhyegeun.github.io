@@ -21,5 +21,5 @@ define(function (require) {
 	// module global accessor
 	StzCommon = new StzCommonCreator();
 	
-	window.onRequireLoad();
+	
 });
