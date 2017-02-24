@@ -1,6 +1,7 @@
 
 PopupStoryMapInfo.prototype = {
 		game:null,
+		stageData:null,
 		txtStageName:null,
 		txtInGameTime:null,
 		aParent:null
@@ -15,10 +16,10 @@ function PopupStoryMapInfo(ingame, aParent) {
 	this.scene.visible = false;
 	
 	this.scene.fBtnClose.inputEnabled = true;
-	this.scene.fBtnClose.events.onInputDown.add(this.onClose, this);
+	this.scene.fBtnClose.events.onInputUp.add(this.onClose, this);
 	
 	this.scene.fBtnStart.inputEnabled = true;
-	this.scene.fBtnStart.events.onInputDown.add(this.onStart, this);
+	this.scene.fBtnStart.events.onInputUp.add(this.onStart, this);
 	
 	this.txtStageName = this.game.add.bitmapText(this.scene.fTxtNamePos.x, this.scene.fTxtNamePos.y, 'textScoreFont', name, 35, this.group);
 	this.txtStageName.anchor.set(0.5);
@@ -40,6 +41,8 @@ function PopupStoryMapInfo(ingame, aParent) {
 PopupStoryMapInfo.prototype.init = function(stageData){
 	this.txtStageName.text = stageData.name;
 	this.txtInGameTime.text = secondToMS(stageData.stageInGameData.limitTime);
+	
+	this.stageData = stageData;
 };
 
 PopupStoryMapInfo.prototype.onShow= function(){
@@ -55,7 +58,7 @@ PopupStoryMapInfo.prototype.onStart = function(){
 	
 	this.aParent.onDestory();
 	
-	this.game.state.start("InGame");
+	this.game.state.start("InGame", true, false, this.stageData);
 };
 
 PopupStoryMapInfo.prototype.onDestory = function(){

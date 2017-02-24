@@ -19,10 +19,45 @@
         },
         {
           "type": "atlas-sprite",
-          "id": "4099001e-cb27-45ee-94e6-07854f1b89b9",
+          "id": "490b5191-8777-4ee6-a52e-cb45a8c878a2",
           "asset": "1",
           "info": {
+            "editorName": "leftLine_png",
+            "y": 66
+          }
+        },
+        {
+          "type": "atlas-sprite",
+          "id": "31d7b9bf-02ba-42f4-8fae-56a227fd5fa4",
+          "asset": "2",
+          "info": {
+            "editorName": "rightLine_png",
+            "x": 457,
+            "y": 66
+          }
+        },
+        {
+          "type": "atlas-sprite",
+          "id": "78f15327-7f1d-4d75-8c70-4b2da5ad2344",
+          "asset": "3",
+          "info": {
+            "editorName": "downLine_png",
+            "y": 654
+          }
+        },
+        {
+          "type": "atlas-sprite",
+          "id": "0ac8e531-d107-4326-8f5a-baf997968e88",
+          "asset": "4",
+          "info": {"editorName": "upLine_png"}
+        },
+        {
+          "type": "atlas-sprite",
+          "id": "4099001e-cb27-45ee-94e6-07854f1b89b9",
+          "asset": "5",
+          "info": {
             "editorName": "redBlind_png",
+            "editorPick": false,
             "editorPublic": true,
             "editorShow": false,
             "x": 1,
@@ -32,13 +67,13 @@
         {
           "type": "atlas-sprite",
           "id": "7b0eb102-47dc-4b9b-8b61-92062b71dc25",
-          "asset": "2",
+          "asset": "6",
           "info": {"editorName": "upLeftPanel_png"}
         },
         {
           "type": "atlas-sprite",
           "id": "b5624ce7-6e82-40a3-9899-4b140a43cc0a",
-          "asset": "3",
+          "asset": "7",
           "info": {
             "editorName": "upPanel_png",
             "x": 119
@@ -47,7 +82,7 @@
         {
           "type": "atlas-sprite",
           "id": "241fd2f2-cab2-4820-b7f6-3a6e8726a309",
-          "asset": "4",
+          "asset": "8",
           "info": {
             "editorName": "mainGage_png",
             "x": 174,
@@ -57,11 +92,14 @@
         {
           "type": "button",
           "id": "7998c831-d69f-4f8e-bd44-38c6400c0549",
-          "asset": "5",
+          "asset": "9",
           "info": {
-            "editorName": "btnPause_png",
-            "x": 446,
-            "y": 2,
+            "editorName": "btnPause",
+            "editorPublic": true,
+            "x": 437,
+            "y": -2,
+            "scale.x": 1.3054541868894243,
+            "scale.y": 1.5574191410420477,
             "overFrame": "btnPause.png",
             "downFrame": "btnStart.png",
             "upFrame": "btnPause.png"
@@ -81,27 +119,51 @@
       "file": "WebContent/assets/assets-pack.json",
       "section": "inGame",
       "asset": "inGameUI",
-      "sprite": "redBlind.png"
+      "sprite": "leftLine.png"
     },
     "2": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "inGame",
       "asset": "inGameUI",
-      "sprite": "upLeftPanel.png"
+      "sprite": "rightLine.png"
     },
     "3": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "inGame",
       "asset": "inGameUI",
-      "sprite": "upPanel.png"
+      "sprite": "downLine.png"
     },
     "4": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "inGame",
       "asset": "inGameUI",
-      "sprite": "mainGage.png"
+      "sprite": "upLine.png"
     },
     "5": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "inGame",
+      "asset": "inGameUI",
+      "sprite": "redBlind.png"
+    },
+    "6": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "inGame",
+      "asset": "inGameUI",
+      "sprite": "upLeftPanel.png"
+    },
+    "7": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "inGame",
+      "asset": "inGameUI",
+      "sprite": "upPanel.png"
+    },
+    "8": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "inGame",
+      "asset": "inGameUI",
+      "sprite": "mainGage.png"
+    },
+    "9": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "inGame",
       "asset": "inGameUI",
