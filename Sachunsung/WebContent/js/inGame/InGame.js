@@ -159,6 +159,16 @@ InGame.prototype.checkBlock= function(index){
 		
 		var result = this.findWay(this.chekingArray[0].getIndex(), this.chekingArray[1].getIndex());
 		StzCommon.StzLog.print("result = " + result);
+		
+		if(result > 0){
+			this.blocks[this.chekingArray[0].getIndex()].block.visible = false;
+			this.blocks[this.chekingArray[1].getIndex()].block.visible = false;
+			
+			this.blocks[this.chekingArray[0].getIndex()] =  "NONE";
+			this.blocks[this.chekingArray[1].getIndex()] =  "NONE";
+			
+			
+		}
 		this.chekingArray = [];
 	}
 	else{
