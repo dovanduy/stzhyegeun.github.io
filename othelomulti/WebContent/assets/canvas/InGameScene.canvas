@@ -1,0 +1,26 @@
+{
+  "settings": {
+    "sceneWidth": 640,
+    "sceneHeight": 960,
+    "generateOnSave": true,
+    "enableStepping": false
+  },
+  "world": {
+    "type": "group",
+    "id": "028c250d-8b7b-49d9-9aa3-bb541b3d6cd3",
+    "info": {
+      "editorName": "InGameScene",
+      "children": [{
+        "type": "image",
+        "id": "1532aaa1-45c9-4847-9695-b414f65132c7",
+        "asset": "0",
+        "info": {"editorName": "bg_game_2x"}
+      }]
+    }
+  },
+  "asset-table": {"0": {
+    "file": "WebContent/assets/assets-pack.json",
+    "section": "ingame",
+    "asset": "bg-game-2x"
+  }}
+}
