@@ -4,12 +4,13 @@
 * @class Phaser.Plugin.block
 */
 
-Phaser.Plugin.block = function(inGame, aParent, posBlock) {
+Phaser.Plugin.block = function(inGame, aParent, posBlock, index) {
 	Phaser.Plugin.call(this, inGame, aParent);
 	this.inGame = inGame;
 	this.aParent = aParent;
 	
 	this.isClicked = false;
+	this.index = index;
 	
 	this.posBlock = posBlock;
 	
@@ -42,6 +43,7 @@ Phaser.Plugin.block.prototype = {
 		aParent:null,
 		pattern:0,
 		option:0,
+		index:0,
 		posBlock:0,
 		blockType:0,
 		blockIcon:null,
@@ -65,6 +67,7 @@ Phaser.Plugin.block.prototype.onClickBlock = function(){
 		this.blockLine.visible = true;
 	}
 	
+	this.aParent.checkBlock(this.index);
 };
 
 Phaser.Plugin.block.prototype.readyBlockShow = function(){
@@ -73,6 +76,8 @@ Phaser.Plugin.block.prototype.readyBlockShow = function(){
 
 Phaser.Plugin.block.prototype.startBlockShow = function(){
 	this.blockIcon.frameName = 'animal_'+this.blockType+"_1.png";
+	this.isClicked = false;
+	this.blockLine.visible = false;
 };
 
 Phaser.Plugin.block.prototype.setBlockPos = function(posBlock){

@@ -12,6 +12,9 @@ StzGameConfig.PRELOAD_BAR_MAX_WIDTH = 345;
 StzGameConfig.STAGE_PER_EPISODE = 12;
 StzGameConfig.TOTAL_EPISODE_COUNT = 30;
 
+StzGameConfig.BOARD_WIDTH = 10;
+StzGameConfig.BLOCK_HEIGHT = 11;
+
 StzGameConfig.BLOCK_MARGIN_X = 25;
 StzGameConfig.BLOCK_MARGIN_Y = 65;
 
