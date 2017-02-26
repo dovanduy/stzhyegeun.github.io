@@ -4,26 +4,26 @@
 * @class Phaser.Plugin.block
 */
 
-Phaser.Plugin.block = function(inGame, aParent, posBlock, index) {
+Phaser.Plugin.block = function(inGame, aParent, index) {
 	Phaser.Plugin.call(this, inGame, aParent);
 	this.inGame = inGame;
 	this.aParent = aParent;
 	
 	this.isClicked = false;
-	this.index = index;
-	
-	this.posBlock = posBlock;
+	this.index =  index;
+
+	this.pattern = 1;
 	
 	this.block = this.inGame.add.sprite(0, 0, 'block', 'blankBlock.png');
 	this.blockIcon = this.inGame.add.sprite(0, 0, 'block', 'readyBlock.png');
 	this.blockLine = this.inGame.add.sprite(0, 0, 'block', 'clicekBlock.png');
 	this.blockLine.visible = false;
 	
-	var posY = Math.floor(this.posBlock/10);
-	var posX = this.posBlock%10;
+	var posY = Math.floor(this.index/10);
+	var posX = this.index%10;
 	
 	this.block.inputEnabled = true;
-	this.block.events.onInputDown.add(this.onClickBlock, this);
+	this.block.events.onInputUp.add(this.onClickBlock, this);
 	
 	this.block.width = StzGameConfig.BLOCK_WIDTH;
 	this.block.height = StzGameConfig.BLOCK_HEIGHT;
@@ -44,7 +44,6 @@ Phaser.Plugin.block.prototype = {
 		pattern:0,
 		option:0,
 		index:0,
-		posBlock:0,
 		blockType:0,
 		blockIcon:null,
 		blockLine:null,
@@ -80,18 +79,16 @@ Phaser.Plugin.block.prototype.startBlockShow = function(){
 	this.blockLine.visible = false;
 };
 
-Phaser.Plugin.block.prototype.setBlockPos = function(posBlock){
-	this.posBlock = posBlock;
-	
-	var posY = Math.floor(this.posBlock/10);
-	var posX = this.posBlock%10;
+Phaser.Plugin.block.prototype.setBlockPos = function(){
+	var posY = Math.floor(this.index/10);
+	var posX = this.index%10;
 	
 	this.block.x = StzGameConfig.BLOCK_MARGIN_X + (posX*this.block.width);
 	this.block.y = StzGameConfig.BLOCK_MARGIN_Y + (posY*this.block.height);
 };
 
-Phaser.Plugin.block.prototype.getBlockPos = function(){
-	return this.posBlock;
+Phaser.Plugin.block.prototype.getIndex = function(){
+	return this.index;
 };
 
 Phaser.Plugin.block.prototype.setBlockType = function(blockType){

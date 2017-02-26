@@ -1,7 +1,6 @@
 InGame.prototype = {
 		pauseGame:null,
 		stageData:null,
-		blocksCount:0,
 		limitTime:0,
 		isPause:false,
 		isReady:false,
@@ -77,7 +76,6 @@ InGame.prototype.showReadyMessage = function() {
 };
 
 InGame.prototype.createBlock = function() {
-	var blockNum = 0;
 	//한 종류의 블럭의 최대 수 
 	var blockSetCount = this.stageData.stageInGameData.blockSetCount;
 	var blockTypeCount = 0;
@@ -85,14 +83,17 @@ InGame.prototype.createBlock = function() {
 	var blockType = 1;
 	
 	this.blocks = [];
+
 	for(var i=0;i<this.stageData.stageInGameData.patterns.length;i++){
-		if(this.stageData.stageInGameData.patterns[i] === "0") continue;
+		if(this.stageData.stageInGameData.patterns[i] === "0"){
+			this.blocks.push("NONE");
+			continue;
+		}
 		
-		this.blocks.push(new Phaser.Plugin.block(this.game, this, i, blockNum));
-		this.blocks[blockNum].readyBlockShow();
-		this.blocks[blockNum].setBlockType(blockType);
+		this.blocks.push(new Phaser.Plugin.block(this.game, this, i));
+		this.blocks[i].readyBlockShow();
+		this.blocks[i].setBlockType(blockType);
 		
-		blockNum++;
 		blockTypeCount++;
 		
 		if(blockTypeCount === blockSetCount){
@@ -100,19 +101,25 @@ InGame.prototype.createBlock = function() {
 			blockType++;
 		}
 	}
-	this.blocksCount = blockNum;
 };
 
 InGame.prototype.shuffleBlock = function() {
 	var tempArray = [];
-	for(var i=0;i<this.blocksCount;i++){
-		tempArray.push(this.blocks[i].getBlockPos());
+	for(var i=0;i<this.blocks.length;i++){
+		if(this.blocks[i] == "NONE") continue;
+		
+		tempArray.push(this.blocks[i]);
 	}
 	
 	tempArray = this.shuffleArray(tempArray);
+	var temp = 0;
 	
-	for(var i=0;i<this.blocksCount;i++){
-		this.blocks[i].setBlockPos(tempArray[i]);
+	for(var i=0;i<this.blocks.length;i++){
+		if(this.blocks[i] == "NONE") continue;
+		
+		this.blocks[i] = tempArray[temp++];
+		this.blocks[i].index = i;
+		this.blocks[i].setBlockPos();
 		this.blocks[i].startBlockShow();
 	}
 };
@@ -140,14 +147,18 @@ InGame.prototype.checkBlock= function(index){
 	if(this.chekingArray.length === 0 ){
 		this.chekingArray.push(this.blocks[index]);
 	}
+	else if(this.chekingArray[0].getIndex() === index){
+		this.chekingArray[0].startBlockShow();
+		this.chekingArray = [];
+	}
 	else if(this.chekingArray.length === 1){
 		this.chekingArray.push(this.blocks[index]);
 		
 		this.chekingArray[0].startBlockShow();
 		this.chekingArray[1].startBlockShow();
 		
-		this.findWay(this.chekingArray[0].index, this.chekingArray[1].index);
-		
+		var result = this.findWay(this.chekingArray[0].getIndex(), this.chekingArray[1].getIndex());
+		StzCommon.StzLog.print("result = " + result);
 		this.chekingArray = [];
 	}
 	else{
@@ -162,9 +173,9 @@ InGame.prototype.findWay = function(src, des){
 		return 0;
 	}
 	
-	var src_value = this.blocks[src].posBlock;
-	var des_value = this.blocks[des].posBlock;
-	
+	var src_value = this.blocks[src].blockType;
+	var des_value = this.blocks[des].blockType;
+
 	var boardWidth = StzGameConfig.BOARD_WIDTH;
 	var boardHeight = StzGameConfig.BLOCK_HEIGHT;
 	
@@ -172,6 +183,9 @@ InGame.prototype.findWay = function(src, des){
 	var end = 0;
 	var xory = 0;
 	var v = 0;
+	
+	var br1 = -1;
+	var br2 = -1;
 	
 	if ( src_value != des_value )
 	{
@@ -183,37 +197,179 @@ InGame.prototype.findWay = function(src, des){
 	{
 		if ( (src_value == des_value) && (src_value > -1) && (des_value > -1) )
 		{
+			/// 붙어있는 상황
 			if ( Math.abs((src % boardWidth) - (des % boardWidth)) == 1 )// check x
 			{
 				return 1;
 			}
-			else
+			start = this.isSmaller((src % boardWidth), (des % boardWidth));
+			end = this.isBigger((src % boardWidth), (des % boardWidth));
+			xory = Math.floor(src / boardWidth);
+			
+			var i = 0;
+			for (i = start+1 ; i < end ; i++)
 			{
-				start = is_smaller((src % boardWidth), (des % boardWidth));
-				end = is_bigger((src % boardWidth), (des % boardWidth));
-				xory = Math.floor(src / boardWidth);
-				
-				for (var i = start+1 ; i < end ; i++)
+				v = this.getBlockData(i + xory * boardWidth);
+				if ( v != -1)
 				{
-					v = getBlockData(i + xory * boardWidth);
-					if ( v != -1 && v != BLOCK_VALUE_SPECIAL && v != BLOCK_VALUE_TABLE && v != BLOCK_VALUE_DUST)
-					{
-						break;
-					}
+					break;
 				}
-				
-				if (i == end)
-				{
-					return 1;
-				}
+			}
+			
+			if (i == end)
+			{
+				return 1;
+			}
+		}
+	}
+	
+//	toPointX(src) == toPointX(des). x가 같은 줄에 있는 상황
+	else if ( (src % boardWidth) == (des % boardWidth) ) 
+	{
+		if ( Math.abs(Math.floor(src / boardWidth) - Math.floor(des / boardWidth)) == 1 )
+		{
+			/// 붙어있는 상황
+			return 1;
+		}
+		start = this.isSmaller(Math.floor(src / boardWidth), Math.floor(des / boardWidth));
+		end = this.isBigger(Math.floor(src / boardWidth), Math.floor(des / boardWidth));
+		xory = (src % boardWidth);
+		
+		for (i = start+1 ; i < end ; i++)
+		{
+			v = this.getBlockData(xory + i * boardWidth);
+			if ( v != -1)
+			{
+				break;
+			}
+		}
+		
+		if ( i == end )
+		{
+			return 2;
+		}
+	}
+	
+    // 두 패가 서로 다른 행과 열에 위치
+    // src % boardWidth = 출발한 패의 행, des % boardWidth = 도착할 패의 행
+    /// NOTE %는 행, /:나누면 열
+	if( ((src % boardWidth) - (des % boardWidth) != 0) && (Math.floor(src / boardWidth) - Math.floor(des / boardWidth) != 0) )
+	{
+		/// 1번 꺽는 상황 체크(1번째 상황) :: 출발 패의 행 + 도착 패의 열 * 전체 행 수
+		br1 = (src % boardWidth) + Math.floor(des / boardWidth) * boardWidth;
+		
+//		if( checkValue(src, des, br1) )
+		if((src_value == des_value) && (src_value > 0) && (des_value > 0)&& this.blocks[br1] != null ) 
+        // 두 패의 속성 체크
+		{
+			
+			if(this.checkLineFree(src, br1) && this.checkLineFree(br1, des) ) //출발 패의 지점에서 꺽이는 지점까지 라인 체크, 꺽이는 지점에서 도착 패까지 라인 체크
+			{
+				return 3;
+			}
+		}
+		
+		/// 1번 꺽는 상황 체크(2번째 상황) :: 한 번 꺽은 지점은 오직 2개만 존재함으로
+		br1 = (des % boardWidth) + Math.floor(src / boardWidth) * boardWidth;
+		
+		if((src_value == des_value) && (src_value > 0) && (des_value > 0) && this.blocks[br1] != null ) // 두 패의 속성 체크
+		{
+
+			if( this.checkLineFree(src, br1) && this.checkLineFree(br1, des) )
+			{
+				return 3;
 			}
 		}
 	}
 };
 
-//InGame.prototype.getBlockData(index){
-//	
-//};
+InGame.prototype.isSmaller = function(a,b){
+	return (a>b)?b:a;
+};
+
+InGame.prototype.isBigger = function(a,b){
+	return (a>b)?a:b;
+};
+
+InGame.prototype.getBlockData = function(idx){
+	if(idx < this.blocks.length && idx > -1 && this.blocks[idx] != null)
+	{
+		if(this.blocks[idx] === "NONE") {
+			
+			return -1;
+		}
+		
+			return 1;
+	}
+	return -1;
+};
+
+/**
+ * 
+ * 직선 라인에 대해 확인하는 로직
+ * 
+ * @param src
+ * @param des
+ * @return 
+ * 
+ * 1 : 붙어있는 상황, 2 : 직선 상황
+ */
+InGame.prototype.checkLineFree = function(src, des){
+	var start;
+	var end;
+	var xory;
+	var i;
+	var v;
+	var boardWidth = StzGameConfig.BOARD_WIDTH;
+	
+	if( (Math.floor(src / boardWidth)) == Math.floor(des / boardWidth))
+	{
+		if( Math.abs((src % boardWidth) - (des % boardWidth)) == 1 )
+		{
+			/// 붙어있는 상황
+			return true;
+		}
+		start = this.isSmaller((src % boardWidth), (des % boardWidth));
+		end = this.isBigger((src % boardWidth), (des % boardWidth));
+		xory = Math.floor(src / boardWidth);
+		
+		for(i = start+1 ; i < end ; i++)
+		{
+			v = this.getBlockData(i + xory * boardWidth);
+			if(v != -1)
+				return false;
+		}
+			
+		return true;
+	}
+	
+	else if( (src % boardWidth) == (des % boardWidth) )
+	{
+		if( Math.abs(Math.floor(src / boardWidth) - Math.floor(des / boardWidth)) == 1 )
+		{
+			/// 붙어있는 상황
+			return true;
+		}
+
+		start = this.isSmaller(Math.floor(src / boardWidth), Math.floor(des / boardWidth));
+		end = this.isBigger(Math.floor(src / boardWidth), Math.floor(des / boardWidth));
+		xory = (src % boardWidth);
+			
+		for(i = start+1 ; i < end ; i++)
+		{
+			v = this.getBlockData(xory + i * boardWidth);
+			if(v != -1)
+				return false;
+		}
+			
+		return true;
+		
+	}
+	else
+	{
+		StzCommon.StzLog.print("[checkLineFree] Error");
+	}
+};
 
 InGame.prototype.onPause = function() {
 	this.storyMapInfoPopup.onShow();
