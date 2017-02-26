@@ -259,7 +259,7 @@ InGame.prototype.findWay = function(src, des){
 		br1 = (src % boardWidth) + Math.floor(des / boardWidth) * boardWidth;
 		
 //		if( checkValue(src, des, br1) )
-		if((src_value == des_value) && (src_value > 0) && (des_value > 0)&& this.blocks[br1] != null ) 
+		if((src_value == des_value) && (src_value > 0) && (des_value > 0)&& this.blocks[br1] == "NONE" ) 
         // 두 패의 속성 체크
 		{
 			
@@ -272,7 +272,7 @@ InGame.prototype.findWay = function(src, des){
 		/// 1번 꺽는 상황 체크(2번째 상황) :: 한 번 꺽은 지점은 오직 2개만 존재함으로
 		br1 = (des % boardWidth) + Math.floor(src / boardWidth) * boardWidth;
 		
-		if((src_value == des_value) && (src_value > 0) && (des_value > 0) && this.blocks[br1] != null ) // 두 패의 속성 체크
+		if((src_value == des_value) && (src_value > 0) && (des_value > 0) && this.blocks[br1]  == "NONE" ) // 두 패의 속성 체크
 		{
 
 			if( this.checkLineFree(src, br1) && this.checkLineFree(br1, des) )
@@ -281,6 +281,95 @@ InGame.prototype.findWay = function(src, des){
 			}
 		}
 	}
+	
+	/// x좌표 작은 부분.
+	var smallNum = this.isSmaller((src % boardWidth), (des % boardWidth));
+	for( i = smallNum + 1; i < boardWidth; i++)
+	{
+		if( (i == (src % boardWidth)) || (i == (des % boardWidth)) )
+		{
+			continue;
+		}
+		
+		/// 사이 혹은 우측을 통해 성립되는 부분 체크
+		br1 = i + Math.floor(src / boardWidth) * boardWidth;
+		br2 = i + Math.floor(des / boardWidth) * boardWidth;
+//		if( checkValue(src, des, br1, br2) )
+		if((src_value == des_value) && (src_value > 0) && (des_value > 0) && this.blocks[br1]  == "NONE" && this.blocks[br2]  == "NONE")
+		{
+//			result = checkFree(src, des, br1, br2);
+			if( this.checkLineFree(src, br1) && this.checkLineFree(br1, br2) && this.checkLineFree(br2, des) )
+			{
+				return 4;
+			}
+		}
+	}
+	
+	for( i = smallNum - 1 ; i >= 0; i--)
+	{
+		/// 좌측을 통해 성립되는 부분 체크
+		if( (i == (src % boardWidth)) || (i == (des % boardWidth)) )
+		{
+			continue;
+		}
+		
+		br1 = i + Math.floor(src / boardWidth) * boardWidth;
+		br2 = i + Math.floor(des / boardWidth) * boardWidth;
+//		if( checkValue(src, des, br1, br2) )
+		if((src_value == des_value) && (src_value > -1) && (des_value > -1) && this.blocks[br1]  == "NONE" && this.blocks[br2]  == "NONE")
+		{
+			if( this.checkLineFree(src, br1) && this.checkLineFree(br1, br2) && this.checkLineFree(br2, des) )
+			{
+				return 4;
+			}
+		}
+	}
+	
+	/// y좌표 작은 부분.
+	smallNum = this.isSmaller(Math.floor(src / boardWidth), Math.floor(des / boardWidth));
+	for( i = smallNum + 1; i < boardHeight; i++)
+	{
+		if( (i == Math.floor(src / boardWidth)) || (i == Math.floor(des / boardWidth)) )
+		{
+			continue;
+		}
+		
+		/// 사이 혹은 아래쪽을 통해 되는 부분 체크
+		br1 = (src % boardWidth) + i * boardWidth;
+		br2 = (des % boardWidth) + i * boardWidth;
+		
+//		if( checkValue(src, des, br1, br2) )
+		if((src_value == des_value) && (src_value > -1) && (des_value > -1) && this.blocks[br1]  == "NONE" && this.blocks[br2]  == "NONE")
+		{
+			if( this.checkLineFree(src, br1) && this.checkLineFree(br1, br2) && this.checkLineFree(br2, des) )
+			{
+
+				return 4;
+			}
+		}
+	}
+	
+	for( i = smallNum - 1 ; i >= 0; i--)
+	{
+		if( (i == Math.floor(src / boardWidth)) || (i == Math.floor(des / boardWidth)) )
+		{
+			continue;
+		}
+		
+		/// 위쪽을 통해 되는 부분 체크 
+		br1 = (src % boardWidth) + i * boardWidth;
+		br2 = (des % boardWidth) + i * boardWidth;
+		
+		if((src_value == des_value) && (src_value > 0) && (des_value > 0) && this.blocks[br1]  == "NONE" && this.blocks[br2]  == "NONE") 
+        
+		{
+			if( this.checkLineFree(src, br1) && this.checkLineFree(br1, br2) && this.checkLineFree(br2, des) )
+			{
+				return 4;
+			}
+		}
+	}
+	return 0;
 };
 
 InGame.prototype.isSmaller = function(a,b){
