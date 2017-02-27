@@ -10,17 +10,37 @@
     "id": "028c250d-8b7b-49d9-9aa3-bb541b3d6cd3",
     "info": {
       "editorName": "InGameScene",
-      "children": [{
-        "type": "image",
-        "id": "1532aaa1-45c9-4847-9695-b414f65132c7",
-        "asset": "0",
-        "info": {"editorName": "bg_game_2x"}
-      }]
+      "children": [
+        {
+          "type": "group",
+          "id": "cce4c751-6cfe-4e21-82e3-f4549e287a3c",
+          "info": {
+            "editorName": "groupUI",
+            "editorPublic": true,
+            "children": [{
+              "type": "atlas-sprite",
+              "id": "d68c0c99-d0a9-4138-ac1b-511f0c4b52a3",
+              "asset": "0",
+              "info": {"editorName": "bgBig_png"}
+            }]
+          }
+        },
+        {
+          "type": "group",
+          "id": "525bba5b-4bdf-4dc7-ba7a-6ab1e6aa45bb",
+          "info": {
+            "editorName": "groupChip",
+            "editorPublic": true,
+            "children": []
+          }
+        }
+      ]
     }
   },
   "asset-table": {"0": {
     "file": "WebContent/assets/assets-pack.json",
     "section": "ingame",
-    "asset": "bg-game-2x"
+    "asset": "inGameUI",
+    "sprite": "bgBig.png"
   }}
 }

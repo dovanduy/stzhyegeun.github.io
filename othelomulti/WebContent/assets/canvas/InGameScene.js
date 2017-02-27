@@ -14,8 +14,16 @@ function InGameScene(aGame, aParent) {
 
 	/* --- pre-init-end --- */
 
-	this.game.add.sprite(0, 0, 'bg-game-2x', null, this);
+	var groupUI = this.game.add.group(this);
 
+	this.game.add.sprite(0, 0, 'inGameUI', 'bgBig.png', groupUI);
+
+	var groupChip = this.game.add.group(this);
+
+	 // public fields
+
+	this.fGroupUI = groupUI;
+	this.fGroupChip = groupChip;
 
 	/* --- post-init-begin --- */
 
