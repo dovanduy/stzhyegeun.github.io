@@ -49,4 +49,18 @@ Chip.prototype.getType = function(){
 
 Chip.prototype.onClickBlock = function(){
 	StzCommon.StzLog.print("[Chip onClickBlock]");
+
+	if(this.type === EChipType.MINIBLACK){
+		this.changeType(EChipType.BLACK);
+		this.aParent.currentTurn = ETurn.WHITE;
+	}
+	else if(this.type === EChipType.MINIWHITE){
+		this.changeType(EChipType.WHITE);
+		this.aParent.currentTurn = ETurn.BLACK;
+	}
+	else {
+		return;
+	}
+	this.aParent.removeAvailArea();
+	this.aParent.findAvailArea();
 };

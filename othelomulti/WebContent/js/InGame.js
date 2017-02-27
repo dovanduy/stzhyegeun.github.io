@@ -36,6 +36,17 @@ InGame.prototype.initBoard = function() {
 	this.findAvailArea();
 };
 
+InGame.prototype.removeAvailArea = function(){
+	for (var rowIndex = 0; rowIndex < StzGameConfig.ROW_COUNT; rowIndex++) {
+		for (var colIndex = 0; colIndex < StzGameConfig.COL_COUNT; colIndex++) {
+			if(this.board[rowIndex][colIndex].getType() == EChipType.MINIBLACK ||
+					this.board[rowIndex][colIndex].getType() == EChipType.MINIWHITE){
+				this.board[rowIndex][colIndex].changeType(EChipType.NONE);
+			}
+		}
+	}
+};
+
 /**
  * 다음 턴의 사람이 이용 가능한 위치를 탐색
  */
@@ -54,9 +65,13 @@ InGame.prototype.findAvailArea = function(){
 	}
 };
 
+
 InGame.prototype.roundArray = [{x:-1, y:-1}, {x:0, y:-1}, {x:1, y:-1}, {x:-1, y:0}, 
                                {x:1, y:0}, {x:-1, y:1}, {x:0, y:1}, {x:1, y:1},];
 
+/**
+ * curRow, curCol 블럭을 기준은로 8방향 탐색
+ */
 InGame.prototype.checkRound = function(curRow, curCol, curType){
 	var miniChipType = (this.currentTurn == ETurn.BLACK)? EChipType.MINIBLACK:EChipType.MINIWHITE;
 	
@@ -67,6 +82,10 @@ InGame.prototype.checkRound = function(curRow, curCol, curType){
 		var rcy = curCol + (this.roundArray[i].y*-1);
 		
 		if(StzGameConfig.ROW_COUNT <= cx || cx < 0 || StzGameConfig.COL_COUNT <= cy || cy < 0 ){
+			continue;
+		}
+		
+		if(StzGameConfig.ROW_COUNT <= rcx || rcx < 0 || StzGameConfig.COL_COUNT <= rcy || rcy < 0 ){
 			continue;
 		}
 		
