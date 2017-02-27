@@ -13,7 +13,20 @@ function PopupPauseGame(ingame, aParent) {
 	
 	this.scene.fBtnClose.inputEnabled = true;
 	this.scene.fBtnClose.events.onInputUp.add(this.onMainMenu, this);
+	
+	this.makeBlind();
 }
+
+PopupPauseGame.prototype.makeBlind = function(){
+	this.blind = this.game.add.graphics(0,0);
+	this.blind.beginFill(0x000000, 1);
+	this.blind.drawRect(0, 0, this.game.world.width, this.game.world.height);
+	this.blind.alpha  = 0.7;
+	this.blind.inputEnabled = true;
+	
+	this.scene.add(this.blind);
+	this.scene.sendToBack(this.blind);
+};
 
 PopupPauseGame.prototype.init = function(stageData){
 	

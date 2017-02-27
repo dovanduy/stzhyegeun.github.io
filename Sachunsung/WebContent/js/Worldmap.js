@@ -16,7 +16,7 @@ Worldmap.prototype = {
 		stageDataArray: [],
 		speedMult : 1.0,
 		friction : 0.99,
-		storyMapInfoPopup:null,
+		storyMapInfoPopup:null
 };
 
 Worldmap.prototype.worldMapPointArray = [{x:243, y:334} ,{x:221, y:230} ,{x:218, y:98}, {x:225, y:31}, //2

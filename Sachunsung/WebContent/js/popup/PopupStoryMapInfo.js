@@ -4,7 +4,8 @@ PopupStoryMapInfo.prototype = {
 		stageData:null,
 		txtStageName:null,
 		txtInGameTime:null,
-		aParent:null
+		aParent:null,
+		blind:null
 };
 
 function PopupStoryMapInfo(ingame, aParent) {
@@ -36,7 +37,20 @@ function PopupStoryMapInfo(ingame, aParent) {
     grd.addColorStop(1, '#CC6600');
     this.txtInGameTime.fill = grd;
 	this.scene.add(this.txtInGameTime);
+	
+	this.makeBlind();
 }
+
+PopupStoryMapInfo.prototype.makeBlind = function(){
+	this.blind = this.game.add.graphics(0,0);
+	this.blind.beginFill(0x000000, 1);
+	this.blind.drawRect(0, 0, this.game.world.width, this.game.world.height);
+	this.blind.alpha  = 0.7;
+	this.blind.inputEnabled = true;
+	
+	this.scene.add(this.blind);
+	this.scene.sendToBack(this.blind);
+};
 
 PopupStoryMapInfo.prototype.init = function(stageData){
 	this.txtStageName.text = stageData.name;
