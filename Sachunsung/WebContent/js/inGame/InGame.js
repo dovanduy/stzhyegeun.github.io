@@ -5,7 +5,8 @@ InGame.prototype = {
 		isPause:false,
 		isReady:false,
 		blocks:[],
-		chekingArray:[]
+		chekingArray:[],
+		blockCount:0
 };
 
 function InGame() {
