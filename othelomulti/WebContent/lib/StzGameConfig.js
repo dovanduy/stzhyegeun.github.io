@@ -11,8 +11,10 @@ var StzGameConfig = {
 
 var EChipType = {
 	NONE: 0, 
-	BLACK: 1, 
-	WHITE: 2
+	BLACK: 'blackChipBig.png', 
+	WHITE: 'whiteChipBig.png',
+	MINIBLACK: 'blackChipMini.png',
+	MINIWHITE: 'whiteChipMini.png'
 };
 
 var ETurn = {

@@ -2,7 +2,7 @@ function InGame() {
 	Phaser.State.call(this);
 }
 
-var proto = Object.create(Phaser.state);
+var proto = Object.create(Phaser.State);
 InGame.prototype = proto;
 
 InGame.prototype.init = function() {
@@ -12,22 +12,25 @@ InGame.prototype.init = function() {
 };
 
 InGame.prototype.preload = function() {
-	
-};
-
-InGame.prototype.create = function() {
 	this.scene = new InGameScene(this.game);
 };
 
-InGame.prototype.initBoard = function() {
-	
-	var result = StzCommon.StzUtil.createArray(StzGameConfig.ROW_COUNT, StzGameConfig.COL_COUNT);
+InGame.prototype.create = function() {
+	this.initBoard();
 };
 
-
-
+InGame.prototype.initBoard = function() {
+	for (var rowIndex = 0; rowIndex < StzGameConfig.ROW_COUNT; rowIndex++) {
+		for (var colIndex = 0; colIndex < StzGameConfig.COL_COUNT; colIndex++) {
+			this.board[rowIndex][colIndex] = new Chip(this.game, this, rowIndex, colIndex);
+			this.board[rowIndex][colIndex].changeState(EChipType.MINIWHITE);	
+		}
+	}
+	
+	
+};
 
 function ChipData(inType, inRow, inCol) {
 	this.chipType = inType;
-	this.chipIndex
+	
 }
