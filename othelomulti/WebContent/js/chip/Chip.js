@@ -3,6 +3,7 @@ Chip.prototype = {
 		aParent:null,
 		posX:0,
 		posY:0,
+		type:0,
 		chip:null
 };
 
@@ -27,16 +28,23 @@ function Chip(ingame, aParent, rowIndex, colIndex) {
 	this.aParent.scene.fGroupChip.add(this.chip);
 }
 
-Chip.prototype.changeState = function(state){
+Chip.prototype.changeType = function(type){
 	StzCommon.StzLog.print("[Chip changeState]");
 	
-	if(state === EChipType.NONE){
+	this.type = type;
+	var frameName = StzGameConfig.getChipFrameName(type);
+	
+	if(type === EChipType.NONE){
 		this.chip.visible = false;
 	}
 	else{
 		this.chip.visible = true;
-		this.chip.frameName = state;
+		this.chip.frameName = frameName;
 	}
+};
+
+Chip.prototype.getType = function(){
+	return this.type;
 };
 
 Chip.prototype.onClickBlock = function(){

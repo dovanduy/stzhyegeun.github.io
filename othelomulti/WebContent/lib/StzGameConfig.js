@@ -11,10 +11,18 @@ var StzGameConfig = {
 
 var EChipType = {
 	NONE: 0, 
-	BLACK: 'blackChipBig.png', 
-	WHITE: 'whiteChipBig.png',
-	MINIBLACK: 'blackChipMini.png',
-	MINIWHITE: 'whiteChipMini.png'
+	BLACK: 1, 
+	WHITE: 2,
+	MINIBLACK: 3,
+	MINIWHITE: 4
+};
+
+StzGameConfig.getChipFrameName = function(type){
+	if(type === EChipType.BLACK) return 'blackChipBig.png';
+	else if(type === EChipType.WHITE) return 'whiteChipBig.png';
+	else if(type === EChipType.MINIBLACK) return 'blackChipMini.png';
+	else if(type === EChipType.MINIWHITE) return 'whiteChipMini.png';
+	else StzCommon.StzLog.assert(true, "Error");
 };
 
 var ETurn = {
