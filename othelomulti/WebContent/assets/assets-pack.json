@@ -19,8 +19,28 @@
         "url": "lib/stz-common-js/image/stz_logo.png",
         "overwrite": false
     }],
+    "lobby": [
+        {
+            "type": "image",
+            "key": "arena",
+            "url": "assets/images/arena.jpg",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "btn_stage",
+            "url": "assets/images/btn_stage.png",
+            "overwrite": false
+        },
+        {
+            "type": "script",
+            "key": "LobbyScene",
+            "url": "assets/canvas/LobbyScene.js"
+        }
+    ],
     "meta": {
-        "generated": "1488178979605",
+
+        "generated": "1488244978635",
         "app": "Phaser Editor",
         "url": "http://phasereditor.boniatillo.com",
         "version": "1.0",
