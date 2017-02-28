@@ -2,7 +2,7 @@ function InGame() {
 	Phaser.State.call(this);
 }
 
-var proto = Object.create(Phaser.state);
+var proto = Object.create(Phaser.State);
 InGame.prototype = proto;
 
 InGame.prototype.init = function() {

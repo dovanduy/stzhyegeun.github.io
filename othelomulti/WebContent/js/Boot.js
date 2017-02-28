@@ -21,6 +21,7 @@ Boot.prototype.create = function() {
 	this.game.stage.backgroundColor = "#ffffff";
 	var logo = this.game.add.image(this.game.width / 2, this.game.height / 2, 'stz_logo').anchor.set(0.5, 0.5);
 
+	this.game.state.add("Lobby", Lobby);
 	this.game.state.add("InGame", InGame);
 	
 	this.game.load.onLoadStart.add(Boot.OnLoadStart, this);
@@ -28,7 +29,11 @@ Boot.prototype.create = function() {
 	this.game.load.onLoadComplete.add(Boot.OnLoadComplete, this);
 	
 	this.game.load.pack("ingame", "assets/assets-pack.json");
+	this.game.load.pack("lobby", "assets/assets-pack.json");
+	
 	this.game.load.start();
+	
+	
 	
 };
 
@@ -47,5 +52,6 @@ Boot.OnLoadComplete = function() {
 	this.game.load.onFileComplete.remove(Boot.OnFileComplete);
 	this.game.load.onLoadComplete.remove(Boot.OnLoadComplete);
 	
-	this.game.state.start("InGame");
+	
+	this.game.state.start("Lobby");
 };
