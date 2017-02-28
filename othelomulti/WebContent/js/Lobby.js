@@ -57,7 +57,7 @@ Lobby.prototype.create = function() {
 
 Lobby.prototype.OnClickGameStart = function(sprite, pointer) {
 	StzCommon.StzLog.print("[Lobby (OnClickGameStart)]");
-	this.game.state.start("InGame");
+	//this.game.state.start("InGame");
 	this.scene.fTxt_stage.text = "Waiting...";
 	
 	// 먼저 상대를 선택한다. 
@@ -95,7 +95,7 @@ Lobby.prototype.OnClickGameStart = function(sprite, pointer) {
 				window.peerConn = window.stz_peer.connect(oponentData.peer_id);
 				window.peerConn.on("open", function() {
 					StzCommon.StzLog.print("[Lobby (PeerConnect)]");
-					$.get(StzServerConfig.getUpdateUrl(this.stz_peerId, EConnectStatus.GAMING), (function(data, status){
+					$.get(StzServerConfig.getUpdateUrl(window.stz_peerId, EConnectStatus.GAMING), (function(data, status){
 						this.game.state.start("InGame");
 					}).bind(this));
 				}, this);
