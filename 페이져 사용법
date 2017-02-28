@@ -1,0 +1,39 @@
+var octopus = this.game.add.sprite(300, 403*(repeatConut-2), 'btnStage');
+octopus.frameName = 'normal2ClickedStage.png';  //애니매이션 로드
+
+//    var button = this.game.add.button(150, 403*(repeatConut-2), 'btnStage', null, this, 'disableStage.png', 'disableStage.png', 'disableStage.png');
+//    button.frameName = 'normal2ClickedStage.png'; // 버튼 로드 
+
+
+그룹안에 들어있는 sprite의 절대좌표값을
+
+sprite.world.x 로 접그할 수 있네요.
+
+[12:50]  
+http://www.html5gamedevs.com/topic/5306-absolute-position-of-sprite/
+
+
+hyegeun.cho 조혜근 [2:12 PM] 
+자바스크립트 사용할 때, 정규표현식을 쓰니까 객체 멤버 탐색할 때 아주 편리하네요
+
+[2:12]  
+https://www.w3schools.com/js/js_regexp.asp
+w3schools.com
+JavaScript RegExp Object
+Well organized and easy to understand Web building tutorials with lots of examples of how to use HTML, CSS, JavaScript, SQL, PHP, and XML.
+
+[2:12]  
+한번 읽어보셔유
+
+
+hyegeun.cho 조혜근 [4:41 PM] 
+http://www.emanueleferonato.com/2014/08/28/phaser-tutorial-understanding-phaser-states/
+Emanuele Feronato
+Phaser Tutorial: understanding Phaser states
+During these days I am using Phaser for a series of projects, and one feature I found really interesting is state management. How can we use Phaser states in game development? Basically, if you divide… (4KB)
+
+[4:42]  
+요건 스테이트 바꿀 때 parameter 넣는 방법에 대한 내용이에요.
+
+[4:42]  
+나중에 모작할 때 필요할 것 같아서 첨부합니다.

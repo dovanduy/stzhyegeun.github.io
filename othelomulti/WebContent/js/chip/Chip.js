@@ -56,11 +56,9 @@ Chip.prototype.onClickBlock = function(){
 
 	if(this.type === EChipType.MINIBLACK){
 		this.changeType(EChipType.BLACK);
-		this.aParent.currentTurn = ETurn.WHITE;
 	}
 	else if(this.type === EChipType.MINIWHITE){
 		this.changeType(EChipType.WHITE);
-		this.aParent.currentTurn = ETurn.BLACK;
 	}
 	else {
 		return;
@@ -68,5 +66,5 @@ Chip.prototype.onClickBlock = function(){
 	
 	this.aParent.removeAvailArea();
 	this.aParent.checkAvailTurn(this.rowIndex, this.colIndex, this.type);
-	this.aParent.findAvailArea();
+	this.aParent.onSendData(this.rowIndex, this.colIndex, this.type, this.aParent.currentTurn);
 };

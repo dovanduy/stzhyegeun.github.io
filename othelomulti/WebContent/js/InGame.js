@@ -5,10 +5,10 @@ function InGame() {
 var proto = Object.create(Phaser.State);
 InGame.prototype = proto;
 
-InGame.prototype.init = function() {
+InGame.prototype.init = function(data) {
 	
 	this.board = StzCommon.StzUtil.createArray(StzGameConfig.ROW_COUNT, StzGameConfig.COL_COUNT);
-	this.currentTurn = ETurn.BLACK;
+	this.currentTurn = data;
 };
 
 InGame.prototype.preload = function() {
@@ -17,6 +17,17 @@ InGame.prototype.preload = function() {
 
 InGame.prototype.create = function() {
 	this.initBoard();
+	
+	window.peerConn.on('data', function(data){
+		 var data = JSON.parse(data);	
+		 this.board[data.rowIndex][data.colIndex].changeType(data.type);
+		 
+		 this.removeAvailArea();
+		 this.checkAvailTurn(data.rowIndex, data.colIndex, data.type);
+		 this.findAvailArea();
+		 
+		 this.currentTurn = (data.turn == ETurn.BLACK)?ETurn.WHITE:ETurn.BLACK;
+	},this);
 };
 
 InGame.prototype.initBoard = function() {
@@ -33,7 +44,9 @@ InGame.prototype.initBoard = function() {
 	this.board[3][4].changeType(EChipType.WHITE);
 	this.board[4][4].changeType(EChipType.BLACK);
 
-	this.findAvailArea();
+	if(this.currentTurn === ETurn.BLACK){
+		this.findAvailArea();
+	}
 };
 
 InGame.prototype.removeAvailArea = function(){
@@ -90,10 +103,6 @@ InGame.prototype.checkRound = function(curRow, curCol, oppositeType, curType){
 			continue;
 		}
 		
-		if(cx == 5 && cy == 7){
-			debugger;
-		}
-		
 		var tempArray = this.lineCheck(cx, cy, oppositeType, curType, this.roundArray[7 - i]);
 		
 		if(tempArray === undefined || tempArray == null || tempArray.length === 0) {
@@ -122,8 +131,8 @@ InGame.prototype.checkAvailTurn = function(curRow, curCol, curType){
 			
 		if(tempArray === undefined || tempArray == null || tempArray.length === 0) continue;
 			
-		for(var i = 0; i < tempArray.length; i++){
-			tempArray[i].changeType(curType);
+		for(var j = 0; j < tempArray.length; j++){
+			tempArray[j].changeType(curType);
 		}
 	}
 };
@@ -188,6 +197,18 @@ InGame.prototype.lineCheck2 = function(cx, cy, oppositeType, curType, roundData)
             tempArray = [];
             return tempArray;
         }
-        
     }
 };
+
+InGame.prototype.onSendData = function(rowIndex, colIndex, type, turn){
+	var sendJson = JSON.stringify({
+		"rowIndex" : rowIndex, 
+		"colIndex" : colIndex, 
+		"type" : type,
+		"turn" : turn
+	});
+	
+	window.peerConn.send(sendJson);
+};
+
+
