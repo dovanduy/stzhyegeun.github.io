@@ -72,7 +72,7 @@ InGame.prototype.roundArray = [{x:-1, y:-1}, {x:0, y:-1}, {x:1, y:-1}, {x:-1, y:
 /**
  * curRow, curCol 블럭을 기준은로 8방향 탐색
  */
-InGame.prototype.checkRound = function(curRow, curCol, curType){
+InGame.prototype.checkRound = function(curRow, curCol, curType, mode){
 	var miniChipType = (this.currentTurn == ETurn.BLACK)? EChipType.MINIBLACK:EChipType.MINIWHITE;
 	
 	for(var i=0; i < this.roundArray.length; i++){
@@ -96,5 +96,58 @@ InGame.prototype.checkRound = function(curRow, curCol, curType){
 				
 			}
 		}
+	}
+};
+
+InGame.prototype.checkAvailTurn = function(curRow, curCol, curType){
+	StzCommon.StzLog.print("[checkAvailTurn] Type : " + curType);
+	
+	var oppositeType = (curType == ETurn.BLACK)? EChipType.WHITE:EChipType.BLACK;
+	
+	for(var i=0; i < this.roundArray.length; i++){
+		var cx = curRow + this.roundArray[i].x;
+		var cy = curCol + this.roundArray[i].y;
+
+		if(StzGameConfig.ROW_COUNT <= cx || cx < 0 || StzGameConfig.COL_COUNT <= cy || cy < 0 ){
+			continue;
+		}
+		
+		var tempArray = this.lineCheck(cx, cy, oppositeType, curType, this.roundArray[i]);
+			
+		if(tempArray === undefined || tempArray == null || tempArray.length === 0) continue;
+			
+		for(var i = 0; i < tempArray.length; i++){
+			tempArray[i].changeType(curType);
+		}
+	}
+};
+
+InGame.prototype.lineCheck = function(cx, cy, oppositeType, curType, roundData){
+	var tempx = cx ;
+	var tempy = cy ;
+	
+	var tempArray = [];
+	while(true){
+		if(this.board[tempx][tempy].getType() === curType){
+			return tempArray;
+		}
+		
+		if(this.board[tempx][tempy].getType() === oppositeType){
+			tempArray.push(this.board[tempx][tempy]);
+		}
+		
+		if(this.board[tempx][tempy].getType() === EChipType.NONE){
+			tempArray = [];
+			return tempArray;
+		}
+
+		tempx = tempx + roundData.x;
+		tempy = tempy + roundData.y;
+		
+		if(StzGameConfig.ROW_COUNT <= tempx || tempx < 0 || StzGameConfig.COL_COUNT <= tempy || tempy < 0 ){
+			tempArray = [];
+			return tempArray;
+		}
+		
 	}
 };

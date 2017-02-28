@@ -3,6 +3,8 @@ Chip.prototype = {
 		aParent:null,
 		posX:0,
 		posY:0,
+		rowIndex:0,
+		colIndex:0,
 		type:0,
 		chip:null
 };
@@ -14,6 +16,8 @@ function Chip(ingame, aParent, rowIndex, colIndex) {
 	this.chip = this.inGame.add.sprite(0, 0, 'inGameUI', 'blackChipMini.png');
 	this.chip.visible = false;
 	
+	this.rowIndex = rowIndex;
+	this.colIndex = colIndex;
 	this.posX = rowIndex*StzGameConfig.CHIP_WIDTH + StzGameConfig.CHIP_WIDTH/2;
 	this.posY = colIndex*StzGameConfig.CHIP_HEIGHT + StzGameConfig.CHIP_HEIGHT/2 + StzGameConfig.BOARD_TOP_OFFSET;
 	
@@ -61,6 +65,8 @@ Chip.prototype.onClickBlock = function(){
 	else {
 		return;
 	}
+	
+	this.aParent.checkAvailTurn(this.rowIndex, this.colIndex, this.type);
 	this.aParent.removeAvailArea();
 	this.aParent.findAvailArea();
 };
