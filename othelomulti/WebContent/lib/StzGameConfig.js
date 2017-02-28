@@ -17,7 +17,7 @@ var StzServerConfig = {
     , GET_PEERIDLIST_URL: "/othelo/get/peeridlist"
     , CREATE_PEERID_URL: "/othelo/create/peerid"
     , UPDATE_PEERID_URL: "/othelo/update/peerid"
-    , EXPIRE_SECONDS: 600
+    , EXPIRE_SECONDS: 30
     , getRetrievePeerIdUrl: function(inPeerId) {
 		var result = this.BASE_URL + this.GET_PEERID_URL + "?peerid=" + inPeerId;
 		return result;
