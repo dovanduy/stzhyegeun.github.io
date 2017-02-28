@@ -19,6 +19,10 @@ Lobby.prototype.init = function() {
 	});
 	*/
 	
+	this.isWaiting = false;
+	this.waitingTimer = this.game.time.create(false);
+	this.remainWaitingTime = StzServerConfig.EXPIRE_SECONDS;
+	
 	window.connected = function(c) {
 		window.peerConn = c;
     	// 다른 Peer 클라이언트가 접속해 온 경우
@@ -58,52 +62,85 @@ Lobby.prototype.create = function() {
 Lobby.prototype.OnClickGameStart = function(sprite, pointer) {
 	StzCommon.StzLog.print("[Lobby (OnClickGameStart)]");
 	//this.game.state.start("InGame");
-	this.scene.fTxt_stage.text = "Waiting...";
 	
-	// 먼저 상대를 선택한다. 
-	$.get(StzServerConfig.getRetrievePeerIdListUrl(), (function(data, status) {
-		StzCommon.StzLog.print(data);
-		if (data.hasOwnProperty("rowCount") && data.hasOwnProperty("rows")) {
+	if (this.isWaiting == false) {
+		this.isWaiting = true;
+		this.scene.fTxt_stage.text = "Waiting : " + this.remainWaitingTime + " sec";
+		this.waitingTimer.loop(1000, function(){
+			if (this.isWaiting == false) {
+				return;
+			}
+			this.remainWaitingTime--;
+			this.scene.fTxt_stage.text = "Waiting : " + this.remainWaitingTime + " sec";
 			
-			for (var row in data.rows) {
-				// self
-				if (data.rows[row].status == window.stz_peerId) {
-					continue;
-				}
-				// not waiting status
-				if (data.rows[row].status != EConnectStatus.WAITING) {
-					continue;
-				}
-				// Expired data
-				if (window.is_peer_expired(data.rows[row].updated) == true) {
-					continue;
+			if (this.remainWaitingTime <= 0) {
+				this.cancelWaitingPeer();
+			}
+		}, this);
+		
+		// 먼저 상대를 선택한다. 
+		$.get(StzServerConfig.getRetrievePeerIdListUrl(), (function(data, status) {
+			StzCommon.StzLog.print(data);
+			if (data.hasOwnProperty("rowCount") && data.hasOwnProperty("rows")) {
+				
+				for (var row in data.rows) {
+					// self
+					if (data.rows[row].status == window.stz_peerId) {
+						continue;
+					}
+					// not waiting status
+					if (data.rows[row].status != EConnectStatus.WAITING) {
+						continue;
+					}
+					// Expired data
+					if (window.is_peer_expired(data.rows[row].updated) == true) {
+						continue;
+					}
+					
+					this.peerList.push(data.rows[row]);
 				}
 				
-				this.peerList.push(data.rows[row]);
+				if (this.peerList.length <= 0) {
+					
+					this.waitingTimer.start();
+					// 만약 상대가 없으면 자신의 정보를 서버에 등록하고 기다린다.
+					$.get(StzServerConfig.getUpdateUrl(window.stz_peerId, EConnectStatus.WAITING), function(data, status) {
+						StzCommon.StzLog.print("[Lobby (WaitingPeer)]");
+					});
+				} else {
+					// 상대중 하나를 선택한 후, 접속 시도. 
+					var randomIndex = 0;
+					var oponentData = this.peerList[randomIndex];
+					
+					window.peerConn = window.stz_peer.connect(oponentData.peer_id);
+					window.peerConn.on("open", function() {
+						StzCommon.StzLog.print("[Lobby (PeerConnect)]");
+						$.get(StzServerConfig.getUpdateUrl(this.stz_peerId, EConnectStatus.GAMING), (function(data, status){
+							this.game.state.start("InGame", true, false, ETurn.WHITE);
+						}).bind(this));
+					}, this);
+				}
 			}
-			
-			if (this.peerList.length <= 0) {
-				// 만약 상대가 없으면 자신의 정보를 서버에 등록하고 기다린다.
-				$.get(StzServerConfig.getUpdateUrl(window.stz_peerId, EConnectStatus.WAITING), function(data, status) {
-					StzCommon.StzLog.print("[Lobby (WaitingPeer)]");
-				});
-			} else {
-				// 상대중 하나를 선택한 후, 접속 시도. 
-				var randomIndex = 0;
-				var oponentData = this.peerList[randomIndex];
-				
-				window.peerConn = window.stz_peer.connect(oponentData.peer_id);
-				window.peerConn.on("open", function() {
-					StzCommon.StzLog.print("[Lobby (PeerConnect)]");
-					$.get(StzServerConfig.getUpdateUrl(this.stz_peerId, EConnectStatus.GAMING), (function(data, status){
-						this.game.state.start("InGame", true, false, ETurn.WHITE);
-					}).bind(this));
-				}, this);
-			}
-		}
-	}).bind(this));
+		}).bind(this));
+		
+		
+	} else {
+		// 기다리는 중이라면 대기 취소
+		this.cancelWaitingPeer();
+	}
 };
 
+
+Lobby.prototype.cancelWaitingPeer = function() {
+
+	$.get(StzServerConfig.getUpdateUrl(window.stz_peerId, EConnectStatus.LOGIN), (function(data, status){
+		StzCommon.StzLog.print("[Lobby (Cancel Waiting)]");
+		this.isWaiting = false;
+		this.waitingTimer.stop(true);
+		this.scene.fTxt_stage.text = "START!";
+		this.remainWaitingTime = StzServerConfig.EXPIRE_SECONDS;
+	}).bind(this));
+};
 /*
 Lobby.prototype.OnClickItem = function(sprite, pointer) {
 	StzCommon.StzLog.print("[Lobby (OnClickItem)] click " + sprite.name);
