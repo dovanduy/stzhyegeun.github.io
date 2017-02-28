@@ -9,6 +9,9 @@ window.onRequireLoad = function() {
 		
 		StzCommon.StzLog.assert(StzGameConfig.PEER_API_KEY !== undefined, "[index.html] StzGameConfig not loaded");
 	    
+		window.stz_peer = new Peer({host: StzServerConfig.BASE_URL, path:'/api', port: 80, debug: 3});
+		
+		/*
 	    window.stz_peer = new Peer({
 	    	// Set API Key for cloud server
 	    	key: StzGameConfig.PEER_API_KEY, 
@@ -17,6 +20,7 @@ window.onRequireLoad = function() {
 	    	// Set a logging function
 	    	logFunction: function() {}
 	    });
+	    */
 	    
 	    window.is_peer_expired = function(inRawTime) {
 	    	var dataTime = (new Date(inRawTime)).getTime();

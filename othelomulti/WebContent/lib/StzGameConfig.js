@@ -12,7 +12,7 @@ var StzGameConfig = {
 };
 
 var StzServerConfig = {
-    BASE_URL: "https://infinite-cliffs-71037.herokuapp.com"
+    BASE_URL: "//infinite-cliffs-71037.herokuapp.com"
     , GET_PEERID_URL: "/othelo/get/peerid"
     , GET_PEERIDLIST_URL: "/othelo/get/peeridlist"
     , CREATE_PEERID_URL: "/othelo/create/peerid"
