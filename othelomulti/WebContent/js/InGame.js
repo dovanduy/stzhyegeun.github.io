@@ -29,10 +29,10 @@ InGame.prototype.initBoard = function() {
 	
 	//오셀로 시작 할 경우 4개의 칩이 세팅되어 있는 부분
 	this.board[3][3].changeType(EChipType.BLACK);
-	this.board[4][4].changeType(EChipType.BLACK);
-	this.board[3][4].changeType(EChipType.WHITE);
 	this.board[4][3].changeType(EChipType.WHITE);
-	
+	this.board[3][4].changeType(EChipType.WHITE);
+	this.board[4][4].changeType(EChipType.BLACK);
+
 	this.findAvailArea();
 };
 
@@ -59,7 +59,7 @@ InGame.prototype.findAvailArea = function(){
 	for (var rowIndex = 0; rowIndex < StzGameConfig.ROW_COUNT; rowIndex++) {
 		for (var colIndex = 0; colIndex < StzGameConfig.COL_COUNT; colIndex++) {
 			if(checkType === this.board[rowIndex][colIndex].getType()){
-				this.checkRound(rowIndex, colIndex, curTurnType);
+				this.checkRound(rowIndex, colIndex, checkType, curTurnType);
 			}
 		}
 	}
@@ -72,30 +72,36 @@ InGame.prototype.roundArray = [{x:-1, y:-1}, {x:0, y:-1}, {x:1, y:-1}, {x:-1, y:
 /**
  * curRow, curCol 블럭을 기준은로 8방향 탐색
  */
-InGame.prototype.checkRound = function(curRow, curCol, curType, mode){
+InGame.prototype.checkRound = function(curRow, curCol, oppositeType, curType){
 	var miniChipType = (this.currentTurn == ETurn.BLACK)? EChipType.MINIBLACK:EChipType.MINIWHITE;
 	
 	for(var i=0; i < this.roundArray.length; i++){
 		var cx = curRow + this.roundArray[i].x;
 		var cy = curCol + this.roundArray[i].y;
-		var rcx = curRow + (this.roundArray[i].x*-1);
-		var rcy = curCol + (this.roundArray[i].y*-1);
-		
+
 		if(StzGameConfig.ROW_COUNT <= cx || cx < 0 || StzGameConfig.COL_COUNT <= cy || cy < 0 ){
 			continue;
 		}
 		
-		if(StzGameConfig.ROW_COUNT <= rcx || rcx < 0 || StzGameConfig.COL_COUNT <= rcy || rcy < 0 ){
+		if(this.board[cx][cy].getType() === EChipType.NONE){
+			this.board[cx][cy].changeType(curType);
+		}
+		else{
 			continue;
 		}
 		
-		if(this.board[cx][cy].getType() === EChipType.NONE){
-			if(this.board[rcx][rcy].getType() == curType){
-				
-				this.board[cx][cy].changeType(miniChipType);
-				
-			}
+		if(cx == 5 && cy == 7){
+			debugger;
 		}
+		
+		var tempArray = this.lineCheck(cx, cy, oppositeType, curType, this.roundArray[7 - i]);
+		
+		if(tempArray === undefined || tempArray == null || tempArray.length === 0) {
+			this.board[cx][cy].changeType(EChipType.NONE);
+			continue;
+		}
+
+		this.board[cx][cy].changeType(miniChipType);
 	}
 };
 
@@ -112,7 +118,7 @@ InGame.prototype.checkAvailTurn = function(curRow, curCol, curType){
 			continue;
 		}
 		
-		var tempArray = this.lineCheck(cx, cy, oppositeType, curType, this.roundArray[i]);
+		var tempArray = this.lineCheck2(cx, cy, oppositeType, curType, this.roundArray[i]);
 			
 		if(tempArray === undefined || tempArray == null || tempArray.length === 0) continue;
 			
@@ -128,19 +134,7 @@ InGame.prototype.lineCheck = function(cx, cy, oppositeType, curType, roundData){
 	
 	var tempArray = [];
 	while(true){
-		if(this.board[tempx][tempy].getType() === curType){
-			return tempArray;
-		}
 		
-		if(this.board[tempx][tempy].getType() === oppositeType){
-			tempArray.push(this.board[tempx][tempy]);
-		}
-		
-		if(this.board[tempx][tempy].getType() === EChipType.NONE){
-			tempArray = [];
-			return tempArray;
-		}
-
 		tempx = tempx + roundData.x;
 		tempy = tempy + roundData.y;
 		
@@ -149,5 +143,51 @@ InGame.prototype.lineCheck = function(cx, cy, oppositeType, curType, roundData){
 			return tempArray;
 		}
 		
+		if(this.board[tempx][tempy].getType() === curType){
+			return tempArray;
+		}
+		
+		if(this.board[tempx][tempy].getType() === oppositeType){
+			tempArray.push(this.board[tempx][tempy]);
+		}
+		
+		if(this.board[tempx][tempy].getType() === EChipType.NONE
+			||this.board[tempx][tempy].getType() === EChipType.MINIBLACK
+			||this.board[tempx][tempy].getType() === EChipType.MINIWHITE){
+			tempArray = [];
+			return tempArray;
+		}
 	}
+};
+
+InGame.prototype.lineCheck2 = function(cx, cy, oppositeType, curType, roundData){
+    var tempx = cx ;
+    var tempy = cy ;
+    
+    var tempArray = [];
+    while(true){
+        if(this.board[tempx][tempy].getType() === curType){
+            return tempArray;
+        }
+        
+        if(this.board[tempx][tempy].getType() === oppositeType){
+            tempArray.push(this.board[tempx][tempy]);
+        }
+        
+        if(this.board[tempx][tempy].getType() === EChipType.NONE
+    			||this.board[tempx][tempy].getType() === EChipType.MINIBLACK
+    			||this.board[tempx][tempy].getType() === EChipType.MINIWHITE){
+    			tempArray = [];
+    			return tempArray;
+    	}
+
+        tempx = tempx + roundData.x;
+        tempy = tempy + roundData.y;
+        
+        if(StzGameConfig.ROW_COUNT <= tempx || tempx < 0 || StzGameConfig.COL_COUNT <= tempy || tempy < 0 ){
+            tempArray = [];
+            return tempArray;
+        }
+        
+    }
 };
