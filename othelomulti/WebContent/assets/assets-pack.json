@@ -11,6 +11,14 @@
             "textureURL": "assets/images/inGameUI.png",
             "atlasURL": "assets/images/inGameUI.json",
             "format": "TEXTURE_ATLAS_JSON_ARRAY"
+        },
+        {
+            "type": "bitmapFont",
+            "key": "textScoreFont",
+            "textureURL": "assets/Font/textScoreFont.png",
+            "atlasURL": "assets/Font/textScoreFont.xml",
+            "xSpacing": 0,
+            "ySpacing": 0
         }
     ],
     "boot": [{
@@ -39,8 +47,7 @@
         }
     ],
     "meta": {
-
-        "generated": "1488244978635",
+        "generated": "1488269867500",
         "app": "Phaser Editor",
         "url": "http://phasereditor.boniatillo.com",
         "version": "1.0",

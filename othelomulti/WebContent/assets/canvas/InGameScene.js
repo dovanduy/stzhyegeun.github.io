@@ -18,11 +18,17 @@ function InGameScene(aGame, aParent) {
 
 	this.game.add.sprite(0, 0, 'inGameUI', 'bgBig.png', groupUI);
 
+	var whiteChipSmall = this.game.add.sprite(231, 42, 'inGameUI', 'whiteChipSmall.png', groupUI);
+
+	var blackChipSmall = this.game.add.sprite(27, 42, 'inGameUI', 'blackChipSmall.png', groupUI);
+
 	var groupChip = this.game.add.group(this);
 
 	 // public fields
 
 	this.fGroupUI = groupUI;
+	this.fWhiteChipSmall = whiteChipSmall;
+	this.fBlackChipSmall = blackChipSmall;
 	this.fGroupChip = groupChip;
 
 	/* --- post-init-begin --- */

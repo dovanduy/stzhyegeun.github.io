@@ -17,12 +17,36 @@
           "info": {
             "editorName": "groupUI",
             "editorPublic": true,
-            "children": [{
-              "type": "atlas-sprite",
-              "id": "d68c0c99-d0a9-4138-ac1b-511f0c4b52a3",
-              "asset": "0",
-              "info": {"editorName": "bgBig_png"}
-            }]
+            "children": [
+              {
+                "type": "atlas-sprite",
+                "id": "d68c0c99-d0a9-4138-ac1b-511f0c4b52a3",
+                "asset": "0",
+                "info": {"editorName": "bgBig_png"}
+              },
+              {
+                "type": "atlas-sprite",
+                "id": "dfbcb61c-0d23-4982-8281-1991124836b9",
+                "asset": "1",
+                "info": {
+                  "editorName": "whiteChipSmall",
+                  "editorPublic": true,
+                  "x": 231,
+                  "y": 42
+                }
+              },
+              {
+                "type": "atlas-sprite",
+                "id": "67c81577-215f-4e06-a2b7-27ebbb9922c2",
+                "asset": "2",
+                "info": {
+                  "editorName": "blackChipSmall",
+                  "editorPublic": true,
+                  "x": 27,
+                  "y": 42
+                }
+              }
+            ]
           }
         },
         {
@@ -37,10 +61,24 @@
       ]
     }
   },
-  "asset-table": {"0": {
-    "file": "WebContent/assets/assets-pack.json",
-    "section": "ingame",
-    "asset": "inGameUI",
-    "sprite": "bgBig.png"
-  }}
+  "asset-table": {
+    "0": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "inGameUI",
+      "sprite": "bgBig.png"
+    },
+    "1": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "inGameUI",
+      "sprite": "whiteChipSmall.png"
+    },
+    "2": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "inGameUI",
+      "sprite": "blackChipSmall.png"
+    }
+  }
 }

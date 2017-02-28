@@ -22,6 +22,22 @@ InGame.prototype.preload = function() {
 InGame.prototype.create = function() {
 	this.initBoard();
 	
+	this.txtWhiteCount = this.game.add.bitmapText(this.scene.fWhiteChipSmall.x + this.scene.fWhiteChipSmall.width + 30, 
+			this.scene.fWhiteChipSmall.y + this.scene.fWhiteChipSmall.height/2 + 10, 
+			'textScoreFont', '0', 35);
+	this.txtWhiteCount.anchor.set(0.5, 0.5);
+	
+	this.txtBlackCount = this.game.add.bitmapText(this.scene.fBlackChipSmall.x + this.scene.fBlackChipSmall.width + 30, 
+			this.scene.fBlackChipSmall.y + this.scene.fBlackChipSmall.height/2 + 10, 
+			'textScoreFont', '0', 35);
+	this.txtBlackCount.anchor.set(0.5, 0.5);
+
+	this.scene.fGroupUI.add(this.txtWhiteCount);
+	this.scene.fGroupUI.bringToTop(this.txtWhiteCount);
+	this.scene.fGroupUI.add(this.txtBlackCount);
+	this.scene.fGroupUI.bringToTop(this.txtBlackCount);
+	
+	this.countingChip();
 	window.peerConn.on('data', function(data){
 		 var data = JSON.parse(data);	
 		 this.board[data.rowIndex][data.colIndex].changeType(data.type);
@@ -191,6 +207,8 @@ InGame.prototype.checkAvailTurn = function(curRow, curCol, curType){
 			tempArray[j].changeType(curType);
 		}
 	}
+	
+	this.countingChip();
 };
 
 InGame.prototype.lineCheck2 = function(cx, cy, oppositeType, curType, roundData){
@@ -222,6 +240,25 @@ InGame.prototype.lineCheck2 = function(cx, cy, oppositeType, curType, roundData)
             return tempArray;
         }
     }
+};
+
+InGame.prototype.countingChip = function(){
+	var blackCount = 0;
+	var whilteCount = 0;
+	
+	for (var rowIndex = 0; rowIndex < StzGameConfig.ROW_COUNT; rowIndex++) {
+		for (var colIndex = 0; colIndex < StzGameConfig.COL_COUNT; colIndex++) {
+			if(this.board[rowIndex][colIndex].getType() == EChipType.BLACK){
+				blackCount++;
+			}
+			else if(this.board[rowIndex][colIndex].getType() == EChipType.WHITE){
+				whilteCount++;
+			}
+		}
+	}
+	
+	this.txtWhiteCount.text = whilteCount;
+	this.txtBlackCount.text = blackCount;
 };
 
 /**
