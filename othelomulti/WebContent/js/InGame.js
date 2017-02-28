@@ -41,13 +41,27 @@ InGame.prototype.create = function() {
 	window.peerConn.on('data', function(data){
 		 var data = JSON.parse(data);	
 		 this.board[data.rowIndex][data.colIndex].changeType(data.type);
-		 
+	
 		 this.removeAvailArea();
-		 this.checkAvailTurn(data.rowIndex, data.colIndex, data.type);
-		 this.findAvailArea();
+		 this.reverseArray = this.checkAvailTurn(data.rowIndex, data.colIndex, data.type, 2);
 		 
 		 this.currentTurn = (data.turn == ETurn.BLACK)?ETurn.WHITE:ETurn.BLACK;
+		 
+		 for(var i =0; i<this.reverseArray.length; i++){
+			 this.reverseArray[i].animationChangeType(data.type);
+		 }
+		
 	},this);
+};
+
+InGame.prototype.onChangeComplete = function(){
+	
+	 for(var i =0;i<this.reverseArray.length;i++){
+		 if(this.reverseArray[i].animationFlag == false) return
+	 }
+	 
+	 this.findAvailArea();
+	 
 };
 
 InGame.prototype.initBoard = function() {
@@ -184,11 +198,13 @@ InGame.prototype.lineCheck = function(cx, cy, oppositeType, curType, roundData){
  * @param curRow 	현재 가로
  * @param curCol	현재 세로
  * @param curType	현재 타입
+ * @returns Array
  */
-InGame.prototype.checkAvailTurn = function(curRow, curCol, curType){
+InGame.prototype.checkAvailTurn = function(curRow, curCol, curType, mode){
 	StzCommon.StzLog.print("[checkAvailTurn] Type : " + curType);
 	
 	var oppositeType = (curType == ETurn.BLACK)? EChipType.WHITE:EChipType.BLACK;
+	var reversArray = [];
 	
 	for(var i=0; i < this.roundArray.length; i++){
 		var cx = curRow + this.roundArray[i].x;
@@ -200,15 +216,20 @@ InGame.prototype.checkAvailTurn = function(curRow, curCol, curType){
 		
 		//한 방향 당 라인탐색 시작
 		var tempArray = this.lineCheck2(cx, cy, oppositeType, curType, this.roundArray[i]);
-			
+	
 		if(tempArray === undefined || tempArray == null || tempArray.length === 0) continue;
 			
 		for(var j = 0; j < tempArray.length; j++){
-			tempArray[j].changeType(curType);
+			if(mode == 1) tempArray[j].changeType(curType);
+			else{
+				reversArray.push(tempArray[j]);
+			}
+			
 		}
 	}
-	
-	this.countingChip();
+
+	return reversArray;
+	//this.countingChip();
 };
 
 InGame.prototype.lineCheck2 = function(cx, cy, oppositeType, curType, roundData){

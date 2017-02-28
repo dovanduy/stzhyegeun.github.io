@@ -6,6 +6,7 @@ Chip.prototype = {
 		rowIndex:0,
 		colIndex:0,
 		type:0,
+		animationFlag:false,
 		chip:null
 };
 
@@ -15,6 +16,7 @@ function Chip(ingame, aParent, rowIndex, colIndex) {
 	
 	this.chip = this.inGame.add.sprite(0, 0, 'inGameUI', 'blackChipMini.png');
 	this.chip.visible = false;
+	this.animationFlag = false;
 	
 	this.rowIndex = rowIndex;
 	this.colIndex = colIndex;
@@ -47,6 +49,28 @@ Chip.prototype.changeType = function(type){
 	}
 };
 
+Chip.prototype.animationChangeType = function(type){
+	StzCommon.StzLog.print("[Chip changeState]");
+	
+	this.animationFlag = false;
+	this.type = type;
+	var frameName = StzGameConfig.getChipFrameName(type);
+	
+	this.chip.frameName = frameName;
+	this.chip.visible = true;
+	this.chip.alpha = 0;
+	var tween = this.inGame.add.tween(this.chip);
+	tween.to( { alpha: 1 }, 100, Phaser.Easing.Linear.None, true, 0, 0, true);
+	
+	tween.onComplete.addOnce(function() {
+		this.chip.alpha = 1;
+		this.animationFlag = true;
+		this.aParent.onChangeComplete();
+		
+	}.bind(this));
+
+};
+
 Chip.prototype.getType = function(){
 	return this.type;
 };
@@ -65,6 +89,6 @@ Chip.prototype.onClickBlock = function(){
 	}
 	
 	this.aParent.removeAvailArea();
-	this.aParent.checkAvailTurn(this.rowIndex, this.colIndex, this.type);
+	this.aParent.checkAvailTurn(this.rowIndex, this.colIndex, this.type , 1);
 	this.aParent.onSendData(this.rowIndex, this.colIndex, this.type, this.aParent.currentTurn);
 };
