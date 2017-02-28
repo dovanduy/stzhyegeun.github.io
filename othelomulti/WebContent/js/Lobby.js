@@ -19,21 +19,22 @@ Lobby.prototype.init = function() {
 	});
 	*/
 	
-	window.stz_peer.on('connection', function(conn){
-		window.peerConn = conn;
-	});
-    
-    window.stz_peer.on('error', function(err) {
-    	StzCommon.StzLog.print("[Peer] err: " + err);
-    });
-    
-    window.connected = function(c) {
+	window.connected = function(c) {
+		window.peerConn = c;
     	// 다른 Peer 클라이언트가 접속해 온 경우
     	StzCommon.StzLog.print("[Peer (connected)] c: " + c);
     	$.get(StzServerConfig.getUpdateUrl(this.stz_peerId, EConnectStatus.GAMING), (function(data, status){
 			this.game.state.start("InGame");
 		}).bind(this));
     };
+	
+	window.stz_peer.on('connection', window.connected);
+    
+    window.stz_peer.on('error', function(err) {
+    	StzCommon.StzLog.print("[Peer] err: " + err);
+    });
+    
+    
 	
     this.peerList = [];
 };
