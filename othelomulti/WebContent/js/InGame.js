@@ -5,6 +5,10 @@ function InGame() {
 var proto = Object.create(Phaser.State);
 InGame.prototype = proto;
 
+/**
+ * 먼저 기다리는 사람이 검은색 (먼저 시작)
+ * @param data 현재 턴 
+ */
 InGame.prototype.init = function(data) {
 	
 	this.board = StzCommon.StzUtil.createArray(StzGameConfig.ROW_COUNT, StzGameConfig.COL_COUNT);
@@ -44,11 +48,15 @@ InGame.prototype.initBoard = function() {
 	this.board[3][4].changeType(EChipType.WHITE);
 	this.board[4][4].changeType(EChipType.BLACK);
 
+	//현재 턴이 검은색인 사람 부터 시작 한다
 	if(this.currentTurn === ETurn.BLACK){
 		this.findAvailArea();
 	}
 };
 
+/**
+ *  mini로 지정되어 있는 부분 제거
+ */
 InGame.prototype.removeAvailArea = function(){
 	for (var rowIndex = 0; rowIndex < StzGameConfig.ROW_COUNT; rowIndex++) {
 		for (var colIndex = 0; colIndex < StzGameConfig.COL_COUNT; colIndex++) {
@@ -83,11 +91,11 @@ InGame.prototype.roundArray = [{x:-1, y:-1}, {x:0, y:-1}, {x:1, y:-1}, {x:-1, y:
                                {x:1, y:0}, {x:-1, y:1}, {x:0, y:1}, {x:1, y:1},];
 
 /**
- * curRow, curCol 블럭을 기준은로 8방향 탐색
+ * 모든 Chip들의 8방향 탐색을 하여 그 위치가 놓을 수 있는 위치인지 탐색
  */
 InGame.prototype.checkRound = function(curRow, curCol, oppositeType, curType){
 	var miniChipType = (this.currentTurn == ETurn.BLACK)? EChipType.MINIBLACK:EChipType.MINIWHITE;
-	
+
 	for(var i=0; i < this.roundArray.length; i++){
 		var cx = curRow + this.roundArray[i].x;
 		var cy = curCol + this.roundArray[i].y;
@@ -109,41 +117,27 @@ InGame.prototype.checkRound = function(curRow, curCol, oppositeType, curType){
 			this.board[cx][cy].changeType(EChipType.NONE);
 			continue;
 		}
-
+		//라인 탐색 결과에 tempArray 길이 값이 0이 아니면 현재 구역은 놓을 수 있는 구역이라고 미니Chip으로 표시
 		this.board[cx][cy].changeType(miniChipType);
 	}
 };
 
-InGame.prototype.checkAvailTurn = function(curRow, curCol, curType){
-	StzCommon.StzLog.print("[checkAvailTurn] Type : " + curType);
-	
-	var oppositeType = (curType == ETurn.BLACK)? EChipType.WHITE:EChipType.BLACK;
-	
-	for(var i=0; i < this.roundArray.length; i++){
-		var cx = curRow + this.roundArray[i].x;
-		var cy = curCol + this.roundArray[i].y;
-
-		if(StzGameConfig.ROW_COUNT <= cx || cx < 0 || StzGameConfig.COL_COUNT <= cy || cy < 0 ){
-			continue;
-		}
-		
-		var tempArray = this.lineCheck2(cx, cy, oppositeType, curType, this.roundArray[i]);
-			
-		if(tempArray === undefined || tempArray == null || tempArray.length === 0) continue;
-			
-		for(var j = 0; j < tempArray.length; j++){
-			tempArray[j].changeType(curType);
-		}
-	}
-};
-
+/**
+ * roundData의 쪽으로 curType이 있는지 탐색
+ * @param cx			현재 row
+ * @param cy			현재 col
+ * @param oppositeType	현재 타입의 반대 타입
+ * @param curType		현재 타입
+ * @param roundData		어느 방향 검사 중 인지
+ * @returns {Array}		검사를 통과한 Chip
+ */
 InGame.prototype.lineCheck = function(cx, cy, oppositeType, curType, roundData){
 	var tempx = cx ;
 	var tempy = cy ;
 	
 	var tempArray = [];
 	while(true){
-		
+		//roundData 방향으로 모든 Chip 타입 검사
 		tempx = tempx + roundData.x;
 		tempy = tempy + roundData.y;
 		
@@ -165,6 +159,36 @@ InGame.prototype.lineCheck = function(cx, cy, oppositeType, curType, roundData){
 			||this.board[tempx][tempy].getType() === EChipType.MINIWHITE){
 			tempArray = [];
 			return tempArray;
+		}
+	}
+};
+
+/**
+ * 현재 블럭을 놓은 위치를 기준으로 탐색 시작 8방향 탐색 시작
+ * @param curRow 	현재 가로
+ * @param curCol	현재 세로
+ * @param curType	현재 타입
+ */
+InGame.prototype.checkAvailTurn = function(curRow, curCol, curType){
+	StzCommon.StzLog.print("[checkAvailTurn] Type : " + curType);
+	
+	var oppositeType = (curType == ETurn.BLACK)? EChipType.WHITE:EChipType.BLACK;
+	
+	for(var i=0; i < this.roundArray.length; i++){
+		var cx = curRow + this.roundArray[i].x;
+		var cy = curCol + this.roundArray[i].y;
+
+		if(StzGameConfig.ROW_COUNT <= cx || cx < 0 || StzGameConfig.COL_COUNT <= cy || cy < 0 ){
+			continue;
+		}
+		
+		//한 방향 당 라인탐색 시작
+		var tempArray = this.lineCheck2(cx, cy, oppositeType, curType, this.roundArray[i]);
+			
+		if(tempArray === undefined || tempArray == null || tempArray.length === 0) continue;
+			
+		for(var j = 0; j < tempArray.length; j++){
+			tempArray[j].changeType(curType);
 		}
 	}
 };
@@ -200,6 +224,9 @@ InGame.prototype.lineCheck2 = function(cx, cy, oppositeType, curType, roundData)
     }
 };
 
+/**
+ * 데이터를 상대 플레이어에게 전달
+ */
 InGame.prototype.onSendData = function(rowIndex, colIndex, type, turn){
 	var sendJson = JSON.stringify({
 		"rowIndex" : rowIndex, 
