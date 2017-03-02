@@ -62,3 +62,8 @@ var ETurn = {
     BLACK: 1, 
     WHITE: 2
 };
+
+var ERESULT = {
+	    WIN: 1, 
+	    LOSE: 2
+	};
