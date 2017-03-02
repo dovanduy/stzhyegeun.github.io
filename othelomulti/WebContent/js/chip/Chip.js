@@ -89,6 +89,6 @@ Chip.prototype.onClickBlock = function(){
 	}
 	
 	this.aParent.removeAvailArea();
-	this.aParent.checkAvailTurn(this.rowIndex, this.colIndex, this.type , 1);
+	this.aParent.checkAvailTurn(this.rowIndex, this.colIndex, this.type);
 	this.aParent.onSendData(this.rowIndex, this.colIndex, this.type, this.aParent.currentTurn);
 };

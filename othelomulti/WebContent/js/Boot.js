@@ -33,8 +33,6 @@ Boot.prototype.create = function() {
 	
 	this.game.load.start();
 	
-	
-	
 };
 
 Boot.OnLoadStart = function() {
@@ -51,7 +49,6 @@ Boot.OnLoadComplete = function() {
 	this.game.load.onLoadStart.remove(Boot.OnLoadStart);
 	this.game.load.onFileComplete.remove(Boot.OnFileComplete);
 	this.game.load.onLoadComplete.remove(Boot.OnLoadComplete);
-	
 	
 	this.game.state.start("Lobby");
 };
