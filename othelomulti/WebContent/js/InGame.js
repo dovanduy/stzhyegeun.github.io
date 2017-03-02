@@ -5,6 +5,13 @@ function InGame() {
 var proto = Object.create(Phaser.State);
 InGame.prototype = proto;
 
+InGame.prototype = {
+		whilteCount:0,
+		blackCount:0,
+		myColor:0,
+		popupResult:null,
+		popupWating:null
+};
 /**
  * 먼저 기다리는 사람이 검은색 (먼저 시작)
  * @param data 현재 턴 
@@ -12,6 +19,7 @@ InGame.prototype = proto;
 InGame.prototype.init = function(data) {
 	
 	this.board = StzCommon.StzUtil.createArray(StzGameConfig.ROW_COUNT, StzGameConfig.COL_COUNT);
+	this.myColor = data;
 	this.currentTurn = data;
 };
 
@@ -20,6 +28,9 @@ InGame.prototype.preload = function() {
 };
 
 InGame.prototype.create = function() {
+	this.popupResult = this.game.plugins.add(new PopupResult(this.game, this, {blind:true}));
+	this.popupWating = this.game.plugins.add(new PopupWating(this.game, this, {blind:false}));
+	//this.popupResult.popupOpen();
 	this.initBoard();
 	
 	this.txtWhiteCount = this.game.add.bitmapText(this.scene.fWhiteChipSmall.x + this.scene.fWhiteChipSmall.width + 30, 
@@ -39,6 +50,17 @@ InGame.prototype.create = function() {
 	
 	this.countingChip();
 	window.peerConn.on('data', function(data){
+		 this.popupWating.popupClose();
+		 
+		 if(data === "END"){
+			var winerChip = (this.whilteCount >= this.blackCount)?ETurn.WHITE:ETurn.BLACK;
+			var count = (this.myColor === ETurn.BLACK)?this.blackCount:this.whilteCount;	
+			this.popupResult.setData(this.myColor, winerChip, count);
+				
+			 this.popupResult.popupOpen();
+			 return;
+		 }
+		
 		 var data = JSON.parse(data);	
 		 this.board[data.rowIndex][data.colIndex].changeType(data.type);
 	
@@ -60,6 +82,7 @@ InGame.prototype.onChangeComplete = function(){
 	 //현재 턴이 내 차례인 경우
 	 if(this.isTurn === true){
 		 this.findAvailArea();
+		 this.checkEnd();
 		 this.isTurn = false;
 	 }
 	
@@ -74,10 +97,18 @@ InGame.prototype.initBoard = function() {
 	}
 	
 	//오셀로 시작 할 경우 4개의 칩이 세팅되어 있는 부분
-	this.board[3][3].changeType(EChipType.BLACK);
+	for (var rowIndex = 0; rowIndex < StzGameConfig.ROW_COUNT-1; rowIndex++) {
+		for (var colIndex = 0; colIndex < StzGameConfig.COL_COUNT; colIndex++) {
+			if(rowIndex%2 === 1)
+				this.board[rowIndex][colIndex].changeType(EChipType.BLACK);
+			else
+				this.board[rowIndex][colIndex].changeType(EChipType.WHITE);
+		}
+	}
+	/*this.board[3][3].changeType(EChipType.BLACK);
 	this.board[4][3].changeType(EChipType.WHITE);
 	this.board[3][4].changeType(EChipType.WHITE);
-	this.board[4][4].changeType(EChipType.BLACK);
+	this.board[4][4].changeType(EChipType.BLACK);*/
 
 	//현재 턴이 검은색인 사람 부터 시작 한다
 	if(this.currentTurn === ETurn.BLACK){
@@ -279,11 +310,40 @@ InGame.prototype.countingChip = function(){
 			else if(this.board[rowIndex][colIndex].getType() == EChipType.WHITE){
 				whilteCount++;
 			}
+			
+		}
+	}
+	this.whilteCount = whilteCount;
+	this.blackCount = blackCount;
+	
+	this.txtWhiteCount.text = this.whilteCount;
+	this.txtBlackCount.text = this.blackCount;
+};
+
+InGame.prototype.checkEnd = function(){
+	var endCount = 0;
+	if(this.isTurn === false){
+		return;
+	}
+	
+	for (var rowIndex = 0; rowIndex < StzGameConfig.ROW_COUNT; rowIndex++) {
+		for (var colIndex = 0; colIndex < StzGameConfig.COL_COUNT; colIndex++) {
+			if(this.board[rowIndex][colIndex].getType() == EChipType.MINIBLACK
+					||this.board[rowIndex][colIndex].getType() == EChipType.MINIWHITE){
+				endCount++;
+			}
 		}
 	}
 	
-	this.txtWhiteCount.text = whilteCount;
-	this.txtBlackCount.text = blackCount;
+	if(endCount === 0) {
+		var winerChip = (this.whilteCount >= this.blackCount)?ETurn.WHITE:ETurn.BLACK;
+		var count = (this.myColor === ETurn.BLACK)?this.blackCount:this.whilteCount;
+		
+		this.popupResult.setData(this.myColor, winerChip, count);
+		this.popupResult.popupOpen();
+
+		window.peerConn.send("END");
+	}
 };
 
 /**
@@ -297,6 +357,7 @@ InGame.prototype.onSendData = function(rowIndex, colIndex, type, turn){
 		"turn" : turn
 	});
 	
+	this.popupWating.popupOpen();
 	window.peerConn.send(sendJson);
 };
 
