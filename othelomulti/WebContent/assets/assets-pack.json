@@ -36,6 +36,14 @@
             "type": "script",
             "key": "watingPopup",
             "url": "assets/canvas/watingPopup.js"
+        },
+        {
+            "type": "bitmapFont",
+            "key": "comboFont",
+            "textureURL": "assets/Font/comboFont.png",
+            "atlasURL": "assets/Font/textScoreFont.xml",
+            "xSpacing": 0,
+            "ySpacing": 0
         }
     ],
     "boot": [{
@@ -64,7 +72,7 @@
         }
     ],
     "meta": {
-        "generated": "1488439871799",
+        "generated": "1488445464332",
         "app": "Phaser Editor",
         "url": "http://phasereditor.boniatillo.com",
         "version": "1.0",

@@ -14,14 +14,14 @@ function watingPopup(aGame, aParent) {
 
 	/* --- pre-init-end --- */
 
-	this.game.add.sprite(0, -3, 'PopupResult', 'backBg2.png', this);
+	this.game.add.sprite(-1, -1, 'PopupResult', 'backBg2.png', this);
 
-	this.game.add.sprite(5, 4, 'PopupResult', 'bg.png', this);
+	this.game.add.sprite(3, 7, 'PopupResult', 'bg.png', this);
 
-	var iconLose_png = this.game.add.sprite(11, 32, 'PopupResult', 'iconLose.png', this);
+	var iconLose_png = this.game.add.sprite(10, 34, 'PopupResult', 'iconLose.png', this);
 	iconLose_png.scale.setTo(0.8290598329077871, 0.852713198622285);
 
-	this.game.add.sprite(109, 54, 'PopupResult', 'txtWating.png', this);
+	this.game.add.sprite(108, 56, 'PopupResult', 'txtWating.png', this);
 
 
 	/* --- post-init-begin --- */

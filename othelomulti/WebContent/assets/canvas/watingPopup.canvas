@@ -17,7 +17,8 @@
           "asset": "0",
           "info": {
             "editorName": "backBg2_png",
-            "y": -3
+            "x": -1,
+            "y": -1
           }
         },
         {
@@ -26,8 +27,8 @@
           "asset": "1",
           "info": {
             "editorName": "bg_png",
-            "x": 5,
-            "y": 4
+            "x": 3,
+            "y": 7
           }
         },
         {
@@ -36,8 +37,8 @@
           "asset": "2",
           "info": {
             "editorName": "iconLose_png",
-            "x": 11,
-            "y": 32,
+            "x": 10,
+            "y": 34,
             "scale.x": 0.8290598329077871,
             "scale.y": 0.852713198622285
           }
@@ -48,8 +49,8 @@
           "asset": "3",
           "info": {
             "editorName": "txtWating_png",
-            "x": 109,
-            "y": 54
+            "x": 108,
+            "y": 56
           }
         }
       ]
