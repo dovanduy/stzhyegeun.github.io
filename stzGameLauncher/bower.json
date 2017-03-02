@@ -1,0 +1,23 @@
+{
+  "name": "ionic-stzgamelauncher",
+  "description": "stz-game-launcher",
+  "main": "",
+  "authors": [
+    "Ionic Framework"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "platform.js": "platform#^1.3.3"
+  },
+  "devDependencies": {
+    "platform.js": "platform#^1.3.3"
+  }
+}
