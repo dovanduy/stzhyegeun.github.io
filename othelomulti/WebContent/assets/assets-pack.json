@@ -19,6 +19,23 @@
             "atlasURL": "assets/Font/textScoreFont.xml",
             "xSpacing": 0,
             "ySpacing": 0
+        },
+        {
+            "type": "atlas",
+            "key": "PopupResult",
+            "textureURL": "assets/popup/PopupResult.png",
+            "atlasURL": "assets/popup/PopupResult.json",
+            "format": "TEXTURE_ATLAS_JSON_ARRAY"
+        },
+        {
+            "type": "script",
+            "key": "resultPopup",
+            "url": "assets/canvas/resultPopup.js"
+        },
+        {
+            "type": "script",
+            "key": "watingPopup",
+            "url": "assets/canvas/watingPopup.js"
         }
     ],
     "boot": [{
@@ -47,7 +64,7 @@
         }
     ],
     "meta": {
-        "generated": "1488269867500",
+        "generated": "1488439871799",
         "app": "Phaser Editor",
         "url": "http://phasereditor.boniatillo.com",
         "version": "1.0",
