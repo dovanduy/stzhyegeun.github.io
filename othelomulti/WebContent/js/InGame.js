@@ -97,18 +97,18 @@ InGame.prototype.initBoard = function() {
 	}
 	
 	//오셀로 시작 할 경우 4개의 칩이 세팅되어 있는 부분
-	for (var rowIndex = 0; rowIndex < StzGameConfig.ROW_COUNT-1; rowIndex++) {
-		for (var colIndex = 0; colIndex < StzGameConfig.COL_COUNT; colIndex++) {
-			if(rowIndex%2 === 1)
-				this.board[rowIndex][colIndex].changeType(EChipType.BLACK);
-			else
-				this.board[rowIndex][colIndex].changeType(EChipType.WHITE);
-		}
-	}
-	/*this.board[3][3].changeType(EChipType.BLACK);
+//	for (var rowIndex = 0; rowIndex < StzGameConfig.ROW_COUNT-1; rowIndex++) {
+//		for (var colIndex = 0; colIndex < StzGameConfig.COL_COUNT; colIndex++) {
+//			if(rowIndex%2 === 1)
+//				this.board[rowIndex][colIndex].changeType(EChipType.BLACK);
+//			else
+//				this.board[rowIndex][colIndex].changeType(EChipType.WHITE);
+//		}
+//	}
+	this.board[3][3].changeType(EChipType.BLACK);
 	this.board[4][3].changeType(EChipType.WHITE);
 	this.board[3][4].changeType(EChipType.WHITE);
-	this.board[4][4].changeType(EChipType.BLACK);*/
+	this.board[4][4].changeType(EChipType.BLACK);
 
 	//현재 턴이 검은색인 사람 부터 시작 한다
 	if(this.currentTurn === ETurn.BLACK){
