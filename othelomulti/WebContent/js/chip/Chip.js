@@ -60,7 +60,7 @@ Chip.prototype.animationChangeType = function(type){
 	this.chip.visible = true;
 	this.chip.alpha = 0;
 	var tween = this.inGame.add.tween(this.chip);
-	tween.to( { alpha: 1 }, 100, Phaser.Easing.Linear.None, true, 0, 0, true);
+	tween.to( { alpha: 1 }, 300, Phaser.Easing.Linear.None, true, 0, 0, true);
 	
 	tween.onComplete.addOnce(function() {
 		this.chip.alpha = 1;
