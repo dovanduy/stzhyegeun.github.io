@@ -1,4 +1,4 @@
-function PopupWating(ingame, aParent) {
+function PopupWating(ingame, aParent, options) {
 	this.scene = new watingPopup(ingame);
 	Phaser.Plugin.PopupManager.apply(this, arguments);
 

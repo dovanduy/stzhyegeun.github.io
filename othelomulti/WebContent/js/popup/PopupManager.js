@@ -4,7 +4,7 @@
 * @class Phaser.Plugin.PopupManager
 */
 
-Phaser.Plugin.PopupManager = function(inGame, aParent) {
+Phaser.Plugin.PopupManager = function(inGame, aParent, options) {
 	Phaser.Plugin.call(this, inGame, aParent);
 	
 	this.inGame = inGame;
@@ -16,6 +16,10 @@ Phaser.Plugin.PopupManager = function(inGame, aParent) {
 	this.scene.y = this.inGame.world.centerY;
 	
 	this.scene.pivot.set(this.scene.width/2, this.scene.height/2);
+	
+	if(options.blind === true){
+		this.makeBlind();
+	}
 };
 
 Phaser.Plugin.PopupManager.prototype = Object.create(Phaser.Plugin.prototype);
@@ -27,6 +31,17 @@ Phaser.Plugin.PopupManager.prototype.update = function(){
 	}
 	StzCommon.StzLog.print("[PopupManager] update");
 };
+
+Phaser.Plugin.PopupManager.prototype.makeBlind = function(){
+	this.blind = this.inGame.add.graphics(0,0);
+	this.blind.beginFill(0x000000, 1);
+	this.blind.drawRect(-(this.scene.x - this.scene.width/2), -(this.scene.y  - this.scene.height/2), this.inGame.world.width, this.inGame.world.height);
+	this.blind.alpha  = 0.7;
+	this.blind.inputEnabled = true;
+	
+	this.scene.add(this.blind);
+	this.scene.sendToBack(this.blind);
+}
 
 Phaser.Plugin.PopupManager.prototype.popupOpen= function(){
 	this.scene.visible = true;
