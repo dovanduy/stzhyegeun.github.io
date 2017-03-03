@@ -3,6 +3,10 @@
 * 
 * @class Phaser.Plugin.PopupManager
 */
+var EPopupCloseState = {
+		NONE:'None',
+		CONFIRM:'Confirm'
+};
 
 Phaser.Plugin.PopupManager = function(inGame, aParent, options) {
 	Phaser.Plugin.call(this, inGame, aParent);
@@ -11,6 +15,8 @@ Phaser.Plugin.PopupManager = function(inGame, aParent, options) {
 	this.aParent = aParent;
 	this.scene.visible = false;
 	this.updateEnable = false;
+	this.closeState = EPopupCloseState.NONE;
+	this.callbackFunc = null;
 	
 	this.scene.x = this.inGame.world.centerX;
 	this.scene.y = this.inGame.world.centerY;
@@ -19,6 +25,18 @@ Phaser.Plugin.PopupManager = function(inGame, aParent, options) {
 	
 	if(options.blind === true){
 		this.makeBlind();
+	}
+	
+	if(options.offsetX !== undefined){
+		this.scene.x += options.offsetX;
+	}
+	
+	if(options.offsetY !== undefined){
+		this.scene.y += options.offsetY;
+	}
+	
+	if(options.callbackFunc !== undefined){
+		this.callbackFunc = options.callbackFunc.bind(this.aParent);
 	}
 };
 
@@ -44,11 +62,6 @@ Phaser.Plugin.PopupManager.prototype.makeBlind = function(){
 }
 
 Phaser.Plugin.PopupManager.prototype.popupOpen= function(){
-	this.scene.visible = true;
-	
-	
-	this.scene.scale.set(0,0);
-	
 	this.prePopupOpen();
 	
 	var tween = this.inGame.add.tween(this.scene.scale).to({ x:1, y:1}, 500, Phaser.Easing.Back.Out, true, 0); // nope  
@@ -59,7 +72,16 @@ Phaser.Plugin.PopupManager.prototype.popupOpen= function(){
 
 Phaser.Plugin.PopupManager.prototype.prePopupOpen= function(){
 	StzCommon.StzLog.print("[PopupManager] prePopupOpen");
+	if(this.isOpen === true){
+		return;
+	}
 	
+	this.closeState = EPopupCloseState.NONE;
+	this.scene.visible = true;
+	
+	this.scene.scale.set(0,0);
+	
+	this.isOpen = true;
 };
 
 Phaser.Plugin.PopupManager.prototype.postPopupOpen= function(){
@@ -84,6 +106,10 @@ Phaser.Plugin.PopupManager.prototype.prePopupClose= function(){
 Phaser.Plugin.PopupManager.prototype.postPopupClose= function(){
 	StzCommon.StzLog.print("[PopupManager] postPopupClose");
 	this.scene.visible = false;
+	this.isOpen = false;
+	if(this.callbackFunc !== null){
+		this.callbackFunc();
+	}
 };
 
 Phaser.Plugin.PopupManager.prototype.onDestory = function(){
