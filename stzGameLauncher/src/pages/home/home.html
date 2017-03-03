@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Stz Game List</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-list>
+
+    <ion-item-sliding *ngFor="let gameInfo of gameList; let i = index">
+      <ion-item>
+        <ion-thumbnail item-left>
+          <img src={{gameInfo.thumbAddress}}>
+        </ion-thumbnail>
+        <h2>{{gameInfo.name}}</h2>
+        <p>{{gameInfo.author}}</p>
+        <button ion-button clear item-right (click)="launchGame(i)">Play</button>
+      </ion-item>
+    </ion-item-sliding>
+
+    <!--ion-item>
+      <ion-thumbnail item-left>
+        <img src="assets/img/thumbnail-totoro.png">
+      </ion-thumbnail>
+      <h2>Othelo P2P</h2>
+      <p>HTML5 Team in SuntoLabs</p>
+      <button ion-button clear item-right>Play</button>
+    </ion-item>
+
+    <ion-item>
+      <ion-thumbnail item-left>
+        <img src="assets/img/thumbnail-rotla.png">
+      </ion-thumbnail>
+      <h2>Anipang</h2>
+      <p>HTML5 Team in SuntoLabs</p>
+      <button ion-button clear item-right>Play</button>
+    </ion-item>
+
+    <ion-item>
+      <ion-thumbnail item-left>
+        <img src="assets/img/thumbnail-ghostbusters.png">
+      </ion-thumbnail>
+      <h2>Anipang Sachunsung</h2>
+      <p>HTML5 Team in SuntoLabs</p>
+      <button ion-button clear item-right>Play</button>
+    </ion-item>
+
+    <ion-item>
+      <ion-thumbnail item-left>
+        <img src="assets/img/thumbnail-batman.png">
+      </ion-thumbnail>
+      <p>Anipang Touch</p>
+      <p>HTML5 Team in SuntoLabs</p>
+      <button ion-button clear item-right>Play</button>
+    </ion-item-->
+
+  </ion-list>
+</ion-content>
