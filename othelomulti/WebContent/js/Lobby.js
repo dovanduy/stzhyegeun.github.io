@@ -113,6 +113,9 @@ Lobby.prototype.OnClickGameStart = function(sprite, pointer) {
 					var oponentData = this.peerList[randomIndex];
 					
 					window.peerConn = window.stz_peer.connect(oponentData.peer_id);
+					window.peerConn.on("error", function(err) {
+						StzCommon.StzLog.print("[Lobby (peerCon.on.error)] error: " + err);
+					}, this);
 					window.peerConn.on("open", function() {
 						StzCommon.StzLog.print("[Lobby (PeerConnect)]");
 						$.get(StzServerConfig.getUpdateUrl(this.stz_peerId, EConnectStatus.GAMING), (function(data, status){
