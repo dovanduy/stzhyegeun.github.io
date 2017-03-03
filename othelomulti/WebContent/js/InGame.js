@@ -10,7 +10,10 @@ InGame.prototype = {
 		blackCount:0,
 		myColor:0,
 		popupResult:null,
-		popupWating:null
+		popupWating:null,
+		popupEmoticon:null,
+		emoticonUP:null,
+		emoticonDown:null
 };
 /**
  * 먼저 기다리는 사람이 검은색 (먼저 시작)
@@ -30,6 +33,17 @@ InGame.prototype.preload = function() {
 InGame.prototype.create = function() {
 	this.popupResult = this.game.plugins.add(new PopupResult(this.game, this, {blind:true}));
 	this.popupWating = this.game.plugins.add(new PopupWating(this.game, this, {blind:false}));
+	this.popupEmoticon = this.game.plugins.add(new PopupEmoticon(this.game, this, {blind:false, offsetY:300, callbackFunc:function(){
+		if(this.popupEmoticon.closeState === EPopupCloseState.CONFIRM){
+			this.scene.fBtnEmoticon.alpha = 0.5;
+			this.scene.fBtnEmoticon.inputEnabled = false;
+		}
+	}}));
+	this.emoticonUP = new EmoticonManager(this.game, this, EEmoticonNames.ALL,{scaleX:0.4, scaleY:0.4});
+	this.emoticonUP.setPos(450 , 10);
+	
+	this.emoticonDown = new EmoticonManager(this.game, this, EEmoticonNames.ALL,{scaleX:0.4, scaleY:0.4, callBackFunc:this.onEmoticonComplete});
+	this.emoticonDown.setPos(450 , 810);
 	//this.popupResult.popupOpen();
 	this.initBoard();
 	
@@ -48,20 +62,30 @@ InGame.prototype.create = function() {
 	this.scene.fGroupUI.add(this.txtBlackCount);
 	this.scene.fGroupUI.bringToTop(this.txtBlackCount);
 	
+	this.scene.fBtnEmoticon.inputEnabled = true;
+	this.scene.fBtnEmoticon.events.onInputUp.add(this.onEmoticon, this);
+	
 	this.countingChip();
 	window.peerConn.on('data', function(data){
-		 this.popupWating.popupClose();
-		 
 		 if(data === "END"){
-			var winerChip = (this.whilteCount >= this.blackCount)?ETurn.WHITE:ETurn.BLACK;
-			var count = (this.myColor === ETurn.BLACK)?this.blackCount:this.whilteCount;	
-			this.popupResult.setData(this.myColor, winerChip, count);
-				
-			 this.popupResult.popupOpen();
+				this.popupWating.popupClose();
+				var winerChip = (this.whilteCount >= this.blackCount)?ETurn.WHITE:ETurn.BLACK;
+				var count = (this.myColor === ETurn.BLACK)?this.blackCount:this.whilteCount;	
+				this.popupResult.setData(this.myColor, winerChip, count);
+					
+				this.popupResult.popupOpen();
+				 return;
+			 }
+		 
+		 var data = JSON.parse(data);	
+		 
+		 if(data.EmoticonName !== undefined){
+			 this.emoticonUP.show(data.EmoticonName);
 			 return;
 		 }
 		
-		 var data = JSON.parse(data);	
+		 this.popupWating.popupClose();
+
 		 this.board[data.rowIndex][data.colIndex].changeType(data.type);
 	
 		 this.removeAvailArea();
@@ -87,6 +111,22 @@ InGame.prototype.onChangeComplete = function(){
 	 }
 	
 };
+
+InGame.prototype.onEmoticonComplete = function(){
+	StzCommon.StzLog.print("[InGame] onEmoticonComplete");
+	
+	this.scene.fBtnEmoticon.alpha = 1;
+	this.scene.fBtnEmoticon.inputEnabled = true;
+};
+
+InGame.prototype.onEmoticon = function(){
+	if(this.popupEmoticon.isOpen === true){
+		this.popupEmoticon.popupClose();
+	}
+	else{
+		this.popupEmoticon.popupOpen();
+	}
+}
 
 InGame.prototype.initBoard = function() {
 	for (var rowIndex = 0; rowIndex < StzGameConfig.ROW_COUNT; rowIndex++) {

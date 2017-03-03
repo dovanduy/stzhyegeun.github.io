@@ -37,3 +37,29 @@ During these days I am using Phaser for a series of projects, and one feature I 
 
 [4:42]  
 나중에 모작할 때 필요할 것 같아서 첨부합니다.
+
+
+
+___________________________________________________
+
+책 내용 
+안티 패턴 : var를 이용해 변수를 선언하지 않고 사용하게 되면 자동적으로 전역 변수가 된다. -15
+단일 var 패턴 : var 선언을 하나만 쓰고 여러개의 변수를 쉼표로 연결하여 선언 - 17
+배열.length는 미리 구해 놓고 사용한다 - 21
+hasOwnProperty() : 상속되는 프로퍼티를 걸러내기위한 메소드 -23
+switch 규칙 - 26
+===, !== = 타입까지 비교해준다 - 26
+eval(obj. + property) === obj[property] - 27
+parseInt(xx, 8) 8진수 변환
+function func(){
+	return {
+		name:"Batman"  -> 이런식으로 도 리턴이 가능 
+	}
+}
+
+
+
+
+
+
+
