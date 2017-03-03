@@ -67,3 +67,11 @@ var ERESULT = {
 	    WIN: 1, 
 	    LOSE: 2
 	};
+
+var EEmoticonNames = {
+		ALL 	:'emoticon' ,
+		FAST	:'emoticonFast.png',
+		LAUGH	:'emoticonLaugh.png',
+		SORRY	:'emoticonSorry.png',
+		GREET	:'emotionGreet.png'
+};

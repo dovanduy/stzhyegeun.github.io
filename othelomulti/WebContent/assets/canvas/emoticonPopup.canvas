@@ -1,0 +1,167 @@
+{
+  "settings": {
+    "sceneWidth": 640,
+    "sceneHeight": 360,
+    "generateOnSave": true,
+    "enableStepping": false
+  },
+  "world": {
+    "type": "group",
+    "id": "ffc8b9f7-2597-4e6b-839d-223d8086f9f5",
+    "info": {
+      "editorName": "emoticonPopup",
+      "children": [
+        {
+          "type": "atlas-sprite",
+          "id": "6ca05d5f-1362-4a47-9cfa-29680e61eceb",
+          "asset": "0",
+          "info": {
+            "editorName": "backBg2_png",
+            "scale.x": 1.8713450153833733,
+            "scale.y": 0.4378377963366107
+          }
+        },
+        {
+          "type": "atlas-sprite",
+          "id": "2dcada3f-ce28-494e-a8fb-d129334eeda9",
+          "asset": "1",
+          "info": {
+            "editorName": "btnL",
+            "x": 7,
+            "y": 3,
+            "scale.x": 1.8888889402997249,
+            "scale.y": 0.4319526646297508
+          }
+        },
+        {
+          "type": "atlas-sprite",
+          "id": "c128299d-3a93-4340-b87e-b8eacc2e4d4e",
+          "asset": "2",
+          "info": {
+            "editorName": "btnFast",
+            "editorPublic": true,
+            "x": 187,
+            "y": 13
+          }
+        },
+        {
+          "type": "atlas-sprite",
+          "id": "f2689835-9451-4790-9ee1-a4bc0567c247",
+          "asset": "2",
+          "info": {
+            "editorName": "btnSorry",
+            "editorPublic": true,
+            "x": 483,
+            "y": 13
+          }
+        },
+        {
+          "type": "atlas-sprite",
+          "id": "cd0bab74-bb38-4ba0-ab8a-b9cb4705e62c",
+          "asset": "2",
+          "info": {
+            "editorName": "btnGreet",
+            "editorPublic": true,
+            "x": 41,
+            "y": 13
+          }
+        },
+        {
+          "type": "atlas-sprite",
+          "id": "1cfd82dd-acc7-4bd0-8887-6959bf913aea",
+          "asset": "2",
+          "info": {
+            "editorName": "btnLaugh",
+            "editorPublic": true,
+            "x": 336,
+            "y": 13
+          }
+        },
+        {
+          "type": "atlas-sprite",
+          "id": "b89c18b0-8ab6-4f11-bea6-7164e2c9c6fd",
+          "asset": "3",
+          "info": {
+            "editorName": "textGreet_png",
+            "x": 54,
+            "y": 25
+          }
+        },
+        {
+          "type": "atlas-sprite",
+          "id": "7679ecdd-b560-46f5-9e71-e25fe67bac23",
+          "asset": "4",
+          "info": {
+            "editorName": "btnFast",
+            "x": 195,
+            "y": 25
+          }
+        },
+        {
+          "type": "atlas-sprite",
+          "id": "7672be64-c471-47af-9e00-45c4557b76c3",
+          "asset": "5",
+          "info": {
+            "editorName": "txtLaugh",
+            "x": 346,
+            "y": 26
+          }
+        },
+        {
+          "type": "atlas-sprite",
+          "id": "fef0bb14-b8fa-4e6f-adb9-a350211a8f90",
+          "asset": "6",
+          "info": {
+            "editorName": "txtSorry_png",
+            "x": 491,
+            "y": 25
+          }
+        }
+      ]
+    }
+  },
+  "asset-table": {
+    "0": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "PopupResult",
+      "sprite": "backBg2.png"
+    },
+    "1": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "PopupResult",
+      "sprite": "bg.png"
+    },
+    "2": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "PopupResult",
+      "sprite": "btnGreen.png"
+    },
+    "3": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "PopupResult",
+      "sprite": "textGreet.png"
+    },
+    "4": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "PopupResult",
+      "sprite": "txtFast.png"
+    },
+    "5": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "PopupResult",
+      "sprite": "txtAngry.png"
+    },
+    "6": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "PopupResult",
+      "sprite": "txtSorry.png"
+    }
+  }
+}

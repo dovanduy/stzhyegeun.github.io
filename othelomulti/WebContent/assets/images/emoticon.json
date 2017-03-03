@@ -1,0 +1,52 @@
+{"frames": [
+
+{
+	"filename": "emoticonFast.png",
+	"frame": {"x":0,"y":0,"w":352,"h":352},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":352,"h":352},
+	"sourceSize": {"w":352,"h":352}
+},
+{
+	"filename": "emoticonLaugh.png",
+	"frame": {"x":352,"y":0,"w":352,"h":352},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":352,"h":352},
+	"sourceSize": {"w":352,"h":352}
+},
+{
+	"filename": "emoticonSorry.png",
+	"frame": {"x":704,"y":0,"w":352,"h":352},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":352,"h":352},
+	"sourceSize": {"w":352,"h":352}
+},
+{
+	"filename": "emoticonWin.png",
+	"frame": {"x":1056,"y":0,"w":352,"h":352},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":352,"h":352},
+	"sourceSize": {"w":352,"h":352}
+},
+{
+	"filename": "emotionGreet.png",
+	"frame": {"x":1408,"y":0,"w":352,"h":352},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":352,"h":352},
+	"sourceSize": {"w":352,"h":352}
+}],
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "emoticon.png",
+	"format": "RGBA8888",
+	"size": {"w":1760,"h":352},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:01b0b442e40598b40cdbef3978698244:d56b2cd485321d626d2e7dea966043c4:902e60246c4a27eb948ace1fcd9ea8ac$"
+}
+}
