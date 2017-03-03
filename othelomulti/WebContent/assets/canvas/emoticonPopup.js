@@ -22,11 +22,11 @@ function emoticonPopup(aGame, aParent) {
 
 	var btnFast = this.game.add.sprite(187, 13, 'PopupResult', 'btnGreen.png', this);
 
-	var btnLaugh = this.game.add.sprite(483, 13, 'PopupResult', 'btnGreen.png', this);
+	var btnSorry = this.game.add.sprite(483, 13, 'PopupResult', 'btnGreen.png', this);
 
 	var btnGreet = this.game.add.sprite(41, 13, 'PopupResult', 'btnGreen.png', this);
 
-	var btnSorry = this.game.add.sprite(336, 13, 'PopupResult', 'btnGreen.png', this);
+	var btnLaugh = this.game.add.sprite(336, 13, 'PopupResult', 'btnGreen.png', this);
 
 	this.game.add.sprite(54, 25, 'PopupResult', 'textGreet.png', this);
 
@@ -34,12 +34,14 @@ function emoticonPopup(aGame, aParent) {
 
 	this.game.add.sprite(346, 26, 'PopupResult', 'txtAngry.png', this);
 
+	this.game.add.sprite(491, 25, 'PopupResult', 'txtSorry.png', this);
+
 	 // public fields
 
 	this.fBtnFast = btnFast;
-	this.fBtnLaugh = btnLaugh;
-	this.fBtnGreet = btnGreet;
 	this.fBtnSorry = btnSorry;
+	this.fBtnGreet = btnGreet;
+	this.fBtnLaugh = btnLaugh;
 
 	/* --- post-init-begin --- */
 

@@ -37,8 +37,18 @@
               },
               {
                 "type": "atlas-sprite",
-                "id": "dfbcb61c-0d23-4982-8281-1991124836b9",
+                "id": "7626ff15-a0de-48e6-bfaf-f285faa9dd05",
                 "asset": "2",
+                "info": {
+                  "editorName": "txtEmoticon_png",
+                  "x": 42,
+                  "y": 867
+                }
+              },
+              {
+                "type": "atlas-sprite",
+                "id": "dfbcb61c-0d23-4982-8281-1991124836b9",
+                "asset": "3",
                 "info": {
                   "editorName": "whiteChipSmall",
                   "editorPublic": true,
@@ -49,7 +59,7 @@
               {
                 "type": "atlas-sprite",
                 "id": "67c81577-215f-4e06-a2b7-27ebbb9922c2",
-                "asset": "3",
+                "asset": "4",
                 "info": {
                   "editorName": "blackChipSmall",
                   "editorPublic": true,
@@ -88,10 +98,16 @@
     "2": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "ingame",
+      "asset": "PopupResult",
+      "sprite": "txtEmoticon.png"
+    },
+    "3": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
       "asset": "inGameUI",
       "sprite": "whiteChipSmall.png"
     },
-    "3": {
+    "4": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "ingame",
       "asset": "inGameUI",

@@ -49,7 +49,7 @@
           "id": "f2689835-9451-4790-9ee1-a4bc0567c247",
           "asset": "2",
           "info": {
-            "editorName": "btnLaugh",
+            "editorName": "btnSorry",
             "editorPublic": true,
             "x": 483,
             "y": 13
@@ -71,7 +71,7 @@
           "id": "1cfd82dd-acc7-4bd0-8887-6959bf913aea",
           "asset": "2",
           "info": {
-            "editorName": "btnSorry",
+            "editorName": "btnLaugh",
             "editorPublic": true,
             "x": 336,
             "y": 13
@@ -105,6 +105,16 @@
             "editorName": "txtLaugh",
             "x": 346,
             "y": 26
+          }
+        },
+        {
+          "type": "atlas-sprite",
+          "id": "fef0bb14-b8fa-4e6f-adb9-a350211a8f90",
+          "asset": "6",
+          "info": {
+            "editorName": "txtSorry_png",
+            "x": 491,
+            "y": 25
           }
         }
       ]
@@ -146,6 +156,12 @@
       "section": "ingame",
       "asset": "PopupResult",
       "sprite": "txtAngry.png"
+    },
+    "6": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "PopupResult",
+      "sprite": "txtSorry.png"
     }
   }
 }
