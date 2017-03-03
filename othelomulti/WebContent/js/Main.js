@@ -9,7 +9,7 @@ window.onRequireLoad = function() {
 		
 		StzCommon.StzLog.assert(StzGameConfig.PEER_API_KEY !== undefined, "[index.html] StzGameConfig not loaded");
 	    
-		window.stz_peer = new Peer({host: StzServerConfig.BASE_URL, path:'/api', port: 80, debug: 3});
+		window.stz_peer = new Peer({host: StzServerConfig.BASE_URL, path:'/api', port: 80, debug: 3, config: {'iceServers': [{url: 'stun:stun.1.google.com:19302'}, { url: 'turn:homeo@turn.bistri.com:80', credential: 'homeo'}]}});
 		
 		/*
 	    window.stz_peer = new Peer({
