@@ -3,8 +3,12 @@ PopupResult.prototype = {
 		txtChipCount:null,
 };
 
-function PopupResult(ingame, aParent, options) {
-	this.scene = new resultPopup(ingame);
+function PopupResult(inGame, aParent, options) {
+	if(!(this instanceof PopupResult)){
+		return new PopupResult(inGame, aParent, options);
+	}
+	
+	this.scene = new resultPopup(inGame);
 	Phaser.Plugin.PopupManager.apply(this, arguments);
 	
 	this.txtChipCount = this.inGame.add.bitmapText(this.scene.fTxtCountPos.x + 25, this.scene.fTxtCountPos.y + 5, 

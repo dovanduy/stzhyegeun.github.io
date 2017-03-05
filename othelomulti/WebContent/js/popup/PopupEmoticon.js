@@ -1,5 +1,8 @@
-function PopupEmoticon(ingame, aParent, options) {
-	this.scene = new emoticonPopup(ingame);
+function PopupEmoticon(inGame, aParent, options) {
+	if(!(this instanceof PopupEmoticon)){
+		return new PopupEmoticon(inGame, aParent, options);
+	}
+	this.scene = new emoticonPopup(inGame);
 	Phaser.Plugin.PopupManager.apply(this, arguments);
 	
 	this.scene.fBtnGreet.inputEnabled = true;

@@ -23,6 +23,9 @@ var EPopupCloseState = {
  * callbackFunc : 팝업 종료 후 콜백 함수 
  */
 Phaser.Plugin.PopupManager = function(inGame, aParent, options) {
+	if(!(this instanceof Phaser.Plugin.PopupManager)){
+		return new Phaser.Plugin.PopupManager(inGame, aParent, options);
+	}
 	Phaser.Plugin.call(this, inGame, aParent);
 	
 	this.inGame = inGame;
@@ -38,7 +41,7 @@ Phaser.Plugin.PopupManager = function(inGame, aParent, options) {
 	this.scene.pivot.set(this.scene.width/2, this.scene.height/2);
 	
 	if(options.blind === true){
-		this.makeBlind();
+		this.makeBlind();   
 	}
 	
 	if(options.offsetX !== undefined){
@@ -84,7 +87,7 @@ Phaser.Plugin.PopupManager.prototype.makeBlind = function(){
 Phaser.Plugin.PopupManager.prototype.popupOpen= function(){
 	this.prePopupOpen();
 	
-	var tween = this.inGame.add.tween(this.scene.scale).to({ x:1, y:1}, 500, Phaser.Easing.Back.Out, true, 0); // nope  
+	var tween = this.inGame.add.tween(this.scene.scale).to({ x:1, y:1}, 500, Phaser.Easing.Back.Out, true, 0);    
 	tween.onComplete.addOnce(function(){
 		this.postPopupOpen();
 	}.bind(this));

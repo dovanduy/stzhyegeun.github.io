@@ -67,35 +67,35 @@ InGame.prototype.create = function() {
 	this.scene.fBtnEmoticon.events.onInputUp.add(this.onEmoticon, this);
 	
 	this.countingChip();
-	window.peerConn.on('data', function(data){
-		 if(data === "END"){
-				this.popupWating.popupClose();
-				var winerChip = (this.whilteCount >= this.blackCount)?ETurn.WHITE:ETurn.BLACK;
-				var count = (this.myColor === ETurn.BLACK)?this.blackCount:this.whilteCount;	
-				this.popupResult.setData(this.myColor, winerChip, count);
-					
-				this.popupResult.popupOpen();
-				 return;
-			 }
-		 
-		 var data = JSON.parse(data);	
-		 
-		 if(data.EmoticonName !== undefined){
-			 this.emoticonUP.show(data.EmoticonName);
-			 return;
-		 }
-		
-		 this.popupWating.popupClose();
-
-		 this.board[data.rowIndex][data.colIndex].changeType(data.type);
-	
-		 this.removeAvailArea();
-		 this.checkAvailTurn(data.rowIndex, data.colIndex, data.type);
-		 
-		 //현재 턴이 내 차례인 경우
-		 this.isTurn = true;
-		 this.currentTurn = (data.turn == ETurn.BLACK)?ETurn.WHITE:ETurn.BLACK;	
-	},this);
+//	window.peerConn.on('data', function(data){
+//		 if(data === "END"){
+//				this.popupWating.popupClose();
+//				var winerChip = (this.whilteCount >= this.blackCount)?ETurn.WHITE:ETurn.BLACK;
+//				var count = (this.myColor === ETurn.BLACK)?this.blackCount:this.whilteCount;	
+//				this.popupResult.setData(this.myColor, winerChip, count);
+//					
+//				this.popupResult.popupOpen();
+//				 return;
+//			 }
+//		 
+//		 var data = JSON.parse(data);	
+//		 
+//		 if(data.EmoticonName !== undefined){
+//			 this.emoticonUP.show(data.EmoticonName);
+//			 return;
+//		 }
+//		
+//		 this.popupWating.popupClose();
+//
+//		 this.board[data.rowIndex][data.colIndex].changeType(data.type);
+//	
+//		 this.removeAvailArea();
+//		 this.checkAvailTurn(data.rowIndex, data.colIndex, data.type);
+//		 
+//		 //현재 턴이 내 차례인 경우
+//		 this.isTurn = true;
+//		 this.currentTurn = (data.turn == ETurn.BLACK)?ETurn.WHITE:ETurn.BLACK;	
+//	},this);
 };
 
 InGame.prototype.onChangeComplete = function(){

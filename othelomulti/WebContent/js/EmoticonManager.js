@@ -17,8 +17,13 @@ EmoticonManager.prototype = {
  * scaleY	:스캐일 y값
  * callBackFunc : 이모티콘 출력이 끝난 후 동작하는 콜백 함수
  */
-function EmoticonManager(ingame, aParent, atlasName, options) {
-	this.inGame = ingame;
+function EmoticonManager(inGame, aParent, atlasName, options) {
+	
+	if(!(this instanceof EmoticonManager)){
+		return new EmoticonManager(inGame, aParent, atlasName, options);
+	}
+	
+	this.inGame = inGame;
 	this.aParent = aParent;
 	this.scene = aParent.scene;
 	this.callBackFunc = null;

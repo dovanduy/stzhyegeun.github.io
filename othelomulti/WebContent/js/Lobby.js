@@ -61,7 +61,7 @@ Lobby.prototype.create = function() {
 
 Lobby.prototype.OnClickGameStart = function(sprite, pointer) {
 	StzCommon.StzLog.print("[Lobby (OnClickGameStart)]");
-	//this.game.state.start("InGame");
+	this.game.state.start("InGame");
 	
 	if (this.isWaiting == false) {
 		this.isWaiting = true;
