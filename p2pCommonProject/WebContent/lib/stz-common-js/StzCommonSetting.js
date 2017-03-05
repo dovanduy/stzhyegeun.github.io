@@ -18,7 +18,7 @@ requirejs(['stzcommon'
            ], function() {
     setLockOrientationElements();   
     window.onRequireLoad();
-});\
+});
 
 
 function setLockOrientationElements() {
