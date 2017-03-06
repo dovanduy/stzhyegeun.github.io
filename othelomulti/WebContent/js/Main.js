@@ -10,6 +10,10 @@ window.onRequireLoad = function() {
 		StzCommon.StzLog.assert(StzGameConfig.PEER_API_KEY !== undefined, "[index.html] StzGameConfig not loaded");
 	    
 		window.stz_peer = new Peer({host: StzServerConfig.BASE_URL, path:'/api', port: 80, debug: 3, config: {'iceServers': [{url: 'stun:stun.1.google.com:19302'}, { url: 'turn:homeo@turn.bistri.com:80', credential: 'homeo'}]}});
+		window.stz_sock = new SockeJS('http://infinite-cliffs-71037.herokuapp.com/echo');
+		window.stz_sock.onopen = function() {
+			StzCommon.StzLog.print("[Sock] open");
+		}
 		
 		/*
 	    window.stz_peer = new Peer({
