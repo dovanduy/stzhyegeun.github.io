@@ -1,0 +1,34 @@
+{
+    "boot": [{
+        "type": "image",
+        "key": "stz_logo",
+        "url": "lib/stz-common-js/image/stz_logo.png",
+        "overwrite": false
+    }],
+    "lobby": [
+        {
+            "type": "image",
+            "key": "arena",
+            "url": "assets/image/arena.jpg",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "btn_stage",
+            "url": "assets/image/btn_stage.png",
+            "overwrite": false
+        },
+        {
+            "type": "script",
+            "key": "LobbyScene",
+            "url": "assets/canvas/LobbyScene.js"
+        }
+    ],
+    "meta": {
+        "generated": "1488706886799",
+        "app": "Phaser Editor",
+        "url": "http://phasereditor.boniatillo.com",
+        "version": "1.0",
+        "copyright": "Arian Fornaris (c) 2015,2016"
+    }
+}

@@ -18,6 +18,10 @@ function InGameScene(aGame, aParent) {
 
 	this.game.add.sprite(0, 0, 'inGameUI', 'bgBig.png', groupUI);
 
+	var btnEmoticon = this.game.add.button(31, 856, 'PopupResult', null, this, null, 'btnGreen.png', null, null, groupUI);
+
+	this.game.add.sprite(42, 867, 'PopupResult', 'txtEmoticon.png', groupUI);
+
 	var whiteChipSmall = this.game.add.sprite(231, 42, 'inGameUI', 'whiteChipSmall.png', groupUI);
 
 	var blackChipSmall = this.game.add.sprite(27, 42, 'inGameUI', 'blackChipSmall.png', groupUI);
@@ -27,6 +31,7 @@ function InGameScene(aGame, aParent) {
 	 // public fields
 
 	this.fGroupUI = groupUI;
+	this.fBtnEmoticon = btnEmoticon;
 	this.fWhiteChipSmall = whiteChipSmall;
 	this.fBlackChipSmall = blackChipSmall;
 	this.fGroupChip = groupChip;
