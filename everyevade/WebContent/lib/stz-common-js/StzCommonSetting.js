@@ -3,8 +3,8 @@ requirejs.config({
         app: 'StzCommonSetting',
         "stzcommon" : "./StzCommon",
         "jquery" : "//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min",
-        "peer" : "//cdn.rawgit.com/peers/peerjs/master/dist/peer.min",
-        "phaser_nine_patch" : "./plugin/nine-patch-phaser-plugin",
+        //"peer" : "//cdn.rawgit.com/peers/peerjs/master/dist/peer.min",
+        //"phaser_nine_patch" : "./plugin/nine-patch-phaser-plugin",
         //"phaser_kinematic_scrolling" : "./plugin/phaser-kinetic-scrolling-plugin"
     }
 });
@@ -12,13 +12,13 @@ requirejs.config({
 
 requirejs(['stzcommon'
            , 'jquery'
-           , 'phaser_nine_patch'
-           , 'peer'
+           //, 'phaser_nine_patch'
+           //, 'peer'
            //, 'phaser_kinematic_scrolling'
            ], function() {
     setLockOrientationElements();   
     window.onRequireLoad();
-});\
+});
 
 
 function setLockOrientationElements() {
