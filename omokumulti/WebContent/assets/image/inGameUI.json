@@ -1,0 +1,44 @@
+{"frames": [
+
+{
+	"filename": "blackChipBig.png",
+	"frame": {"x":0,"y":0,"w":80,"h":80},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":80,"h":80},
+	"sourceSize": {"w":80,"h":80}
+},
+{
+	"filename": "forbidern.png",
+	"frame": {"x":80,"y":0,"w":30,"h":31},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":30,"h":31},
+	"sourceSize": {"w":30,"h":31}
+},
+{
+	"filename": "Pan.png",
+	"frame": {"x":111,"y":0,"w":640,"h":960},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":640,"h":960},
+	"sourceSize": {"w":640,"h":960}
+},
+{
+	"filename": "whiteChipBig.png",
+	"frame": {"x":752,"y":0,"w":80,"h":80},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":80,"h":80},
+	"sourceSize": {"w":80,"h":80}
+}],
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "inGameUI.png",
+	"format": "RGBA8888",
+	"size": {"w":831,"h":960},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:48c5bec311fbed9e77fa8874d5bcb55b:01f95affd8594dd383f6b0e0ff792eb4:8336dcd25fbab227545f83fa865c6ce4$"
+}
+}
