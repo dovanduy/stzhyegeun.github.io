@@ -1,0 +1,49 @@
+{
+  "settings": {
+    "sceneWidth": 640,
+    "sceneHeight": 360,
+    "generateOnSave": true,
+    "enableStepping": false
+  },
+  "world": {
+    "type": "group",
+    "id": "750a60ab-a17d-42ba-a617-21a917dff0c1",
+    "info": {
+      "editorName": "InGameScene",
+      "children": [
+        {
+          "type": "group",
+          "id": "334edd6d-207c-4bd4-89f0-82ee320787b9",
+          "info": {
+            "editorName": "groupUI",
+            "editorPublic": true,
+            "children": [{
+              "type": "atlas-sprite",
+              "id": "b2ea0665-cb74-4c53-9456-fe6cd2f95ac4",
+              "asset": "0",
+              "info": {
+                "editorName": "Pan_png",
+                "y": -3
+              }
+            }]
+          }
+        },
+        {
+          "type": "group",
+          "id": "3e7020fb-d9af-4f91-a09a-01ec6c7726c5",
+          "info": {
+            "editorName": "groupBlock",
+            "editorPublic": true,
+            "children": []
+          }
+        }
+      ]
+    }
+  },
+  "asset-table": {"0": {
+    "file": "WebContent/assets/assets-pack.json",
+    "section": "ingame",
+    "asset": "inGameUI",
+    "sprite": "Pan.png"
+  }}
+}

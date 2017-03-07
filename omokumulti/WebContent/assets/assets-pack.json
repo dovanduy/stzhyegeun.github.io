@@ -1,0 +1,64 @@
+{
+    "boot": [{
+        "type": "image",
+        "key": "stz_logo",
+        "url": "lib/stz-common-js/image/stz_logo.png",
+        "overwrite": false
+    }],
+    "lobby": [
+        {
+            "type": "image",
+            "key": "arena",
+            "url": "assets/image/arena.jpg",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "btn_stage",
+            "url": "assets/image/btn_stage.png",
+            "overwrite": false
+        },
+        {
+            "type": "script",
+            "key": "LobbyScene",
+            "url": "assets/canvas/LobbyScene.js"
+        }
+    ],
+    "ingame": [
+        {
+            "type": "atlas",
+            "key": "inGameUI",
+            "textureURL": "assets/image/inGameUI.png",
+            "atlasURL": "assets/image/inGameUI.json",
+            "format": "TEXTURE_ATLAS_JSON_ARRAY"
+        },
+        {
+            "type": "bitmapFont",
+            "key": "comboFont",
+            "textureURL": "assets/Font/comboFont.png",
+            "atlasURL": "assets/Font/comboFont.xml",
+            "xSpacing": 0,
+            "ySpacing": 0
+        },
+        {
+            "type": "bitmapFont",
+            "key": "textScoreFont",
+            "textureURL": "assets/Font/textScoreFont.png",
+            "atlasURL": "assets/Font/textScoreFont.xml",
+            "xSpacing": 0,
+            "ySpacing": 0
+        },
+        {
+            "type": "script",
+            "key": "InGameScene",
+            "url": "assets/canvas/InGameScene.js"
+        }
+    ],
+    "meta": {
+        "generated": "1488858626873",
+        "app": "Phaser Editor",
+        "url": "http://phasereditor.boniatillo.com",
+        "version": "1.0",
+        "copyright": "Arian Fornaris (c) 2015,2016"
+    }
+}

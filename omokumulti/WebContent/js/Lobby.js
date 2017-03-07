@@ -61,7 +61,7 @@ Lobby.prototype.create = function() {
 
 Lobby.prototype.OnClickGameStart = function(sprite, pointer) {
 	StzCommon.StzLog.print("[Lobby (OnClickGameStart)]");
-	//this.game.state.start("InGame");
+	this.game.state.start("InGame");
 	
 	if (this.isWaiting == false) {
 		this.isWaiting = true;
@@ -73,7 +73,7 @@ Lobby.prototype.OnClickGameStart = function(sprite, pointer) {
 			this.remainWaitingTime--;
 			this.scene.fTxt_stage.text = "Waiting : " + this.remainWaitingTime + " sec";
 			
-			if (this.remainWaitingTime <= 0) {
+			if (this.remainWaitingTime <= 0) {7
 				this.cancelWaitingPeer();
 			}
 		}, this);
@@ -92,14 +92,17 @@ Lobby.prototype.OnClickGameStart = function(sprite, pointer) {
 					if (data.rows[row].status != EConnectStatus.WAITING) {
 						continue;
 					}
-					// Expired data
-					if (window.is_peer_expired(data.rows[row].updated) == true) {
+					if(data.rows[row].peer_id !== 'j61rqqovyacp8150'){
 						continue;
 					}
+					// Expired data
+//					if (window.is_peer_expired(data.rows[row].updated) == true) {
+//						continue;
+//					}
 					
 					this.peerList.push(data.rows[row]);
 				}
-				
+			
 				if (this.peerList.length <= 0) {
 					
 					this.waitingTimer.start();
