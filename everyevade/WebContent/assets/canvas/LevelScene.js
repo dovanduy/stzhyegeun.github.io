@@ -17,7 +17,7 @@ function LevelScene(aGame, aParent) {
 	this.game.add.sprite(0, 0, 'bgSpace', null, this);
 
 	var player = this.game.add.group(this);
-	player.position.setTo(320, 480);
+	player.position.setTo(640, 360);
 
 	var spaceship = this.game.add.sprite(0, 0, 'spaceship', null, player);
 	spaceship.anchor.setTo(0.5, 0.5);
@@ -30,6 +30,7 @@ function LevelScene(aGame, aParent) {
 	/* --- post-init-begin --- */
 
 	// you can insert code here
+	this.fSpaceship.hitArea = new Phaser.Rectangle(-5, -5, 10, 10);
 
 	/* --- post-init-end --- */
 }

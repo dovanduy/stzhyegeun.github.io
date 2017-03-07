@@ -1,7 +1,7 @@
 {
   "settings": {
-    "sceneWidth": 640,
-    "sceneHeight": 960,
+    "sceneWidth": 1280,
+    "sceneHeight": 720,
     "generateOnSave": true,
     "enableStepping": false
   },
@@ -23,8 +23,8 @@
           "info": {
             "editorName": "player",
             "editorPublic": true,
-            "x": 320,
-            "y": 480,
+            "x": 640,
+            "y": 360,
             "children": [{
               "type": "image",
               "id": "8a918699-2f5d-4321-be49-51c5dbbb0d22",

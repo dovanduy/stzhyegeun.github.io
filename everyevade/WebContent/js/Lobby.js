@@ -25,7 +25,7 @@ Lobby.prototype.create = function() {
 	noticeText.setShadow(3, 3, 'rgba(0,0,0,0.5)', 2);
 	noticeText.setTextBounds(0, 0, this.game.width, this.game.height / 2);
 	
-	this._inputField = this.game.add.inputField(this.game.width / 4 , this.game.height / 2 - 180, {
+	this._inputField = this.game.add.inputField(this.game.width / 4 , this.game.height / 3, {
 		font: '18px Arial', 
 		fill: '#212121', 
 		fontWeight: 'bold', 
@@ -39,7 +39,7 @@ Lobby.prototype.create = function() {
 	});
 	
 	var groupBtnDone = this.game.add.group();
-	groupBtnDone.position.setTo(this.world.centerX - 100, this.world.centerY - 100);
+	groupBtnDone.position.setTo(this.world.centerX - 100, this.world.centerY);
 	// play button            
 	this._btnInputDone = this.game.add.graphics(0, 0);            
 	// draw a rectangle            
