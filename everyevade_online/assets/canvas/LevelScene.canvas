@@ -1,0 +1,56 @@
+{
+  "settings": {
+    "sceneWidth": 1280,
+    "sceneHeight": 720,
+    "generateOnSave": true,
+    "enableStepping": false
+  },
+  "world": {
+    "type": "group",
+    "id": "34fd2f68-9964-45ef-8953-572766929fe7",
+    "info": {
+      "editorName": "LevelScene",
+      "children": [
+        {
+          "type": "image",
+          "id": "010945a5-1cd2-4106-80a7-5d27c8d359e9",
+          "asset": "0",
+          "info": {"editorName": "bgSpace"}
+        },
+        {
+          "type": "group",
+          "id": "10163819-60fa-4ee0-be28-eccab65cdb4d",
+          "info": {
+            "editorName": "player",
+            "editorPublic": true,
+            "x": 640,
+            "y": 360,
+            "children": [{
+              "type": "image",
+              "id": "8a918699-2f5d-4321-be49-51c5dbbb0d22",
+              "asset": "1",
+              "info": {
+                "editorName": "spaceship",
+                "editorPublic": true,
+                "anchor.x": 0.5,
+                "anchor.y": 0.5
+              }
+            }]
+          }
+        }
+      ]
+    }
+  },
+  "asset-table": {
+    "0": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "level",
+      "asset": "bgSpace"
+    },
+    "1": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "level",
+      "asset": "spaceship"
+    }
+  }
+}
