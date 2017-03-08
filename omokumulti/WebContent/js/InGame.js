@@ -20,6 +20,13 @@ InGame.prototype.init = function(data) {
 	this.board = StzCommon.StzUtil.createArray(StzGameConfig.ROW_COUNT, StzGameConfig.COL_COUNT);
 	this.myColor = data;
 	this.currentTurn = ETurn.BLACK;
+	
+	window.connetCallback[EServerMethod.CHANGE_TURN] = this.chageTurn.bind(this);
+	
+};
+
+InGame.prototype.chageTurn = function(){
+	
 };
 
 InGame.prototype.preload = function() {

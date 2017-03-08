@@ -24,7 +24,9 @@ window.onRequireLoad = function() {
 	    
 	    window.is_peer_expired = function(inRawTime) {
 	    	var dataTime = (new Date(inRawTime)).getTime();
-			var timeDeltaFromNow = (new Date().getTime()) - dataTime; 
+	    	var now = new Date();
+	    	var nowGMT = new Date(now.getTime() + now.getTimezoneOffset() * 60000);
+			var timeDeltaFromNow = (nowGMT.getTime()) - dataTime; 
 			
 			if (timeDeltaFromNow > StzServerConfig.EXPIRE_SECONDS * 100) {
 				return true;
