@@ -28,7 +28,10 @@ Lobby.prototype.init = function() {
     	// 다른 Peer 클라이언트가 접속해 온 경우
     	StzCommon.StzLog.print("[Peer (connected)] c: " + c);
     	$.get(StzServerConfig.getUpdateUrl(window.stz_peerId, EConnectStatus.GAMING), (function(data, status){
-			this.game.state.start("InGame",  true, false, ETurn.BLACK);
+    		StzCommon.StzUtil.loadJavascript('js/server/Server.js', function() {
+    			this.game.state.start("InGame",  true, false, ETurn.BLACK);
+    		}.bind(this));
+    		
 		}).bind(this));
     };
 	
@@ -122,7 +125,9 @@ Lobby.prototype.OnClickGameStart = function(sprite, pointer) {
 					window.peerConn.on("open", function() {
 						StzCommon.StzLog.print("[Lobby (PeerConnect)]");
 						$.get(StzServerConfig.getUpdateUrl(this.stz_peerId, EConnectStatus.GAMING), (function(data, status){
-							this.game.state.start("InGame", true, false, ETurn.WHITE);
+							StzCommon.StzUtil.loadJavascript('js/server/Server.js', function() {
+				    			this.game.state.start("InGame",  true, false, ETurn.WHITE);
+				    		}.bind(this));
 						}).bind(this));
 					}, this);
 				}

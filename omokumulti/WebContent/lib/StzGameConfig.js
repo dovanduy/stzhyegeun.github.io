@@ -42,6 +42,11 @@ var EConnectStatus = {
 	GAMING: 2
 };
 
+var EServerMethod = {
+	CHANGE_TURN : 		"CHANGE_TURN",
+	SEND_EMOTICON : 	"SEND_EMOTICON"
+};
+
 var EBlockType = {
 	NONE: 0, 
 	BLACK: 1, 
@@ -50,8 +55,8 @@ var EBlockType = {
 };
 
 StzGameConfig.getChipFrameName = function(type){
-	if(type === EBlockType.BLACK) return 'blackChipBig.png';
-	else if(type === EBlockType.WHITE) return 'whiteChipBig.png';
+	if(type === EBlockType.BLACK) return 'blackBlock.png';
+	else if(type === EBlockType.WHITE) return 'whilteBlock.png';
 	else if(type === EBlockType.FORBIDERN) return 'forbidern.png';
 	
 	else StzCommon.StzLog.assert(true, "Error");

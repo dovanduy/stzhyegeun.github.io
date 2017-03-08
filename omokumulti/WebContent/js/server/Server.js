@@ -1,6 +1,3 @@
-var EServerMethod = {
-	CHANGE_TURN : "CHANGE_TURN"
-};
 
 window.connetCallback = {};
 
@@ -12,16 +9,12 @@ window.peerConn.on('data', function(data){
 	 }
 	 
 	 if(data.method !== undefined && data.method !== null){
-		 window.connetCallback[data.method](); 
+		 window.connetCallback[data.method](data); 
 	 }
 });
 
 var Server = {
-		request : function(parm, callback){
+		request : function(parm){
 			window.peerConn.send(parm);
-			
-			if(callback !== callback){
-				callback();
-			}
 		},
 };
