@@ -13,10 +13,10 @@ var StzGameConfig = {
 
 var StzServerConfig = {
     BASE_URL: "//infinite-cliffs-71037.herokuapp.com"
-    , GET_PEERID_URL: "/othelo/get/peerid"
-    , GET_PEERIDLIST_URL: "/othelo/get/peeridlist"
-    , CREATE_PEERID_URL: "/othelo/create/peerid"
-    , UPDATE_PEERID_URL: "/othelo/update/peerid"
+    , GET_PEERID_URL: "/omok/get/peerid"
+    , GET_PEERIDLIST_URL: "/omok/get/peeridlist"
+    , CREATE_PEERID_URL: "/omok/create/peerid"
+    , UPDATE_PEERID_URL: "/omok/update/peerid"
     , EXPIRE_SECONDS: 30
     , getRetrievePeerIdUrl: function(inPeerId) {
 		var result = this.BASE_URL + this.GET_PEERID_URL + "?peerid=" + inPeerId;
@@ -44,7 +44,9 @@ var EConnectStatus = {
 
 var EServerMethod = {
 	CHANGE_TURN : 		"CHANGE_TURN",
-	SEND_EMOTICON : 	"SEND_EMOTICON"
+	SEND_EMOTICON : 	"SEND_EMOTICON",
+	SEND_END : 			"SEND_END"
+		
 };
 
 var EBlockType = {
@@ -56,7 +58,7 @@ var EBlockType = {
 
 StzGameConfig.getChipFrameName = function(type){
 	if(type === EBlockType.BLACK) return 'blackBlock.png';
-	else if(type === EBlockType.WHITE) return 'whilteBlock.png';
+	else if(type === EBlockType.WHITE) return 'whiteBlock.png';
 	else if(type === EBlockType.FORBIDERN) return 'forbidern.png';
 	
 	else StzCommon.StzLog.assert(true, "Error");

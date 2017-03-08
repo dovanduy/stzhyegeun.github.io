@@ -21,9 +21,10 @@ InGame.prototype.init = function(data) {
 	this.board = StzCommon.StzUtil.createArray(StzGameConfig.ROW_COUNT, StzGameConfig.COL_COUNT);
 	this.myColor = data;
 	this.currentTurn = ETurn.BLACK;
-	
+
 	window.connetCallback[EServerMethod.CHANGE_TURN] = this.responeChangeTurn.bind(this);
 	window.connetCallback[EServerMethod.SEND_EMOTICON] = this.responeEmoticon.bind(this);
+	window.connetCallback[EServerMethod.SEND_END] = this.responeEnd.bind(this);
 };
 
 InGame.prototype.preload = function() {
@@ -32,7 +33,7 @@ InGame.prototype.preload = function() {
 
 InGame.prototype.create = function() {
 	this.popupResult = this.game.plugins.add(new PopupResult(this.game, this, {blind:true}));
-	this.popupWating = this.game.plugins.add(new PopupWating(this.game, this, {blind:false}));
+	this.popupWating = this.game.plugins.add(new PopupWating(this.game, this, {blind:true}));
 	this.popupEmoticon = this.game.plugins.add(new PopupEmoticon(this.game, this, {blind:false, offsetY:300, callbackFunc:function(){
 		if(this.popupEmoticon.closeState === EPopupCloseState.CONFIRM){
 			this.scene.fBtnEmoticon.alpha = 0.5;
@@ -77,7 +78,7 @@ InGame.prototype.onEmoticon = function(){
 	else{
 		this.popupEmoticon.popupOpen();
 	}
-}
+};
 
 InGame.prototype.roundArray = [{x:-1, y:-1}, {x:0, y:-1}, {x:1, y:-1}, {x:-1, y:0}, 
                                {x:1, y:0}, {x:-1, y:1}, {x:0, y:1}, {x:1, y:1},];
@@ -104,7 +105,6 @@ InGame.prototype.checkAvailTurn = function(curRow, curCol, curType){
 		var downY = curCol + this.roundArray[7 - i].y;
 		
 		var endCount = 0;
-		
 		var BlockCount = 0;
 		
 		if(StzGameConfig.ROW_COUNT > upX && upX >= 0 && StzGameConfig.COL_COUNT > upY || upY >= 0 ){
@@ -120,6 +120,12 @@ InGame.prototype.checkAvailTurn = function(curRow, curCol, curType){
 	
 		if(endCount === 4){
 			StzCommon.StzLog.print("게임 종료");
+			this.popupWating.popupClose();
+			this.popupResult.setData(this.myColor, curType);
+			
+			this.popupResult.popupOpen();
+			this.requestEnd(curType);
+			return false;
 		}
 		
 		else if(endCount > 4){
@@ -177,7 +183,7 @@ InGame.prototype.lineCheck = function(cx, cy, oppositeType, curType, roundData, 
         }
         else if((this.board[tempx][tempy].getType() === EBlockType.NONE && !forbidren)
     			||this.board[tempx][tempy].getType() === oppositeType){
-        		if(forbidren === true){
+        		if(forbidren === true && noneCount === 0 && cotinueCount == 2){
         			cotinueCount--;
         		}
 	    			break;
@@ -204,13 +210,14 @@ InGame.prototype.requestChangeTurn = function(rowIndex, colIndex, type){
 	var length = this.forbidernBlocks.length;
 	
 	for(var i=0;i<length;i++){
-		this.board[this.forbidernBlocks.curRow][this.forbidernBlocks.curCol].changeType(EBlockType.NONE);
+		this.board[this.forbidernBlocks[i].curRow][this.forbidernBlocks[i].curCol].changeType(EBlockType.NONE);
 	}
 	
 	this.forbidernBlocks = [];
+
+	Server.request(sendJson);
 	
 	this.popupWating.popupOpen();
-	Server.request(sendJson);
 };
 
 InGame.prototype.responeChangeTurn = function(data){
@@ -233,4 +240,17 @@ InGame.prototype.responeEmoticon = function(data){
 	 if(data.EmoticonName !== undefined){
 		 this.emoticonUP.show(data.EmoticonName);
 	 }
+};
+
+InGame.prototype.requestEnd = function(curType){
+	var sendJson = JSON.stringify({
+		"method" : 		EServerMethod.SEND_END,
+		"curType":		curType
+	});
+	Server.request(sendJson);
+};
+
+InGame.prototype.responeEnd = function(data){
+	this.popupResult.setData(this.myColor, data.curType);
+	this.popupResult.popupOpen();
 };

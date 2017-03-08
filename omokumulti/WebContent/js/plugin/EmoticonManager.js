@@ -30,8 +30,7 @@ function EmoticonManager(inGame, aParent, atlasName, options) {
 	this.tween = null;
 	
 	this.emoticon = this.inGame.add.sprite(0, 0, atlasName);
-	this.scene.fGroupChip.add(this.emoticon);
-	
+
 	if(options.scaleX !== undefined){
 		this.emoticon.scale.x = options.scaleX;
 	}

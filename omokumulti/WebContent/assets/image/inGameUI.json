@@ -25,8 +25,8 @@
 	"sourceSize": {"w":640,"h":960}
 },
 {
-	"filename": "whilteBlock.png",
-	"frame": {"x":751,"y":0,"w":80,"h":80},
+	"filename": "whiteBlock.png",
+	"frame": {"x":752,"y":0,"w":80,"h":80},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":80,"h":80},

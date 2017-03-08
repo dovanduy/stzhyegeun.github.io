@@ -20,39 +20,25 @@ function resultPopup(aGame, aParent) {
 
 	this.game.add.sprite(9, 8, 'PopupResult', 'bg.png', popupUI);
 
-	var iconLose = this.game.add.sprite(14, 15, 'PopupResult', 'iconLose.png', popupUI);
+	var iconLose = this.game.add.sprite(24, 31, 'PopupResult', 'iconLose.png', popupUI);
 
-	var iconWin = this.game.add.sprite(48, 33, 'PopupResult', 'iconWin.png', popupUI);
+	var iconWin = this.game.add.sprite(61, 53, 'PopupResult', 'iconWin.png', popupUI);
 
-	var iconResult = this.game.add.sprite(189, 54, 'inGameUI', 'whiteChipBig.png', popupUI);
+	var txtResult = this.game.add.sprite(152, 22, 'PopupResult', 'txtGameLose.png', popupUI);
 
-	this.game.add.sprite(0, 146, 'PopupResult', 'txtChipCount.png', popupUI);
+	var btnReturn = this.game.add.button(111, 181, 'PopupResult', null, this, 'btnGreen.png', 'btnGreen.png', 'btnGreen.png', 'btnGreen.png', popupUI);
 
-	var txtResult = this.game.add.sprite(144, 20, 'PopupResult', 'txtGameLose.png', popupUI);
+	this.game.add.sprite(119, 191, 'PopupResult', 'txtReturn.png', popupUI);
 
-	var txtDecResult = this.game.add.sprite(159, 146, 'PopupResult', 'txtWin.png', popupUI);
-
-	var btnRestart = this.game.add.button(40, 183, 'PopupResult', null, this, 'btnGreen.png', 'btnGreen.png', 'btnGreen.png', 'btnGreen.png', popupUI);
-
-	var btnReturn = this.game.add.button(197, 183, 'PopupResult', null, this, 'btnGreen.png', 'btnGreen.png', 'btnGreen.png', 'btnGreen.png', popupUI);
-
-	this.game.add.sprite(207, 193, 'PopupResult', 'txtReturn.png', popupUI);
-
-	this.game.add.sprite(51, 193, 'PopupResult', 'txtRestart.png', popupUI);
-
-	var txtCountPos = this.game.add.group(popupUI);
-	txtCountPos.position.setTo(115, 145);
+	var iconResult = this.game.add.sprite(201, 67, 'inGameUI', 'blackBlock.png', popupUI);
 
 	 // public fields
 
 	this.fIconLose = iconLose;
 	this.fIconWin = iconWin;
-	this.fIconResult = iconResult;
 	this.fTxtResult = txtResult;
-	this.fTxtDecResult = txtDecResult;
-	this.fBtnRestart = btnRestart;
 	this.fBtnReturn = btnReturn;
-	this.fTxtCountPos = txtCountPos;
+	this.fIconResult = iconResult;
 
 	/* --- post-init-begin --- */
 

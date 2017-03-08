@@ -32,7 +32,6 @@ Boot.prototype.create = function() {
 	this.game.load.pack("ingame", "assets/assets-pack.json");
 	
 	this.game.load.start();
-	
 };
 
 Boot.OnLoadStart = function() {
