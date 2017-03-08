@@ -1,7 +1,7 @@
 {"frames": [
 
 {
-	"filename": "blackChipBig.png",
+	"filename": "blackBlock.png",
 	"frame": {"x":0,"y":0,"w":80,"h":80},
 	"rotated": false,
 	"trimmed": false,
@@ -10,11 +10,11 @@
 },
 {
 	"filename": "forbidern.png",
-	"frame": {"x":80,"y":0,"w":30,"h":31},
+	"frame": {"x":80,"y":0,"w":31,"h":31},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":30,"h":31},
-	"sourceSize": {"w":30,"h":31}
+	"spriteSourceSize": {"x":0,"y":0,"w":31,"h":31},
+	"sourceSize": {"w":31,"h":31}
 },
 {
 	"filename": "Pan.png",
@@ -25,8 +25,8 @@
 	"sourceSize": {"w":640,"h":960}
 },
 {
-	"filename": "whiteChipBig.png",
-	"frame": {"x":752,"y":0,"w":80,"h":80},
+	"filename": "whilteBlock.png",
+	"frame": {"x":751,"y":0,"w":80,"h":80},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":80,"h":80},
@@ -39,6 +39,6 @@
 	"format": "RGBA8888",
 	"size": {"w":831,"h":960},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:48c5bec311fbed9e77fa8874d5bcb55b:01f95affd8594dd383f6b0e0ff792eb4:8336dcd25fbab227545f83fa865c6ce4$"
+	"smartupdate": "$TexturePacker:SmartUpdate:85ce93b7fbdf7f668cf167cd61865be0:a7a1c7df95fde06668859b5ff32fca10:8336dcd25fbab227545f83fa865c6ce4$"
 }
 }

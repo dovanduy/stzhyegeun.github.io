@@ -17,15 +17,41 @@
           "info": {
             "editorName": "groupUI",
             "editorPublic": true,
-            "children": [{
-              "type": "atlas-sprite",
-              "id": "b2ea0665-cb74-4c53-9456-fe6cd2f95ac4",
-              "asset": "0",
-              "info": {
-                "editorName": "Pan_png",
-                "y": -3
+            "children": [
+              {
+                "type": "atlas-sprite",
+                "id": "b2ea0665-cb74-4c53-9456-fe6cd2f95ac4",
+                "asset": "0",
+                "info": {
+                  "editorName": "Pan_png",
+                  "y": -3
+                }
+              },
+              {
+                "type": "button",
+                "id": "f65d17f7-f82f-4748-bae0-3e3c502752d3",
+                "asset": "1",
+                "info": {
+                  "editorName": "btnEmoticon",
+                  "editorPublic": true,
+                  "x": 41,
+                  "y": 855,
+                  "overFrame": "btnGreen.png",
+                  "downFrame": "btnGreen.png",
+                  "upFrame": "btnGreen.png"
+                }
+              },
+              {
+                "type": "atlas-sprite",
+                "id": "7a5895bd-6abc-4f5d-8990-2f623250553a",
+                "asset": "2",
+                "info": {
+                  "editorName": "txtEmoticon_png",
+                  "x": 51,
+                  "y": 868
+                }
               }
-            }]
+            ]
           }
         },
         {
@@ -40,10 +66,24 @@
       ]
     }
   },
-  "asset-table": {"0": {
-    "file": "WebContent/assets/assets-pack.json",
-    "section": "ingame",
-    "asset": "inGameUI",
-    "sprite": "Pan.png"
-  }}
+  "asset-table": {
+    "0": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "inGameUI",
+      "sprite": "Pan.png"
+    },
+    "1": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "PopupResult",
+      "sprite": "btnGreen.png"
+    },
+    "2": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "PopupResult",
+      "sprite": "txtEmoticon.png"
+    }
+  }
 }

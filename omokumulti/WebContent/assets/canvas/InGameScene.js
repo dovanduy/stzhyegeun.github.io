@@ -18,11 +18,16 @@ function InGameScene(aGame, aParent) {
 
 	this.game.add.sprite(0, -3, 'inGameUI', 'Pan.png', groupUI);
 
+	var btnEmoticon = this.game.add.button(41, 855, 'PopupResult', null, this, 'btnGreen.png', 'btnGreen.png', 'btnGreen.png', 'btnGreen.png', groupUI);
+
+	this.game.add.sprite(51, 868, 'PopupResult', 'txtEmoticon.png', groupUI);
+
 	var groupBlock = this.game.add.group(this);
 
 	 // public fields
 
 	this.fGroupUI = groupUI;
+	this.fBtnEmoticon = btnEmoticon;
 	this.fGroupBlock = groupBlock;
 
 	/* --- post-init-begin --- */
