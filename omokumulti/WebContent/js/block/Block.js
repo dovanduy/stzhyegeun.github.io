@@ -13,7 +13,7 @@ function Block(ingame, aParent, rowIndex, colIndex) {
 	this.inGame = ingame;
 	this.aParent = aParent;
 	
-	this.block = this.inGame.add.sprite(0, 0, 'inGameUI', 'blackChipBig.png');
+	this.block = this.inGame.add.sprite(0, 0, 'inGameUI', 'blackBlock.png');
 	this.block.alpha = 0;
 
 	this.rowIndex = rowIndex;
@@ -55,6 +55,10 @@ Block.prototype.changeType = function(type){
 
 Block.prototype.onClickBlock = function(){
 	StzCommon.StzLog.print("[Block onClickBlock]");
+	if(this.aParent.myColor !== this.aParent.currentTurn){
+		return;
+	}
+	
 	var curType = (this.aParent.currentTurn === ETurn.BLACK)?EBlockType.BLACK:EBlockType.WHITE;
 	var changeType = (this.aParent.currentTurn === ETurn.BLACK)?EBlockType.WHITE:EBlockType.BLACK;
 	
@@ -68,8 +72,9 @@ Block.prototype.onClickBlock = function(){
 		return;
 	}
 	
-	this.aParent.checkAvailTurn(this.rowIndex, this.colIndex, curType);
-	
+	if(this.aParent.checkAvailTurn(this.rowIndex, this.colIndex, curType) === true){
+		this.aParent.requestChangeTurn(this.rowIndex, this.colIndex, curType);
+	}
 };
 
 Block.prototype.getType = function(){

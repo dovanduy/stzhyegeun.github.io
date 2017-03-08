@@ -52,10 +52,32 @@
             "type": "script",
             "key": "InGameScene",
             "url": "assets/canvas/InGameScene.js"
+        },
+        {
+            "type": "atlas",
+            "key": "PopupResult",
+            "textureURL": "assets/popup/PopupResult.png",
+            "atlasURL": "assets/popup/PopupResult.json",
+            "format": "TEXTURE_ATLAS_JSON_ARRAY"
+        },
+        {
+            "type": "script",
+            "key": "watingPopup",
+            "url": "assets/canvas/watingPopup.js"
+        },
+        {
+            "type": "script",
+            "key": "emoticonPopup",
+            "url": "assets/canvas/emoticonPopup.js"
+        },
+        {
+            "type": "script",
+            "key": "resultPopup",
+            "url": "assets/canvas/resultPopup.js"
         }
     ],
     "meta": {
-        "generated": "1488858626873",
+        "generated": "1488953300917",
         "app": "Phaser Editor",
         "url": "http://phasereditor.boniatillo.com",
         "version": "1.0",
