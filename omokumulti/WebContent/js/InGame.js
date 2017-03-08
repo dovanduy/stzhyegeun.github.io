@@ -33,7 +33,7 @@ InGame.prototype.preload = function() {
 
 InGame.prototype.create = function() {
 	this.popupResult = this.game.plugins.add(new PopupResult(this.game, this, {blind:true}));
-	this.popupWating = this.game.plugins.add(new PopupWating(this.game, this, {blind:true}));
+	this.popupWating = this.game.plugins.add(new PopupWating(this.game, this, {blind:false}));
 	this.popupEmoticon = this.game.plugins.add(new PopupEmoticon(this.game, this, {blind:false, offsetY:300, callbackFunc:function(){
 		if(this.popupEmoticon.closeState === EPopupCloseState.CONFIRM){
 			this.scene.fBtnEmoticon.alpha = 0.5;
