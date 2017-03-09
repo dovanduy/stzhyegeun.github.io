@@ -1,0 +1,38 @@
+{
+  "settings": {
+    "sceneWidth": 480,
+    "sceneHeight": 800,
+    "generateOnSave": true,
+    "enableStepping": false
+  },
+  "world": {
+    "type": "group",
+    "id": "8b9c182b-870e-4df5-99f2-d5323841db39",
+    "info": {
+      "editorName": "PreloadScene",
+      "children": [
+        {
+          "type": "image",
+          "id": "0dead1a8-8e55-4170-b8d9-3a967696a442",
+          "asset": "0",
+          "info": {"editorName": "preloader"}
+        },
+        {
+          "type": "group",
+          "id": "5f66c01d-0af0-4469-844c-2be5c1ab5f72",
+          "info": {
+            "editorName": "progress",
+            "editorPublic": true,
+            "y": 700,
+            "children": []
+          }
+        }
+      ]
+    }
+  },
+  "asset-table": {"0": {
+    "file": "WebContent/assets/assets-pack.json",
+    "section": "preload",
+    "asset": "preloader"
+  }}
+}

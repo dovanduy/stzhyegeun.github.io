@@ -1,27 +1,46 @@
 {
-    "level": [{
+    "boot": [{
         "type": "image",
-        "overwrite": false,
-        "key": "mono",
-        "url": "assets/images/mono.png"
+        "key": "stz_logo",
+        "url": "lib/stz-common-js/image/stz_logo.png",
+        "overwrite": false
+    }],
+    "preload": [
+        {
+            "type": "image",
+            "key": "preloader",
+            "url": "assets/images/preloader.png",
+            "overwrite": false
+        },
+        {
+            "type": "script",
+            "key": "PreloadScene",
+            "url": "assets/canvas/PreloadScene.js"
+        },
+        {
+            "type": "image",
+            "key": "preload_loading_bar",
+            "url": "assets/images/preload_loading_bar.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "preload_loading_base",
+            "url": "assets/images/preload_loading_base.png",
+            "overwrite": false
+        }
+    ],
+    "ingame": [{
+        "type": "image",
+        "key": "bgIngame",
+        "url": "assets/images/bgIngame.png",
+        "overwrite": false
     }],
     "meta": {
+        "generated": "1489050271824",
         "app": "Phaser Editor",
-        "copyright": "Arian Fornaris (boniatillo.com) 2015",
-        "generated": "1433372306339",
+        "url": "http://phasereditor.boniatillo.com",
         "version": "1.0",
-        "url": "http://boniatillo.com"
-    },
-    "start": [{
-        "type": "image",
-        "overwrite": false,
-        "key": "tap-to-start",
-        "url": "assets/images/tap-to-start.png"
-    }],
-    "preload": [{
-        "type": "image",
-        "overwrite": false,
-        "key": "loading",
-        "url": "assets/images/loading.png"
-    }]
+        "copyright": "Arian Fornaris (c) 2015,2016"
+    }
 }

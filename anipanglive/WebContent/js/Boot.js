@@ -10,25 +10,45 @@ var proto = Object.create(Phaser.State);
 Boot.prototype = proto;
 
 Boot.prototype.init = function() {
-	// Unless you specifically know your game needs to support multi-touch I
-	// would recommend setting this to 1
 	this.input.maxPointers = 1;
 
-	// Setup the scale strategy
 	this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
 	this.scale.pageAlignHorizontally = true;
 	this.scale.pageAlignVertically = true;
 };
 
-Boot.prototype.preload = function() {
-	// Load the assets to be used in the Preload state (progress bar,
-	// etc...). Note we use the "preload" key of the asset pack. The rest of
-	// the assets should be loaded in the Preload state.
-	this.load.pack("preload", "assets/assets-pack.json");
+Boot.prototype.create = function() {
+	
+	this.game.stage.backgroundColor = '#fff';
+	
+	var logo = this.game.add.image(this.game.width / 2, this.game.height / 2, 'stz_logo').anchor.setTo(0.5, 0.5);
+	
+	this.game.state.add('Preload', Preload);
+	
+	this.game.load.pack('preload', 'assets/assets-pack.json');
+	
+	this.game.load.onLoadStart.add(Boot.OnLoadStart, this);
+	this.game.load.onFileComplete.add(Boot.OnFileComplete, this);
+	this.game.load.onLoadComplete.add(Boot.OnLoadComplete, this);
+	
+	this.game.load.start();
 };
 
-Boot.prototype.create = function() {
-	// By this point the preloader assets have loaded to the cache, we've
-	// set the game settings, so now let's start the real preloader going
+Boot.OnLoadStart = function() {
+	StzCommon.StzLog.print('[Boot] onBootLoadStart');
+};
+
+Boot.OnFileComplete = function(progress, cacheKey, success, totalLoaded, totalFiles) {
+	StzCommon.StzLog.print("[Boot] OnLoadFileComplete (" + cacheKey + ") - " + progress + "%, " + totalLoaded + " / " + totalFiles);
+};
+
+Boot.OnLoadComplete = function() {
+	
+	StzCommon.StzLog.print("[Boot] OnLoadComplete");
+	
+	this.game.load.onLoadStart.removeAll();
+	this.game.load.onFileComplete.removeAll();
+	this.game.load.onLoadComplete.removeAll();
+	
 	this.game.state.start("Preload");
 };
