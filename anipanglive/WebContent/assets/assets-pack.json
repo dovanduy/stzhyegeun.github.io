@@ -30,14 +30,70 @@
             "overwrite": false
         }
     ],
-    "ingame": [{
-        "type": "image",
-        "key": "bgIngame",
-        "url": "assets/images/bgIngame.png",
-        "overwrite": false
-    }],
+    "ingame": [
+        {
+            "type": "image",
+            "key": "bgIngame",
+            "url": "assets/images/bgIngame.png",
+            "overwrite": false
+        },
+        {
+            "type": "atlas",
+            "key": "blocks",
+            "textureURL": "assets/images/blocks.png",
+            "atlasURL": "assets/images/blocks.json",
+            "format": "TEXTURE_ATLAS_JSON_ARRAY"
+        },
+        {
+            "type": "atlas",
+            "key": "board",
+            "textureURL": "assets/images/board.png",
+            "atlasURL": "assets/images/board.json",
+            "format": "TEXTURE_ATLAS_JSON_ARRAY"
+        },
+        {
+            "type": "spritesheet",
+            "key": "animExplodeCircle",
+            "url": "assets/spritesheets/animExplodeCircle.png",
+            "frameWidth": 150,
+            "frameHeight": 150,
+            "frameMax": -1,
+            "margin": 0,
+            "spacing": 0
+        },
+        {
+            "type": "spritesheet",
+            "key": "animExplodeNormal",
+            "url": "assets/spritesheets/animExplodeNormal.png",
+            "frameWidth": 140,
+            "frameHeight": 140,
+            "frameMax": -1,
+            "margin": 0,
+            "spacing": 0
+        },
+        {
+            "type": "spritesheet",
+            "key": "animExplodeRandompang",
+            "url": "assets/spritesheets/animExplodeRandompang.png",
+            "frameWidth": 76,
+            "frameHeight": 76,
+            "frameMax": -1,
+            "margin": 0,
+            "spacing": 0
+        },
+        {
+            "type": "spritesheet",
+            "key": "animHint",
+            "url": "assets/spritesheets/animHint.png",
+            "frameWidth": 76,
+            "frameHeight": 76,
+            "frameMax": -1,
+            "margin": 0,
+            "spacing": 0
+        }
+    ],
     "meta": {
-        "generated": "1489050271824",
+        "generated": "1489052955016",
         "app": "Phaser Editor",
         "url": "http://phasereditor.boniatillo.com",
         "version": "1.0",

@@ -1,0 +1,624 @@
+<dragonBones name="shuffle" frameRate="24" version="2.3">
+  <armature name="shuffle">
+    <bone name="text">
+      <transform x="1.45" y="192.65" skX="0" skY="0" scX="1" scY="1"/>
+    </bone>
+    <bone name="반짝이 copy">
+      <transform x="0.35" y="1.35" skX="0" skY="0" scX="1" scY="1"/>
+    </bone>
+    <bone name="반짝이 copy 2">
+      <transform x="0.35" y="1.35" skX="0" skY="0" scX="1" scY="1"/>
+    </bone>
+    <bone name="반짝이 copy 3">
+      <transform x="0.35" y="1.35" skX="0" skY="0" scX="1" scY="1"/>
+    </bone>
+    <bone name="반짝이 copy 4">
+      <transform x="0.35" y="1.35" skX="0" skY="0" scX="1" scY="1"/>
+    </bone>
+    <bone name="반짝이2">
+      <transform x="0.35" y="1.35" skX="0" skY="0" scX="1" scY="1"/>
+    </bone>
+    <bone name="반짝이1">
+      <transform x="0.35" y="1.35" skX="0" skY="0" scX="1" scY="1"/>
+    </bone>
+    <bone name="반짝이0">
+      <transform x="0.35" y="1.35" skX="0" skY="0" scX="1" scY="1"/>
+    </bone>
+    <bone name="반짝이">
+      <transform x="0.35" y="1.35" skX="0" skY="0" scX="1" scY="1"/>
+    </bone>
+    <bone name="explode">
+      <transform x="-4.65" y="2.7" skX="0" skY="0" scX="1" scY="1"/>
+    </bone>
+    <bone name="폭발 copy">
+      <transform x="46.75" y="35.65" skX="125.02" skY="125.02" scX="1.01" scY="1.01"/>
+    </bone>
+    <bone name="폭발">
+      <transform x="-51.05" y="-32.85" skX="-54.98" skY="-54.98" scX="1.01" scY="1.01"/>
+    </bone>
+    <bone name="황금회오리2">
+      <transform x="2.9" y="8.75" skX="0" skY="0" scX="1.79" scY="1.79"/>
+    </bone>
+    <bone name="황금회오리1">
+      <transform x="-1.7" y="-3.25" skX="112.82" skY="112.82" scX="0.75" scY="0.75"/>
+    </bone>
+    <bone name="바람개비2">
+      <transform x="-3.3" y="3.05" skX="0" skY="0" scX="2.86" scY="2.86"/>
+    </bone>
+    <bone name="아리">
+      <transform x="-2.2" y="3.85" skX="0" skY="0" scX="0.92" scY="0.92"/>
+    </bone>
+    <bone name="바람개비1">
+      <transform x="-3.95" y="7.4" skX="0" skY="0" scX="0.72" scY="0.72"/>
+    </bone>
+    <skin name="">
+      <slot name="바람개비1" parent="바람개비1" z="1">
+        <display name="바람개비1" type="image">
+          <transform x="-131.05" y="-137.55" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </display>
+      </slot>
+      <slot name="아리" parent="아리" z="7">
+        <display name="아리" type="image">
+          <transform x="-30.5" y="-24.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </display>
+      </slot>
+      <slot name="바람개비2" parent="바람개비2" z="2">
+        <display name="바람개비2" type="image">
+          <transform x="-144.2" y="-154.05" skX="0" skY="0" scX="1" scY="1" pX="-94.35" pY="-102.25"/>
+        </display>
+      </slot>
+      <slot name="황금회오리1" parent="황금회오리1" z="3">
+        <display name="황금회오리1" type="image">
+          <transform x="-128.3" y="-150.4" skX="0" skY="0" scX="1" scY="1" pX="-69.2" pY="-87.45"/>
+        </display>
+      </slot>
+      <slot name="황금회오리2" parent="황금회오리2" z="4">
+        <display name="황금회오리2" type="image">
+          <transform x="-132.65" y="-133.2" skX="0" skY="0" scX="1" scY="1" pX="-72.65" pY="-75.4"/>
+        </display>
+      </slot>
+      <slot name="폭발" parent="폭발" z="5">
+        <display name="폭발" type="armature">
+          <transform x="-93.95" y="-53.5" skX="0" skY="0" scX="1" scY="1"/>
+        </display>
+      </slot>
+      <slot name="폭발 copy" parent="폭발 copy" z="6">
+        <display name="폭발" type="armature">
+          <transform x="-94" y="-53.4" skX="0" skY="0" scX="1" scY="1"/>
+        </display>
+      </slot>
+      <slot name="explode" parent="explode" z="8">
+        <display name="explode_circle_small_01.png" type="image">
+          <transform x="-68" y="-62" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </display>
+        <display name="explode_circle_small_02.png" type="image">
+          <transform x="-75" y="-75" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </display>
+        <display name="explode_circle_small_03.png" type="image">
+          <transform x="-75" y="-75" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </display>
+        <display name="explode_circle_small_04.png" type="image">
+          <transform x="-150" y="-150" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </display>
+        <display name="explode_circle_small_05.png" type="image">
+          <transform x="-75" y="-75" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </display>
+        <display name="explode_circle_small_06.png" type="image">
+          <transform x="-75" y="-75" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </display>
+      </slot>
+      <slot name="반짝이" parent="반짝이" z="9">
+        <display name="반짝이" type="armature">
+          <transform x="-13" y="-15.5" skX="0" skY="0" scX="1" scY="1"/>
+        </display>
+      </slot>
+      <slot name="반짝이0" parent="반짝이0" z="10">
+        <display name="반짝이" type="armature">
+          <transform x="-13" y="-15.5" skX="0" skY="0" scX="1" scY="1"/>
+        </display>
+      </slot>
+      <slot name="반짝이1" parent="반짝이1" z="11">
+        <display name="반짝이" type="armature">
+          <transform x="-13" y="-15.5" skX="0" skY="0" scX="1" scY="1"/>
+        </display>
+      </slot>
+      <slot name="반짝이2" parent="반짝이2" z="12">
+        <display name="반짝이" type="armature">
+          <transform x="-13" y="-15.5" skX="0" skY="0" scX="1" scY="1"/>
+        </display>
+      </slot>
+      <slot name="반짝이 copy 4" parent="반짝이 copy 4" z="13">
+        <display name="반짝이" type="armature">
+          <transform x="-13" y="-15.5" skX="0" skY="0" scX="1" scY="1"/>
+        </display>
+      </slot>
+      <slot name="반짝이 copy 3" parent="반짝이 copy 3" z="14">
+        <display name="반짝이" type="armature">
+          <transform x="-13" y="-15.5" skX="0" skY="0" scX="1" scY="1"/>
+        </display>
+      </slot>
+      <slot name="반짝이 copy 2" parent="반짝이 copy 2" z="15">
+        <display name="반짝이" type="armature">
+          <transform x="-13" y="-15.5" skX="0" skY="0" scX="1" scY="1"/>
+        </display>
+      </slot>
+      <slot name="반짝이 copy" parent="반짝이 copy" z="16">
+        <display name="반짝이" type="armature">
+          <transform x="-13" y="-15.5" skX="0" skY="0" scX="1" scY="1"/>
+        </display>
+      </slot>
+      <slot name="text" parent="text" z="17">
+        <display name="text" type="armature">
+          <transform x="-287.45" y="-15.95" skX="0" skY="0" scX="1" scY="1"/>
+        </display>
+      </slot>
+    </skin>
+    <animation name="ready" fadeInTime="0.3" duration="1" scale="1" loop="1" tweenEasing="NaN">
+      <timeline name="바람개비1" scale="1" offset="0">
+        <frame z="1" tweenEasing="0" tweenRotate="-2" duration="1">
+          <transform x="-3.95" y="7.4" skX="0" skY="0" scX="0.72" scY="0.72" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="아리" scale="1" offset="0">
+        <frame z="7" tweenEasing="0" duration="1">
+          <transform x="-2.2" y="3.85" skX="0" skY="0" scX="0.92" scY="0.92" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+    </animation>
+    <animation name="play" fadeInTime="0" duration="44" scale="1" loop="1" tweenEasing="NaN">
+      <timeline name="바람개비1" scale="1" offset="0">
+        <frame z="1" tweenEasing="0" duration="4">
+          <transform x="-4" y="7.4" skX="-111.3" skY="-111.3" scX="0.5" scY="0.5" pX="-0.05" pY="0"/>
+        </frame>
+        <frame z="1" tweenEasing="0" duration="5">
+          <transform x="-4" y="7.4" skX="163.18" skY="163.18" scX="0.69" scY="0.69" pX="0" pY="0.1"/>
+        </frame>
+        <frame z="1" tweenEasing="0" tweenRotate="-2" duration="6">
+          <transform x="-4" y="7.4" skX="-83.2" skY="-83.2" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="1" tweenEasing="0" tweenRotate="-2" duration="1">
+          <transform x="-4" y="7.45" skX="-66.68" skY="-66.68" scX="1" scY="1" pX="0" pY="0.05"/>
+          <colorTransform aO="0" rO="0" gO="0" bO="0" aM="0" rM="100" gM="100" bM="100"/>
+        </frame>
+        <frame duration="8" displayIndex="-1"/>
+        <frame z="1" tweenEasing="0" tweenRotate="-2" duration="4">
+          <transform x="-4" y="7.45" skX="-66.68" skY="-66.68" scX="1" scY="1" pX="0" pY="0.05"/>
+          <colorTransform aO="0" rO="0" gO="0" bO="0" aM="0" rM="100" gM="100" bM="100"/>
+        </frame>
+        <frame z="1" tweenEasing="0" tweenRotate="-2" duration="6">
+          <transform x="-4" y="7.45" skX="-66.68" skY="-66.68" scX="1" scY="1" pX="0" pY="0.05"/>
+        </frame>
+        <frame z="1" tweenEasing="0" duration="1">
+          <transform x="-4" y="7.4" skX="0" skY="0" scX="0.45" scY="0.45" pX="0.05" pY="0.05"/>
+          <colorTransform aO="0" rO="0" gO="0" bO="0" aM="0" rM="100" gM="100" bM="100"/>
+        </frame>
+        <frame duration="9" displayIndex="-1"/>
+      </timeline>
+      <timeline name="바람개비2" scale="1" offset="0">
+        <frame duration="9" displayIndex="-1"/>
+        <frame z="2" tweenEasing="1" tweenRotate="-2" duration="6">
+          <transform x="-3.3" y="3.05" skX="0" skY="0" scX="2.86" scY="2.86" pX="0" pY="0"/>
+        </frame>
+        <frame z="2" tweenEasing="0" tweenRotate="-2" duration="8">
+          <transform x="-3.3" y="3.05" skX="0" skY="0" scX="2.86" scY="2.86" pX="0" pY="0"/>
+        </frame>
+        <frame z="2" tweenEasing="0" tweenRotate="-2" duration="5">
+          <transform x="-3.3" y="3.05" skX="0" skY="0" scX="2.86" scY="2.86" pX="0" pY="0"/>
+        </frame>
+        <frame z="2" tweenEasing="0" tweenRotate="-2" duration="1">
+          <transform x="-3.3" y="3.05" skX="0" skY="0" scX="2.86" scY="2.86" pX="0" pY="0"/>
+          <colorTransform aO="0" rO="0" gO="0" bO="0" aM="0" rM="100" gM="100" bM="100"/>
+        </frame>
+        <frame duration="15" displayIndex="-1"/>
+      </timeline>
+      <timeline name="황금회오리1" scale="1" offset="0">
+        <frame duration="4" displayIndex="-1"/>
+        <frame z="3" tweenEasing="0" duration="11">
+          <transform x="-1.7" y="-3.25" skX="112.82" skY="112.82" scX="0.75" scY="0.75" pX="0" pY="0"/>
+        </frame>
+        <frame z="3" tweenEasing="0" duration="8">
+          <transform x="-1.65" y="-3.25" skX="112.83" skY="112.83" scX="1.97" scY="1.97" pX="0.1" pY="0.05"/>
+        </frame>
+        <frame z="3" tweenEasing="0" duration="16">
+          <transform x="-1.65" y="-3.25" skX="112.83" skY="112.83" scX="1.97" scY="1.97" pX="0.1" pY="0.05"/>
+        </frame>
+        <frame z="3" tweenEasing="0" duration="1">
+          <transform x="-1.6" y="-3.2" skX="112.82" skY="112.82" scX="1.62" scY="1.62" pX="0.05" pY="-0.05"/>
+          <colorTransform aO="0" rO="0" gO="0" bO="0" aM="0" rM="100" gM="100" bM="100"/>
+        </frame>
+        <frame duration="4" displayIndex="-1"/>
+      </timeline>
+      <timeline name="황금회오리2" scale="1" offset="0">
+        <frame duration="4" displayIndex="-1"/>
+        <frame z="4" tweenEasing="0" duration="11">
+          <transform x="2.9" y="8.75" skX="0" skY="0" scX="1.79" scY="1.79" pX="0" pY="0"/>
+          <colorTransform aO="0" rO="0" gO="0" bO="0" aM="44" rM="100" gM="100" bM="100"/>
+        </frame>
+        <frame z="4" tweenEasing="0" duration="8">
+          <transform x="2.9" y="8.7" skX="0" skY="0" scX="0.6" scY="0.6" pX="0" pY="0.05"/>
+        </frame>
+        <frame z="4" tweenEasing="0" duration="16">
+          <transform x="2.85" y="8.8" skX="0" skY="0" scX="1.47" scY="1.47" pX="-0.05" pY="0"/>
+          <colorTransform aO="0" rO="0" gO="0" bO="0" aM="73" rM="100" gM="100" bM="100"/>
+        </frame>
+        <frame z="4" tweenEasing="0" duration="1">
+          <transform x="2.9" y="8.7" skX="0" skY="0" scX="1.48" scY="1.48" pX="0" pY="0.05"/>
+          <colorTransform aO="0" rO="0" gO="0" bO="0" aM="0" rM="100" gM="100" bM="100"/>
+        </frame>
+        <frame duration="4" displayIndex="-1"/>
+      </timeline>
+      <timeline name="폭발" scale="1" offset="0">
+        <frame duration="23" displayIndex="-1"/>
+        <frame z="5" duration="6">
+          <transform x="-51.05" y="-32.85" skX="-54.98" skY="-54.98" scX="1.01" scY="1.01" pX="0" pY="0"/>
+        </frame>
+        <frame duration="15" displayIndex="-1"/>
+      </timeline>
+      <timeline name="폭발 copy" scale="1" offset="0">
+        <frame duration="23" displayIndex="-1"/>
+        <frame z="6" duration="6">
+          <transform x="46.75" y="35.65" skX="125.02" skY="125.02" scX="1.01" scY="1.01" pX="0" pY="0"/>
+        </frame>
+        <frame duration="15" displayIndex="-1"/>
+      </timeline>
+      <timeline name="아리" scale="1" offset="0">
+        <frame z="7" tweenEasing="0" duration="4">
+          <transform x="-2.15" y="4.25" skX="0" skY="0" scX="0.59" scY="0.59" pX="0" pY="0"/>
+        </frame>
+        <frame z="7" tweenEasing="0" duration="2">
+          <transform x="-2.15" y="5.85" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="7" tweenEasing="0" duration="5">
+          <transform x="-2.15" y="5.85" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="7" tweenEasing="0" duration="4">
+          <transform x="-2.15" y="2.6" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="7" tweenEasing="0" duration="2">
+          <transform x="-2.15" y="1.65" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="7" tweenEasing="0" duration="2">
+          <transform x="-2.15" y="3.05" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="7" tweenEasing="0" duration="2">
+          <transform x="-2.15" y="0.35" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="7" tweenEasing="0" duration="2">
+          <transform x="-2.15" y="2.85" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="7" tweenEasing="0" duration="5">
+          <transform x="-2.15" y="0.35" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="7" tweenEasing="0" duration="3">
+          <transform x="-2.15" y="2.85" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+          <colorTransform aO="0" rO="97" gO="97" bO="97" aM="100" rM="62" gM="62" bM="62"/>
+        </frame>
+        <frame z="7" tweenEasing="0" duration="1">
+          <transform x="-2.15" y="2.85" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+          <colorTransform aO="0" rO="0" gO="0" bO="0" aM="0" rM="100" gM="100" bM="100"/>
+        </frame>
+        <frame duration="12" displayIndex="-1"/>
+      </timeline>
+      <timeline name="explode" scale="1" offset="0">
+        <frame duration="23" displayIndex="-1"/>
+        <frame z="8" duration="1">
+          <transform x="-4.65" y="2.7" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="8" displayIndex="1" duration="1">
+          <transform x="-4.5" y="2.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="8" displayIndex="2" duration="1">
+          <transform x="-4.5" y="3" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="8" displayIndex="3" duration="1">
+          <transform x="-4" y="3" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="8" displayIndex="4" duration="1">
+          <transform x="-4.5" y="2.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="8" displayIndex="5" duration="1">
+          <transform x="-3.95" y="2.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame duration="15" displayIndex="-1"/>
+      </timeline>
+      <timeline name="반짝이" scale="1" offset="0">
+        <frame duration="23" displayIndex="-1"/>
+        <frame z="9" tweenEasing="0" duration="6">
+          <transform x="0.35" y="1.35" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="9" tweenEasing="0" duration="1">
+          <transform x="-1" y="-97.6" skX="0" skY="0" scX="0.75" scY="0.75" pX="0" pY="-0.05"/>
+        </frame>
+        <frame duration="14" displayIndex="-1"/>
+      </timeline>
+      <timeline name="반짝이0" scale="1" offset="0">
+        <frame duration="23" displayIndex="-1"/>
+        <frame z="10" tweenEasing="0" duration="6">
+          <transform x="0.35" y="1.35" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="10" tweenEasing="0" duration="1">
+          <transform x="-5.45" y="107.35" skX="0" skY="0" scX="0.88" scY="0.88" pX="0" pY="0"/>
+        </frame>
+        <frame duration="14" displayIndex="-1"/>
+      </timeline>
+      <timeline name="반짝이1" scale="1" offset="0">
+        <frame duration="23" displayIndex="-1"/>
+        <frame z="11" tweenEasing="0" duration="6">
+          <transform x="0.35" y="1.35" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="11" tweenEasing="0" duration="1">
+          <transform x="-108.95" y="3" skX="0" skY="0" scX="0.78" scY="0.78" pX="-0.05" pY="0"/>
+        </frame>
+        <frame duration="14" displayIndex="-1"/>
+      </timeline>
+      <timeline name="반짝이2" scale="1" offset="0">
+        <frame duration="23" displayIndex="-1"/>
+        <frame z="12" tweenEasing="0" duration="6">
+          <transform x="0.35" y="1.35" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="12" tweenEasing="0" duration="1">
+          <transform x="103" y="3" skX="0" skY="0" scX="0.78" scY="0.78" pX="0" pY="0"/>
+        </frame>
+        <frame duration="14" displayIndex="-1"/>
+      </timeline>
+      <timeline name="반짝이 copy 4" scale="1" offset="0">
+        <frame duration="23" displayIndex="-1"/>
+        <frame z="13" tweenEasing="0" duration="6">
+          <transform x="0.35" y="1.35" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="13" tweenEasing="0" duration="1">
+          <transform x="65.5" y="-48.7" skX="0" skY="0" scX="0.97" scY="0.97" pX="0" pY="-0.05"/>
+        </frame>
+        <frame duration="14" displayIndex="-1"/>
+      </timeline>
+      <timeline name="반짝이 copy 3" scale="1" offset="0">
+        <frame duration="23" displayIndex="-1"/>
+        <frame z="14" tweenEasing="0" duration="6">
+          <transform x="0.35" y="1.35" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="14" tweenEasing="0" duration="1">
+          <transform x="-73.7" y="53.95" skX="0" skY="0" scX="0.97" scY="0.97" pX="0" pY="-0.05"/>
+        </frame>
+        <frame duration="14" displayIndex="-1"/>
+      </timeline>
+      <timeline name="반짝이 copy 2" scale="1" offset="0">
+        <frame duration="23" displayIndex="-1"/>
+        <frame z="15" tweenEasing="0" duration="6">
+          <transform x="0.35" y="1.35" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="15" tweenEasing="0" duration="1">
+          <transform x="-71.15" y="-50.7" skX="0" skY="0" scX="0.97" scY="0.97" pX="0" pY="-0.05"/>
+        </frame>
+        <frame duration="14" displayIndex="-1"/>
+      </timeline>
+      <timeline name="반짝이 copy" scale="1" offset="0">
+        <frame duration="23" displayIndex="-1"/>
+        <frame z="16" tweenEasing="0" duration="4">
+          <transform x="0.35" y="1.35" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="16" tweenEasing="0" duration="2">
+          <transform x="43.1" y="36.4" skX="0" skY="0" scX="0.98" scY="0.98" pX="0" pY="0"/>
+        </frame>
+        <frame z="16" tweenEasing="0" duration="1">
+          <transform x="64.5" y="53.95" skX="0" skY="0" scX="0.97" scY="0.97" pX="0" pY="-0.05"/>
+        </frame>
+        <frame duration="14" displayIndex="-1"/>
+      </timeline>
+      <timeline name="text" scale="1" offset="0">
+        <frame z="17" tweenEasing="0" duration="3">
+          <transform x="1.45" y="192.65" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+          <colorTransform aO="0" rO="0" gO="0" bO="0" aM="4" rM="100" gM="100" bM="100"/>
+        </frame>
+        <frame z="17" tweenEasing="0" duration="26">
+          <transform x="1.45" y="192.65" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+          <colorTransform aO="0" rO="158" gO="158" bO="158" aM="100" rM="38" gM="38" bM="38"/>
+        </frame>
+        <frame z="17" tweenEasing="0" duration="5">
+          <transform x="1.45" y="192.65" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="17" tweenEasing="0" duration="1">
+          <transform x="1.45" y="192.65" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+          <colorTransform aO="0" rO="0" gO="0" bO="0" aM="0" rM="100" gM="100" bM="100"/>
+        </frame>
+        <frame duration="9" displayIndex="-1"/>
+      </timeline>
+    </animation>
+  </armature>
+  <armature name="폭발">
+    <bone name="폭발7">
+      <transform x="79" y="82.85" skX="0" skY="0" scX="0.45" scY="0.45"/>
+    </bone>
+    <bone name="폭발6">
+      <transform x="92.6" y="77.3" skX="0" skY="0" scX="0.45" scY="0.45"/>
+    </bone>
+    <bone name="폭발5">
+      <transform x="133.85" y="96.15" skX="0" skY="0" scX="0.45" scY="0.45"/>
+    </bone>
+    <bone name="폭발4">
+      <transform x="109.45" y="79.1" skX="0" skY="0" scX="0.45" scY="0.45"/>
+    </bone>
+    <bone name="폭발3">
+      <transform x="118.6" y="82.25" skX="0" skY="0" scX="0.45" scY="0.45"/>
+    </bone>
+    <bone name="폭발2">
+      <transform x="66.15" y="93.15" skX="0" skY="0" scX="0.45" scY="0.45"/>
+    </bone>
+    <bone name="폭발1">
+      <transform x="93.35" y="108.8" skX="0" skY="0" scX="0.37" scY="0.37"/>
+    </bone>
+    <skin name="">
+      <slot name="폭발1" parent="폭발1" z="0">
+        <display name="폭발1" type="image">
+          <transform x="-92.25" y="-106.45" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </display>
+      </slot>
+      <slot name="폭발2" parent="폭발2" z="1">
+        <display name="폭발2" type="image">
+          <transform x="-23.4" y="-22" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </display>
+      </slot>
+      <slot name="폭발3" parent="폭발3" z="2">
+        <display name="폭발3" type="image">
+          <transform x="-12.45" y="-21.1" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </display>
+      </slot>
+      <slot name="폭발4" parent="폭발4" z="3">
+        <display name="폭발4" type="image">
+          <transform x="-16.05" y="-39.05" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </display>
+      </slot>
+      <slot name="폭발5" parent="폭발5" z="4">
+        <display name="폭발5" type="image">
+          <transform x="-35.05" y="-25.55" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </display>
+      </slot>
+      <slot name="폭발6" parent="폭발6" z="5">
+        <display name="폭발6" type="image">
+          <transform x="-8.45" y="-40.95" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </display>
+      </slot>
+      <slot name="폭발7" parent="폭발7" z="6">
+        <display name="폭발7" type="image">
+          <transform x="-24" y="-58" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </display>
+      </slot>
+    </skin>
+    <animation name="unnamed" fadeInTime="0.3" duration="10" scale="1" loop="1" tweenEasing="NaN">
+      <timeline name="폭발1" scale="1" offset="0">
+        <frame z="0" tweenEasing="0" duration="3">
+          <transform x="93.35" y="108.8" skX="0" skY="0" scX="0.37" scY="0.37" pX="0" pY="0"/>
+        </frame>
+        <frame z="0" tweenEasing="0" duration="2">
+          <transform x="93.35" y="108.8" skX="0" skY="0" scX="1" scY="1" pX="-1.1" pY="-2.35"/>
+        </frame>
+        <frame z="0" duration="5">
+          <transform x="93" y="87.7" skX="0" skY="0" scX="1.34" scY="1.34" pX="-1.1" pY="-2.35"/>
+          <colorTransform aO="0" rO="0" gO="0" bO="0" aM="0" rM="100" gM="100" bM="100"/>
+        </frame>
+      </timeline>
+      <timeline name="폭발2" scale="1" offset="0">
+        <frame z="1" tweenEasing="0" duration="3">
+          <transform x="66.15" y="93.15" skX="0" skY="0" scX="0.45" scY="0.45" pX="0" pY="0"/>
+        </frame>
+        <frame z="1" tweenEasing="0" duration="2">
+          <transform x="21.35" y="60.35" skX="0" skY="0" scX="1" scY="1" pX="-0.1" pY="0"/>
+        </frame>
+        <frame z="1" duration="5">
+          <transform x="-9.45" y="24.3" skX="0" skY="0" scX="1.41" scY="1.41" pX="-0.1" pY="0"/>
+          <colorTransform aO="0" rO="0" gO="0" bO="0" aM="0" rM="100" gM="100" bM="100"/>
+        </frame>
+      </timeline>
+      <timeline name="폭발3" scale="1" offset="0">
+        <frame z="2" tweenEasing="0" duration="3">
+          <transform x="118.6" y="82.25" skX="0" skY="0" scX="0.45" scY="0.45" pX="0" pY="0"/>
+        </frame>
+        <frame z="2" tweenEasing="0" duration="2">
+          <transform x="138.35" y="36" skX="0" skY="0" scX="1" scY="1" pX="-0.05" pY="0.1"/>
+        </frame>
+        <frame z="2" duration="5">
+          <transform x="156" y="-10.15" skX="0" skY="0" scX="1.41" scY="1.41" pX="-0.05" pY="0.15"/>
+          <colorTransform aO="0" rO="0" gO="0" bO="0" aM="0" rM="100" gM="100" bM="100"/>
+        </frame>
+      </timeline>
+      <timeline name="폭발4" scale="1" offset="0">
+        <frame z="3" tweenEasing="0" duration="3">
+          <transform x="109.45" y="79.1" skX="0" skY="0" scX="0.45" scY="0.45" pX="0" pY="0"/>
+        </frame>
+        <frame z="3" tweenEasing="0" duration="2">
+          <transform x="117.85" y="29" skX="0" skY="0" scX="1" scY="1" pX="0.05" pY="0.05"/>
+        </frame>
+        <frame z="3" duration="5">
+          <transform x="127.05" y="-20" skX="0" skY="0" scX="1.41" scY="1.41" pX="0" pY="0.05"/>
+          <colorTransform aO="0" rO="0" gO="0" bO="0" aM="0" rM="100" gM="100" bM="100"/>
+        </frame>
+      </timeline>
+      <timeline name="폭발5" scale="1" offset="0">
+        <frame z="4" tweenEasing="0" duration="3">
+          <transform x="133.85" y="96.15" skX="0" skY="0" scX="0.45" scY="0.45" pX="0" pY="0"/>
+        </frame>
+        <frame z="4" tweenEasing="0" duration="2">
+          <transform x="172.35" y="67" skX="0" skY="0" scX="1" scY="1" pX="0.05" pY="0.05"/>
+        </frame>
+        <frame z="4" duration="5">
+          <transform x="204.05" y="33.8" skX="0" skY="0" scX="1.41" scY="1.41" pX="0.05" pY="0"/>
+          <colorTransform aO="0" rO="0" gO="0" bO="0" aM="0" rM="100" gM="100" bM="100"/>
+        </frame>
+      </timeline>
+      <timeline name="폭발6" scale="1" offset="0">
+        <frame z="5" tweenEasing="0" duration="3">
+          <transform x="92.6" y="77.3" skX="0" skY="0" scX="0.45" scY="0.45" pX="0" pY="0"/>
+        </frame>
+        <frame z="5" tweenEasing="0" duration="2">
+          <transform x="80.35" y="25" skX="0" skY="0" scX="1" scY="1" pX="-0.05" pY="-0.05"/>
+        </frame>
+        <frame z="5" duration="5">
+          <transform x="74" y="-25.6" skX="0" skY="0" scX="1.41" scY="1.41" pX="-0.15" pY="-0.05"/>
+          <colorTransform aO="0" rO="0" gO="0" bO="0" aM="0" rM="100" gM="100" bM="100"/>
+        </frame>
+      </timeline>
+      <timeline name="폭발7" scale="1" offset="0">
+        <frame z="6" tweenEasing="0" duration="3">
+          <transform x="79" y="82.85" skX="0" skY="0" scX="0.45" scY="0.45" pX="0" pY="0"/>
+        </frame>
+        <frame z="6" tweenEasing="0" duration="2">
+          <transform x="50" y="37.35" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="6" duration="5">
+          <transform x="31" y="-8.25" skX="0" skY="0" scX="1.41" scY="1.41" pX="0.1" pY="0.05"/>
+          <colorTransform aO="0" rO="0" gO="0" bO="0" aM="0" rM="100" gM="100" bM="100"/>
+        </frame>
+      </timeline>
+    </animation>
+  </armature>
+  <armature name="반짝이">
+    <bone name="Layer 1">
+      <transform x="13" y="15.5" skX="0" skY="0" scX="1" scY="1"/>
+    </bone>
+    <skin name="">
+      <slot name="Layer 1" parent="Layer 1" z="0">
+        <display name="반짝이.png" type="image">
+          <transform x="-13" y="-15.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </display>
+      </slot>
+    </skin>
+    <animation name="unnamed" fadeInTime="0.3" duration="2" scale="5" loop="0" tweenEasing="2">
+      <timeline name="Layer 1" scale="1" offset="0">
+        <frame z="0" duration="1">
+          <transform x="13" y="15.5" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="0" duration="1">
+          <transform x="13" y="15.5" skX="0" skY="0" scX="0.57" scY="0.57" pX="0.05" pY="0"/>
+        </frame>
+      </timeline>
+    </animation>
+  </armature>
+  <armature name="text">
+    <bone name="Layer 1">
+      <transform x="287.45" y="15.95" skX="0" skY="0" scX="1" scY="1"/>
+    </bone>
+    <skin name="">
+      <slot name="Layer 1" parent="Layer 1" z="0">
+        <display name="shuffle_item" type="image">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="287.45" pY="15.95"/>
+        </display>
+        <display name="shuffle_no_match" type="image">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="287.45" pY="15.95"/>
+        </display>
+      </slot>
+    </skin>
+    <animation name="shuffle_item" fadeInTime="0" duration="1" scale="1" loop="1" tweenEasing="NaN">
+      <timeline name="Layer 1" scale="1" offset="0">
+        <frame z="0" duration="1">
+          <transform x="287.45" y="15.95" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+    </animation>
+    <animation name="shuffle_no_match" fadeInTime="0" duration="1" scale="1" loop="1" tweenEasing="NaN">
+      <timeline name="Layer 1" scale="1" offset="0">
+        <frame z="0" displayIndex="1" duration="1">
+          <transform x="287.45" y="15.95" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+    </animation>
+  </armature>
+</dragonBones>
