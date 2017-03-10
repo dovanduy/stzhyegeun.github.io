@@ -12,3 +12,10 @@ var EEmoticonNames = {
 		SORRY	:'emoticonSorry.png',
 		GREET	:'emotionGreet.png'
 };
+
+var InGameBoardConfig = {
+	ROW_COUNT : 7, 
+	COL_COUNT : 7, 
+	BLOCK_WIDTH : 65, 
+	BLOCK_HEIGHT : 65
+};

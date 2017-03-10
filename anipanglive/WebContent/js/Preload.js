@@ -46,5 +46,6 @@ Preload.OnLoadComplete = function() {
 	this.game.load.onFileComplete.removeAll();
 	this.game.load.onLoadComplete.removeAll();
 	
-	//this.game.state.start("Menu");
+	this.game.state.add("InGame", InGame);
+	this.game.state.start("InGame");
 };
