@@ -32,7 +32,13 @@ InGame.prototype.preload = function() {
 };
 
 InGame.prototype.create = function() {
-	this.popupResult = this.game.plugins.add(new PopupResult(this.game, this, {blind:true}));
+	this.popupResult = this.game.plugins.add(new PopupResult(this.game, this, {blind:true, callbackFunc:function(){
+		if(this.popupEmoticon.closeState === EPopupCloseState.CONFIRM){
+			this.popupResult.setData(this.myColor, curType);
+			this.popupResult.popupOpen();
+			this.requestEnd(curType);
+		}
+	}}));
 	this.popupWating = this.game.plugins.add(new PopupWating(this.game, this, {blind:false}));
 	this.popupEmoticon = this.game.plugins.add(new PopupEmoticon(this.game, this, {blind:false, offsetY:300, callbackFunc:function(){
 		if(this.popupEmoticon.closeState === EPopupCloseState.CONFIRM){
@@ -120,11 +126,7 @@ InGame.prototype.checkAvailTurn = function(curRow, curCol, curType){
 	
 		if(endCount === 4){
 			StzCommon.StzLog.print("게임 종료");
-			this.popupWating.popupClose();
-			this.popupResult.setData(this.myColor, curType);
-			
-			this.popupResult.popupOpen();
-			this.requestEnd(curType);
+			this.popupWating.gameEnd();
 			return false;
 		}
 		

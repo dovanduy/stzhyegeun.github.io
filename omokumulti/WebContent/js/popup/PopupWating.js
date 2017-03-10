@@ -25,3 +25,8 @@ PopupWating.prototype.update = function(){
 	StzCommon.StzLog.print("[PopupResult] update");
 	
 };
+
+PopupWating.prototype.gameEnd = function(){
+	this.closeState = EPopupCloseState.CONFIRM;
+	this.popupClose();
+};
