@@ -21,7 +21,7 @@ Preload.prototype.create = function() {
 	this.game.load.onFileComplete.add(Preload.OnFileComplete, this);
 	this.game.load.onLoadComplete.add(Preload.OnLoadComplete, this);
 	
-	//this.game.load.pack("ui", "assets/assets-pack.json");
+	this.game.load.pack("mainUI", "assets/assets-pack.json");
 	this.game.load.pack("ingame", "assets/assets-pack.json");
 	
 	this.game.load.start();
@@ -46,5 +46,5 @@ Preload.OnLoadComplete = function() {
 	this.game.load.onFileComplete.removeAll();
 	this.game.load.onLoadComplete.removeAll();
 	
-	//this.game.state.start("Menu");
+	this.game.state.start("Lobby");
 };
