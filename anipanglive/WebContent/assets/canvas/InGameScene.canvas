@@ -1,0 +1,57 @@
+{
+  "settings": {
+    "sceneWidth": 480,
+    "sceneHeight": 800,
+    "generateOnSave": true,
+    "enableStepping": false
+  },
+  "world": {
+    "type": "group",
+    "id": "02ced745-de68-402e-bc09-01a766704ecd",
+    "info": {
+      "editorName": "InGameScene",
+      "children": [
+        {
+          "type": "image",
+          "id": "73a230e8-22c9-4580-91c4-1e86299e1404",
+          "asset": "0",
+          "info": {"editorName": "bgIngame"}
+        },
+        {
+          "type": "group",
+          "id": "77378eae-ecea-419e-9143-2135d40e145a",
+          "info": {
+            "editorName": "topUIContainer",
+            "editorPublic": true,
+            "y": 70,
+            "children": []
+          }
+        },
+        {
+          "type": "group",
+          "id": "92ee7fc8-aee9-4d35-8b9d-886d1d084e18",
+          "info": {
+            "editorName": "gameBoard",
+            "editorPublic": true,
+            "y": 300,
+            "children": []
+          }
+        },
+        {
+          "type": "group",
+          "id": "bb7ce9b7-9fb7-4b20-9bdf-e6b205ba5179",
+          "info": {
+            "editorName": "opponentContainer",
+            "editorPublic": true,
+            "children": []
+          }
+        }
+      ]
+    }
+  },
+  "asset-table": {"0": {
+    "file": "WebContent/assets/assets-pack.json",
+    "section": "ingame",
+    "asset": "bgIngame"
+  }}
+}
