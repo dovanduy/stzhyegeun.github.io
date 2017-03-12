@@ -92,8 +92,28 @@
             "spacing": 0
         }
     ],
+    "mainUI": [
+        {
+            "type": "atlas",
+            "key": "mainUI",
+            "textureURL": "assets/images/mainUI.png",
+            "atlasURL": "assets/images/mainUI.json",
+            "format": "TEXTURE_ATLAS_JSON_ARRAY"
+        },
+        {
+            "type": "image",
+            "key": "bgLobby",
+            "url": "assets/images/bgLobby.png",
+            "overwrite": false
+        },
+        {
+            "type": "script",
+            "key": "lobbyScene",
+            "url": "assets/canvas/lobbyScene.js"
+        }
+    ],
     "meta": {
-        "generated": "1489052955016",
+        "generated": "1489136949728",
         "app": "Phaser Editor",
         "url": "http://phasereditor.boniatillo.com",
         "version": "1.0",
