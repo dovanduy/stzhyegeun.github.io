@@ -41,11 +41,11 @@ Lobby.prototype.create = function() {
     		  "btnItemClickedBg.png", "btnItemBg.png");
       buttonDown.name = "down"+ i;
       
-      //this.scene.fGroupItemList.add(buttonUP);
-     //this.scene.fGroupItemList.add(buttonDown);
+      this.group.add(buttonUP);
+      this.group.add(buttonDown);
       //this.scene.fGroupItemList.z = 0;
       //var test=[buttonUP,buttonDown];
-      listView.add(this.scene.fGroupItemList);
+      listView.add(group);
       //listView.inputEnabled = true;
      //listView.addMultiple(buttonUP, buttonDown);
     }

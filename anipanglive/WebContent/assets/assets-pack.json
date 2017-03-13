@@ -90,6 +90,11 @@
             "frameMax": -1,
             "margin": 0,
             "spacing": 0
+        },
+        {
+            "type": "script",
+            "key": "InGameScene",
+            "url": "assets/canvas/InGameScene.js"
         }
     ],
     "mainUI": [
@@ -113,7 +118,7 @@
         }
     ],
     "meta": {
-        "generated": "1489136949728",
+        "generated": "1489367199548",
         "app": "Phaser Editor",
         "url": "http://phasereditor.boniatillo.com",
         "version": "1.0",
