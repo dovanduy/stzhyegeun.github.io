@@ -17,6 +17,9 @@ Lobby.prototype.preload = function() {
 
 Lobby.prototype.create = function() {
 	this.createListItemView();
+	
+	this.scene.fBitmap_5_png.inputEnabled = true;
+	this.scene.fBitmap_5_png.events.onInputUp.add(this.onStartGame, this);
 };
 
 Lobby.prototype.createListItemView = function() {
@@ -76,11 +79,9 @@ Lobby.prototype.test = function(sprite, pointer) {
 	else{
 		sprite.frameName = "btnItemBg.png";
 	}
-	
-	
-	
 };
 
-Lobby.prototype.startGame = function() {
-	this.game.state.start("Level");
+Lobby.prototype.onStartGame = function() {
+	this.game.state.add("InGame", InGame);
+	this.game.state.start("InGame");
 };

@@ -151,6 +151,7 @@
                 "asset": "6",
                 "info": {
                   "editorName": "Bitmap_5_png",
+                  "editorPublic": true,
                   "x": 135,
                   "y": 402
                 }

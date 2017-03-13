@@ -43,7 +43,7 @@ function lobbyScene(aGame, aParent) {
 
 	this.game.add.sprite(129, 155, 'mainUI', 'bgText.png', mainUI);
 
-	this.game.add.button(135, 402, 'mainUI', null, this, null, 'Bitmap 5.png', null, null, mainUI);
+	var Bitmap_5_png = this.game.add.button(135, 402, 'mainUI', null, this, null, 'Bitmap 5.png', null, null, mainUI);
 
 	var bg_png = this.game.add.sprite(58, 129, 'mainUI', 'bg.png', mainUI);
 
@@ -51,6 +51,7 @@ function lobbyScene(aGame, aParent) {
 
 	 // public fields
 
+	this.fBitmap_5_png = Bitmap_5_png;
 	this.fBg_png = bg_png;
 
 	/* --- post-init-begin --- */
