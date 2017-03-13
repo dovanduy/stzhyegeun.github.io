@@ -130,25 +130,15 @@
                 "asset": "4",
                 "info": {
                   "editorName": "bgBack_png",
-                  "editorPick": false,
                   "x": 46,
-                  "y": 75
-                }
-              },
-              {
-                "type": "atlas-sprite",
-                "id": "938375c4-b070-4791-a87d-b57d67272fa5",
-                "asset": "5",
-                "info": {
-                  "editorName": "img_title_png",
-                  "x": 105,
-                  "y": 19
+                  "y": 99,
+                  "scale.y": 0.9414514237358661
                 }
               },
               {
                 "type": "atlas-sprite",
                 "id": "facb115d-c300-4471-b20c-25f8c9880e8a",
-                "asset": "6",
+                "asset": "5",
                 "info": {
                   "editorName": "bgText_png",
                   "x": 129,
@@ -158,7 +148,7 @@
               {
                 "type": "button",
                 "id": "15da43d2-4537-4722-b276-93c46a69b673",
-                "asset": "7",
+                "asset": "6",
                 "info": {
                   "editorName": "Bitmap_5_png",
                   "x": 135,
@@ -168,7 +158,7 @@
               {
                 "type": "atlas-sprite",
                 "id": "06cde82b-2991-4a27-b275-676bab9d4d11",
-                "asset": "8",
+                "asset": "7",
                 "info": {
                   "editorName": "bg_png",
                   "editorPick": false,
@@ -180,68 +170,11 @@
               {
                 "type": "atlas-sprite",
                 "id": "8417f84a-3df3-4e69-b914-f7822cf2ab3a",
-                "asset": "6",
+                "asset": "5",
                 "info": {
                   "editorName": "bgText_png1",
                   "x": 133,
                   "y": 143
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "group",
-          "id": "f41ded39-aa86-4acb-af83-7fb015eb493a",
-          "info": {
-            "editorName": "groupItemList",
-            "editorPublic": true,
-            "children": [
-              {
-                "type": "button",
-                "id": "8955737d-975b-4fa3-8d79-ea510b7c8de2",
-                "asset": "9",
-                "info": {
-                  "editorName": "btnItemBg_png",
-                  "editorPublic": true,
-                  "x": 65,
-                  "y": 180,
-                  "scale.x": 0.8900363294402095,
-                  "scale.y": 0.8063448590872638,
-                  "downFrame": "btnItemClickedBg.png"
-                }
-              },
-              {
-                "type": "button",
-                "id": "5bae7ebe-db01-4539-9e06-10be8434dbae",
-                "asset": "9",
-                "info": {
-                  "editorName": "btnItemBg_png2",
-                  "x": 65,
-                  "y": 295,
-                  "scale.x": 0.8900363294402095,
-                  "scale.y": 0.8063448590872638,
-                  "downFrame": "btnItemClickedBg.png"
-                }
-              },
-              {
-                "type": "atlas-sprite",
-                "id": "77802321-24a0-41b4-b54a-3bc8bc788bb7",
-                "asset": "10",
-                "info": {
-                  "editorName": "ico_item_star_png",
-                  "x": 87,
-                  "y": 215
-                }
-              },
-              {
-                "type": "atlas-sprite",
-                "id": "9475bd8c-47ce-47ce-8726-ed315c72f106",
-                "asset": "10",
-                "info": {
-                  "editorName": "ico_item_star_png1",
-                  "x": 87,
-                  "y": 320
                 }
               }
             ]
@@ -284,37 +217,19 @@
       "file": "WebContent/assets/assets-pack.json",
       "section": "mainUI",
       "asset": "mainUI",
-      "sprite": "img_title.png"
+      "sprite": "bgText.png"
     },
     "6": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "mainUI",
       "asset": "mainUI",
-      "sprite": "bgText.png"
+      "sprite": "Bitmap 5.png"
     },
     "7": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "mainUI",
       "asset": "mainUI",
-      "sprite": "Bitmap 5.png"
-    },
-    "8": {
-      "file": "WebContent/assets/assets-pack.json",
-      "section": "mainUI",
-      "asset": "mainUI",
       "sprite": "bg.png"
-    },
-    "9": {
-      "file": "WebContent/assets/assets-pack.json",
-      "section": "mainUI",
-      "asset": "mainUI",
-      "sprite": "btnItemBg.png"
-    },
-    "10": {
-      "file": "WebContent/assets/assets-pack.json",
-      "section": "mainUI",
-      "asset": "mainUI",
-      "sprite": "ico_item_star.png"
     }
   }
 }

@@ -16,16 +16,19 @@ Lobby.prototype.preload = function() {
 };
 
 Lobby.prototype.create = function() {
+	this.createListItemView();
+};
+
+Lobby.prototype.createListItemView = function() {
 	var maskW = 600
     var maskH = 200
     var boxW = maskW
     var boxH = 50
 
-    var listView = new ListView(this.game, this.world, new Phaser.Rectangle(60, 185, 375, 266), {
+   this.listView = new ListView(this.game, this.world, new Phaser.Rectangle(60, 180, 375, 266), {
       direction: 'x',
       padding: 10,
       searchForClicks:true
-      
     });
 
     for (var i = 0; i < 10; i++) {
@@ -34,26 +37,48 @@ Lobby.prototype.create = function() {
 //      img.inputEnabled = true;
 //      img.events.onInputUp.add(this.test, this);
       var group = this.game.make.group(this.scene);
-      var buttonUP = this.game.add.button(0,0,"mainUI", this.test, this, "btnItemBg.png", "btnItemBg.png", 
-    		  "btnItemClickedBg.png", "btnItemBg.png");
-      buttonUP.name = "up"+ i;
-      var buttonDown = this.game.add.button(0,120,"mainUI", this.test, this, "btnItemBg.png", "btnItemBg.png", 
-    		  "btnItemClickedBg.png", "btnItemBg.png");
-      buttonDown.name = "down"+ i;
       
-      this.group.add(buttonUP);
-      this.group.add(buttonDown);
+      var buttonUP = this.game.add.sprite(0,0,"mainUI", "btnItemBg.png", group);
+      buttonUP.name = "up"+ i;
+      buttonUP.inputEnabled = true;
+      buttonUP.events.onInputUp.add(this.test, this);
+      buttonUP.scale.set(0.9, 0.9);
+      
+      var buttonDown = this.game.add.sprite(0,110,"mainUI", "btnItemBg.png", group);
+      buttonDown.name = "down"+ i;
+      buttonDown.inputEnabled = true;
+      buttonDown.events.onInputUp.add(this.test, this);
+      buttonDown.scale.set(0.9, 0.9);
+      
+      var starUP = this.game.add.sprite(22,25,"mainUI", "ico_item_star.png", group);
+      var starDown = this.game.add.sprite(22,135,"mainUI", "ico_item_star.png", group);
+     
+      group.add(buttonUP);
+      group.add(buttonDown);
+      group.add(starUP);
+      group.add(starDown);
       //this.scene.fGroupItemList.z = 0;
       //var test=[buttonUP,buttonDown];
-      listView.add(group);
+      this.listView.add(group);
+     
+      //this.listView.addListeners(onUpdate, this.test);
       //listView.inputEnabled = true;
      //listView.addMultiple(buttonUP, buttonDown);
     }
-
 };
 
 Lobby.prototype.test = function(sprite, pointer) {
 	StzCommon.StzLog.print("[Menu] onBtnClick - sprite: " + sprite.name);
+	 //this.listView.setPosition(pointer);
+	if(sprite.frameName === "btnItemBg.png"){
+		sprite.frameName = "btnItemClickedBg.png";
+	}
+	else{
+		sprite.frameName = "btnItemBg.png";
+	}
+	
+	
+	
 };
 
 Lobby.prototype.startGame = function() {

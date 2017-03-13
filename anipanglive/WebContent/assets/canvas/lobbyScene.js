@@ -38,9 +38,8 @@ function lobbyScene(aGame, aParent) {
 
 	var mainUI = this.game.add.group(this);
 
-	this.game.add.sprite(46, 75, 'mainUI', 'bgBack.png', mainUI);
-
-	this.game.add.sprite(105, 19, 'mainUI', 'img_title.png', mainUI);
+	var bgBack_png = this.game.add.sprite(46, 99, 'mainUI', 'bgBack.png', mainUI);
+	bgBack_png.scale.setTo(1.0, 0.9414514237358661);
 
 	this.game.add.sprite(129, 155, 'mainUI', 'bgText.png', mainUI);
 
@@ -50,23 +49,9 @@ function lobbyScene(aGame, aParent) {
 
 	this.game.add.sprite(133, 143, 'mainUI', 'bgText.png', mainUI);
 
-	var groupItemList = this.game.add.group(this);
-
-	var btnItemBg_png = this.game.add.button(65, 180, 'mainUI', null, this, null, 'btnItemBg.png', 'btnItemClickedBg.png', null, groupItemList);
-	btnItemBg_png.scale.setTo(0.8900363294402095, 0.8063448590872638);
-
-	var btnItemBg_png2 = this.game.add.button(65, 295, 'mainUI', null, this, null, 'btnItemBg.png', 'btnItemClickedBg.png', null, groupItemList);
-	btnItemBg_png2.scale.setTo(0.8900363294402095, 0.8063448590872638);
-
-	this.game.add.sprite(87, 215, 'mainUI', 'ico_item_star.png', groupItemList);
-
-	this.game.add.sprite(87, 320, 'mainUI', 'ico_item_star.png', groupItemList);
-
 	 // public fields
 
 	this.fBg_png = bg_png;
-	this.fGroupItemList = groupItemList;
-	this.fBtnItemBg_png = btnItemBg_png;
 
 	/* --- post-init-begin --- */
 
