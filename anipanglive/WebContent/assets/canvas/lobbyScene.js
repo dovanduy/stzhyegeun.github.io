@@ -49,10 +49,13 @@ function lobbyScene(aGame, aParent) {
 
 	this.game.add.sprite(133, 143, 'mainUI', 'bgText.png', mainUI);
 
+	var groupProfile = this.game.add.group(this);
+
 	 // public fields
 
 	this.fBitmap_5_png = Bitmap_5_png;
 	this.fBg_png = bg_png;
+	this.fGroupProfile = groupProfile;
 
 	/* --- post-init-begin --- */
 

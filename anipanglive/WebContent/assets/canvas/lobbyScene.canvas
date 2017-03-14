@@ -42,6 +42,7 @@
                 "asset": "1",
                 "info": {
                   "editorName": "btn_menu_png11",
+                  "editorPick": false,
                   "x": 254,
                   "y": 680
                 }
@@ -179,6 +180,15 @@
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "group",
+          "id": "6407bbba-0ca6-4fe7-9bd6-302b713b1c74",
+          "info": {
+            "editorName": "groupProfile",
+            "editorPublic": true,
+            "children": []
           }
         }
       ]

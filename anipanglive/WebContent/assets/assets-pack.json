@@ -115,10 +115,15 @@
             "type": "script",
             "key": "lobbyScene",
             "url": "assets/canvas/lobbyScene.js"
+        },
+        {
+            "type": "script",
+            "key": "ProFileScene",
+            "url": "assets/canvas/ProFileScene.js"
         }
     ],
     "meta": {
-        "generated": "1489367199548",
+        "generated": "1489383522105",
         "app": "Phaser Editor",
         "url": "http://phasereditor.boniatillo.com",
         "version": "1.0",
