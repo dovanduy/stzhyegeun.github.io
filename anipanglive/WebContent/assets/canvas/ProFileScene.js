@@ -45,6 +45,7 @@ function ProFileScene(aGame, aParent) {
 	this.fImgLoadingBar = new Phaser.NinePatchImage(this.game, 22, 10, 'ImageLoadingBar');
 	this.fImgLoadingBar.targetWidth = 21;
 	this.fImgLoadingBar.MAX_TARGET_WIDTH = 240;
+	this.fImgLoadingBar.MIN_TARGET_WIDTH = 21;
 	this.fImgLoadingBar.height = 15;
 	
 	this.fProgress.add(this.fImgLoadingBar);

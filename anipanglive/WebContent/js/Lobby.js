@@ -13,6 +13,9 @@ var ListView = window.PhaserListView.ListView;
 
 Lobby.prototype.preload = function() {
 	this.scene = new lobbyScene(this.game);
+	
+	this.profile = new Profile(this.game, this, 0);
+	this.scene.fGroupProfile.add(this.profile.scene);
 };
 
 Lobby.prototype.create = function() {
@@ -23,11 +26,7 @@ Lobby.prototype.create = function() {
 };
 
 Lobby.prototype.createListItemView = function() {
-	var maskW = 600
-    var maskH = 200
-    var boxW = maskW
-    var boxH = 50
-
+	
    this.listView = new ListView(this.game, this.world, new Phaser.Rectangle(60, 180, 375, 266), {
       direction: 'x',
       padding: 10,
