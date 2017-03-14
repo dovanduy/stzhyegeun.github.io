@@ -2,7 +2,7 @@
 
 {
 	"filename": "bg.png",
-	"frame": {"x":110,"y":314,"w":380,"h":266},
+	"frame": {"x":0,"y":0,"w":380,"h":266},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":380,"h":266},
@@ -10,7 +10,7 @@
 },
 {
 	"filename": "bgBack.png",
-	"frame": {"x":0,"y":580,"w":400,"h":425},
+	"frame": {"x":0,"y":266,"w":400,"h":425},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":400,"h":425},
@@ -18,7 +18,7 @@
 },
 {
 	"filename": "bgProfile.png",
-	"frame": {"x":104,"y":40,"w":298,"h":66},
+	"frame": {"x":0,"y":691,"w":298,"h":66},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":298,"h":66},
@@ -26,7 +26,7 @@
 },
 {
 	"filename": "bgText.png",
-	"frame": {"x":16,"y":0,"w":244,"h":30},
+	"frame": {"x":0,"y":757,"w":244,"h":30},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":244,"h":30},
@@ -34,7 +34,7 @@
 },
 {
 	"filename": "Bitmap 5.png",
-	"frame": {"x":240,"y":106,"w":219,"h":92},
+	"frame": {"x":244,"y":757,"w":219,"h":92},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":219,"h":92},
@@ -42,7 +42,7 @@
 },
 {
 	"filename": "btn_menu.png",
-	"frame": {"x":0,"y":198,"w":100,"h":102},
+	"frame": {"x":0,"y":849,"w":100,"h":102},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":100,"h":102},
@@ -50,7 +50,7 @@
 },
 {
 	"filename": "btnClickedMode.png",
-	"frame": {"x":120,"y":106,"w":120,"h":80},
+	"frame": {"x":100,"y":849,"w":120,"h":80},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":120,"h":80},
@@ -58,7 +58,7 @@
 },
 {
 	"filename": "btnItemBg.png",
-	"frame": {"x":0,"y":314,"w":110,"h":116},
+	"frame": {"x":220,"y":849,"w":110,"h":116},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":110,"h":116},
@@ -66,7 +66,7 @@
 },
 {
 	"filename": "btnItemClickedBg.png",
-	"frame": {"x":386,"y":198,"w":110,"h":116},
+	"frame": {"x":330,"y":849,"w":110,"h":116},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":110,"h":116},
@@ -74,7 +74,7 @@
 },
 {
 	"filename": "btnMode.png",
-	"frame": {"x":0,"y":106,"w":120,"h":80},
+	"frame": {"x":0,"y":965,"w":120,"h":80},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":120,"h":80},
@@ -82,7 +82,7 @@
 },
 {
 	"filename": "ico_item_star.png",
-	"frame": {"x":0,"y":40,"w":58,"h":52},
+	"frame": {"x":120,"y":965,"w":58,"h":52},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":58,"h":52},
@@ -90,23 +90,55 @@
 },
 {
 	"filename": "iconExp.png",
-	"frame": {"x":0,"y":0,"w":16,"h":15},
+	"frame": {"x":178,"y":965,"w":16,"h":15},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":15},
 	"sourceSize": {"w":16,"h":15}
 },
 {
+	"filename": "iconFriend.png",
+	"frame": {"x":194,"y":965,"w":42,"h":49},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":42,"h":49},
+	"sourceSize": {"w":42,"h":49}
+},
+{
 	"filename": "iconLine.png",
-	"frame": {"x":58,"y":40,"w":46,"h":54},
+	"frame": {"x":236,"y":965,"w":46,"h":54},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":46,"h":54},
 	"sourceSize": {"w":46,"h":54}
 },
 {
+	"filename": "iconMessage.png",
+	"frame": {"x":282,"y":965,"w":49,"h":42},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":49,"h":42},
+	"sourceSize": {"w":49,"h":42}
+},
+{
+	"filename": "iconMisson.png",
+	"frame": {"x":331,"y":965,"w":67,"h":67},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":67,"h":67},
+	"sourceSize": {"w":67,"h":67}
+},
+{
+	"filename": "iconSetting.png",
+	"frame": {"x":398,"y":965,"w":50,"h":50},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":50,"h":50},
+	"sourceSize": {"w":50,"h":50}
+},
+{
 	"filename": "img_title.png",
-	"frame": {"x":100,"y":198,"w":286,"h":103},
+	"frame": {"x":0,"y":1045,"w":286,"h":103},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":286,"h":103},
@@ -114,7 +146,7 @@
 },
 {
 	"filename": "ribbonmode.png",
-	"frame": {"x":260,"y":0,"w":186,"h":40},
+	"frame": {"x":286,"y":1045,"w":186,"h":40},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":186,"h":40},
@@ -125,8 +157,8 @@
 	"version": "1.0",
 	"image": "mainUI.png",
 	"format": "RGBA8888",
-	"size": {"w":496,"h":1005},
+	"size": {"w":472,"h":1148},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:e0c1ef601fc40f799b8d3c5ae441ab99:4eb44772292a4e86936cc86249b9c196:02928019c931883a817a5fdf7351ce51$"
+	"smartupdate": "$TexturePacker:SmartUpdate:8f8892b106bf5d530c96e0b3d35b25e8:8102466e6b689583990d387246b83f6e:02928019c931883a817a5fdf7351ce51$"
 }
 }

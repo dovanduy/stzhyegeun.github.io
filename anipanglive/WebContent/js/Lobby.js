@@ -33,7 +33,7 @@ Lobby.prototype.createListItemView = function() {
       searchForClicks:true
     });
 
-    for (var i = 0; i < 10; i++) {
+    for (var i = 0; i < 30; i++) {
     	
 //      var img = this.game.add.image(0, 0, this.scene.fGroupItemList.generateTexture());
 //      img.inputEnabled = true;

@@ -18,13 +18,21 @@ function lobbyScene(aGame, aParent) {
 
 	var groupMenuBotton = this.game.add.group(this);
 
-	this.game.add.sprite(370, 680, 'mainUI', 'btn_menu.png', groupMenuBotton);
+	var btnSetting = this.game.add.sprite(370, 680, 'mainUI', 'btn_menu.png', groupMenuBotton);
 
-	this.game.add.sprite(254, 680, 'mainUI', 'btn_menu.png', groupMenuBotton);
+	var btnMessage = this.game.add.sprite(254, 680, 'mainUI', 'btn_menu.png', groupMenuBotton);
 
-	this.game.add.sprite(135, 680, 'mainUI', 'btn_menu.png', groupMenuBotton);
+	var btnFriends = this.game.add.sprite(135, 680, 'mainUI', 'btn_menu.png', groupMenuBotton);
 
-	this.game.add.sprite(13, 680, 'mainUI', 'btn_menu.png', groupMenuBotton);
+	var btnMission = this.game.add.sprite(13, 680, 'mainUI', 'btn_menu.png', groupMenuBotton);
+
+	this.game.add.sprite(281, 703, 'mainUI', 'iconMessage.png', groupMenuBotton);
+
+	this.game.add.sprite(396, 699, 'mainUI', 'iconSetting.png', groupMenuBotton);
+
+	this.game.add.sprite(30, 692, 'mainUI', 'iconMisson.png', groupMenuBotton);
+
+	this.game.add.sprite(166, 700, 'mainUI', 'iconFriend.png', groupMenuBotton);
 
 	var groupModeButton = this.game.add.group(this);
 
@@ -53,6 +61,10 @@ function lobbyScene(aGame, aParent) {
 
 	 // public fields
 
+	this.fBtnSetting = btnSetting;
+	this.fBtnMessage = btnMessage;
+	this.fBtnFriends = btnFriends;
+	this.fBtnMission = btnMission;
 	this.fBitmap_5_png = Bitmap_5_png;
 	this.fBg_png = bg_png;
 	this.fGroupProfile = groupProfile;

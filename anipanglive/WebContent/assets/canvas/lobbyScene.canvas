@@ -31,7 +31,8 @@
                 "id": "0e830fd4-c6be-4131-994f-96481a9d32c1",
                 "asset": "1",
                 "info": {
-                  "editorName": "btn_menu_png111",
+                  "editorName": "btnSetting",
+                  "editorPublic": true,
                   "x": 370,
                   "y": 680
                 }
@@ -41,8 +42,9 @@
                 "id": "e86ace4d-20fb-48d5-a4d6-ab1094d3fbff",
                 "asset": "1",
                 "info": {
-                  "editorName": "btn_menu_png11",
+                  "editorName": "btnMessage",
                   "editorPick": false,
+                  "editorPublic": true,
                   "x": 254,
                   "y": 680
                 }
@@ -52,7 +54,8 @@
                 "id": "d56441e9-5ad9-4a65-9a86-9639bae89de7",
                 "asset": "1",
                 "info": {
-                  "editorName": "btn_menu_png1",
+                  "editorName": "btnFriends",
+                  "editorPublic": true,
                   "x": 135,
                   "y": 680
                 }
@@ -62,9 +65,50 @@
                 "id": "e08aa53e-d9c7-477c-82ae-59b8f4640643",
                 "asset": "1",
                 "info": {
-                  "editorName": "btn_menu_png",
+                  "editorName": "btnMission",
+                  "editorPublic": true,
                   "x": 13,
                   "y": 680
+                }
+              },
+              {
+                "type": "atlas-sprite",
+                "id": "3e7c8a9e-07d8-40f9-9cd4-052d5dd3c891",
+                "asset": "2",
+                "info": {
+                  "editorName": "iconMessage_png",
+                  "x": 281,
+                  "y": 703
+                }
+              },
+              {
+                "type": "atlas-sprite",
+                "id": "52b10aaa-7cec-43e4-8e10-b8c92f7d6ce2",
+                "asset": "3",
+                "info": {
+                  "editorName": "iconSetting_png",
+                  "x": 396,
+                  "y": 699
+                }
+              },
+              {
+                "type": "atlas-sprite",
+                "id": "c4f54d6f-2451-41a1-9df8-a6264a32b871",
+                "asset": "4",
+                "info": {
+                  "editorName": "iconMisson_png",
+                  "x": 30,
+                  "y": 692
+                }
+              },
+              {
+                "type": "atlas-sprite",
+                "id": "ddbcbbde-531e-4951-9c8d-c7d42c54c852",
+                "asset": "5",
+                "info": {
+                  "editorName": "iconFriend_png",
+                  "x": 166,
+                  "y": 700
                 }
               }
             ]
@@ -79,7 +123,7 @@
               {
                 "type": "button",
                 "id": "0549e017-a4cd-4ac6-a621-70f0bd08c5ef",
-                "asset": "2",
+                "asset": "6",
                 "info": {
                   "editorName": "btnMode_png11",
                   "x": 334,
@@ -89,7 +133,7 @@
               {
                 "type": "button",
                 "id": "6fa28ad3-3511-478c-9cfd-2ecb733356d9",
-                "asset": "2",
+                "asset": "6",
                 "info": {
                   "editorName": "btnMode_png1",
                   "x": 181,
@@ -99,7 +143,7 @@
               {
                 "type": "button",
                 "id": "6b996d82-d83d-4651-9b74-4c28da92a6a9",
-                "asset": "2",
+                "asset": "6",
                 "info": {
                   "editorName": "btnMode_png",
                   "x": 33,
@@ -109,7 +153,7 @@
               {
                 "type": "atlas-sprite",
                 "id": "d8a4fcc9-45af-4048-ae29-33ac63a086ea",
-                "asset": "3",
+                "asset": "7",
                 "info": {
                   "editorName": "ribbonmode_png",
                   "x": 146,
@@ -128,7 +172,7 @@
               {
                 "type": "atlas-sprite",
                 "id": "c6ffd5e2-4ae0-41cc-8ff2-5956754c35e2",
-                "asset": "4",
+                "asset": "8",
                 "info": {
                   "editorName": "bgBack_png",
                   "x": 46,
@@ -139,7 +183,7 @@
               {
                 "type": "atlas-sprite",
                 "id": "facb115d-c300-4471-b20c-25f8c9880e8a",
-                "asset": "5",
+                "asset": "9",
                 "info": {
                   "editorName": "bgText_png",
                   "x": 129,
@@ -149,7 +193,7 @@
               {
                 "type": "button",
                 "id": "15da43d2-4537-4722-b276-93c46a69b673",
-                "asset": "6",
+                "asset": "10",
                 "info": {
                   "editorName": "Bitmap_5_png",
                   "editorPublic": true,
@@ -160,7 +204,7 @@
               {
                 "type": "atlas-sprite",
                 "id": "06cde82b-2991-4a27-b275-676bab9d4d11",
-                "asset": "7",
+                "asset": "11",
                 "info": {
                   "editorName": "bg_png",
                   "editorPick": false,
@@ -172,7 +216,7 @@
               {
                 "type": "atlas-sprite",
                 "id": "8417f84a-3df3-4e69-b914-f7822cf2ab3a",
-                "asset": "5",
+                "asset": "9",
                 "info": {
                   "editorName": "bgText_png1",
                   "x": 133,
@@ -210,33 +254,57 @@
       "file": "WebContent/assets/assets-pack.json",
       "section": "mainUI",
       "asset": "mainUI",
-      "sprite": "btnMode.png"
+      "sprite": "iconMessage.png"
     },
     "3": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "mainUI",
       "asset": "mainUI",
-      "sprite": "ribbonmode.png"
+      "sprite": "iconSetting.png"
     },
     "4": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "mainUI",
       "asset": "mainUI",
-      "sprite": "bgBack.png"
+      "sprite": "iconMisson.png"
     },
     "5": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "mainUI",
       "asset": "mainUI",
-      "sprite": "bgText.png"
+      "sprite": "iconFriend.png"
     },
     "6": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "mainUI",
       "asset": "mainUI",
-      "sprite": "Bitmap 5.png"
+      "sprite": "btnMode.png"
     },
     "7": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "mainUI",
+      "asset": "mainUI",
+      "sprite": "ribbonmode.png"
+    },
+    "8": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "mainUI",
+      "asset": "mainUI",
+      "sprite": "bgBack.png"
+    },
+    "9": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "mainUI",
+      "asset": "mainUI",
+      "sprite": "bgText.png"
+    },
+    "10": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "mainUI",
+      "asset": "mainUI",
+      "sprite": "Bitmap 5.png"
+    },
+    "11": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "mainUI",
       "asset": "mainUI",

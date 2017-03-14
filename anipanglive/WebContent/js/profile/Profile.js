@@ -69,6 +69,7 @@ Profile.prototype.calExp= function(totalExp){
 	if(currentBarWidth <= this.scene.fImgLoadingBar.MIN_TARGET_WIDTH){
 		currentBarWidth = this.scene.fImgLoadingBar.MIN_TARGET_WIDTH;
 	}
+	
 	this.scene.fImgLoadingBar.targetWidth = currentBarWidth*0.8;
 	
 	this.levelText.text = "Level : " + this.level;
