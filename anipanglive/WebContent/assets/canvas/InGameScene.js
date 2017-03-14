@@ -42,7 +42,6 @@ function InGameScene(aGame, aParent) {
 	this.fGameBoard.mask = boardMask;
 	
 	
-	
 
 	/* --- post-init-end --- */
 }
@@ -57,14 +56,14 @@ InGameScene.prototype.constructor = Phaser.Group;
 // you can insert code here
 InGameScene.getBoardCellPosition = function(inIndex) {
 	var leftBoardMargin = (StzGameConfig.GAME_WIDTH - (InGameBoardConfig.BLOCK_WIDTH * InGameBoardConfig.COL_COUNT)) / 2;
-	StzCommon.StzLog.print("[InGameScene] leftBoardMargin = " + leftBoardMargin);
+	//StzCommon.StzLog.print("[InGameScene] leftBoardMargin = " + leftBoardMargin);
 	// check parameter validation
 	if (inIndex < 0 || inIndex >= InGameBoardConfig.COL_COUNT * InGameBoardConfig.ROW_COUNT) {
 		return null;
 	}
 	
-	var indexX = Math.floor(inIndex / InGameBoardConfig.COL_COUNT);
-	var indexY = Math.floor(inIndex % InGameBoardConfig.COL_COUNT);
+	var indexX = Math.floor(inIndex % InGameBoardConfig.COL_COUNT);
+	var indexY = Math.floor(inIndex / InGameBoardConfig.COL_COUNT);
 		
 	
 	var resultX = leftBoardMargin + (InGameBoardConfig.BLOCK_WIDTH / 2) + (indexX * InGameBoardConfig.BLOCK_WIDTH);
