@@ -24,6 +24,7 @@ Boot.prototype.create = function() {
 	var logo = this.game.add.image(this.game.width / 2, this.game.height / 2, 'stz_logo').anchor.setTo(0.5, 0.5);
 	
 	this.game.state.add('Preload', Preload);
+	this.game.state.add('Lobby', Lobby);
 	
 	this.game.load.pack('preload', 'assets/assets-pack.json');
 	

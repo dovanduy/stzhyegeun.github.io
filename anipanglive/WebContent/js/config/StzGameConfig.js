@@ -19,3 +19,5 @@ var InGameBoardConfig = {
 	BLOCK_WIDTH : 65, 
 	BLOCK_HEIGHT : 65
 };
+
+var EXP_TABLE = [100,300,600,1000,1500];
