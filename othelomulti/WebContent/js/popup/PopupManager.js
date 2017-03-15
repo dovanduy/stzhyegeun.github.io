@@ -79,7 +79,7 @@ Phaser.Plugin.PopupManager.prototype.makeBlind = function(){
 	
 	this.scene.add(this.blind);
 	this.scene.sendToBack(this.blind);
-}
+};
 
 /**
  * 팝업을 오픈

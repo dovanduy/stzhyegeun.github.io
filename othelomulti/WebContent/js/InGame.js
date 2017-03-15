@@ -15,6 +15,7 @@ InGame.prototype = {
 		popupEmoticon:null,
 		emoticonUP:null,
 		emoticonDown:null,
+		enableUpdate:false,
 };
 
 /**
@@ -28,6 +29,7 @@ InGame.prototype.init = function(data) {
 	StzGameConfig.AUTO_FLAG = true;
 	
 	this.gameEngine = new GameEngine(this.game, this);
+	
 };
 
 InGame.prototype.preload = function() {
@@ -84,6 +86,9 @@ InGame.prototype.create = function() {
 		this.emticonStartStamp = (new Date()).getTime();
 	}
 	
+	this.enableUpdate = true;
+	
+	//Server.request();
 //	window.peerConn.on('data', function(data){
 //		 if(data === "END"){
 //				this.popupWating.popupClose();
@@ -116,6 +121,8 @@ InGame.prototype.create = function() {
 };
 
 InGame.prototype.update = function(){
+	if(this.enableUpdate === false) return;
+	
 	if(StzGameConfig.AUTO_FLAG === true && this.isTurn() === true){
 		this.Autoemoticon();
 	}
@@ -254,6 +261,8 @@ InGame.prototype.checkEnd = function(){
 	}
 	
 	if(endCount === 0) {
+		this.enableUpdate = false;
+		
 		var winerChip = (this.whilteCount >= this.blackCount)?ETurn.WHITE:ETurn.BLACK;
 		var count = (this.myColor === ETurn.BLACK)?this.blackCount:this.whilteCount;
 		
@@ -293,15 +302,15 @@ InGame.prototype.nextTurn = function(rowIndex, colIndex, type, turn){
 	this.countingChip();
 	
 	if(StzGameConfig.AUTO_FLAG === false){
-		var sendJson = JSON.stringify({
-			"rowIndex" : rowIndex, 
-			"colIndex" : colIndex, 
-			"type" : type,
-			"turn" : turn
-		});
-		
-	window.peerConn.send(sendJson);
-	
+//		var sendJson = JSON.stringify({
+//			"rowIndex" : rowIndex, 
+//			"colIndex" : colIndex, 
+//			"type" : type,
+//			"turn" : turn
+//		});
+//		
+//	window.peerConn.send(sendJson);
+//	
 	}
 	this.popupWating.popupOpen();	
 };
