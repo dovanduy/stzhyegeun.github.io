@@ -186,11 +186,12 @@ InGame.prototype.onChangeComplete = function(){
 	else{
 		 //현재 턴이 내 차례인 경우
 		 if(StzGameConfig.AUTO_FLAG === true){
-			this.game.time.events.add((Math.random() * 1000 + 500), function(){
+			this.game.time.events.add((Math.random() * 5000 + 500), function(){
 				this.reverseArray = this.gameEngine.autoPlay(this.board, this.currentTurn);
 				this.changeTurn();
 				this.popupWating.popupClose();
 				this.emticonStartStamp = (new Date()).getTime();
+				this.countingChip();
 				
 				if(this.reverseArray === null){
 					this.game.time.events.add(500, function(){
