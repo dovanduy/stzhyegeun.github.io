@@ -10,6 +10,7 @@ var StzGameConfig = {
 	, CHIP_WIDTH: 80
 	, CHIP_HEIGHT: 80
 	, BOARD_TOP_OFFSET: 160
+	, TURN_TIME       : 10
 };
 
 var StzServerConfig = {

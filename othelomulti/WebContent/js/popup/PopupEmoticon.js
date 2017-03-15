@@ -60,7 +60,10 @@ PopupEmoticon.prototype.onSendEmoticon = function(sprite, pointer){
 		emoticonName = EEmoticonNames.GREET;
 	}
 	
-	this.onSendData(emoticonName);
+	if(StzGameConfig.AUTO_FLAG === false){
+		this.onSendData(emoticonName);
+	}
+	
 	this.aParent.emoticonDown.show(emoticonName);
 	
 	this.closeState = EPopupCloseState.CONFIRM;
