@@ -1,4 +1,4 @@
-var USE_FB_INTEGRATION = false;
+var USE_FB_INTEGRATION = true;
 
 var FB_DATA = {
 			id : '000000',
