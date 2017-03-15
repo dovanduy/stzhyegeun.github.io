@@ -58,12 +58,6 @@
             "url": "assets/canvas/emoticonPopup.js"
         }
     ],
-    "boot": [{
-        "type": "image",
-        "key": "stz_logo",
-        "url": "lib/stz-common-js/image/stz_logo.png",
-        "overwrite": false
-    }],
     "lobby": [
         {
             "type": "image",
@@ -84,7 +78,7 @@
         }
     ],
     "meta": {
-        "generated": "1488520588503",
+        "generated": "1489573315860",
         "app": "Phaser Editor",
         "url": "http://phasereditor.boniatillo.com",
         "version": "1.0",

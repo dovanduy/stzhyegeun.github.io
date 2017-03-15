@@ -57,7 +57,7 @@ StzGameConfig.getChipFrameName = function(type){
 	else if(type === EChipType.WHITE) return 'whiteChipBig.png';
 	else if(type === EChipType.MINIBLACK) return 'blackChipMini.png';
 	else if(type === EChipType.MINIWHITE) return 'whiteChipMini.png';
-	else StzCommon.StzLog.assert(true, "Error");
+	else StzLog.assert(true, "Error");
 };
 
 var ETurn = {

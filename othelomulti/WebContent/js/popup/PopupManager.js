@@ -64,7 +64,7 @@ Phaser.Plugin.PopupManager.prototype.update = function(){
 	if(this.upDateEnable === false ){
 		return;
 	}
-	StzCommon.StzLog.print("[PopupManager] update");
+	StzLog.print("[PopupManager] update");
 };
 
 /**
@@ -97,7 +97,7 @@ Phaser.Plugin.PopupManager.prototype.popupOpen= function(){
  * 팝업 오픈 전에 시작 동작 하는 함수
  */
 Phaser.Plugin.PopupManager.prototype.prePopupOpen= function(){
-	StzCommon.StzLog.print("[PopupManager] prePopupOpen");
+	StzLog.print("[PopupManager] prePopupOpen");
 	if(this.isOpen === true){
 		return;
 	}
@@ -114,7 +114,7 @@ Phaser.Plugin.PopupManager.prototype.prePopupOpen= function(){
  * 팝업 오픈이 끝난 후 동작 하는 함수
  */
 Phaser.Plugin.PopupManager.prototype.postPopupOpen= function(){
-	StzCommon.StzLog.print("[PopupManager] postPopupOpen");
+	StzLog.print("[PopupManager] postPopupOpen");
 };
 
 /**
@@ -133,7 +133,7 @@ Phaser.Plugin.PopupManager.prototype.popupClose = function(){
  * 팝업 클로즈가 동작하기 전에 함수
  */
 Phaser.Plugin.PopupManager.prototype.prePopupClose= function(){
-	StzCommon.StzLog.print("[PopupManager] prePopupClose");
+	StzLog.print("[PopupManager] prePopupClose");
 	
 };
 
@@ -141,7 +141,7 @@ Phaser.Plugin.PopupManager.prototype.prePopupClose= function(){
  * 팝업 클로즈가 끝난 후 동작 하는 함수 
  */
 Phaser.Plugin.PopupManager.prototype.postPopupClose= function(){
-	StzCommon.StzLog.print("[PopupManager] postPopupClose");
+	StzLog.print("[PopupManager] postPopupClose");
 	this.scene.visible = false;
 	this.isOpen = false;
 	this.updateEnable = false;
@@ -155,5 +155,5 @@ Phaser.Plugin.PopupManager.prototype.postPopupClose= function(){
  * 팝업 제거하는 함수
  */
 Phaser.Plugin.PopupManager.prototype.onDestory = function(){
-	StzCommon.StzLog.print("[PopupManager] onDestory");
+	StzLog.print("[PopupManager] onDestory");
 };

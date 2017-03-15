@@ -31,8 +31,7 @@ PopupEmoticon.prototype.update = function(){
 		return;
 	}
 	
-	StzCommon.StzLog.print("[PopupEmoticon] update");
-	
+	StzLog.print("[PopupEmoticon] update");
 };
 
 PopupEmoticon.prototype.onSendEmoticon = function(sprite, pointer){

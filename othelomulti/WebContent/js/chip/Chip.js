@@ -35,7 +35,7 @@ function Chip(ingame, aParent, rowIndex, colIndex) {
 }
 
 Chip.prototype.changeType = function(type){
-	StzCommon.StzLog.print("[Chip changeState]");
+	StzLog.print("[Chip changeState]");
 	
 	this.type = type;
 	var frameName = StzGameConfig.getChipFrameName(type);
@@ -50,7 +50,7 @@ Chip.prototype.changeType = function(type){
 };
 
 Chip.prototype.animationChangeType = function(type){
-	StzCommon.StzLog.print("[Chip changeState]");
+	StzLog.print("[Chip changeState]");
 	
 	this.animationFlag = false;
 	this.type = type;
@@ -76,7 +76,7 @@ Chip.prototype.getType = function(){
 };
 
 Chip.prototype.onClickBlock = function(){
-	StzCommon.StzLog.print("[Chip onClickBlock]");
+	StzLog.print("[Chip onClickBlock]");
 
 	if(this.type === EChipType.MINIBLACK){
 		this.changeType(EChipType.BLACK);

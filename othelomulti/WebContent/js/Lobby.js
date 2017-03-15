@@ -21,7 +21,7 @@ Lobby.prototype.create = function() {
 };
 
 Lobby.prototype.OnClickGameStart = function(sprite, pointer) {
-	StzCommon.StzLog.print("[Lobby (OnClickGameStart)]");
+	StzLog.print("[Lobby (OnClickGameStart)]");
 	
 	if (this.isWaiting == false) {
 		this.isWaiting = true;
