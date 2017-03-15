@@ -199,7 +199,9 @@ GameEngine.prototype.lineCheck2 = function(board, cx, cy, oppositeType, curType,
 GameEngine.prototype.autoPlay = function(board, currentTurn){
 	this.findAvailArea(board, currentTurn);
 	
-	var length = this.autoMiniChipPosArray.length;
+	var bestPosArray = this.checkReversArray();
+	
+	var length = bestPosArray.length;
 	var bX = 0;
 	var bY = 0;
 	var reverseArray = [];
@@ -208,8 +210,8 @@ GameEngine.prototype.autoPlay = function(board, currentTurn){
 	var bestArray = [];
 	
 	for(var i=0; i<length; i++ ){
-		var cX = this.autoMiniChipPosArray[i].x;
-		var cY = this.autoMiniChipPosArray[i].y;
+		var cX = bestPosArray[i].x;
+		var cY = bestPosArray[i].y;
 		
 		reverseArray = this.checkReverseChip(board, cX, cY, currentTurn);
 		if(reversCount < reverseArray.length){
@@ -230,4 +232,49 @@ GameEngine.prototype.autoPlay = function(board, currentTurn){
 	 }
 	 
 	 return bestArray;
+};
+GameEngine.prototype.highPriorityArray = [{x:0,y:0},{x:7,y:0},{x:0,y:7},{x:7,y:7}];
+
+GameEngine.prototype.lowPriorityArray = [{x:1,y:1},{x:2,y:1},{x:3,y:1},{x:4,y:1},{x:5,y:1},{x:6,y:1}
+                                        ,{x:1,y:6},{x:2,y:6},{x:3,y:6},{x:4,y:6},{x:5,y:6},{x:6,y:6}
+                                        ,{x:1,y:2},{x:1,y:3},{x:1,y:4},{x:1,y:5}
+                                        ,{x:6,y:2},{x:6,y:3},{x:6,y:4},{x:6,y:5}];
+GameEngine.prototype.checkReversArray = function(){
+	var length = this.autoMiniChipPosArray.length;
+	var highLength = this.highPriorityArray.length;
+	var lowLength  = this.lowPriorityArray.length;
+	
+	var bestPosArray = [];
+	//highPriorityArray 검사
+	
+	for(var i=0; i<length; i++ ){
+		for(var j=0;j<highLength;j++){
+			if(this.autoMiniChipPosArray[i].x === this.highPriorityArray[j].x &&
+			  this.autoMiniChipPosArray[i].y === this.highPriorityArray[j].y){
+				bestPosArray.push(this.autoMiniChipPosArray[i]);
+			}	
+		}
+	}
+	
+	if(bestPosArray.length !== 0) return bestPosArray;
+	
+	for(var i=0; i<length; i++ ){
+		for(var j=0;j<lowLength;j++){
+			if(this.autoMiniChipPosArray[i].x === this.lowPriorityArray[j].x &&
+				this.autoMiniChipPosArray[i].y === this.lowPriorityArray[j].y){
+				break;
+			}
+		}
+		
+		if(j === lowLength){
+			bestPosArray.push(this.autoMiniChipPosArray[i]);
+		}
+	}
+	
+	if(bestPosArray.length !== 0) {
+		return bestPosArray;
+	}
+
+	return this.autoMiniChipPosArray;
+
 };
