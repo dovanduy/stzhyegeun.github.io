@@ -23,6 +23,12 @@ function watingPopup(aGame, aParent) {
 
 	this.game.add.sprite(108, 56, 'PopupResult', 'txtWating.png', this);
 
+	var txtTimePos = this.game.add.group(this);
+	txtTimePos.position.setTo(156, 132);
+
+	 // public fields
+
+	this.fTxtTimePos = txtTimePos;
 
 	/* --- post-init-begin --- */
 

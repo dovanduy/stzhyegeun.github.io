@@ -52,6 +52,17 @@
             "x": 108,
             "y": 56
           }
+        },
+        {
+          "type": "group",
+          "id": "af50f5be-cf32-496f-ba2d-304113416660",
+          "info": {
+            "editorName": "txtTimePos",
+            "editorPublic": true,
+            "x": 156,
+            "y": 132,
+            "children": []
+          }
         }
       ]
     }

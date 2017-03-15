@@ -144,6 +144,7 @@ Phaser.Plugin.PopupManager.prototype.postPopupClose= function(){
 	StzCommon.StzLog.print("[PopupManager] postPopupClose");
 	this.scene.visible = false;
 	this.isOpen = false;
+	this.updateEnable = false;
 	
 	if(this.callbackFunc !== null){
 		this.callbackFunc();
