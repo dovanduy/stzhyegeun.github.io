@@ -61,7 +61,7 @@ PopupEmoticon.prototype.onSendEmoticon = function(sprite, pointer){
 	}
 	
 	if(StzGameConfig.AUTO_FLAG === false){
-		this.onSendData(emoticonName);
+//		this.onSendData(emoticonName);
 	}
 	
 	this.aParent.emoticonDown.show(emoticonName);
