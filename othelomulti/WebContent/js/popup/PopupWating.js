@@ -42,8 +42,6 @@ PopupWating.prototype.update = function(){
 		return;
 	}
 	
-	StzCommon.StzLog.print("[PopupResult] update");
-	
 	var currentTimestamp = (new Date()).getTime();
 	this.remainSecond = 1 - ((currentTimestamp - this.startTimeStamp) / 1000);
 	

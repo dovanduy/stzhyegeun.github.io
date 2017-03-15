@@ -14,7 +14,7 @@ InGame.prototype = {
 		popupWating:null,
 		popupEmoticon:null,
 		emoticonUP:null,
-		emoticonDown:null
+		emoticonDown:null,
 };
 
 /**
@@ -35,7 +35,7 @@ InGame.prototype.preload = function() {
 };
 
 InGame.prototype.create = function() {
-	this.popupResult = this.game.plugins.add(new PopupResult(this.game, this, {blind:true}));
+	this.popupResult = this.game.plugins.add(new PopupResult(this.game, this, {blind:false}));
 	this.popupWating = this.game.plugins.add(new PopupWating(this.game, this, {blind:false}));
 	this.popupEmoticon = this.game.plugins.add(new PopupEmoticon(this.game, this, {blind:false, offsetY:300, callbackFunc:function(){
 		if(this.popupEmoticon.closeState === EPopupCloseState.CONFIRM){
@@ -49,9 +49,18 @@ InGame.prototype.create = function() {
 	this.emoticonDown = new EmoticonManager(this.game, this, EEmoticonNames.ALL,{scaleX:0.4, scaleY:0.4, callBackFunc:this.onEmoticonComplete});
 	this.emoticonDown.setPos(450 , 810);
 	
+	if(StzGameConfig.AUTO_FLAG === true){
+		this.emoticonAuto = new EmoticonManager(this.game, this, EEmoticonNames.ALL,{scaleX:0.4, scaleY:0.4});
+		this.emoticonAuto.setPos(450 , 10);
+		this.game.time.events.add(2000, function(){
+			this.emoticonAuto.show(EEmoticonNames.GREET);
+		}.bind(this));
+	}
+
 	this.initBoard();
 	
 	this.txtWhiteCount = this.game.add.bitmapText(this.scene.fWhiteChipSmall.x + this.scene.fWhiteChipSmall.width + 30, 
+			
 			this.scene.fWhiteChipSmall.y + this.scene.fWhiteChipSmall.height/2 + 10, 
 			'textScoreFont', '0', 35);
 	this.txtWhiteCount.anchor.set(0.5, 0.5);
@@ -70,6 +79,10 @@ InGame.prototype.create = function() {
 	this.scene.fBtnEmoticon.events.onInputUp.add(this.onEmoticon, this);
 	
 	this.countingChip();
+	
+	if(StzGameConfig.AUTO_FLAG === true){
+		this.emticonStartStamp = (new Date()).getTime();
+	}
 	
 //	window.peerConn.on('data', function(data){
 //		 if(data === "END"){
@@ -100,6 +113,24 @@ InGame.prototype.create = function() {
 //		 this.isTurn = true;
 //		 this.currentTurn = (data.turn == ETurn.BLACK)?ETurn.WHITE:ETurn.BLACK;	
 //	},this);
+};
+
+InGame.prototype.update = function(){
+	if(StzGameConfig.AUTO_FLAG === true && this.isTurn() === true){
+		this.Autoemoticon();
+	}
+	else{
+		return
+	}
+};
+
+InGame.prototype.Autoemoticon = function(){
+	var currentTimestamp = (new Date()).getTime();
+	
+	if(5 - ((currentTimestamp - this.emticonStartStamp) / 1000) <= 0){
+		this.emoticonAuto.show(EEmoticonNames.FAST);
+		this.emticonStartStamp = (new Date()).getTime();
+	}
 };
 
 InGame.prototype.initBoard = function() {
@@ -140,19 +171,24 @@ InGame.prototype.onChangeComplete = function(){
 	if(this.isTurn() === true){
 		this.gameEngine.findAvailArea(this.board, this.currentTurn);
 		this.checkEnd();	
+		
+		if(StzGameConfig.AUTO_FLAG === true){
+			this.emticonStartStamp = (new Date()).getTime();
+		}
 	}
 	else{
 		 //현재 턴이 내 차례인 경우
 		 if(StzGameConfig.AUTO_FLAG === true){
-			this.game.time.events.add(2000, function(){
+			this.game.time.events.add((Math.random() * 6000 + 500), function(){
 				this.reverseArray = this.gameEngine.autoPlay(this.board, this.currentTurn);
 				this.changeTurn();
 				this.popupWating.popupClose();
+				this.emticonStartStamp = (new Date()).getTime();
 				
 				if(this.reverseArray === null){
 					this.game.time.events.add(500, function(){
 						this.checkEnd();
-					});
+					}.bind(this));
 				}
 				else{
 					this.gameEngine.removeAvailArea(this.board);
@@ -223,9 +259,17 @@ InGame.prototype.checkEnd = function(){
 		
 		this.popupResult.setData(this.myColor, winerChip, count);
 		this.popupResult.popupOpen();
-
+		
 		if(StzGameConfig.AUTO_FLAG === false){
 			window.peerConn.send("END");
+		}
+		else{
+			if(winerChip === this.myColor){
+				this.emoticonAuto.show(EEmoticonNames.SORRY);
+			}
+			else{
+				this.emoticonAuto.show(EEmoticonNames.LAUGH);
+			}
 		}
 	}
 };
