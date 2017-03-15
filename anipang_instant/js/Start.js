@@ -58,12 +58,10 @@ var proto = Object.create(Phaser.State);
 Start.prototype = proto;
 
 Start.prototype.preload = function() {
-    var imageSrc = FBInstant.player.getPhoto();
-	if (FB_DATA != null) {
-		this.game.load.crossOrigin = "Anonymous";
-		this.game.load.image('myProfileImage', imageSrc);	
-	}
-	
+    if (USE_FB_INTEGRATION === true) {
+        var imageSrc = FBInstant.player.getPhoto();
+        this.game.load.image('myProfileImage', imageSrc);
+    }
 }
 
 Start.prototype.create = function() {
@@ -72,13 +70,12 @@ Start.prototype.create = function() {
 	spawnBoard();
 
 	 // currently selected gem starting position. used to stop player form
-		// moving gems too far.
+	// moving gems too far.
     selectedGemStartPos = { x: 0, y: 0 };
     
     // used to disable input while gems are dropping down and respawning
-
 	blind = window.game.add.graphics(0,0);
-	blind.beginFill(0x000000, 1);
+	blind.beginFill(0x000, 1);
 	blind.drawRect(0, 0, window.game.world.width, window.game.world.height);
 	blind.alpha  = 0.7;
 	blind.visible = false;
@@ -109,69 +106,50 @@ Start.prototype.update = function() {
 	var currentTimestamp = (new Date()).getTime();
 	remainSecond = StartPreferences.GAME_LIMIT_TIME - ((currentTimestamp - startTimestamp) / 1000);
 
-	if (remainSecond <= 0) {
-		allowInput = false;
-		remainTimeText.text = 0.00 + "";
+    if(startComboStamp != 0) {
+        var currentComboStamp = (new Date()).getTime();
+        comboDeltaTime = currentComboStamp - startComboStamp;
+        comboText.text = Score.getCombo();
+        
+        if(isComboUp === true){
+            this.scene.fImg_Combo.alpha = 0;
+            comboText.alpha = 0;
+        }
+        
+        if(comboText.alpha < 1){
+            this.scene.fImg_Combo.alpha += 0.02;
+            comboText.alpha += 0.02;
+        }
+    
+        if(Score.setCombo(comboDeltaTime, isComboUp) === 0){
+            startComboStamp = 0;
+            
+            this.scene.fImg_Combo.alpha = 0;
+            comboText.alpha = 0;
+        }
+    }
+    
+    isComboUp = false;
+    scoreText.text = Score.getScore();
+
+    if (remainSecond > 0) {
+        this.scene.fImg_time_gauge_body.scale.x = (StartPreferences.GAUGE_TIMER_BODY_INITIAL_SCALE / StartPreferences.GAME_LIMIT_TIME * remainSecond);
+        this.scene.fImg_time_gauge_tail.x = this.scene.fImg_time_gauge_body.x + this.scene.fImg_time_gauge_body.width;
+        
+        remainTimeText.text = remainSecond.toFixed(2) + "";
+    } else {
+        allowInput = false;
+        remainTimeText.text = 0.00 + "";
+
 
         // / 최고 점수 업데이트
-        if (Score.score > USER_DATA['topScore']) {
-            if (USE_FB_INTEGRATION === true) {
-                if (this.IS_SERVER_RUNNING == undefined || this.IS_SERVER_RUNNING == false) {
-                    this.IS_SERVER_RUNNING = true;
-                    // $.post('http://stz-phaser-proto.appspot.com/update/score', JSON.stringify({id:USER_DATA['id'], topScore:Score.score}), function(response) {
-                    //     var jsonObje = JSON.parse(response);
-                    //     if (jsonObje.hasOwnProperty('code') == false) {
-                    //         if (USER_DATA['id'] = jsonObje['id']) {
-                    //             USER_DATA['topScore'] = jsonObje['topScore'];
-                    //         }
-                    //         this.IS_SERVER_RUNNING = false;
-                    //     }
-                    // });
-                }    
-            }
-        }
-        // / 최고 점수 업데이트
         if(resultPopup.isUpdate == false){
-        	 this.showEnd();
+             this.showEnd();
         }
         else{
-        	resultPopup.update();
+            resultPopup.update();
         }
-	
-	} else {
-		this.scene.fImg_time_gauge_body.scale.x = (StartPreferences.GAUGE_TIMER_BODY_INITIAL_SCALE / StartPreferences.GAME_LIMIT_TIME * remainSecond);
-		this.scene.fImg_time_gauge_tail.x = this.scene.fImg_time_gauge_body.x + this.scene.fImg_time_gauge_body.width;
-		
-		remainTimeText.text = remainSecond.toFixed(2) + "";
-	}
-	
-	if(startComboStamp != 0){
-		
-		var currentComboStamp = (new Date()).getTime();
-		comboDeltaTime = currentComboStamp - startComboStamp;
-		comboText.text = Score.getCombo();
-		
-		if(isComboUp === true){
-			this.scene.fImg_Combo.alpha = 0;
-			comboText.alpha = 0;
-		}
-		
-		if(comboText.alpha < 1){
-			this.scene.fImg_Combo.alpha += 0.02;
-			comboText.alpha += 0.02;
-		}
-	
-		if(Score.setCombo(comboDeltaTime, isComboUp) === 0){
-			startComboStamp = 0;
-			
-			this.scene.fImg_Combo.alpha = 0;
-			comboText.alpha = 0;
-		}
-		
-	}
-	
-	isComboUp = false;
-	scoreText.text = Score.getScore();
+    }
 }
 
 Start.prototype.showEnd = function(){
@@ -187,14 +165,18 @@ Start.prototype.showEnd = function(){
 		resultPopup.show(Score.getScore());
 	}	
 
-    FBInstant.setScore(Score.score);
-    FBInstant.takeScreenshotAsync().then(function() {
+    if (USE_FB_INTEGRATION === true) {
+        FBInstant.setScore(Score.score);
+        FBInstant.takeScreenshotAsync().then(function() {
 
-    });
-    FBInstant.endGameAsync().then(function() {
-        // The player is now guaranteed to have already tapped "restart".
+        });
+        FBInstant.endGameAsync().then(function() {
+            // The player is now guaranteed to have already tapped "restart".
+            this.restartGame();
+        });    
+    } else {
         this.restartGame();
-    });
+    }
 }
 
 Start.prototype.showReadyMessage = function(){
@@ -263,10 +245,6 @@ Start.prototype.initUI = function () {
 	this.scene.fMessageGo.alpha = 0 ;
 	this.scene.fMessageReady.alpha = 0 ;
 	this.scene.fMessageTimeOver.alpha = 0 ;
-
-	if (FB_DATA != null) {
-		myProfileImage = window.game.add.image(36, 33, 'myProfileImage');	
-	}
 	
 	scoreText = window.game.add.bitmapText(240, 70, 'textScore', '0', 30);
 	scoreText.anchor.set(0.5);
@@ -274,6 +252,13 @@ Start.prototype.initUI = function () {
 	comboText = window.game.add.bitmapText(420, 125, 'comboFont', '0', 35);
 	comboText.anchor.set(0.5);
 	
+
+    var profileImage = this.game.add.image(61, 57, 'myProfileImage');
+    profileImage.anchor.setTo(0.5, 0.5);
+    var ratio = 62 / profileImage.width;
+    profileImage.scale.setTo(ratio, ratio);
+
+
 	this.scene.fImg_Combo.alpha = 0;
 	comboText.alpha = 0;
 	
@@ -287,6 +272,10 @@ Start.prototype.initUI = function () {
 	
 	startTimestamp = 0;
 	startComboStamp = 0;
+
+    if (resultPopup !== undefined && resultPopup.isUpdate === true) {
+        resultPopup.close();
+    }
 }
 
 Start.prototype.pauseGame = function() {
@@ -326,7 +315,14 @@ Start.prototype.restartGame = function() {
 }
 
 Start.prototype.exitGame = function() {
-	this.game.state.start("Menu");
+    if (USE_FB_INTEGRATION === true) {
+        FBInstant.endGameAsync().then(function() {
+            this.restartGame();
+        });    
+    } else {
+        this.restartGame();
+    }
+	
 }
 
 var currentPlayingAnimations = {};
@@ -765,6 +761,15 @@ function removeKilledGems() {
 
 }
 
+function tweenDropGemPos(gem, newPosX, newPosY, durationMultiplier, inAfterCallback) {
+    if (durationMultiplier === null
+            || typeof durationMultiplier === 'undefined') {
+        durationMultiplier = 1;
+    }
+    var tween = game.add.tween(gem).to({y: (newPosY * StartPreferences.GEM_SIZE_SPACED) + StartPreferences.INGAME_UI_TOP_OFFSET}, 500, 'Quart.easeOut', true);
+    return tween;     
+}
+
 // animated gem movement
 function tweenGemPos(gem, newPosX, newPosY, durationMultiplier, inAfterCallback) {
 
@@ -799,7 +804,8 @@ function dropGems() {
             else if (dropRowCount > 0)
             {
                 setGemPos(gem, gem.posX, gem.posY + dropRowCount);
-                tweenGemPos(gem, gem.posX, gem.posY, dropRowCount);
+                tweenDropGemPos(gem, gem.posX, gem.posY, dropRowCount);
+                //tweenGemPos(gem, gem.posX, gem.posY, dropRowCount);
             }
         }
 
@@ -832,7 +838,8 @@ function refillBoard() {
                 		-gemsMissingFromCol * StartPreferences.GEM_SIZE_SPACED + StartPreferences.INGAME_UI_TOP_OFFSET);
                 randomizeGemColor(gem);
                 setGemPos(gem, i, j);
-                tweenGemPos(gem, gem.posX, gem.posY, gemsMissingFromCol * 2);
+                //tweenGemPos(gem, gem.posX, gem.posY, gemsMissingFromCol * 2);
+                tweenDropGemPos(gem, gem.posX, gem.posY, gemsMissingFromCol * 2);
             }
         }
 
