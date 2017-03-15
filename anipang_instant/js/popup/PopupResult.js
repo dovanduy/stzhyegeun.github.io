@@ -76,6 +76,11 @@ show : function(score){
 	PopupResult.prototype.scene.visible = true;
 },
 
+close: function() {
+	this.isUpdate = false;
+	this.hide();
+},
+
 hide : function(){
 	PopupResult.prototype.scene.visible = false;
 }
