@@ -58,10 +58,12 @@ var proto = Object.create(Phaser.State);
 Start.prototype = proto;
 
 Start.prototype.preload = function() {
+    /*
     if (USE_FB_INTEGRATION === true) {
         var imageSrc = FBInstant.player.getPhoto();
         this.game.load.image('myProfileImage', imageSrc);
     }
+    */
 }
 
 Start.prototype.create = function() {
@@ -252,11 +254,12 @@ Start.prototype.initUI = function () {
 	comboText = window.game.add.bitmapText(420, 125, 'comboFont', '0', 35);
 	comboText.anchor.set(0.5);
 	
-
+    /*
     var profileImage = this.game.add.image(61, 57, 'myProfileImage');
     profileImage.anchor.setTo(0.5, 0.5);
     var ratio = 62 / profileImage.width;
     profileImage.scale.setTo(ratio, ratio);
+    */
 
 
 	this.scene.fImg_Combo.alpha = 0;
