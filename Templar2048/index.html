@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>Templar 2048</title>
+    <script src="js/phaser2.6.1.min.js"></script>
+    <script src="js/t.min.js"></script>
+    <script src="https://connect.facebook.com/en_US/fbinstant.2.0.js"></script>
+    <style>
+    * {
+        padding: 0;
+        margin: 0;
+    }
+    html, body {
+        background: #000;
+        color: #fff;
+        overflow: hidden;
+        touch-action: none;
+        -ms-touch-action: none;
+        width   : 100%;
+        height  : 100%;     
+    }
+    canvas {
+        touch-action-delay: none;
+        touch-action: none;
+        -ms-touch-action: none;
+    }
+    #gameContainer {
+        width   : 100%;
+        height  : 100%;
+    }
+    </style>
+</head>
+<body>
+
+<div id="gameContainer" ></div>
+<script type="text/javascript">
+window.fbAsyncInit = function() {
+FB.init({
+    appId      : '122434501538208',
+    xfbml      : true,
+    version    : 'v2.8'
+});
+};
+
+(function(d, s, id){
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {return;}
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+if (location.hostname.search(/vv-games/) < 0) {
+    Config.USE_FB = true;
+}
+
+window.onload = tt;
+</script>
+
+</body>
+</html>

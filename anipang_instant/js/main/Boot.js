@@ -1,0 +1,39 @@
+/**
+ * Boot state.
+ */
+function Boot() {
+	Phaser.State.call(this);
+}
+
+/** @type Phaser.State */
+var proto = Object.create(Phaser.State);
+Boot.prototype = proto;
+
+Boot.prototype.preload = function() {
+	FBInstant.setLoadingProgress(30);
+	// Load the assets to be used in the Preload state (progress bar,
+	// etc...). Note we use the "preload" key of the asset pack. The rest of
+	// the assets should be loaded in the Preload state.
+	var imageArray = ["preBackGound"];
+	var imageUrl = ["assets/preImage/preBackGound.png"];
+	
+	this.load.pack("preload", "assets/assets-pack.json");
+	this.game.load.images(imageArray, imageUrl);
+	this.game.load.atlas("PREIMAGE", "assets/preImage/preImage.png", "assets/preImage/preImage.json", Phaser.Loader.TEXTURE_ATLAS_JSON_ARRAY);
+};
+
+Boot.prototype.create = function() {
+	// By this point the preloader assets have loaded to the cache, we've
+	// set the game settings, so now let's start the real preloader going
+	this.input.maxPointers = 1;
+
+	// Setup the scale strategy
+	//this.game.stage.disableVisibleityChange = true;
+	this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+	this.scale.pageAlignHorizontally = true;
+	this.scale.pageAlignVertically = true;
+	//this.game.scale.setShowAll();
+	//this.game.scale.refresh();
+	
+	this.game.state.start("Preload");
+};
