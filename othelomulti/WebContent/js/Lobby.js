@@ -61,7 +61,7 @@ Lobby.prototype.create = function() {
 
 Lobby.prototype.OnClickGameStart = function(sprite, pointer) {
 	StzCommon.StzLog.print("[Lobby (OnClickGameStart)]");
-	this.game.state.start("InGame", true, false, ETurn.BLACK);
+	
 	
 	if (this.isWaiting == false) {
 		this.isWaiting = true;
@@ -73,8 +73,9 @@ Lobby.prototype.OnClickGameStart = function(sprite, pointer) {
 			this.remainWaitingTime--;
 			this.scene.fTxt_stage.text = "Waiting : " + this.remainWaitingTime + " sec";
 			
-			if (this.remainWaitingTime <= 0) {
-				this.cancelWaitingPeer();
+			if (this.remainWaitingTime <= 28) {
+				this.game.state.start("InGame", true, false, ETurn.BLACK);
+				//this.cancelWaitingPeer();
 			}
 		}, this);
 		
