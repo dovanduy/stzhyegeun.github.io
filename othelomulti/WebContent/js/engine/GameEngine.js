@@ -138,7 +138,7 @@ GameEngine.prototype.lineCheck = function(board, currentTurn, cx, cy, oppositeTy
  * @returns Array
  */
 GameEngine.prototype.checkReverseChip = function(board, curRow, curCol, curType){
-	StzCommon.StzLog.print("[checkAvailTurn] Type : " + curType);
+	StzLog.print("[checkAvailTurn] Type : " + curType);
 	
 	var oppositeType = (curType == ETurn.BLACK)? EChipType.WHITE:EChipType.BLACK;
 	var reverseArray = [];

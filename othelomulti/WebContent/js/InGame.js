@@ -24,7 +24,7 @@ InGame.prototype = {
  */
 InGame.prototype.init = function(data) {
 	
-	this.board = StzCommon.StzUtil.createArray(StzGameConfig.ROW_COUNT, StzGameConfig.COL_COUNT);
+	this.board = StzUtil.createArray(StzGameConfig.ROW_COUNT, StzGameConfig.COL_COUNT);
 	this.myColor = data;
 	StzGameConfig.AUTO_FLAG = true;
 	
@@ -209,7 +209,7 @@ InGame.prototype.onChangeComplete = function(){
 };
 
 InGame.prototype.onEmoticonComplete = function(){
-	StzCommon.StzLog.print("[InGame] onEmoticonComplete");
+	StzLog.print("[InGame] onEmoticonComplete");
 	
 	this.scene.fBtnEmoticon.alpha = 1;
 	this.scene.fBtnEmoticon.inputEnabled = true;

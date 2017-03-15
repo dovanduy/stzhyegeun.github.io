@@ -58,8 +58,7 @@ PopupResult.prototype.update = function(){
 		return;
 	}
 	
-	StzCommon.StzLog.print("[PopupResult] update");
-	
+	StzLog.print("[PopupResult] update");
 };
 
 PopupResult.prototype.onClose = function(){

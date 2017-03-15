@@ -19,7 +19,6 @@ Boot.prototype.preload = function() {
 Boot.prototype.create = function() {
 	
 	this.game.stage.backgroundColor = "#ffffff";
-	var logo = this.game.add.image(this.game.width / 2, this.game.height / 2, 'stz_logo').anchor.set(0.5, 0.5);
 
 	this.game.state.add("Lobby", Lobby);
 	this.game.state.add("InGame", InGame);
@@ -36,16 +35,16 @@ Boot.prototype.create = function() {
 };
 
 Boot.OnLoadStart = function() {
-	StzCommon.StzLog.print("[Boot] OnLoadStart");
+	StzLog.print("[Boot] OnLoadStart");
 };
 
 
 Boot.OnFileComplete = function(progress, cacheKey, success, totalLoaded, totalFiles) {
-	StzCommon.StzLog.print("[Boot] OnLoadFileComplete (" + cacheKey + ") - " + progress + "%, " + totalLoaded + " / " + totalFiles);
+	StzLog.print("[Boot] OnLoadFileComplete (" + cacheKey + ") - " + progress + "%, " + totalLoaded + " / " + totalFiles);
 };
 
 Boot.OnLoadComplete = function() {
-	StzCommon.StzLog.print("[Boot] OnLoadComplete");
+	StzLog.print("[Boot] OnLoadComplete");
 	this.game.load.onLoadStart.remove(Boot.OnLoadStart);
 	this.game.load.onFileComplete.remove(Boot.OnFileComplete);
 	this.game.load.onLoadComplete.remove(Boot.OnLoadComplete);
