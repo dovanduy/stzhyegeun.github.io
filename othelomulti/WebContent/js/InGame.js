@@ -313,7 +313,7 @@ InGame.prototype.nextTurn = function(rowIndex, colIndex, type, turn){
 //	window.peerConn.send(sendJson);
 //	
 	}
-	this.popupWating.popupOpen();	
+	//this.popupWating.popupOpen();	
 };
 
 
