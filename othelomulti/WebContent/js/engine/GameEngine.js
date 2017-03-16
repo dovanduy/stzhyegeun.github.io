@@ -138,7 +138,7 @@ GameEngine.prototype.lineCheck = function(board, currentTurn, cx, cy, oppositeTy
  * @returns Array
  */
 GameEngine.prototype.checkReverseChip = function(board, curRow, curCol, curType){
-	StzLog.print("[checkAvailTurn] Type : " + curType);
+	StzCommon.StzLog.print("[checkAvailTurn] Type : " + curType);
 	
 	var oppositeType = (curType == ETurn.BLACK)? EChipType.WHITE:EChipType.BLACK;
 	var reverseArray = [];
@@ -264,6 +264,7 @@ GameEngine.prototype.checkReversArray = function(){
 			if(this.autoMiniChipPosArray[i].x === this.lowPriorityArray[j].x &&
 				this.autoMiniChipPosArray[i].y === this.lowPriorityArray[j].y){
 				break;
+				  
 			}
 		}
 		
@@ -275,7 +276,7 @@ GameEngine.prototype.checkReversArray = function(){
 	if(bestPosArray.length !== 0) {
 		return bestPosArray;
 	}
-
+	
 	return this.autoMiniChipPosArray;
 
 };
