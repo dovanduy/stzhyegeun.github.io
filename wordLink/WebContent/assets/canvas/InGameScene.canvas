@@ -1,0 +1,234 @@
+{
+  "settings": {
+    "sceneWidth": 480,
+    "sceneHeight": 800,
+    "generateOnSave": true,
+    "enableStepping": false
+  },
+  "world": {
+    "type": "group",
+    "id": "43686c0f-7d58-456f-b85c-a784b3ef5e18",
+    "info": {
+      "editorName": "InGameScene",
+      "children": [
+        {
+          "type": "group",
+          "id": "0010ba8a-e84c-4bcc-b9e8-7ef98301db52",
+          "info": {
+            "editorName": "groupBG",
+            "children": [
+              {
+                "type": "atlas-sprite",
+                "id": "ea62309c-20d2-40ee-9593-5d9405f61dfc",
+                "asset": "0",
+                "info": {"editorName": "gameBackGround_png"}
+              },
+              {
+                "type": "atlas-sprite",
+                "id": "92ab663c-687f-46da-9114-e839258c2359",
+                "asset": "1",
+                "info": {"editorName": "downLine_png"}
+              },
+              {
+                "type": "atlas-sprite",
+                "id": "1e6773dd-bf31-4ced-b8d4-d8191837515f",
+                "asset": "2",
+                "info": {
+                  "editorName": "leftLine_png",
+                  "y": 66,
+                  "scale.y": 1.152556971343571
+                }
+              },
+              {
+                "type": "atlas-sprite",
+                "id": "00e3089c-b0b8-451d-9d3f-e9028112cfec",
+                "asset": "3",
+                "info": {
+                  "editorName": "rightLine_png",
+                  "x": 458,
+                  "y": 65,
+                  "scale.y": 1.152
+                }
+              },
+              {
+                "type": "atlas-sprite",
+                "id": "f3613ff7-8221-4808-b751-7aec05a517b9",
+                "asset": "4",
+                "info": {
+                  "editorName": "btnShuffle_png",
+                  "x": 31,
+                  "y": 412
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "group",
+          "id": "4c89b4b7-8538-4e77-8413-b454d6f40702",
+          "info": {
+            "editorName": "groupList",
+            "children": [
+              {
+                "type": "atlas-sprite",
+                "id": "bd0cb56a-67ec-4d55-8f9a-e6b4287ff27c",
+                "asset": "5",
+                "info": {
+                  "editorName": "bgWord_png",
+                  "x": 156,
+                  "y": 406
+                }
+              },
+              {
+                "type": "atlas-sprite",
+                "id": "9e179e40-f46b-453a-8799-46f5a4ec1392",
+                "asset": "6",
+                "info": {
+                  "editorName": "bg_png",
+                  "x": 33,
+                  "y": 67
+                }
+              },
+              {
+                "type": "atlas-sprite",
+                "id": "d36567a3-012a-4e0f-a760-8e7ffe92387e",
+                "asset": "7",
+                "info": {
+                  "editorName": "bgLine_png",
+                  "x": 33,
+                  "y": 67
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "group",
+          "id": "c0c7ee07-c17f-4f27-9f70-2916b5d95f4e",
+          "info": {
+            "editorName": "groupWord",
+            "editorPublic": true,
+            "children": [
+              {
+                "type": "group",
+                "id": "96ddf5b8-1e23-48b5-89f0-0057f801b64b",
+                "info": {
+                  "editorName": "btnPos04",
+                  "editorPublic": true,
+                  "x": 219,
+                  "y": 492,
+                  "children": []
+                }
+              },
+              {
+                "type": "group",
+                "id": "10e79f0d-d905-4a8f-9e3b-80ba0dc3dbec",
+                "info": {
+                  "editorName": "btnPos02",
+                  "editorPublic": true,
+                  "x": 319,
+                  "y": 552,
+                  "children": []
+                }
+              },
+              {
+                "type": "group",
+                "id": "40c8f262-6b4d-48dc-b183-33c91a5ad255",
+                "info": {
+                  "editorName": "btnPos00",
+                  "editorPublic": true,
+                  "x": 101,
+                  "y": 552,
+                  "children": []
+                }
+              },
+              {
+                "type": "group",
+                "id": "58f6cb57-ba97-4a69-9356-fcd634cbf2a5",
+                "info": {
+                  "editorName": "btnPos03",
+                  "editorPublic": true,
+                  "x": 319,
+                  "y": 661,
+                  "children": []
+                }
+              },
+              {
+                "type": "group",
+                "id": "eb7cf5e7-3c55-46bb-b1dc-9ea81afea34b",
+                "info": {
+                  "editorName": "btnPos05",
+                  "editorPublic": true,
+                  "x": 219,
+                  "y": 714,
+                  "children": []
+                }
+              },
+              {
+                "type": "group",
+                "id": "bb281f1b-db3e-4cc6-99da-d108bc5fbe2f",
+                "info": {
+                  "editorName": "btnPos01",
+                  "editorPublic": true,
+                  "x": 105,
+                  "y": 661,
+                  "children": []
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "asset-table": {
+    "0": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "mainUI",
+      "sprite": "gameBackGround.png"
+    },
+    "1": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "mainUI",
+      "sprite": "downLine.png"
+    },
+    "2": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "mainUI",
+      "sprite": "leftLine.png"
+    },
+    "3": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "mainUI",
+      "sprite": "rightLine.png"
+    },
+    "4": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "mainUI",
+      "sprite": "btnShuffle.png"
+    },
+    "5": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "mainUI",
+      "sprite": "bgWord.png"
+    },
+    "6": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "mainUI",
+      "sprite": "bg.png"
+    },
+    "7": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "mainUI",
+      "sprite": "bgLine.png"
+    }
+  }
+}
