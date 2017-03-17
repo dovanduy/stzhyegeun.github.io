@@ -4,6 +4,7 @@ function InGame() {
 
 var proto = Object.create(Phaser.State);
 InGame.prototype = proto;
+var ListView = window.PhaserListView.ListView;
 
 InGame.prototype.preload = function() {
 	this.scene = new InGameScene(this.game);
@@ -11,32 +12,95 @@ InGame.prototype.preload = function() {
 
 InGame.prototype.create = function() {
 	this.initWordButton();
+	this.initWordBoard();
+	
 	this.graphics = this.game.add.graphics(0, 0);
+};
+
+InGame.prototype.initWordBoard = function() {
+	this.listView = new ListView(this.game, this.world, new Phaser.Rectangle(55, 85, 375, 300), {
+	      direction: 'y',
+	      padding: 10,
+	    });
+	
+	 var length = this.wordData.wordArray.length;
+	 
+	 for (var i = 0; i < length; i++) {
+		 var group = this.game.make.group(this.scene);
+		 var groupBg = this.game.make.group(this.scene);
+		 var groupText = this.game.make.group(this.scene);
+		 
+		 var bgList = this.game.add.sprite(0,0,"mainUI", "list.png", group);
+		 bgList.height = 50;
+		
+		 
+		 var wordLength = this.wordData.wordArray[i].word.length;
+		 
+		 for(var index = 0; index<wordLength; index++){
+			 var bgWord = this.game.add.sprite(54*index,0,"mainUI", "bgWord.png", groupBg);
+			 bgWord.width = 50;
+			 bgWord.height = bgList.height;
+			
+			 var text = this.game.add.text(0, 5, this.wordData.wordArray[i].word[index],null, groupText);
+			 text.setTextBounds(bgWord.x, bgWord.y, bgWord.width, bgWord.height);
+			 text.font = 'debush';
+			 text.fontSize = 33;
+			 text.fill = '#FFFFFF';
+			 
+			 text.boundsAlignH = "center";
+			 text.boundsAlignV = "middle"; 
+		 }
+		 groupText.visible = false;
+		 group.add(groupBg);
+		 group.add(groupText);
+		 
+		 //text.visible = false;
+		 
+		 this.listView.add(group);
+	 }
 };
 
 InGame.prototype.initWordButton = function() {
 	this.scene.fBgWord.visible = false;
 	
-	this.alphbetText = this.game.add.text(this.scene.fBgWord.x,this.scene.fBgWord.y - 5,"");
-	this.alphbetText.font = 'debush';
-	this.alphbetText.fontSize = 60;
-	this.alphbetText.fill = '#FFFFFF';
+	this.alphabetText = this.game.add.text(this.scene.fBgWord.x,this.scene.fBgWord.y - 5,"");
+	this.alphabetText.font = 'debush';
+	this.alphabetText.fontSize = 60;
+	this.alphabetText.fill = '#FFFFFF';
+	
+	this.wordData = new WordData();
 	
 	this.wordButtons = [];
-	this.wordArray = ["L", "O", "V", "E", "S", "T"];
+	var length = this.wordData.alphabetArray.length;
+//	this.disableNumber = [];
+//	
+//	if(length === 4){
+//		this.disableNumber.push(3);
+//	}
+//	else if(length === 5){
+//		this.disableNumber.push(4);
+//	}
+//	else if(length === 6){
+//		this.disableNumber.push(4);
+//		this.disableNumber.push(5);
+//	}
 	
-	for(var i =0;i<StzGameConfig.MAX_WORD_BUTTON_COUNT;i++){
+	for(var i =0;i<length;i++){
 		var obj = {
 				x:this.scene["fBtnPos0"+i].x,
 				y:this.scene["fBtnPos0"+i].y,
-				word:this.wordArray [i]
+				word:this.wordData.alphabetArray[i]
 		};
 		
 		this.wordButtons.push(new WordButton(this.game, this, obj));
+		
+//		for(var j =0; j<this.disableNumber.length; j++){
+//			if(i === this.disableNumber[j]){
+//				this.wordButtons[i].setOFFImage();
+//				break;
+//			}
+//		}
 	}
-	
-	this.wordButtons[4].setOFFImage();
-	this.wordButtons[5].setOFFImage();
 	
 	this.game.input.onDown.add(this.mouseDragStart, this);
 	this.game.input.addMoveCallback(this.mouseDragMove, this);
@@ -68,21 +132,22 @@ InGame.prototype.update = function(){
 	}
 };
 
+
 InGame.prototype.drawText = function(length){
 	if(length <= this.preLength){
 		return;
 	}
 
-	this.alphbetText.text = "";
+	this.alphabetText.text = "";
 	this.scene.fBgWord.visible = true;
 	
 	var length = this.drawButtons.length;
 	
 	for (var index = 0; index < length; index++) {
 		
-		this.alphbetText.text += this.drawButtons[index].name;
+		this.alphabetText.text += this.drawButtons[index].name;
 	}
-	this.scene.fBgWord.width = this.alphbetText.width + 3;
+	this.scene.fBgWord.width = this.alphabetText.width + 3;
 	this.preLength = length;
 };
 
@@ -111,6 +176,11 @@ InGame.prototype.mouseDragStart = function(){
 	var hitPoint = new Phaser.Rectangle(this.game.input.x, this.game.input.y, 10, 10);
 	this.drawButtons = [];
 	
+	this.alphabetText.fill = "#FFFFFF";
+	 this.scene.fBgWord.visible = false;
+	 this.alphabetText.text = "";
+	 this.preLength = 0;
+	 
     this.mouseCollisionCheck(hitPoint);
 };
 
@@ -138,7 +208,46 @@ InGame.prototype.mouseDragEnd = function(){
 		 this.graphics.clear();
 	 }
 	 
-	 this.scene.fBgWord.visible = false;
-	 this.alphbetText.text = "";
-	 this.preLength = 0;
+	 this.wordMatchingCheck();
+	 
+	 this.game.time.events.add(500, function(){
+		 this.scene.fBgWord.visible = false;
+		 this.alphabetText.text = "";
+		 this.preLength = 0;
+	}.bind(this));
+ 
+};
+
+InGame.prototype.wordMatchingCheck = function(){
+	var text = this.alphabetText.text;
+	
+	var length = this.wordData.wordArray.length;
+	var matchedFlag = false;
+	var matcehdNum = 0;
+	
+	for(var i =0; i< length; i++){
+		if(text === this.wordData.wordArray[i].word){
+			matchedFlag = true;
+			matcehdNum = i;
+			break;
+		}
+	
+	}
+	//this.listView.scroller.handleMove(100 ,300, 0);
+	
+	if(matchedFlag === true){
+		if(this.wordData.wordArray[matcehdNum].state === EWrodState.NONE){
+			this.alphabetText.fill = "#00FF00";
+			this.wordData.wordArray[matcehdNum].state = EWrodState.ME_CLEAR;
+			
+			this.listView.items[matcehdNum].children[2].visible = true;
+		}
+		else{
+			this.alphabetText.fill = "#FF8040";
+		}
+	}
+	else{
+		this.alphabetText.fill = "#FF0000";
+	}
+	
 };

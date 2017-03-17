@@ -85,7 +85,8 @@
                 "id": "9e179e40-f46b-453a-8799-46f5a4ec1392",
                 "asset": "6",
                 "info": {
-                  "editorName": "bg_png",
+                  "editorName": "listVeiw",
+                  "editorPublic": true,
                   "x": 33,
                   "y": 67
                 }

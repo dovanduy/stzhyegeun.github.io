@@ -16,13 +16,13 @@ function WordButton(inGame, aParent, obj) {
 	this._wordButton.y += this._wordButton.height/2;
 	this._wordButton.name = obj.word;
 	
-	this._alphbatText = this._inGame.add.text(0,0,obj.word);
-	this._alphbatText.font = 'debush';
-	this._alphbatText.fontSize = 30;
-	this._alphbatText.fill = '#000000';
-	this._alphbatText.anchor.set(0.5, 0.5);
+	this._alphabatText = this._inGame.add.text(0,0,obj.word);
+	this._alphabatText.font = 'debush';
+	this._alphabatText.fontSize = 30;
+	this._alphabatText.fill = '#000000';
+	this._alphabatText.anchor.set(0.5, 0.5);
 	
-	this._wordButton.addChild(this._alphbatText);
+	this._wordButton.addChild(this._alphabatText);
 	this._aParent.scene.fGroupWord.add(this._wordButton);
 	
 	var self = {};
@@ -30,7 +30,7 @@ function WordButton(inGame, aParent, obj) {
 	self.setOFFImage = function (){
 		 this._wordButton.frameName = EWordButtonName.OFF;
 		 this._wordButton.inputEnabled = false;
-		 this._alphbatText.visible = false;
+		 this._alphabatText.visible = false;
 	}.bind(this);
 	
 	self.getWordButton = function (){
