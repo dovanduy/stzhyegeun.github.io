@@ -11,9 +11,9 @@ Preload.prototype = proto;
 
 Preload.prototype.preload = function() {
 	
-	if (USE_FB_INTEGRATION === true) {
-        FBInstant.setLoadingProgress(40);    
-    }
+//	if (USE_FB_INTEGRATION === true) {
+//        FBInstant.setLoadingProgress(40);    
+//    }
 
     game.load.onFileComplete.add(this.fileComplete, this);
     game.load.onLoadComplete.add(this.loadComplete, this);
@@ -28,10 +28,10 @@ Preload.prototype.create = function() {};
 
 Preload.prototype.fileComplete = function(progress, cacheKey, success, totalLoaded, totalFiles) {
     var prog = 50 + 20 * (totalLoaded - 1) / totalFiles;
-    if (USE_FB_INTEGRATION === true) {
-	   FBInstant.setLoadingProgress(prog);
-
-    }
+//    if (USE_FB_INTEGRATION === true) {
+//	   FBInstant.setLoadingProgress(prog);
+//
+//    }
     //console.log("File Complete (" + cacheKey + ") : " + progress + "% - " + totalLoaded + " / " + totalFiles);
 };
 
@@ -41,18 +41,20 @@ Preload.prototype.loadComplete = function () {
 	game.load.onLoadStart.removeAll();
 	game.load.onFileComplete.removeAll();
 	game.load.onLoadComplete.removeAll();
-	FBInstant.setLoadingProgress(70);
+	//FBInstant.setLoadingProgress(70);
 	// 혹은 game.state.current에서 현재 스테이트명과 동일한지 체크하는 방법도 있다.
-	FB_DATA.init();
+	//FB_DATA.init();
 
-    if (USE_FB_INTEGRATION === true) {
-        FBInstant.setLoadingProgress(100);
-        FBInstant.startGameAsync().then(function() {
-            this.game.state.start("Lobby");
-        });
-    } else {
-       this.game.state.start("Lobby"); 
-    }
+//    if (USE_FB_INTEGRATION === true) {
+//        FBInstant.setLoadingProgress(100);
+//        FBInstant.startGameAsync().then(function() {
+//            this.game.state.start("Lobby");
+//        });
+//    } else {
+//       this.game.state.start("Lobby"); 
+//    }
+	
+	this.game.state.start("Lobby");
 };
 
 

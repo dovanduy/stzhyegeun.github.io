@@ -12,7 +12,7 @@ InGame.prototype.preload = function() {
 
 InGame.prototype.create = function() {
 	this.initWordButton();
-	//this.initWordBoard();
+	this.initWordBoard();
 	
 	this.graphics = this.game.add.graphics(0, 0);
 };

@@ -24,7 +24,6 @@
         <script src="lib/StzGameConfig.js"></script>
         <script src="lib/StzLog.js"></script>
         <script src="lib/StzUtility.js"></script>
-        <script src="https://connect.facebook.com/en_US/fbinstant.2.0.js"></script>
 
         <style>
             * {
@@ -59,16 +58,7 @@
     
         <div id="gameContainer"></div>
         <script>
-            var IS_FB_INSTANT = false;
-            if (IS_FB_INSTANT === true) {
-            	FBInstant.initializeAsync().then(function() {
-            		startOthelloMulti();
-            	}).catch(function(reason) {
-            		console.log('[index] FBInstant.initializeAsync error: ' + reason);	
-            	});
-            } else {
-            	startOthelloMulti();
-            }
+        	startOthelloMulti();
         </script>
     </body>
 </html>

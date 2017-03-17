@@ -1,24 +1,24 @@
-var USE_FB_INTEGRATION = false;
-
-var FB_DATA = {
-			id : '000000',
-			name : 'GUEST',
-			profile : null, 
-            init: function() {
-                this.id = '000000';
-                this.name = 'GUEST';
-                this.profile = null;    
-            }
-		};
-
-var USER_DATA = {
-	id : '000000',
-	topScore : 0, 
-    init: function() {
-        this.id = '000000';
-        this.topScore = 0;    
-    }
-};
+//var USE_FB_INTEGRATION = false;
+//
+//var FB_DATA = {
+//			id : '000000',
+//			name : 'GUEST',
+//			profile : null, 
+//            init: function() {
+//                this.id = '000000';
+//                this.name = 'GUEST';
+//                this.profile = null;    
+//            }
+//		};
+//
+//var USER_DATA = {
+//	id : '000000',
+//	topScore : 0, 
+//    init: function() {
+//        this.id = '000000';
+//        this.topScore = 0;    
+//    }
+//};
 
 var startOthelloMulti = function()
 {
@@ -45,7 +45,7 @@ var startOthelloMulti = function()
 //		FBInstant.setLoadingProgress(20);	
 //	}
 	
-	this.game = new Phaser.Game(480 , 800, Phaser.AUTO, 'gameContainer', null, false, false);
+	this.game = new Phaser.Game(480 , 800, Phaser.AUTO, 'gameContainer');
 
 	this.game.preserveDrawingBuffer = true;
 	this.game.state.add("Boot", Boot);
