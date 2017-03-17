@@ -30,9 +30,9 @@ function InGameScene(aGame, aParent) {
 
 	var groupList = this.game.add.group(this);
 
-	this.game.add.sprite(156, 406, 'mainUI', 'bgWord.png', groupList);
+	var bgWord = this.game.add.sprite(176, 406, 'mainUI', 'bgWord.png', groupList);
 
-	this.game.add.sprite(33, 67, 'mainUI', 'bg.png', groupList);
+	var listVeiw = this.game.add.sprite(33, 67, 'mainUI', 'bg.png', groupList);
 
 	this.game.add.sprite(33, 67, 'mainUI', 'bgLine.png', groupList);
 
@@ -58,6 +58,8 @@ function InGameScene(aGame, aParent) {
 
 	 // public fields
 
+	this.fBgWord = bgWord;
+	this.fListVeiw = listVeiw;
 	this.fGroupWord = groupWord;
 	this.fBtnPos04 = btnPos04;
 	this.fBtnPos02 = btnPos02;

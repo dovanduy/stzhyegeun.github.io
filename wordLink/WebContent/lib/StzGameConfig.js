@@ -68,3 +68,14 @@ var EEmoticonNames = {
 		SORRY	:'emoticonSorry.png',
 		GREET	:'emotionGreet.png'
 };
+
+var EWrodState = {
+	NONE:'NONE',
+	ME_CLEAR:'MECLEAR',
+	YOU_CLEAR:'YOU_CLEAR'
+};
+
+var EWordDatas = {"CBAINH" : ["BAN", "BIN", "CAB", "CAN", "CABIN", "HIC", "CHIN", "INCH", "CHAIN", "CHINA"],
+				  "ORWDS"  : ["DO", "OR", "ROD", "ROW", "WORD", "SO", "SOD", "RODS", "ROWS", "SWORD", "WORDS"],
+				  "RTEA"   : ["AT", "TAR", "RATE", "TARE", "TEAR", "TEA", "RET", "RAT", "ART", "ARE", "ATE", "ERA", "EAR", "EAT"]
+				 };
