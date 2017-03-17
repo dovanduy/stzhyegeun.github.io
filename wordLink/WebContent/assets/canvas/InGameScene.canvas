@@ -74,8 +74,9 @@
                 "id": "bd0cb56a-67ec-4d55-8f9a-e6b4287ff27c",
                 "asset": "5",
                 "info": {
-                  "editorName": "bgWord_png",
-                  "x": 156,
+                  "editorName": "bgWord",
+                  "editorPublic": true,
+                  "x": 176,
                   "y": 406
                 }
               },
