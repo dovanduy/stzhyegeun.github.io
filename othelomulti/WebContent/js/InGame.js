@@ -281,6 +281,20 @@ InGame.prototype.checkEnd = function(){
 				this.emoticonAuto.show(EEmoticonNames.LAUGH);
 			}
 		}
+		
+		var super_postPopupOpen = this.popupResult.postPopupOpen;
+		this.popupResult.postPopupOpen = function() {
+			super_postPopupOpen();
+			if (IS_FB_INSTANT === true) {
+				FBInstant.setScore(count);
+				FBInstant.takeScreenshotAsync();
+				FBInstant.endGameAsync().then(function(){
+					this.game.state.start('Lobby');
+				});
+			} else {
+				this.game.state.start('Lobby');
+			}
+		}
 	}
 };
 
