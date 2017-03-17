@@ -1,28 +1,6 @@
-var USE_FB_INTEGRATION = false;
-
-var FB_DATA = {
-			id : '000000',
-			name : 'GUEST',
-			profile : null, 
-            init: function() {
-                this.id = '000000';
-                this.name = 'GUEST';
-                this.profile = null;    
-            }
-		};
-
-var USER_DATA = {
-	id : '000000',
-	topScore : 0, 
-    init: function() {
-        this.id = '000000';
-        this.topScore = 0;    
-    }
-};
-
 var startOthelloMulti = function()
 {
-	if (USE_FB_INTEGRATION === true) {
+	if (IS_FB_INSTANT === true) {
 		FBInstant.setLoadingProgress(10);	
 	}
 	
@@ -35,17 +13,17 @@ var startOthelloMulti = function()
 			ratio = 1.6;
 		}
 	} else {
-		ratio = 1.67;
+		ratio = 1.5;
 	}
 
 	console.log('[Main] width: ' + width + ', height: ' + height + ', scale: ' + sc + ', ratio: ' + ratio);
-	console.log('[Main] actual width: ' + (480 * sc) + ', height: ' + Math.floor(480 * sc * ratio));
+	console.log('[Main] actual width: ' + (640 * sc) + ', height: ' + Math.floor(640 * sc * ratio));
 
-	if (USE_FB_INTEGRATION === true) {
+	if (IS_FB_INSTANT === true) {
 		FBInstant.setLoadingProgress(20);	
 	}
 	
-	this.game = new Phaser.Game(480 * sc, Math.floor(480 * sc * ratio), Phaser.AUTO, 'gameContainer', null, false, false);
+	this.game = new Phaser.Game(640 * sc, Math.floor(640 * sc * ratio), Phaser.AUTO, 'gameContainer', null, false, false);
 
 	this.game.preserveDrawingBuffer = true;
 	this.game.state.add("Boot", Boot);

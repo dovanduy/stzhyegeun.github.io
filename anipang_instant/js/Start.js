@@ -58,12 +58,10 @@ var proto = Object.create(Phaser.State);
 Start.prototype = proto;
 
 Start.prototype.preload = function() {
-    /*
     if (USE_FB_INTEGRATION === true) {
         var imageSrc = FBInstant.player.getPhoto();
         this.game.load.image('myProfileImage', imageSrc);
     }
-    */
 }
 
 Start.prototype.create = function() {

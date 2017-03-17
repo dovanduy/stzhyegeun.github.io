@@ -44,7 +44,6 @@ Preload.prototype.loadComplete = function () {
 	game.load.onLoadComplete.removeAll();
 	FBInstant.setLoadingProgress(70);
 	// 혹은 game.state.current에서 현재 스테이트명과 동일한지 체크하는 방법도 있다.
-	FB_DATA.init();
 
     if (USE_FB_INTEGRATION === true) {
         FBInstant.setLoadingProgress(100);

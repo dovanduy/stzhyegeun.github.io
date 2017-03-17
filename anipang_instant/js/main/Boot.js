@@ -19,7 +19,7 @@ Boot.prototype.preload = function() {
 Boot.prototype.create = function() {
 
 	this.input.maxPointers = 1;
-	this.game.stage.disableVisibleityChange = true;
+	this.game.stage.disableVisibilityChange = true;
 	this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
 	this.scale.pageAlignHorizontally = true;
 	this.scale.pageAlignVertically = true;

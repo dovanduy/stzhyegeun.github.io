@@ -1,25 +1,4 @@
 var USE_FB_INTEGRATION = true;
-
-var FB_DATA = {
-			id : '000000',
-			name : 'GUEST',
-			profile : null, 
-            init: function() {
-                this.id = '000000';
-                this.name = 'GUEST';
-                this.profile = null;    
-            }
-		};
-
-var USER_DATA = {
-	id : '000000',
-	topScore : 0, 
-    init: function() {
-        this.id = '000000';
-        this.topScore = 0;    
-    }
-};
-
 var START_ANIPANG = function()
 {
 	if (USE_FB_INTEGRATION === true) {
