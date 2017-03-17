@@ -12,7 +12,7 @@ InGame.prototype.preload = function() {
 
 InGame.prototype.create = function() {
 	this.initWordButton();
-	this.initWordBoard();
+	//this.initWordBoard();
 	
 	this.graphics = this.game.add.graphics(0, 0);
 };
@@ -177,11 +177,13 @@ InGame.prototype.mouseDragStart = function(){
 	this.drawButtons = [];
 	
 	this.alphabetText.fill = "#FFFFFF";
-	 this.scene.fBgWord.visible = false;
-	 this.alphabetText.text = "";
-	 this.preLength = 0;
+	this.scene.fBgWord.visible = false;
+	this.alphabetText.text = "";
+	this.preLength = 0;
 	 
     this.mouseCollisionCheck(hitPoint);
+    
+    delete hitPoint;
 };
 
 InGame.prototype.mouseDragMove = function(){
@@ -191,6 +193,8 @@ InGame.prototype.mouseDragMove = function(){
 		var hitPoint = new Phaser.Rectangle(this.game.input.x, this.game.input.y, 10, 10);
 		
 		this.mouseCollisionCheck(hitPoint);
+		
+		delete hitPoint;
 	}
 };
 
