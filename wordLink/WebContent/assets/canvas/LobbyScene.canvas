@@ -1,0 +1,58 @@
+{
+  "settings": {
+    "sceneWidth": 480,
+    "sceneHeight": 800,
+    "generateOnSave": true,
+    "enableStepping": false
+  },
+  "world": {
+    "type": "group",
+    "id": "d15b3176-d13f-4d8c-ade4-a8cc71afe4e1",
+    "info": {
+      "editorName": "LobbyScene",
+      "children": [
+        {
+          "type": "image",
+          "id": "d583024e-aeab-4c29-bd9e-4b993250f29f",
+          "asset": "0",
+          "info": {
+            "editorName": "arena",
+            "x": 248,
+            "y": 310,
+            "scale.x": 1.5388442225934185,
+            "scale.y": 1.7243704571243241,
+            "anchor.x": 0.5,
+            "anchor.y": 0.5
+          }
+        },
+        {
+          "type": "image",
+          "id": "c5dfa694-f8c0-43be-ae6c-1ec17e6468f1",
+          "asset": "1",
+          "info": {
+            "editorName": "btn_stage",
+            "editorPublic": true,
+            "x": 248,
+            "y": 595,
+            "scale.x": 0.8991221573684935,
+            "scale.y": 0.8428428689301836,
+            "anchor.x": 0.5,
+            "anchor.y": 0.5
+          }
+        }
+      ]
+    }
+  },
+  "asset-table": {
+    "0": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "lobby",
+      "asset": "arena"
+    },
+    "1": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "lobby",
+      "asset": "btn_stage"
+    }
+  }
+}
