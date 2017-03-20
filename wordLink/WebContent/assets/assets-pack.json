@@ -11,6 +11,18 @@
             "type": "script",
             "key": "InGameScene",
             "url": "assets/canvas/InGameScene.js"
+        },
+        {
+            "type": "image",
+            "key": "preload_loading_bar",
+            "url": "assets/images/preload_loading_bar.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "preload_loading_base",
+            "url": "assets/images/preload_loading_base.png",
+            "overwrite": false
         }
     ],
     "lobby": [
@@ -33,7 +45,7 @@
         }
     ],
     "meta": {
-        "generated": "1489645205417",
+        "generated": "1489973631894",
         "app": "Phaser Editor",
         "url": "http://phasereditor.boniatillo.com",
         "version": "1.0",
