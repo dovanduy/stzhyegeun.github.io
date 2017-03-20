@@ -23,6 +23,9 @@ Lobby.prototype.create = function() {
 	
 	this.scene.fBitmap_5_png.inputEnabled = true;
 	this.scene.fBitmap_5_png.events.onInputUp.add(this.onStartGame, this);
+	
+	this.game.state.add("InGame", InGame);
+	this.game.state.start("InGame");
 };
 
 Lobby.prototype.createListItemView = function() {
@@ -81,6 +84,5 @@ Lobby.prototype.test = function(sprite, pointer) {
 };
 
 Lobby.prototype.onStartGame = function() {
-	this.game.state.add("InGame", InGame);
-	this.game.state.start("InGame");
+	
 };

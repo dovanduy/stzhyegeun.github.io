@@ -3,6 +3,7 @@ var StzGameConfig = {
 	, GAME_WIDTH: 480
 	, GAME_HEIGHT: 800
 	, LOCK_ORIENTATION: "PORTRAIT" 	// , LOCK_ORIENTATION: "LANDSCAPE"
+	, MATCH_MIN		  : 3
 };
 
 var EEmoticonNames = {

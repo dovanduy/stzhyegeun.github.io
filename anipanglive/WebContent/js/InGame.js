@@ -31,7 +31,10 @@ InGame.prototype.update = function() {
 var InGameController = function(inViewContext) {
 	
 	var blocks = StzCommon.StzUtil.createArray(InGameBoardConfig.ROW_COUNT * InGameBoardConfig.COL_COUNT);
-	
+	var slidingArray = [];
+	var canKill = false;
+	var dropCount = 0;
+	var dropFlag = false;
 	var self = {
 		viewContext: inViewContext
 	};
@@ -42,13 +45,15 @@ var InGameController = function(inViewContext) {
 	self.getBlock = function(inRowIndex, inColIndex) {
 		StzCommon.StzLog.assert(inRowIndex >= 0 && inRowIndex < InGameBoardConfig.ROW_COUNT, '[InGameController] Invalide inRowIndex: ' + inRowIndex);
 		StzCommon.StzLog.assert(inColIndex >= 0 && inColIndex < InGameBoardConfig.COL_COUNT, '[InGameController] Invalide inColIndex: ' + inColIndex);
-		return blocks[inRowIndex, inColIndex];
+		return blocks[inColIndex*InGameBoardConfig.ROW_COUNT + inRowIndex];
 	};
 	
 	/**
 	 * 초기 인게임 블럭 생성
 	 */
 	self.initBoard = function() {
+		
+		
 		for (var index = 0; index < blocks.length; index++) {
 			
 			var randomType = StzCommon.StzUtil.createRandomInteger(5) - 1;
@@ -65,20 +70,174 @@ var InGameController = function(inViewContext) {
 			// check property
 			if (this.filters.hasOwnProperty(filter) === false) {
 				continue;
-			}
-			
-			
+			}	
 		}
 	};
 	
 	self.updateView = function() {
+//		if(slidingArray.length !== 0){
+//			this.checkBlockMatches();
+//		}
+//		
+//		if(dropFlag === true){
+//			if(dropCount === 0){
+//				this.checkBlockMatches();
+//				dropFlag = false;
+//			}
+//		}
+//		
+//		this.dropBlocks();
+//		
+		
 		for (var index = 0; index < blocks.length; index++) {
 			if (blocks[index] === null) {
 				continue;
 			}
 			
+			if (blocks[index].view === null) {
+				blocks[index] = null;
+				continue;
+			}
+			
+			if(blocks[index].state === EBlockState.SLIDING_END){
+				blocks[index].state = EBlockState.NORMAL;
+				this.checkBlockMatches(blocks[index]);		
+			}
+			
 			blocks[index].updateView();
 		}
+	};
+	
+	self.checkBlockMatches = function(testBlock) {
+//		if(slidingArray.length === 0) return;
+//		
+//		var length = slidingArray.length;
+//		
+//		for(var i =0; i < length; i++)
+//		{
+//			if(slidingArray[i].state !== EBlockState.SLIDING_END){
+//				return;
+//			}
+//		}
+//		
+//		for(var i =0; i < length; i++)
+//		{
+			var block = testBlock;
+			
+			if( block != null)
+			{
+				var countUp = this.countSameTypeBlock(block, 0, -1);
+				var countDown = this.countSameTypeBlock(block, 0, 1);
+				var countLeft = this.countSameTypeBlock(block, -1, 0);
+				var countRight = this.countSameTypeBlock(block, 1, 0);
+				
+				var countHoriz = countLeft + countRight + 1;
+				var countVert = countUp + countDown + 1;
+				
+				if (countVert >= StzGameConfig.MATCH_MIN)
+				{
+					this.killBlockRange(block.posX, block.posY - countUp, block.posX, block.posY + countDown);
+				}
+
+				if (countHoriz >= StzGameConfig.MATCH_MIN)
+				{
+					this.killBlockRange(block.posX - countLeft, block.posY, block.posX + countRight, block.posY);
+				}
+			}
+			
+			this.dropBlocks();
+		//}
+		//slidingArray = [];
+	};
+	
+	self.countSameTypeBlock = function(startBlock, moveX, moveY) {
+		var curX = startBlock.posX + moveX;
+		var curY = startBlock.posY + moveY;
+		var count = 0;
+
+		while (curX >= 0 && curY >= 0 && curX < InGameBoardConfig.COL_COUNT 
+				&& curY < InGameBoardConfig.ROW_COUNT &&this.getBlock(curX, curY) != null && this.getBlock(curX, curY).type === startBlock.type)
+		{
+			count++;
+		    curX += moveX;
+		    curY += moveY;
+		}
+
+		return count;
+	};
+	
+	self.killBlockRange = function(fromX, fromY, toX, toY) {
+		fromX = Phaser.Math.clamp(fromX, 0, InGameBoardConfig.COL_COUNT - 1);
+	    fromY = Phaser.Math.clamp(fromY , 0, InGameBoardConfig.ROW_COUNT - 1);
+	    toX = Phaser.Math.clamp(toX, 0, InGameBoardConfig.COL_COUNT - 1);
+	    toY = Phaser.Math.clamp(toY, 0, InGameBoardConfig.ROW_COUNT - 1);
+
+	    for (var i = fromX; i <= toX; i++)
+	    {
+	        for (var j = fromY; j <= toY; j++)
+	        {
+	        	//Start.prototype.playAnimations('animBlockMatch', i, j, function() {});
+	            var block =  this.getBlock(i, j);
+	            if(block === null) return;
+	            
+	            block.state = EBlockSpType.REMOVE;
+	            
+	        }
+	    }
+	};
+	
+	self.dropBlocks = function() {
+	    for (var i = 0; i < InGameBoardConfig.COL_COUNT; i++)
+	    {
+	        var dropRowCount = 0;
+
+	        for (var j = InGameBoardConfig.ROW_COUNT- 1; j >= 0; j--)
+	        {
+	            var block = this.getBlock(i, j);
+
+	            if (block === null)
+	            {
+	                dropRowCount++;
+	            }
+	            else if (dropRowCount > 0)
+	            {
+	            	dropCount++;
+	            	dropFlag = true;
+	            	var preIndex = j*InGameBoardConfig.ROW_COUNT + i;
+	            	var index = (j+dropRowCount)*InGameBoardConfig.ROW_COUNT + i;
+	            	
+	            	var temp = blocks[index];
+	            	blocks[index] = blocks[preIndex];
+	            	blocks[preIndex] = temp;
+	            	
+	            	block.setBlockPos(index);            	
+	            }
+	        }
+	    }
+	    //this.refillBoard();
+	};
+	
+	self.refillBoard = function() {
+		
+		 for (var i = 0; i < InGameBoardConfig.COL_COUNT; i++)
+		    {
+		        var blocksMissingFromCol = 0;
+
+		        for (var j = InGameBoardConfig.ROW_COUNT - 1; j >= 0; j--)
+		        {
+		            var block = this.getBlock(i, j);
+		            
+		            if (block === null)
+		            {
+		            	blocksMissingFromCol++;
+		            	var index = j*InGameBoardConfig.ROW_COUNT + i;
+		            	var randomType = StzCommon.StzUtil.createRandomInteger(5) - 1;
+		            	
+		            	blocks[index] = new BlockModel(EBlockType.list[randomType], EBlockSpType.NORMAL, index, self.viewContext);
+						blocks[index].createView(Math.floor(index / InGameBoardConfig.COL_COUNT));	 
+		            }
+		        }
+		    }
 	};
 	
 	return self;

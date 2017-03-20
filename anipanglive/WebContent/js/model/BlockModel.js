@@ -17,13 +17,16 @@ var EBlockSpType = {
 	SP_CIRCLE: 3, 
 	SELECTED: 4, 
 	MATCHED: 5, 
+	REMOVE : 6
 };
 EBlockSpType.list = [EBlockSpType.NORMAL, EBlockSpType.SP_LINE, EBlockSpType.SP_CIRCLE, EBlockSpType.SELECTED, EBlockSpType.MATCHED];
 
 var EBlockState = {
 	NORMAL: 0, 
-	SLIDING: 1, 
-	MATCHED: 2
+	SLID_INIT:1,
+	SLIDING: 2, 
+	SLIDING_END: 3, 
+	MATCHED: 4
 };
 
 /**
@@ -35,7 +38,10 @@ var EBlockState = {
 function BlockModel(inType, inSpType, index, inParentContext) {
 	this.type = inType;
 	this.spType = inSpType;
-	this.index = index;
+	
+	this.posX = index%InGameBoardConfig.ROW_COUNT;
+	this.posY = Math.floor(index/InGameBoardConfig.ROW_COUNT);
+	
 	this.position = InGameScene.getBoardCellPosition(index);
 	this.view = null;
 	this.viewContext = inParentContext;
@@ -50,7 +56,7 @@ BlockModel.prototype.init = function() {
 	this.position = null;
 	this.view = null;
 	this.viewContext = null;
-}
+};
 
 BlockModel.prototype.getImageKeyname = function() {
 	var imageKeyName = this.type + '000' + this.spType + '.png';
@@ -83,14 +89,17 @@ BlockModel.prototype.createView = function(inRow, inTouchCallback, inCallbackCon
 	
 	this.view = result;
 	
-	if (this.view.position.y !== this.position.y) {
-		this.slidingBlock(function(){
-			this.state = EBlockState.NORMAL;
-		}, this);
-	}
+//	if (this.view.position.y !== this.position.y) {
+//		this.slidingBlock(function(){
+//			this.state = EBlockState.SLIDING_END;
+//		}.bind(this));
+//	}
 	return this.view;
 };
 
+BlockModel.prototype.setBlockPos = function(index){
+	this.position = InGameScene.getBoardCellPosition(index);
+};
 /**
  * 블럭 슬라이딩 트윈 등록
  * @param inCallback
@@ -106,7 +115,7 @@ BlockModel.prototype.slidingBlock = function(inCallback, inCallbackContext) {
 		return;
 	}
 	
-	this.state = EBlockState.SLIDING;
+	this.state = EBlockState.SLID_INIT;
 	// StzCommon.StzLog.print("[BlockModel] index: " + this.index + ", start: " + this.view.position.y + ", to: " + this.position.y);
 	this.viewContext.add.tween(this.view).to({y: this.position.y}, BlockModel.Setting.SLIDING_SECONDS * 1000, 'Quart.easeOut', true).onComplete.addOnce(function() {
 		if (inCallback !== null || inCallback !== undefined) {
@@ -116,10 +125,24 @@ BlockModel.prototype.slidingBlock = function(inCallback, inCallbackContext) {
 };
 
 BlockModel.prototype.updateView = function() {
-	if (this.view === null || this.viewContext === null) {
+	if (this.view === null || this.viewContext === null || this.state === EBlockState.SLIDING) {
 		return;
 	}
 	
+	if(this.state === EBlockSpType.REMOVE){
+		this.view.kill();
+		this.view = null;
+	}
+	
+	if(this.view !== null && this.state === EBlockState.NORMAL){
+		if (this.view.position.y !== this.position.y) {
+			this.slidingBlock(function(){
+				this.state = EBlockState.SLIDING_END;
+			}.bind(this));
+			
+			this.state = EBlockState.SLIDING;
+		}
+	}
 	
 };
 
