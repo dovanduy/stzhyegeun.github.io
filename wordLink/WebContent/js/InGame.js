@@ -33,7 +33,6 @@ InGame.prototype.initWordBoard = function() {
 		 var bgList = this.game.add.sprite(0,0,"mainUI", "list.png", group);
 		 bgList.height = 50;
 		
-		 
 		 var wordLength = this.wordData.wordArray[i].word.length;
 		 
 		 for(var index = 0; index<wordLength; index++){
@@ -53,8 +52,6 @@ InGame.prototype.initWordBoard = function() {
 		 groupText.visible = false;
 		 group.add(groupBg);
 		 group.add(groupText);
-		 
-		 //text.visible = false;
 		 
 		 this.listView.add(group);
 	 }
@@ -106,6 +103,7 @@ InGame.prototype.initWordButton = function() {
 	this.game.input.addMoveCallback(this.mouseDragMove, this);
 	this.game.input.onUp.add(this.mouseDragEnd, this);
 };
+
 
 InGame.prototype.update = function(){
 	if(this.drawButtons === undefined || this.drawButtons === null || this.drawButtons.length === 0){
@@ -237,17 +235,33 @@ InGame.prototype.wordMatchingCheck = function(){
 		}
 	
 	}
-	//this.listView.scroller.handleMove(100 ,300, 0);
+	var listMovePoint = matcehdNum;
 	
+	if(listMovePoint >= length-4){
+		listMovePoint = length-4;
+	}
+
 	if(matchedFlag === true){
 		if(this.wordData.wordArray[matcehdNum].state === EWrodState.NONE){
 			this.alphabetText.fill = "#00FF00";
 			this.wordData.wordArray[matcehdNum].state = EWrodState.ME_CLEAR;
 			
 			this.listView.items[matcehdNum].children[2].visible = true;
+	
+			this.listView.scroller.scrollObject.y = listMovePoint*-50;
+	        this.listView.scroller.handleUpdate();
+	        
+	        var text = this.game.add.text(310, 10, "ME");
+	        text.fill = '#0000FF';
+	        text.font = 'debush';
+			text.fontSize = 33;
+			
+	        this.listView.items[matcehdNum].add(text);
 		}
 		else{
 			this.alphabetText.fill = "#FF8040";
+			this.listView.scroller.scrollObject.y = listMovePoint*-50;
+	        this.listView.scroller.handleUpdate();
 		}
 	}
 	else{

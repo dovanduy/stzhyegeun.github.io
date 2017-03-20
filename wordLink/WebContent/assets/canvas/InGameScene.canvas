@@ -59,6 +59,28 @@
                   "x": 31,
                   "y": 412
                 }
+              },
+              {
+                "type": "group",
+                "id": "fa2e5f6d-6bf0-467e-8d1a-566a8509daa7",
+                "info": {
+                  "editorName": "lodingBg",
+                  "editorPublic": true,
+                  "x": 42,
+                  "y": 7,
+                  "children": []
+                }
+              },
+              {
+                "type": "group",
+                "id": "25934575-4f50-405e-9f3b-4837bc31858e",
+                "info": {
+                  "editorName": "loadingBar",
+                  "editorPublic": true,
+                  "x": 42,
+                  "y": 7,
+                  "children": []
+                }
               }
             ]
           }

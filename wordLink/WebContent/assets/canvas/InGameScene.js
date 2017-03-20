@@ -28,6 +28,12 @@ function InGameScene(aGame, aParent) {
 
 	this.game.add.sprite(31, 412, 'mainUI', 'btnShuffle.png', groupBG);
 
+	var lodingBg = this.game.add.group(groupBG);
+	lodingBg.position.setTo(42, 7);
+
+	var loadingBar = this.game.add.group(groupBG);
+	loadingBar.position.setTo(42, 7);
+
 	var groupList = this.game.add.group(this);
 
 	var bgWord = this.game.add.sprite(176, 406, 'mainUI', 'bgWord.png', groupList);
@@ -58,6 +64,8 @@ function InGameScene(aGame, aParent) {
 
 	 // public fields
 
+	this.fLodingBg = lodingBg;
+	this.fLoadingBar = loadingBar;
 	this.fBgWord = bgWord;
 	this.fListVeiw = listVeiw;
 	this.fGroupWord = groupWord;
@@ -71,7 +79,19 @@ function InGameScene(aGame, aParent) {
 	/* --- post-init-begin --- */
 
 	// you can insert code here
-
+	this.game.cache.addNinePatch('ImageLoadingBg', 'preload_loading_base', null, 49, 49, 0, 66);
+	this.game.cache.addNinePatch('ImageLoadingBar', 'preload_loading_bar', null, 10, 10, 0, 28);
+	
+	var imgLoadingBg = new Phaser.NinePatchImage(this.game, 0, 0, 'ImageLoadingBg');
+	imgLoadingBg.targetWidth = 355;
+	imgLoadingBg.UpdateImageSizes();
+	this.fLoadingBg.add(imgLoadingBg);
+	
+	var imgLoadingBar = new Phaser.NinePatchImage(this.game, 0, 0, 'ImageLoadingBar');
+	imgLoadingBar.targetWidth = StzGameConfig.PRELOAD_BAR_MIN_WIDTH;
+	imgLoadingBar.UpdateImageSizes();
+	this.fLoadingBar.add(imgLoadingBar);
+	
 	/* --- post-init-end --- */
 }
 
