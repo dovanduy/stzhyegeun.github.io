@@ -26,13 +26,11 @@ function InGameScene(aGame, aParent) {
 	var rightLine_png = this.game.add.sprite(458, 65, 'mainUI', 'rightLine.png', groupBG);
 	rightLine_png.scale.setTo(1.0, 1.152);
 
-	this.game.add.sprite(31, 412, 'mainUI', 'btnShuffle.png', groupBG);
-
-	var lodingBg = this.game.add.group(groupBG);
-	lodingBg.position.setTo(42, 7);
+	var loadingBg = this.game.add.group(groupBG);
+	loadingBg.position.setTo(20, -7);
 
 	var loadingBar = this.game.add.group(groupBG);
-	loadingBar.position.setTo(42, 7);
+	loadingBar.position.setTo(42, 12);
 
 	var groupList = this.game.add.group(this);
 
@@ -64,7 +62,8 @@ function InGameScene(aGame, aParent) {
 
 	 // public fields
 
-	this.fLodingBg = lodingBg;
+	this.fGroupBG = groupBG;
+	this.fLoadingBg = loadingBg;
 	this.fLoadingBar = loadingBar;
 	this.fBgWord = bgWord;
 	this.fListVeiw = listVeiw;
@@ -83,7 +82,8 @@ function InGameScene(aGame, aParent) {
 	this.game.cache.addNinePatch('ImageLoadingBar', 'preload_loading_bar', null, 10, 10, 0, 28);
 	
 	var imgLoadingBg = new Phaser.NinePatchImage(this.game, 0, 0, 'ImageLoadingBg');
-	imgLoadingBg.targetWidth = 355;
+	imgLoadingBg.height = 30;
+	imgLoadingBg.targetWidth = 450;
 	imgLoadingBg.UpdateImageSizes();
 	this.fLoadingBg.add(imgLoadingBg);
 	

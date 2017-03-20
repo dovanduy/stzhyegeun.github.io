@@ -8,13 +8,51 @@ var ListView = window.PhaserListView.ListView;
 
 InGame.prototype.preload = function() {
 	this.scene = new InGameScene(this.game);
+	
+	StzGameConfig.AUTO_FLAG = true;
 };
 
 InGame.prototype.create = function() {
 	this.initWordButton();
 	this.initWordBoard();
 	
+	this.popupResult = this.game.plugins.add(new PopupResult(this.game, this, {blind:true}));
+	
+	this.imgLoadingBar = this.scene.fLoadingBar.children[0];
+	this.imgLoadingBar.targetWidth = StzGameConfig.TIME_BAR_MAX_WIDTH;
+	this.timeCount = StzGameConfig.GAME_LIMIT_TIME;
+	
+	this.remainTimeText = this.game.add.text(200, 14, this.timeCount, {
+		fontSize : '23px',
+		fill : '#000000000',
+		font : 'debush'
+	});
+	
+	this.remainTimeText.anchor.set(0.5);
+	this.startTimestamp = (new Date()).getTime();
+	
+	this.meMatchedCount = 0;
+	this.youMatchedCount = 0;
+	
+	this.meMactcedCountText = this.game.add.text(30, 430, "ME : " + this.meMatchedCount, {
+		fontSize : '30px',
+		fill : '#ffffff',
+		font : 'debush'
+	});
+	
+	this.youMactcedCountText = this.game.add.text(30, 480, "YOU : " + this.youMatchedCount, {
+		fontSize : '30px',
+		fill : '#ffffff',
+		font : 'debush'
+	});
+
+	this.scene.fGroupBG.add(this.meMactcedCountText);
+	this.scene.fGroupBG.add(this.youMactcedCountText);
+	
+	this.imgLoadingBar.addChild(this.remainTimeText);
 	this.graphics = this.game.add.graphics(0, 0);
+	
+	this.stopFlag = false;
 };
 
 InGame.prototype.initWordBoard = function() {
@@ -106,10 +144,66 @@ InGame.prototype.initWordButton = function() {
 
 
 InGame.prototype.update = function(){
-	if(this.drawButtons === undefined || this.drawButtons === null || this.drawButtons.length === 0){
+	if(this.stopFlag === true){
 		return;
 	}
 	
+	this.timerCheck();
+	this.drawLine();
+};
+
+InGame.prototype.playAuto = function(){
+	var length = this.wordData.wordArray.length;
+	var wordNumber = -1;
+	
+	for(var i =0; i< length; i++){
+		if(this.wordData.wordArray[i].state === EWrodState.NONE){
+			wordNumber = i;
+			break;
+		}
+	}
+	
+	if(wordNumber === -1) return;
+	
+	if(this.timeCount <= StzGameConfig.GAME_LIMIT_TIME - (7 * (this.youMatchedCount + 1))){
+		this.wordMatchingCheck(this.wordData.wordArray[wordNumber].word, ETurn.YOU);
+	}
+	
+};
+
+InGame.prototype.timerCheck = function(){
+	var currentTimestamp = (new Date()).getTime();
+	
+	this.remainSecond = 1 - ((currentTimestamp - this.startTimestamp) / 1000);
+	
+	if(this.remainSecond <= 0){
+		
+		if(StzGameConfig.AUTO_FLAG === true){
+			this.playAuto();
+		}
+		
+		this.timeCount--;
+		this.remainTimeText.text = this.timeCount;
+		
+		this.startTimestamp = (new Date()).getTime();
+		
+		this.imgLoadingBar.targetWidth = StzGameConfig.TIME_BAR_MAX_WIDTH * (this.timeCount/StzGameConfig.GAME_LIMIT_TIME);
+		
+		if(this.imgLoadingBar.targetWidth < StzGameConfig.PRELOAD_BAR_MIN_WIDTH){
+			this.imgLoadingBar.targetWidth = StzGameConfig.PRELOAD_BAR_MIN_WIDTH;
+		}
+	}
+	
+	if(this.timeCount <= 0){
+		this.endGame();
+	}
+};
+
+InGame.prototype.drawLine = function(){
+	if(this.drawButtons === undefined || this.drawButtons === null || this.drawButtons.length === 0){
+		return;
+	}
+
 	var length = this.drawButtons.length;
 	  
 	if(this.lineDrawFlag === true && length > 0){
@@ -129,7 +223,6 @@ InGame.prototype.update = function(){
 	    this.graphics.endFill();
 	}
 };
-
 
 InGame.prototype.drawText = function(length){
 	if(length <= this.preLength){
@@ -210,7 +303,7 @@ InGame.prototype.mouseDragEnd = function(){
 		 this.graphics.clear();
 	 }
 	 
-	 this.wordMatchingCheck();
+	 this.wordMatchingCheck(this.alphabetText.text, ETurn.ME);
 	 
 	 this.game.time.events.add(500, function(){
 		 this.scene.fBgWord.visible = false;
@@ -220,15 +313,13 @@ InGame.prototype.mouseDragEnd = function(){
  
 };
 
-InGame.prototype.wordMatchingCheck = function(){
-	var text = this.alphabetText.text;
-	
+InGame.prototype.wordMatchingCheck = function(alphabetText, turn){
 	var length = this.wordData.wordArray.length;
 	var matchedFlag = false;
 	var matcehdNum = 0;
 	
 	for(var i =0; i< length; i++){
-		if(text === this.wordData.wordArray[i].word){
+		if(alphabetText === this.wordData.wordArray[i].word){
 			matchedFlag = true;
 			matcehdNum = i;
 			break;
@@ -242,30 +333,73 @@ InGame.prototype.wordMatchingCheck = function(){
 	}
 
 	if(matchedFlag === true){
-		if(this.wordData.wordArray[matcehdNum].state === EWrodState.NONE){
-			this.alphabetText.fill = "#00FF00";
-			this.wordData.wordArray[matcehdNum].state = EWrodState.ME_CLEAR;
+		if(turn === ETurn.ME){
+			if(this.wordData.wordArray[matcehdNum].state === EWrodState.NONE){
+				this.alphabetText.fill = "#00FF00";
+				this.wordData.wordArray[matcehdNum].state = EWrodState.ME_CLEAR;
+				
+				this.listView.items[matcehdNum].children[2].visible = true;
+		
+				this.listView.scroller.scrollObject.y = listMovePoint*-50;
+		        this.listView.scroller.handleUpdate();
+		        
+		        var text = this.game.add.text(310, 10, "ME");
+		        text.fill = '#0000FF';
+		        text.font = 'debush';
+				text.fontSize = 33;
+				
+		        this.listView.items[matcehdNum].add(text);
+		        
+		        this.meMactcedCountText.text = "ME : " +  ++this.meMatchedCount;
+			}
+			else{
+				this.alphabetText.fill = "#FF8040";
+				this.listView.scroller.scrollObject.y = listMovePoint*-50;
+		        this.listView.scroller.handleUpdate();
+			}
+		}
+		else{
+			this.wordData.wordArray[matcehdNum].state = EWrodState.YOU_CLEAR;
 			
 			this.listView.items[matcehdNum].children[2].visible = true;
 	
 			this.listView.scroller.scrollObject.y = listMovePoint*-50;
 	        this.listView.scroller.handleUpdate();
 	        
-	        var text = this.game.add.text(310, 10, "ME");
-	        text.fill = '#0000FF';
+	        var text = this.game.add.text(300, 10, "YOU");
+	        text.fill = '#FF0000';
 	        text.font = 'debush';
 			text.fontSize = 33;
 			
 	        this.listView.items[matcehdNum].add(text);
-		}
-		else{
-			this.alphabetText.fill = "#FF8040";
-			this.listView.scroller.scrollObject.y = listMovePoint*-50;
-	        this.listView.scroller.handleUpdate();
+	        
+	        this.youMactcedCountText.text = "YOU : " +  ++this.youMatchedCount;
 		}
 	}
 	else{
 		this.alphabetText.fill = "#FF0000";
 	}
 	
+};
+
+InGame.prototype.endGame = function(){
+	this.stopFlag = true;
+	
+	var length =  this.wordData.wordArray.length;
+	
+	var meCount = 0;
+	var youCount = 0;
+	
+	for(var i =0; i<length; i++){
+		if(this.wordData.wordArray[i].state === EWrodState.ME_CLEAR){
+			meCount++;
+		}
+		else if(this.wordData.wordArray[i].state === EWrodState.YOU_CLEAR){
+			youCount++;
+		}
+	}
+	var result = (meCount >= youCount)? ERESULT.WIN:ERESULT.LOSE;
+	
+	this.popupResult.setData(result);
+	this.popupResult.popupOpen();
 };

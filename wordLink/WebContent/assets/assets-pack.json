@@ -23,6 +23,18 @@
             "key": "preload_loading_base",
             "url": "assets/images/preload_loading_base.png",
             "overwrite": false
+        },
+        {
+            "type": "atlas",
+            "key": "PopupResult",
+            "textureURL": "assets/popup/PopupResult.png",
+            "atlasURL": "assets/popup/PopupResult.json",
+            "format": "TEXTURE_ATLAS_JSON_ARRAY"
+        },
+        {
+            "type": "script",
+            "key": "resultPopup",
+            "url": "assets/canvas/resultPopup.js"
         }
     ],
     "lobby": [
@@ -45,7 +57,7 @@
         }
     ],
     "meta": {
-        "generated": "1489973631894",
+        "generated": "1489988647879",
         "app": "Phaser Editor",
         "url": "http://phasereditor.boniatillo.com",
         "version": "1.0",

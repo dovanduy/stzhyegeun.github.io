@@ -6,6 +6,8 @@ var StzGameConfig = {
 	, LOCK_ORIENTATION: "PORTRAIT" 	// , LOCK_ORIENTATION: "LANDSCAPE"
 	, MAX_WORD_BUTTON_COUNT:6
 	,PRELOAD_BAR_MIN_WIDTH : 21
+	,TIME_BAR_MAX_WIDTH    : 404
+	,GAME_LIMIT_TIME 	: 30
 };
 
 var StzServerConfig = {
@@ -53,8 +55,8 @@ StzGameConfig.getChipFrameName = function(type){
 };
 
 var ETurn = {
-    BLACK: 1, 
-    WHITE: 2
+    ME	: 	1, 
+    YOU	: 	2
 };
 
 var ERESULT = {

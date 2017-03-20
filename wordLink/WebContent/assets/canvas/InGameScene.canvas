@@ -16,6 +16,7 @@
           "id": "0010ba8a-e84c-4bcc-b9e8-7ef98301db52",
           "info": {
             "editorName": "groupBG",
+            "editorPublic": true,
             "children": [
               {
                 "type": "atlas-sprite",
@@ -51,23 +52,13 @@
                 }
               },
               {
-                "type": "atlas-sprite",
-                "id": "f3613ff7-8221-4808-b751-7aec05a517b9",
-                "asset": "4",
-                "info": {
-                  "editorName": "btnShuffle_png",
-                  "x": 31,
-                  "y": 412
-                }
-              },
-              {
                 "type": "group",
                 "id": "fa2e5f6d-6bf0-467e-8d1a-566a8509daa7",
                 "info": {
-                  "editorName": "lodingBg",
+                  "editorName": "loadingBg",
                   "editorPublic": true,
-                  "x": 42,
-                  "y": 7,
+                  "x": 20,
+                  "y": -7,
                   "children": []
                 }
               },
@@ -78,7 +69,7 @@
                   "editorName": "loadingBar",
                   "editorPublic": true,
                   "x": 42,
-                  "y": 7,
+                  "y": 12,
                   "children": []
                 }
               }
@@ -94,7 +85,7 @@
               {
                 "type": "atlas-sprite",
                 "id": "bd0cb56a-67ec-4d55-8f9a-e6b4287ff27c",
-                "asset": "5",
+                "asset": "4",
                 "info": {
                   "editorName": "bgWord",
                   "editorPublic": true,
@@ -105,7 +96,7 @@
               {
                 "type": "atlas-sprite",
                 "id": "9e179e40-f46b-453a-8799-46f5a4ec1392",
-                "asset": "6",
+                "asset": "5",
                 "info": {
                   "editorName": "listVeiw",
                   "editorPublic": true,
@@ -116,7 +107,7 @@
               {
                 "type": "atlas-sprite",
                 "id": "d36567a3-012a-4e0f-a760-8e7ffe92387e",
-                "asset": "7",
+                "asset": "6",
                 "info": {
                   "editorName": "bgLine_png",
                   "x": 33,
@@ -234,21 +225,15 @@
       "file": "WebContent/assets/assets-pack.json",
       "section": "ingame",
       "asset": "mainUI",
-      "sprite": "btnShuffle.png"
+      "sprite": "bgWord.png"
     },
     "5": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "ingame",
       "asset": "mainUI",
-      "sprite": "bgWord.png"
-    },
-    "6": {
-      "file": "WebContent/assets/assets-pack.json",
-      "section": "ingame",
-      "asset": "mainUI",
       "sprite": "bg.png"
     },
-    "7": {
+    "6": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "ingame",
       "asset": "mainUI",
