@@ -7,7 +7,7 @@ var StzGameConfig = {
 	, MAX_WORD_BUTTON_COUNT:6
 	,PRELOAD_BAR_MIN_WIDTH : 21
 	,TIME_BAR_MAX_WIDTH    : 404
-	,GAME_LIMIT_TIME 	: 30
+	,GAME_LIMIT_TIME 	: 60
 };
 
 var StzServerConfig = {
