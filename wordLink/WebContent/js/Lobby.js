@@ -17,12 +17,10 @@ Lobby.prototype.preload = function() {
 
 Lobby.prototype.create = function() {
 	this.scene.fBtn_stage.events.onInputDown.add(this.OnClickGameStart, this);
-	this.game.state.start("InGame");
 };
 
 Lobby.prototype.OnClickGameStart = function(sprite, pointer) {
 	StzLog.print("[Lobby (OnClickGameStart)]");
-	
 	
 	if (this.isWaiting == false) {
 		this.isWaiting = true;
@@ -34,7 +32,7 @@ Lobby.prototype.OnClickGameStart = function(sprite, pointer) {
 			this.remainWaitingTime--;
 			this.scene.fTxt_stage.text = "Waiting : " + this.remainWaitingTime + " sec";
 			
-			if (this.remainWaitingTime <= 30) {
+			if (this.remainWaitingTime <= 28) {
 				this.game.state.start("InGame");
 				//this.cancelWaitingPeer();
 			}
