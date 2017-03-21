@@ -20,7 +20,6 @@ function _StartPreferences(){
 }
 var StartPreferences = new _StartPreferences();
 
-var gems;
 var selectedGem = null;
 var selectedGemStartPos;
 var selectedGemTween = null;
@@ -43,12 +42,8 @@ var remainTimeText = 0;
 var isPause = false;
 var isReady = false;
 
-var blind;
-
 var resultPopup;
-/**
- * Start state.
- */
+
 function Start() {
 	Phaser.State.call(this);
 }
@@ -57,35 +52,63 @@ function Start() {
 var proto = Object.create(Phaser.State);
 Start.prototype = proto;
 
+Start.prototype.init = function() {
+	socket.onRealRoomMessasge = (this.onRealRoomMessage).bind(this); 
+};
+
+Start.prototype.onRealRoomMessage = function(data) {
+	
+	if (data.sid === socket._mySessionId) {
+		return;
+	}
+	
+	if (this.rivalText) {
+		var rivalData = JSON.parse(data.m);
+		this.rivalText.text = "Score: " + rivalData.score + ", Combo: " + rivalData.combo;
+		console.log('[Start] onRealRoomMessage - Score: ' + rivalData.score + ', Combo: ' + rivalData.combo);
+	}
+};
+
 Start.prototype.preload = function() {
-    if (USE_FB_INTEGRATION === true) {
+	if (window.FBInstant) {
         var imageSrc = FBInstant.player.getPhoto();
+    	this.game.load.crossOrigin = 'Anonymous';
         this.game.load.image('myProfileImage', imageSrc);
     }
-}
+};
 
 Start.prototype.create = function() {
+	
+	// set the gem spritesheet to a random frame
+	this.frameArray = [{normal : 0, click : 7},
+	                  {normal : 1, click : 11},
+	                  {normal : 2, click : 12},
+	                  {normal : 5, click : 3},
+	                  {normal : 6, click : 4},
+	                  {normal : 10, click : 8}];
+	// select a gem and remember its starting position
+	this._preGem = null;
+	
 	this.initUI();
 	
-	spawnBoard();
-
+	var rivalStyle = {
+		font: 'bold 15px Arial', 
+		fill: '#fff'
+	};
+	this.rivalText = this.game.add.text(0, 0, "", rivalStyle);
+	
+	this.spawnBoard();
+	
 	 // currently selected gem starting position. used to stop player form
 	// moving gems too far.
     selectedGemStartPos = { x: 0, y: 0 };
     
-    // used to disable input while gems are dropping down and respawning
-	blind = window.game.add.graphics(0,0);
-	blind.beginFill(0x000, 1);
-	blind.drawRect(0, 0, window.game.world.width, window.game.world.height);
-	blind.alpha  = 0.7;
-	blind.visible = false;
-	
 	resultPopup = new PopupResult();
-	resultPopup.init(window.game, this);
+	resultPopup.init(this.game, this);
 	
-    checkAllAndKillGemMatches();
+    this.checkAllAndKillGemMatches();
     
-    window.game.input.addMoveCallback(slideGem, this);
+    this.game.input.addMoveCallback(this.slideGem, this);
 
     allowInput = true;
 	isPause = false;
@@ -150,10 +173,10 @@ Start.prototype.update = function() {
             resultPopup.update();
         }
     }
-}
+};
 
 Start.prototype.showEnd = function(){
-	blind.visible = true;
+	this.scene.fBlind.visible = true;
 	this.scene.fInGameMessagePopup.visible = true;
 	this.scene.fMessageTimeOver.visible = true;
 	if(this.scene.fMessageTimeOver.alpha < 1){
@@ -165,7 +188,7 @@ Start.prototype.showEnd = function(){
 		resultPopup.show(Score.getScore());
 	}	
 
-    if (USE_FB_INTEGRATION === true) {
+	if (window.FBInstant) {
         FBInstant.setScore(Score.score);
         FBInstant.takeScreenshotAsync().then(function() {
 
@@ -174,20 +197,18 @@ Start.prototype.showEnd = function(){
             // The player is now guaranteed to have already tapped "restart".
             this.restartGame();
         });    
-    } else {
-        this.restartGame();
-    }
-}
+    } 
+};
 
 Start.prototype.showReadyMessage = function(){
 	if(this.scene.fInGameMessagePopup.visible === false){
 		this.scene.fInGameMessagePopup.visible = true;
 		
-		blind.visible = true;
+		this.scene.fBlind.visible = true;
 		
 		var messageGroup = this.game.add.group();
 		messageGroup.add(this.scene.fInGameMessagePopup);
-		gems.bringToTop(messageGroup);
+		this.scene.fGameBoard.bringToTop(messageGroup);
 
 	}
 	
@@ -212,11 +233,11 @@ Start.prototype.showReadyMessage = function(){
 				startTimestamp += offsetTimestampFromPause;
 			}
 			
-			blind.visible = false;
+			this.scene.fBlind.visible = false;
 			isReady = true;
 		}
 	}	
-}
+};
 
 Start.prototype.initUI = function () {
 	this.scene = new startScene(this.game);
@@ -251,14 +272,13 @@ Start.prototype.initUI = function () {
 	
 	comboText = window.game.add.bitmapText(420, 125, 'comboFont', '0', 35);
 	comboText.anchor.set(0.5);
-	
-    /*
-    var profileImage = this.game.add.image(61, 57, 'myProfileImage');
-    profileImage.anchor.setTo(0.5, 0.5);
-    var ratio = 62 / profileImage.width;
-    profileImage.scale.setTo(ratio, ratio);
-    */
 
+	if (this.game.cache.checkImageKey('myProfileImage') === true) {
+		var profileImage = this.game.add.image(61, 57, 'myProfileImage');
+	    profileImage.anchor.setTo(0.5, 0.5);
+	    var ratio = 62 / profileImage.width;
+	    profileImage.scale.setTo(ratio, ratio);	
+	}
 
 	this.scene.fImg_Combo.alpha = 0;
 	comboText.alpha = 0;
@@ -277,22 +297,22 @@ Start.prototype.initUI = function () {
     if (resultPopup !== undefined && resultPopup.isUpdate === true) {
         resultPopup.close();
     }
-}
+};
 
 Start.prototype.pauseGame = function() {
-	blind.visible = true;
+	this.scene.fBlind.visible = true;
 	pauseTimestamp = (new Date()).getTime();
 	allowInput = false;
 	
 	var popupGroup = this.game.add.group();
 	popupGroup.add(this.scene.fPopupPause);
-	gems.bringToTop(popupGroup);
+	this.scene.fGameBoard.bringToTop(popupGroup);
 
 	this.scene.fPopupPause.visible = true;
 	
 	this.scene.fBtn_game_pause.visible = false;
 	this.scene.fBtn_game_resume.visible = true;
-}
+};
 
 Start.prototype.resumeGame = function () {
 	
@@ -304,7 +324,7 @@ Start.prototype.resumeGame = function () {
 	
 	this.scene.fBtn_game_pause.visible = true;
 	this.scene.fBtn_game_resume.visible = false;
-}
+};
 
 Start.prototype.restartGame = function() {
 	
@@ -313,10 +333,10 @@ Start.prototype.restartGame = function() {
 	this.resumeGame();
 	
 	this.create();
-}
+};
 
 Start.prototype.exitGame = function() {
-    if (USE_FB_INTEGRATION === true) {
+	if (window.FBInstant) {
         FBInstant.endGameAsync().then(function() {
             this.restartGame();
         });    
@@ -324,7 +344,7 @@ Start.prototype.exitGame = function() {
         this.restartGame();
     }
 	
-}
+};
 
 var currentPlayingAnimations = {};
 Start.prototype.playAnimations = function(inName, inPosX, inPosY, inCallback) {
@@ -339,87 +359,71 @@ Start.prototype.playAnimations = function(inName, inPosX, inPosY, inCallback) {
 		timeOverAnim.animations.add("timeover", Phaser.Animation.generateFrameNames("animTimeOver", 0, 42, "", 4), 30, false);
 		timeOverAnim.animations.play("timeover");
 		currentPlayingAnimations[inName] = true;	
-		timeOverAnim.animations.currentAnim.onComplete.add(() => {
+		
+		timeOverAnim.animations.currentAnim.onComplete.add(function() {
 			this.pauseGame();
 			currentPlayingAnimations[inName] = false;
 			timeOverAnim.destroy();
-		});
+		}, this);
 	}
 	
 	if (inName == "animBlockMatch") {
 		var blockMatchAnim = game.add.sprite((inPosX  * StartPreferences.GEM_SIZE) + StartPreferences.INGAME_UI_LEFT_OFFSET
-				, (inPosY  * StartPreferences.GEM_SIZE) + StartPreferences.INGAME_UI_TOP_OFFSET, "EFFECTS");
+				, (inPosY  * StartPreferences.GEM_SIZE), "EFFECTS");
 		blockMatchAnim.anchor.set(0.4, 0.6);
 		blockMatchAnim.animations.add("blockmatch", Phaser.Animation.generateFrameNames("animBlockMatchEffect", 0, 5, "", 4), 30, false);
 		blockMatchAnim.animations.play("blockmatch");
+		this.scene.fGameBoard.add(blockMatchAnim);
 		
-		blockMatchAnim.animations.currentAnim.onComplete.add(() => {
+		blockMatchAnim.animations.currentAnim.onComplete.add(function() {
 			blockMatchAnim.destroy();
-		});
+		}, this);
 	}
-}
+};
 
 var showReadyDelta = 0;
-
-function spawnBoard() {
-
-    gems = this.game.add.group();
+Start.prototype.spawnBoard = function() {
 
     for (var i = 0; i < StartPreferences.BOARD_COLS; i++)
     {
         for (var j = 0; j < StartPreferences.BOARD_ROWS; j++)
         {
-            var gem = gems.create((i * StartPreferences.GEM_SIZE_SPACED) + StartPreferences.INGAME_UI_LEFT_OFFSET,
-            		(j * StartPreferences.GEM_SIZE_SPACED) + StartPreferences.INGAME_UI_TOP_OFFSET, "GEMS");
-            
+        	var gem = this.scene.fGameBoard.create((i * StartPreferences.GEM_SIZE_SPACED) + StartPreferences.INGAME_UI_LEFT_OFFSET,
+    		(j * StartPreferences.GEM_SIZE_SPACED), "GEMS");
+        	
             gem.name = 'gem' + i.toString() + 'x' + j.toString();
             gem.inputEnabled = true;
-            gem.events.onInputDown.add(selectGem, this);
-            gem.events.onInputUp.add(releaseGem, this);
-            randomizeGemColor(gem);
-            setGemPos(gem, i, j); // each gem has a position on the board
+            gem.events.onInputDown.add(this.selectGem.bind(this));
+            gem.events.onInputUp.add(this.releaseGem.bind(this));
+            this.randomizeGemColor(gem);
+            this.setGemPos(gem, i, j); // each gem has a position on the board
         }
-    }    
-}
+    } 
+};
 
-// set the gem spritesheet to a random frame
-var frameArray = [{normal : 0, click : 7},
-                  {normal : 1, click : 11},
-                  {normal : 2, click : 12},
-                  {normal : 5, click : 3},
-                  {normal : 6, click : 4},
-                  {normal : 10, click : 8}]
-		
-		
-function randomizeGemColor(gem) {
-	gem.frame = frameArray[this.game.rnd.integerInRange(0, 5)].normal;
-	
-}
+Start.prototype.randomizeGemColor = function(gem) {
+	gem.frame = this.frameArray[this.game.rnd.integerInRange(0, 5)].normal;
+};
 
-// set the position on the board for a gem
-function setGemPos(gem, posX, posY) {
-
+Start.prototype.setGemPos = function(gem, posX, posY) {
+	// set the position on the board for a gem
 	gem.posX = posX;
 	gem.posY = posY;
-	gem.id = calcGemId(posX, posY);
-}
+	gem.id = this.calcGemId(posX, posY);
+};
 
-function calcGemId(posX, posY) {
-
+Start.prototype.calcGemId = function(posX, posY) {
 	return posX + posY * StartPreferences.BOARD_COLS;
+};
 
-}
-
-function slideGem(pointer, x, y) {
-
-    // check if a selected gem should be moved and do it
-
-    if (selectedGem && pointer.isDown)
+Start.prototype.slideGem = function(pointer, x, y) {
+	// check if a selected gem should be moved and do it
+	if (selectedGem && pointer.isDown)
     {
-        var cursorGemPosX = getGemPos(x, true);
-        var cursorGemPosY = getGemPos(y, false);
+        var cursorGemPosX = this.getGemPos(x, true);
+        var cursorGemPosY = this.getGemPos(y, false);
 
-        if (checkIfGemCanBeMovedHere(selectedGemStartPos.x, selectedGemStartPos.y, cursorGemPosX, cursorGemPosY))
+        if (this.checkIfGemCanBeMovedHere(selectedGemStartPos.x, selectedGemStartPos.y, cursorGemPosX, cursorGemPosY))
         {
             if (cursorGemPosX !== selectedGem.posX || cursorGemPosY !== selectedGem.posY)
             {
@@ -429,22 +433,22 @@ function slideGem(pointer, x, y) {
                     game.tweens.remove(selectedGemTween);
                 }
 
-                selectedGemTween = tweenGemPos(selectedGem, cursorGemPosX, cursorGemPosY);
+                selectedGemTween = this.tweenGemPos(selectedGem, cursorGemPosX, cursorGemPosY);
 
-                gems.bringToTop(selectedGem);
+                this.scene.fGameBoard.bringToTop(selectedGem);
 
                 // if we moved a gem to make way for the selected gem earlier,
 				// move it back into its starting position
                 if (tempShiftedGem !== null)
                 {
-                    tweenGemPos(tempShiftedGem, selectedGem.posX , selectedGem.posY);
-                    swapGemPosition(selectedGem, tempShiftedGem);
+                    this.tweenGemPos(tempShiftedGem, selectedGem.posX , selectedGem.posY);
+                    this.swapGemPosition(selectedGem, tempShiftedGem);
                 }
 
                 // when the player moves the selected gem, we need to swap the
 				// position of the selected gem with the gem currently in that
 				// position
-                tempShiftedGem = getGem(cursorGemPosX, cursorGemPosY);
+                tempShiftedGem = this.getGem(cursorGemPosX, cursorGemPosY);
 
                 if (tempShiftedGem === selectedGem)
                 {
@@ -452,31 +456,28 @@ function slideGem(pointer, x, y) {
                 }
                 else
                 {
-                    tweenGemPos(tempShiftedGem, selectedGem.posX, selectedGem.posY);
-                    swapGemPosition(selectedGem, tempShiftedGem);
+                    this.tweenGemPos(tempShiftedGem, selectedGem.posX, selectedGem.posY);
+                    this.swapGemPosition(selectedGem, tempShiftedGem);
                 }
             }
         }
     }
-}
+};
 
-// select a gem and remember its starting position
-var _preGem = null;
-
-function selectGem(gem) {
-    if (allowInput && isReady)
+Start.prototype.selectGem = function(gem) {
+	if (allowInput && isReady)
     {
-    	if(_preGem != null){
-    		for(var i = 0; i < frameArray.length; i++){
-    			if(_preGem.frame == frameArray[i].click){
-    				_preGem.frame = frameArray[i].normal;
+    	if(this._preGem != null){
+    		for(var i = 0; i < this.frameArray.length; i++){
+    			if(this._preGem.frame == this.frameArray[i].click){
+    				this._preGem.frame = this.frameArray[i].normal;
     			}
     		}
     	}
     	
-    	for(var i = 0; i < frameArray.length; i++){
-			if(gem.frame == frameArray[i].normal){
-				gem.frame = frameArray[i].click;
+    	for(var i = 0; i < this.frameArray.length; i++){
+			if(gem.frame == this.frameArray[i].normal){
+				gem.frame = this.frameArray[i].click;
 			}
 		}
     	
@@ -484,22 +485,20 @@ function selectGem(gem) {
         selectedGemStartPos.x = gem.posX;
         selectedGemStartPos.y = gem.posY;
         
-        _preGem = gem;
+        this._preGem = gem;
     }
+};
 
-}
-
-
-function releaseGem() {
-    if (tempShiftedGem == null && isFocus === false) {
+Start.prototype.releaseGem = function() {
+	if (tempShiftedGem == null && isFocus === false) {
         selectedGem = null;
         return;
     }
     
-    if(_preGem != null){
-		for(var i = 0; i < frameArray.length; i++){
-			if(_preGem.frame == frameArray[i].click){
-				_preGem.frame = frameArray[i].normal;
+    if(this._preGem != null){
+		for(var i = 0; i < this.frameArray.length; i++){
+			if(this._preGem.frame == this.frameArray[i].click){
+				this._preGem.frame = this.frameArray[i].normal;
 			}
 		}
 	}
@@ -512,42 +511,37 @@ function releaseGem() {
     // 3) drop down gems above removed gems
     // 4) refill the board
 
-    this.game.time.events.add(200, function(){
-        checkAndKillGemMatches();
+    this.game.time.events.add(200, (function(){
+        this.checkAndKillGemMatches();
 
-        removeKilledGems();
+        this.removeKilledGems();
 
-        var dropGemDuration = dropGems();
+        var dropGemDuration = this.dropGems();
 
         // delay board refilling until all existing gems have dropped down
-        this.game.time.events.add(dropGemDuration * 50, refillBoard);
+        this.game.time.events.add(dropGemDuration * 50, this.refillBoard.bind(this));
 
         allowInput = false;
 
         selectedGem = null;
         tempShiftedGem = null;    	
-    }, this);
-}
+    }).bind(this));
+};
 
-// find a gem on the board according to its position on the board
-function getGem(posX, posY) {
+Start.prototype.getGem = function(posX, posY) {
+	// find a gem on the board according to its position on the board	
+	return this.scene.fGameBoard.iterate("id", this.calcGemId(posX, posY), Phaser.Group.RETURN_CHILD);
+};
 
-    return gems.iterate("id", calcGemId(posX, posY), Phaser.Group.RETURN_CHILD);
+Start.prototype.getGemColor = function(gem) {
+	// since the gems are a spritesheet, their color is the same as the current
+	// frame number
+	return gem.frame;
+};
 
-}
-
-// since the gems are a spritesheet, their color is the same as the current
-// frame number
-function getGemColor(gem) {
-
-    return gem.frame;
-
-}
-
-// gems can only be moved 1 square up/down or left/right
-function checkIfGemCanBeMovedHere(fromPosX, fromPosY, toPosX, toPosY) {
-
-    if (toPosX < 0 || toPosX >= StartPreferences.BOARD_COLS || toPosY < 0 || toPosY >= StartPreferences.BOARD_ROWS)
+Start.prototype.checkIfGemCanBeMovedHere = function(fromPosX, fromPosY, toPosX, toPosY) {
+	// gems can only be moved 1 square up/down or left/right
+	if (toPosX < 0 || toPosX >= StartPreferences.BOARD_COLS || toPosY < 0 || toPosY >= StartPreferences.BOARD_ROWS)
     {
         return false;
     }
@@ -563,20 +557,20 @@ function checkIfGemCanBeMovedHere(fromPosX, fromPosY, toPosX, toPosY) {
     }
 
     return false;
-}
+};
 
-// count how many gems of the same color lie in a given direction
-// eg if moveX=1 and moveY=0, it will count how many gems of the same color lie
-// to the right of the gem
-// stops counting as soon as a gem of a different color or the board end is
-// encountered
-function countSameColorGems(startGem, moveX, moveY) {
 
-    var curX = startGem.posX + moveX;
+Start.prototype.countSameColorGems = function(startGem, moveX, moveY) {
+	// count how many gems of the same color lie in a given direction
+	// eg if moveX=1 and moveY=0, it will count how many gems of the same color lie
+	// to the right of the gem
+	// stops counting as soon as a gem of a different color or the board end is
+	// encountered
+	var curX = startGem.posX + moveX;
     var curY = startGem.posY + moveY;
     var count = 0;
 
-    while (curX >= 0 && curY >= 0 && curX < StartPreferences.BOARD_COLS && curY < StartPreferences.BOARD_ROWS && getGemColor(getGem(curX, curY)) === getGemColor(startGem))
+    while (curX >= 0 && curY >= 0 && curX < StartPreferences.BOARD_COLS && curY < StartPreferences.BOARD_ROWS && this.getGemColor(this.getGem(curX, curY)) === this.getGemColor(startGem))
     {
         count++;
         curX += moveX;
@@ -584,26 +578,22 @@ function countSameColorGems(startGem, moveX, moveY) {
     }
 
     return count;
+};
 
-}
 
-// swap the position of 2 gems when the player drags the selected gem into a new
-// location
-function swapGemPosition(gem1, gem2) {
-
-    var tempPosX = gem1.posX;
+Start.prototype.swapGemPosition = function(gem1, gem2) {
+	// swap the position of 2 gems when the player drags the selected gem into a new location
+	var tempPosX = gem1.posX;
     var tempPosY = gem1.posY;
-    setGemPos(gem1, gem2.posX, gem2.posY);
-    setGemPos(gem2, tempPosX, tempPosY);
+    this.setGemPos(gem1, gem2.posX, gem2.posY);
+    this.setGemPos(gem2, tempPosX, tempPosY);
+};
 
-}
-
-// count how many gems of the same color are above, below, to the left and right
-// if there are more than 3 matched horizontally or vertically, kill those gems
-// if no match was made, move the gems back into their starting positions
-function checkAndKillGemMatches() {
-
-    if (selectedGem === null) { return; }
+Start.prototype.checkAndKillGemMatches = function() {
+	// count how many gems of the same color are above, below, to the left and right
+	// if there are more than 3 matched horizontally or vertically, kill those gems
+	// if no match was made, move the gems back into their starting positions	
+	if (selectedGem === null) { return; }
 
     if (tempShiftedGem === null ) { return; }
 
@@ -611,48 +601,48 @@ function checkAndKillGemMatches() {
 
     // process the selected gem
 
-    var countUp = countSameColorGems(selectedGem, 0, -1);
-    var countDown = countSameColorGems(selectedGem, 0, 1);
-    var countLeft = countSameColorGems(selectedGem, -1, 0);
-    var countRight = countSameColorGems(selectedGem, 1, 0);
+    var countUp = this.countSameColorGems(selectedGem, 0, -1);
+    var countDown = this.countSameColorGems(selectedGem, 0, 1);
+    var countLeft = this.countSameColorGems(selectedGem, -1, 0);
+    var countRight = this.countSameColorGems(selectedGem, 1, 0);
 
     var countHoriz = countLeft + countRight + 1;
     var countVert = countUp + countDown + 1;
 
     if (countVert >= StartPreferences.MATCH_MIN)
     {
-        killGemRange(selectedGem.posX, selectedGem.posY - countUp, selectedGem.posX, selectedGem.posY + countDown);
+        this.killGemRange(selectedGem.posX, selectedGem.posY - countUp, selectedGem.posX, selectedGem.posY + countDown);
         Score.setScore(countVert);
         canKill = true;
     }
 
     if (countHoriz >= StartPreferences.MATCH_MIN)
     {
-        killGemRange(selectedGem.posX - countLeft, selectedGem.posY, selectedGem.posX + countRight, selectedGem.posY);
+        this.killGemRange(selectedGem.posX - countLeft, selectedGem.posY, selectedGem.posX + countRight, selectedGem.posY);
         Score.setScore(countHoriz);
         canKill = true;
     }
 
     // now process the shifted (swapped) gem
 
-    countUp = countSameColorGems(tempShiftedGem, 0, -1);
-    countDown = countSameColorGems(tempShiftedGem, 0, 1);
-    countLeft = countSameColorGems(tempShiftedGem, -1, 0);
-    countRight = countSameColorGems(tempShiftedGem, 1, 0);
+    countUp = this.countSameColorGems(tempShiftedGem, 0, -1);
+    countDown = this.countSameColorGems(tempShiftedGem, 0, 1);
+    countLeft = this.countSameColorGems(tempShiftedGem, -1, 0);
+    countRight = this.countSameColorGems(tempShiftedGem, 1, 0);
 
     countHoriz = countLeft + countRight + 1;
     countVert = countUp + countDown + 1;
 
     if (countVert >= StartPreferences.MATCH_MIN)
     {
-        killGemRange(tempShiftedGem.posX, tempShiftedGem.posY - countUp, tempShiftedGem.posX, tempShiftedGem.posY + countDown);
+        this.killGemRange(tempShiftedGem.posX, tempShiftedGem.posY - countUp, tempShiftedGem.posX, tempShiftedGem.posY + countDown);
         Score.setScore(countVert);
         canKill = true;
     }
 
     if (countHoriz >= StartPreferences.MATCH_MIN)
     {
-        killGemRange(tempShiftedGem.posX - countLeft, tempShiftedGem.posY, tempShiftedGem.posX + countRight, tempShiftedGem.posY);
+        this.killGemRange(tempShiftedGem.posX - countLeft, tempShiftedGem.posY, tempShiftedGem.posX + countRight, tempShiftedGem.posY);
         Score.setScore(countHoriz);
         canKill = true;
     }
@@ -669,14 +659,14 @@ function checkAndKillGemMatches() {
                 game.tweens.remove(selectedGemTween);
             }
 
-            selectedGemTween = tweenGemPos(gem, selectedGemStartPos.x, selectedGemStartPos.y);
+            selectedGemTween = this.tweenGemPos(gem, selectedGemStartPos.x, selectedGemStartPos.y);
 
             if (tempShiftedGem !== null)
             {
-                tweenGemPos(tempShiftedGem, gem.posX, gem.posY);
+                this.tweenGemPos(tempShiftedGem, gem.posX, gem.posY);
             }
 
-            swapGemPosition(gem, tempShiftedGem);
+            this.swapGemPosition(gem, tempShiftedGem);
 
             tempShiftedGem = null;
 
@@ -686,35 +676,35 @@ function checkAndKillGemMatches() {
     	
     	startComboStamp = (new Date()).getTime();
     	isComboUp = true;
+    	socket.realSendMessage(JSON.stringify({'combo': Score.getCombo(), 'score': Score.score}), false);
     }
+};
 
-}
-
-function checkAllAndKillGemMatches(){
+Start.prototype.checkAllAndKillGemMatches = function() {
 	var canKill = false;
-	for(var i =0; i < gems.length; i++)
+	for(var i =0; i < this.scene.fGameBoard.length; i++)
 	{
-		var gem = gems.children[i];
+		var gem = this.scene.fGameBoard.children[i];
 		if( gem != null)
 		{
-			countUp = countSameColorGems(gem, 0, -1);
-			countDown = countSameColorGems(gem, 0, 1);
-			countLeft = countSameColorGems(gem, -1, 0);
-			countRight = countSameColorGems(gem, 1, 0);
+			countUp = this.countSameColorGems(gem, 0, -1);
+			countDown = this.countSameColorGems(gem, 0, 1);
+			countLeft = this.countSameColorGems(gem, -1, 0);
+			countRight = this.countSameColorGems(gem, 1, 0);
 			
 			countHoriz = countLeft + countRight + 1;
 			countVert = countUp + countDown + 1;
 			
 			if (countVert >= StartPreferences.MATCH_MIN)
 			{
-				killGemRange(gem.posX, gem.posY - countUp, gem.posX, gem.posY + countDown);
+				this.killGemRange(gem.posX, gem.posY - countUp, gem.posX, gem.posY + countDown);
 				Score.setScore(countVert);
 				canKill = true;
 			}
 
 			if (countHoriz >= StartPreferences.MATCH_MIN)
 			{
-			    killGemRange(gem.posX - countLeft, gem.posY, gem.posX + countRight, gem.posY);
+			    this.killGemRange(gem.posX - countLeft, gem.posY, gem.posX + countRight, gem.posY);
 			    Score.setScore(countHoriz);
 			    canKill = true;
 			}
@@ -722,73 +712,61 @@ function checkAllAndKillGemMatches(){
 	}
 	if(canKill === true){
 		isFocus = true;
-		var dropGemDuration = dropGems();
+		var dropGemDuration = this.dropGems();
 	    // delay board refilling until all existing gems have dropped down
-	    this.game.time.events.add(dropGemDuration * 50, releaseGem);
+	    this.game.time.events.add(dropGemDuration * 50, this.releaseGem.bind(this));
+	    socket.realSendMessage(JSON.stringify({'combo': Score.getCombo(), 'score': Score.score}), false);
 	}
 	else{
 		startComboStamp = (new Date()).getTime();
 	}
-	 
-}
+};
 
-// kill all gems from a starting position to an end position
-function killGemRange(fromX, fromY, toX, toY) {
-	fromX = Phaser.Math.clamp(fromX, 0, StartPreferences.BOARD_COLS - 1);
-    fromY = Phaser.Math.clamp(fromY , 0, StartPreferences.BOARD_ROWS - 1);
-    toX = Phaser.Math.clamp(toX, 0, StartPreferences.BOARD_COLS - 1);
-    toY = Phaser.Math.clamp(toY, 0, StartPreferences.BOARD_ROWS - 1);
+Start.prototype.killGemRange = function(fromX, fromY, toX, toY) {
+	// kill all gems from a starting position to an end position
+	var tempFromX = Phaser.Math.clamp(fromX, 0, StartPreferences.BOARD_COLS - 1);
+    var tempFromY = Phaser.Math.clamp(fromY , 0, StartPreferences.BOARD_ROWS - 1);
+    var tempToX = Phaser.Math.clamp(toX, 0, StartPreferences.BOARD_COLS - 1);
+    var tempToY = Phaser.Math.clamp(toY, 0, StartPreferences.BOARD_ROWS - 1);
 
-    for (var i = fromX; i <= toX; i++)
+    for (var i = tempFromX; i <= tempToX; i++)
     {
-        for (var j = fromY; j <= toY; j++)
+        for (var j = tempFromY; j <= tempToY; j++)
         {
-        	Start.prototype.playAnimations('animBlockMatch', i, j, function() {});
-            var gem = getGem(i, j);
+        	this.playAnimations('animBlockMatch', i, j, null);
+            var gem = this.getGem(i, j);
             gem.kill();
             gem = null;
         }
     }
-}
+};
 
-// move gems that have been killed off the board
-function removeKilledGems() {
-
-    gems.forEach(function(gem) {
+Start.prototype.removeKilledGems = function() {
+	// move gems that have been killed off the board
+	this.scene.fGameBoard.forEach(function(gem) {
         if (!gem.alive) {
-            setGemPos(gem, -1,-1);
+            this.setGemPos(gem, -1,-1);
         }
-    });
+    }, this);
+};
 
-}
 
-function tweenDropGemPos(gem, newPosX, newPosY, durationMultiplier, inAfterCallback) {
-    if (durationMultiplier === null
-            || typeof durationMultiplier === 'undefined') {
-        durationMultiplier = 1;
-    }
-    var tween = game.add.tween(gem).to({y: (newPosY * StartPreferences.GEM_SIZE_SPACED) + StartPreferences.INGAME_UI_TOP_OFFSET}, 500, 'Quart.easeOut', true);
-    return tween;     
-}
+Start.prototype.tweenDropGemPos = function(gem, newPosX, newPosY, durationMultiplier, inAfterCallback) {
+	var tween = game.add.tween(gem).to({y: (newPosY * StartPreferences.GEM_SIZE_SPACED)}, 500, 'Quart.easeOut', true);
+    return tween;
+};
 
-// animated gem movement
-function tweenGemPos(gem, newPosX, newPosY, durationMultiplier, inAfterCallback) {
+Start.prototype.tweenGemPos = function(gem, newPosX, newPosY, durationMultiplier, inAfterCallback) {
+	// animated gem movement
+	var tween = game.add.tween(gem).to({x: (newPosX  * StartPreferences.GEM_SIZE) + StartPreferences.INGAME_UI_LEFT_OFFSET
+    	, y: (newPosY * StartPreferences.GEM_SIZE_SPACED)}, 150, Phaser.Easing.Linear.None, true);
+    return tween;
+};
 
-    //console.log('Tween ',gem.name,' from ',gem.posX, ',', gem.posY, ' to ', newPosX, ',', newPosY);
-    if (durationMultiplier === null
-			|| typeof durationMultiplier === 'undefined') {
-		durationMultiplier = 1;
-	}
 
-    var tween = game.add.tween(gem).to({x: (newPosX  * StartPreferences.GEM_SIZE) + StartPreferences.INGAME_UI_LEFT_OFFSET
-    	, y: (newPosY * StartPreferences.GEM_SIZE_SPACED) + StartPreferences.INGAME_UI_TOP_OFFSET}, 150, Phaser.Easing.Linear.None, true);
-    return tween; 
-}
-
-// look for gems with empty space beneath them and move them down
-function dropGems() {
-
-    var dropRowCountMax = 0;
+Start.prototype.dropGems = function() {
+	// look for gems with empty space beneath them and move them down
+	var dropRowCountMax = 0;
 
     for (var i = 0; i < StartPreferences.BOARD_COLS; i++)
     {
@@ -796,7 +774,7 @@ function dropGems() {
 
         for (var j = StartPreferences.BOARD_ROWS - 1; j >= 0; j--)
         {
-            var gem = getGem(i, j);
+            var gem = this.getGem(i, j);
 
             if (gem === null)
             {
@@ -804,8 +782,8 @@ function dropGems() {
             }
             else if (dropRowCount > 0)
             {
-                setGemPos(gem, gem.posX, gem.posY + dropRowCount);
-                tweenDropGemPos(gem, gem.posX, gem.posY, dropRowCount);
+                this.setGemPos(gem, gem.posX, gem.posY + dropRowCount);
+                this.tweenDropGemPos(gem, gem.posX, gem.posY, dropRowCount);
                 //tweenGemPos(gem, gem.posX, gem.posY, dropRowCount);
             }
         }
@@ -814,14 +792,13 @@ function dropGems() {
     }
 
     return dropRowCountMax;
+};
 
-}
 
-// look for any empty spots on the board and spawn new gems in their place that
-// fall down from above
-function refillBoard() {
-
-    var maxGemsMissingFromCol = 0;
+Start.prototype.refillBoard = function() {
+	// look for any empty spots on the board and spawn new gems in their place that
+	// fall down from above	
+	var maxGemsMissingFromCol = 0;
 
     for (var i = 0; i < StartPreferences.BOARD_COLS; i++)
     {
@@ -829,36 +806,36 @@ function refillBoard() {
 
         for (var j = StartPreferences.BOARD_ROWS - 1; j >= 0; j--)
         {
-            var gem = getGem(i, j);
+            var gem = this.getGem(i, j);
 
             if (gem === null)
             {
                 gemsMissingFromCol++;
-                gem = gems.getFirstDead();
+                gem = this.scene.fGameBoard.getFirstDead();
                 gem.reset(i * StartPreferences.GEM_SIZE_SPACED + StartPreferences.INGAME_UI_LEFT_OFFSET,
-                		-gemsMissingFromCol * StartPreferences.GEM_SIZE_SPACED + StartPreferences.INGAME_UI_TOP_OFFSET);
-                randomizeGemColor(gem);
-                setGemPos(gem, i, j);
+                		-gemsMissingFromCol * StartPreferences.GEM_SIZE_SPACED);
+                this.randomizeGemColor(gem);
+                this.setGemPos(gem, i, j);
                 //tweenGemPos(gem, gem.posX, gem.posY, gemsMissingFromCol * 2);
-                tweenDropGemPos(gem, gem.posX, gem.posY, gemsMissingFromCol * 2);
+                this.tweenDropGemPos(gem, gem.posX, gem.posY, gemsMissingFromCol * 2);
             }
         }
 
         maxGemsMissingFromCol = Math.max(maxGemsMissingFromCol, gemsMissingFromCol);
     }
 
-    game.time.events.add(maxGemsMissingFromCol * 2 * 50, boardRefilled);
+    game.time.events.add(maxGemsMissingFromCol * 2 * 50, this.boardRefilled.bind(this));
+};
 
-}
 
-// when the board has finished refilling, re-enable player input
-function boardRefilled() {
+Start.prototype.boardRefilled = function() {
+	// when the board has finished refilling, re-enable player input
+	allowInput = true;
+    this.checkAllAndKillGemMatches();
+};
 
-    allowInput = true;
-    checkAllAndKillGemMatches();
-}
-// convert world coordinates to board position
-function getGemPos(coordinate, isX) {
+Start.prototype.getGemPos = function(coordinate, isX) {
+	// convert world coordinates to board position
 	var posData = 0;
 	
 	if(isX === true)
@@ -867,8 +844,7 @@ function getGemPos(coordinate, isX) {
 	}
 	else
 	{
-		posData = Math.floor((coordinate  - StartPreferences.INGAME_UI_TOP_OFFSET) / StartPreferences.GEM_SIZE_SPACED);
+		posData = Math.floor((coordinate - this.scene.fGameBoard.y) / StartPreferences.GEM_SIZE_SPACED);
 	}
     return posData;
-
-}
+};

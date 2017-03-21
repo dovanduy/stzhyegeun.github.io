@@ -20,7 +20,10 @@ function startScene(aGame, aParent) {
 
 	this.game.add.sprite(0, 654, 'uiAtlas', 'bg_bottom.png', inGame);
 
-	this.game.add.sprite(0, 181, 'uiAtlas', 'game_board.png', inGame);
+	var gameBoard = this.game.add.group(inGame);
+	gameBoard.position.setTo(0, 181);
+
+	this.game.add.sprite(0, 0, 'uiAtlas', 'game_board.png', gameBoard);
 
 	var btn_game_pause = this.game.add.button(390, 27, 'settingImage', this.OnClickBtnPause, this, 'btnPause.png', 'btnPause.png', 'btnPause.png', 'btnPause.png', inGame);
 
@@ -57,6 +60,7 @@ function startScene(aGame, aParent) {
 
 	 // public fields
 
+	this.fGameBoard = gameBoard;
 	this.fBtn_game_pause = btn_game_pause;
 	this.fBtn_game_resume = btn_game_resume;
 	this.fUICombo_png = UICombo_png;
@@ -75,8 +79,21 @@ function startScene(aGame, aParent) {
 	this.fImg_time_gauge_body = UITimeGauge_body_png;
 	this.fImg_time_gauge_tail = UITimeGauge_tail_png;
 	this.fImg_time_gauge_head = UITimeGauge_header_png;
-	
 	this.fImg_Combo = UICombo_png;
+	
+	// InGameBoard Masking
+	var boardMask = this.game.add.graphics(this.fGameBoard.x, this.fGameBoard.y);
+	boardMask.beginFill(0xffffff);
+	boardMask.drawRect(0, 0, 480, this.game.world.width);
+	this.fGameBoard.mask = boardMask;
+	
+	// InGame Blind Setting : used to disable input while gems are dropping down and respawning
+	this.fBlind = this.game.add.graphics(0, 0);
+	this.fBlind.beginFill(0x000, 1);
+	this.fBlind.drawRect(0, 0, this.game.world.width, this.game.world.hegith);
+	this.fBlind.alpha = 0.7;
+	this.fBlind.visible = false;
+	
 	/* --- post-init-end --- */
 }
 

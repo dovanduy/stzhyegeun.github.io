@@ -11,7 +11,7 @@ Boot.prototype = proto;
 
 Boot.prototype.preload = function() {
 
-	if (USE_FB_INTEGRATION === true) {
+	if (window.FBInstant) {
 		FBInstant.setLoadingProgress(30);	
 	}
 };
