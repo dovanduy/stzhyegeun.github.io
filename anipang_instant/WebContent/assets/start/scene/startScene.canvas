@@ -34,12 +34,18 @@
                 }
               },
               {
-                "type": "atlas-sprite",
-                "id": "a60cf094-fc7d-4eca-b5df-a01d9eb37083",
-                "asset": "2",
+                "type": "group",
+                "id": "c0a9e55c-2a7a-4a71-bbe8-26f51dadae54",
                 "info": {
-                  "editorName": "game_board_png",
-                  "y": 181
+                  "editorName": "gameBoard",
+                  "editorPublic": true,
+                  "y": 181,
+                  "children": [{
+                    "type": "atlas-sprite",
+                    "id": "a60cf094-fc7d-4eca-b5df-a01d9eb37083",
+                    "asset": "2",
+                    "info": {"editorName": "game_board_png"}
+                  }]
                 }
               },
               {

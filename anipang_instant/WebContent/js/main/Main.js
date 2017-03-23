@@ -1,7 +1,10 @@
-var USE_FB_INTEGRATION = true;
+if(window.location.href.indexOf("instant-bundle") == -1 && window.location.href.indexOf("https://localhost") == -1) {
+	window.FBInstant = null;
+}
+
 var START_ANIPANG = function()
 {
-	if (USE_FB_INTEGRATION === true) {
+	if (window.FBInstant) {
 		FBInstant.setLoadingProgress(10);	
 	}
 	
@@ -17,14 +20,11 @@ var START_ANIPANG = function()
 		ratio = 1.67;
 	}
 
-	console.log('[Main] width: ' + width + ', height: ' + height + ', scale: ' + sc + ', ratio: ' + ratio);
-	console.log('[Main] actual width: ' + (480 * sc) + ', height: ' + Math.floor(480 * sc * ratio));
-
-	if (USE_FB_INTEGRATION === true) {
+	if (window.FBInstant) {
 		FBInstant.setLoadingProgress(20);	
 	}
 	
-	this.game = new Phaser.Game(480 * sc, Math.floor(480 * sc * ratio), Phaser.AUTO, 'gameContainer', null, false, false);
+	this.game = new Phaser.Game(480 * sc, Math.floor(480 * sc * ratio), Phaser.CANVAS, 'gameContainer', null, false, false);
 
 	this.game.preserveDrawingBuffer = true;
 	this.game.state.add("Boot", Boot);

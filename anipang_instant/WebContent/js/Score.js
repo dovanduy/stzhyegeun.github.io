@@ -53,15 +53,15 @@ var Score = {
 	
 	comma : function(number){
 	    var len, point, str;  
-	       
-	    number = number + "";  
-	    point = number.length % 3 ;
-	    len = number.length;  
+	    
+	    var strNumber = number + "";
+	    len = strNumber.length;
+	    point = len % 3 ;
 	   
-	    str = number.substring(0, point);  
+	    str = strNumber.substring(0, point);  
 	    while (point < len) {  
 	        if (str != "") str += ",";  
-	        str += number.substring(point, point + 3);  
+	        str += strNumber.substring(point, point + 3);  
 	        point += 3;  
 	    }  
 	     

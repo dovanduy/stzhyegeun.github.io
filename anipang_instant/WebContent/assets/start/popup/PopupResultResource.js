@@ -24,7 +24,7 @@ function PopupResultResource(aGame, aParent) {
 
 	this.game.add.sprite(68, 425, 'resultPopup', 'bottom.png', resultPopup);
 
-	var bestScore = this.game.add.sprite(-29, -32, 'bestScore', 'best_score0009.png', resultPopup);
+	var bestScore = this.game.add.sprite(-29, -32, 'BESTSCORE', 'best_score0009.png', resultPopup);
 
 	var ribon_png = this.game.add.sprite(91, 84, 'resultPopup', 'ribon.png', resultPopup);
 
