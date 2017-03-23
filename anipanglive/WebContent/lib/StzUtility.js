@@ -41,11 +41,20 @@ StzUtil.createArray = function(inLength) {
 	return inlineCreateArray.apply(this, arguments);
 };
 
-StzUtil.createRandomInteger = function(inMaxValue) {
+
+StzUtil.createRandomInteger = function(inMinValue, inMaxValue) {
 	
 	StzLog.assert(typeof(inMaxValue) === 'number', "[StzUtility (createRandomInteger)] Invalid parameter type!");
 	
-	return Math.floor(Math.random() * Number(inMaxValue) + 1);
+	var minValue = inMinValue || 0;
+	var maxValue = inMaxValue || 100;
+	
+	StzLog.assert(minValue < maxValue, "[StzUtility (createRandomInteger)] minValue should less than maxValue");
+	
+	var offset = (maxValue - minValue) + 1;
+	var result = Math.floor(Math.random() * Number(offset)) + minValue;
+
+	return result;
 };
 
 StzUtil.createNumComma = function(num) {

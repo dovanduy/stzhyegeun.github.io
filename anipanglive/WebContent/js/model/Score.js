@@ -20,17 +20,17 @@ function Score() {
 	
 	self.getScore = function(){
 		return StzUtil.createNumComma(this._score);
-	},
+	}.bind(this),
 	
 	self.setScore = function(count){
 		this._score  = this._score + ((this._combo + 1)*EScoreConfig.UNIT_SCORE)*count;
-	},
+	}.bind(this),
 	
 	self.getCombo = function(){
 		return this._combo;
-	},
+	}.bind(this),
 	
-	self.getCombo = function(comboDeltaTime, isComboUp){
+	self.setCombo = function(comboDeltaTime, isComboUp){
 		if(comboDeltaTime < EScoreConfig.COMBO_TIME){
 			if(isComboUp == true){
 				this._combo++;
@@ -42,7 +42,7 @@ function Score() {
 		}
 		
 		return this._combo;
-	};
+	}.bind(this);
 	
 	return self;
 }

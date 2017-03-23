@@ -154,7 +154,7 @@ BlockModel.prototype.updateView = function() {
 		
 		this.view.kill();
 		this.view= null;
-		this.KLr wj = true;
+		this.isMoveAndMatch = true;
 		this.view = blockMatchAnim; 
 		blockMatchAnim.animations.play("blockmatch",15,false);
 		
@@ -190,5 +190,5 @@ BlockModel.prototype.updateView = function() {
 };
 
 BlockModel.Setting = {
-	SLIDING_SECONDS: 0.15	
+	SLIDING_SECONDS: 0.10	
 };

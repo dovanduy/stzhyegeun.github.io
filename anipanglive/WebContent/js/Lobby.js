@@ -59,14 +59,8 @@ Lobby.prototype.OnClickGameStart = function(sprite, pointer) {
 			realjs.event.joinRoomListener.add(function(data) {
 				if (data.members.length === 2) {
 					this.startInGameState(false);
-				} else if (data.member.length === 1){
-					StzLog.print('[Lobby] ROOM:JOIN | waiting');
-				}
+				} 
 			}, this);
-			
-			realjs.event.createRoomListener.add(function(data) {
-				StzLog.print('[Lobby] ROOM:CREATE | waiting');
-			});
 			
 			realjs.realGetRoomList();
 		} else {
@@ -79,10 +73,9 @@ Lobby.prototype.startInGameState = function(isBot) {
 	if (window.realjs) {
 		realjs.event.getRoomListListener.removeAll();
 		realjs.event.joinRoomListener.removeAll();
-		realjs.event.createRoomListener.removeAll();
 		realjs.realJoinLobby(false);
 	}
 	
 	this.waitingTimer.stop();
-	this.game.state.start("InGame");
+	this.game.state.start("InGame", false, false, isBot);
 };
