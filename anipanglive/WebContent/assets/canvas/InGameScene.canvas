@@ -80,15 +80,20 @@
           "type": "group",
           "id": "bb7ce9b7-9fb7-4b20-9bdf-e6b205ba5179",
           "info": {
-            "editorName": "opponentContainer",
+            "editorName": "rivalContainer",
             "editorPublic": true,
-            "children": []
+            "children": [{
+              "type": "atlas-sprite",
+              "id": "722bddc2-364f-4de9-b166-7f3cdf79fba0",
+              "asset": "5",
+              "info": {"editorName": "bgRival"}
+            }]
           }
         },
         {
           "type": "atlas-sprite",
           "id": "ec76fed9-0ff6-462c-8079-31ec56f2e2b2",
-          "asset": "5",
+          "asset": "6",
           "info": {
             "editorName": "line_png",
             "y": 776
@@ -129,6 +134,12 @@
       "sprite": "board.png"
     },
     "5": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "inGameUI",
+      "sprite": "bgRival.png"
+    },
+    "6": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "ingame",
       "asset": "inGameUI",

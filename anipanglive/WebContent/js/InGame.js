@@ -1,111 +1,3 @@
-/**
- * Level state.
- */
-function AniBot(inContext, inDifficulty) {
-	
-	var _context = inContext;
-	var _difficulty = inDifficulty || 10;
-	
-	var MIN_MATCH_INTERVAL_MS = 100 + (_difficulty * 100);
-	var MAX_MATCH_INTERVAL_MS = 1800 + (_difficulty * 100);
-	var PROB_FIVE_MATCH = 0.15 - (_difficulty * 0.01);
-	var PROB_FOUR_MATCH = 0.35 - (_difficulty * 0.01);
-	var MAX_AUTO_MATCH_COUNT = 30;
-	var AUTO_DIFFICULTY_SCORE_OFFSET = 100000;
-	
-	var _currentMatchTime = StzUtil.createRandomInteger(MIN_MATCH_INTERVAL_MS, MAX_MATCH_INTERVAL_MS); 
-	var _remainMatchTime = _currentMatchTime;
-	var _aniState = 1;
-	
-	var self = {
-		score: 0, 
-		combo: 0,
-		totalMatchedBlock: 0,
-		autoDifficulty: false,
-		playListener: null
-	};
-	
-	self.EState = {
-		THINKING: 0, 
-		READY: 1,
-		PLAYED: 2
-	};
-
-	self.getAniState = function() {
-		return _aniState;
-	};
-	
-	self.setNextMatch = function() {
-		if (_aniState === self.EState.PLAYED) {
-			
-			if (self.autoDifficulty) {
-				if (self.score - Score.score > AUTO_DIFFICULTY_SCORE_OFFSET) {
-					self.updateDifficulty(_difficulty + 1);
-				} else if (Score.score - self.score > AUTO_DIFFICULTY_SCORE_OFFSET) {
-					self.updateDifficulty((_difficulty <= 1) ? _difficulty : _difficulty - 1);
-				}
-			}
-			
-			_aniState = self.EState.THINKING;
-			_currentMatchTime = StzUtil.createRandomInteger(MIN_MATCH_INTERVAL_MS, MAX_MATCH_INTERVAL_MS);
-			_remainMatchTime = _currentMatchTime;
-			_aniState = self.EState.READY;
-		} 
-	};
-	
-	self.updateDifficulty = function(newDifficulty) {
-		if (_difficulty === newDifficulty) {
-			return;
-		} 
-		
-		_difficulty = newDifficulty || 10;
-		MIN_MATCH_INTERVAL_MS = 100 + (_difficulty * 100);
-		MAX_MATCH_INTERVAL_MS = 1800 + (_difficulty * 100);
-		PROB_FIVE_MATCH = 0.15 - (_difficulty * 0.01);
-		PROB_FOUR_MATCH = 0.35 - (_difficulty * 0.01);
-		
-		_currentMatchTime = StzUtil.createRandomInteger(MIN_MATCH_INTERVAL_MS, MAX_MATCH_INTERVAL_MS); 
-		_remainMatchTime = _currentMatchTime;
-		
-	};
-	
-	self.playBot = function() {
-		
-		self.combo = (_currentMatchTime <= EScoreConfig.COMBO_TIME) ? self.combo + 1 : 0;
-		console.log('[AniBot] currentMatchTime: ' + _currentMatchTime);
-		
-		var matchCount = (function() {
-			var autoMatchCount = StzUtil.createRandomInteger(0, MAX_AUTO_MATCH_COUNT);
-			var randValue = Math.random();
-			if (randValue <= PROB_FIVE_MATCH) {
-				return 5 + autoMatchCount;
-			} else if (randValue <= PROB_FOUR_MATCH) {
-				return 4 + autoMatchCount;
-			} else {
-				return 3 + autoMatchCount;
-			}
-		})();
-		
-		self.totalMatchedBlock = self.totalMatchedBlock + matchCount; 
-		self.score = self.score + ((self.combo + 1) * EScoreConfig.UNIT_SCORE * matchCount);
-		
-		_aniState = self.EState.PLAYED;
-		if (self.playListener && typeof self.playListener === 'function') {
-			self.playListener();
-		} 
-	};
-	
-	self.update = function() {
-		_remainMatchTime = _remainMatchTime - _context.game.time.elapsedMS;
-		if (_remainMatchTime <= 0 && _aniState === self.EState.READY) {
-			self.playBot();
-			self.setNextMatch();
-		}
-	};
-	
-	return self;
-}
-
 function InGame() {
 	Phaser.State.call(this);
 }
@@ -114,13 +6,11 @@ function InGame() {
 var proto = Object.create(Phaser.State);
 InGame.prototype = proto;
 
-
-
 InGame.prototype.init = function(inIsBot) {
 
 	if (inIsBot === true) {
-		this.aniBot = new AniBot(this, 5);
-		this.aniBot.autoDifficulty = false; // 자동 난이도 조절
+		this.aniBot = new AniBot(this, 10);
+		this.aniBot.autoDifficulty = true; // 자동 난이도 조절
 		this.aniBot.playListener = (function() {
 			if (this.rivalText) {
 				this.rivalText.text = "Score: " + this.aniBot.score + ", Combo: " + this.aniBot.combo + ", total: " + this.aniBot.totalMatchedBlock;
@@ -129,10 +19,11 @@ InGame.prototype.init = function(inIsBot) {
 	}
 	//점수 관련
 	this.scoreData = new Score();
+	this.startComboStamp = 0;
+	this.isComboUp = false;
 	
 	this.scene = new InGameScene(this);
 	this.controller = InGameController(this);
-	this.filters = InGameMatchFilter();
 	
 	this.game.input.onDown.add(function(){
 		this.controller.setMouseFlag(true);
@@ -144,7 +35,11 @@ InGame.prototype.init = function(inIsBot) {
 };
 
 InGame.prototype.preload = function() {
-	
+	if (window.FBInstant) {
+		
+	} else {
+		
+	}
 };
 
 InGame.prototype.create = function() {
@@ -169,42 +64,117 @@ InGame.prototype.create = function() {
 	this.remainTimeText.anchor.set(0.5);
 	this.startTimestamp = (new Date()).getTime();
 	
-	this.scoreText = this.game.add.text(0,30, this.scoreData.getScore(), {
-		fontSize : '30px',
+	this.scoreText = this.game.add.text(0,30, "Scroe : " + this.scoreData.getScoreText(), {
+		fontSize : '20px',
 		fill : '#FFFFFF',
 		font : 'debush'
 	},this.scene.fTopUIContainer);
 	
+	this.comboText = this.game.add.text(200,30,  "Combo : " + this.scoreData.getCombo(), {
+		fontSize : '20px',
+		fill : '#FFFFFF',
+		font : 'debush'
+	},this.scene.fTopUIContainer);
+	
+	this.comboTimerText = this.game.add.text(350,30, 0, {
+		fontSize : '20px',
+		fill : '#FFFFFF',
+		font : 'debush'
+	},this.scene.fTopUIContainer);
+	
+    this.bombRemainCount = StzGameConfig.BOMB_CREAT_COUNT;
+    this.bombCountText = this.game.add.text(0,60, "BombRemainCount : " + this.bombRemainCount, {
+        fontSize : '20px',
+        fill : '#FFFFFF',
+        font : 'debush'
+    },this.scene.fTopUIContainer);
+   
 	this.scene.fTopUIContainer.bringToTop(this.remainTimeText);
+	this.scene.fTopUIContainer.bringToTop(this.comboText);
+	
+	this.gameTimer = this.game.time.events.loop(Phaser.Timer.SECOND, this.timerCheck, this);
 };
 
 InGame.prototype.update = function() {
+	
 	if (this.aniBot) {
 		this.aniBot.update();	
 	}
-	this.controller.updateView();
-	this.timerCheck();
 	
-	this.scoreText.text = this.scoreData.getScore();
+	this.scoreCheck();
+    this.bombCountText.text = "BombRemainCount : " + this.bombRemainCount;
+
+	this.updateScoreView(this.scoreData.getScore(), this.aniBot.score);
+	
+	this.controller.updateView();
+	
+};
+
+InGame.prototype.createScoreView = function() {
+	
+};
+
+InGame.prototype.updateScoreView = function (playerScore, rivalScore) {	
+	
+	var playerBgWidth = this.game.width * (playerScore / (playerScore + rivalScore));
+	if (playerBgWidth < 100) {
+		playerBgWidth = 100;
+	} else if (playerBgWidth > 380) {
+		playerBgWidth = 380;
+	}
+	
+	
+	this.game.add.tween(this.scene.fBgPlayer).to({'targetWidth': playerBgWidth}, 500, "Quart.easeOut", true);
+};
+
+InGame.prototype.scoreCheck = function() {
+	if(this.startComboStamp != 0){
+		
+		var currentComboStamp = (new Date()).getTime();
+		this.comboDeltaTime = currentComboStamp - this.startComboStamp;
+		
+		if(this.scoreData.setCombo(this.comboDeltaTime, this.isComboUp) === 0){
+			this.startComboStamp = 0;
+		}
+		var comboTimer = EScoreConfig.COMBO_TIME -  this.comboDeltaTime;
+		if(comboTimer < 0 ) comboTimer = 0;
+		
+		this.comboTimerText.text = comboTimer;
+		this.comboText.text = "Combo : " + this.scoreData.getCombo();
+	}
+	this.isComboUp = false;
+	this.scoreText.text = "Scroe : " + this.scoreData.getScoreText();
+};
+
+InGame.prototype.stopControllGame = function() {
+	
+	// Stop bot play
+	if (this.aniBot && this.aniBot.isStop() === false) {
+		this.aniBot.stop();
+	}
+	
+	// stop user play
+	this.controller.controlFlag(false);
+	
+	// TODO @hyegeun state.star("result") - go to result scene.
+	
 };
 
 InGame.prototype.timerCheck = function(){
-	var currentTimestamp = (new Date()).getTime();
-	
-	this.remainSecond = 1 - ((currentTimestamp - this.startTimestamp) / 1000);
-	
-	if(this.remainSecond <= 0){
-		
-		this.timeCount--;
-		this.remainTimeText.text = this.timeCount;
-		
-		this.startTimestamp = (new Date()).getTime();
-		
-	}
 	
 	if(this.timeCount <= 0){
-		//this.endGame();
+		// 게임 정지 -> 라스트팡 시작.
+		StzLog.print("[InGame (timerCheck)] 타임 업!");
+		this.stopControllGame();
+		this.game.time.events.remove(this.gameTimer);
+		return;
 	}
+	
+	this.timeCount = this.timeCount - 1;
+	if (this.timeCount <= 0) {
+		this.timeCount = 0;
+	} 
+	this.remainTimeText.text = this.timeCount;
 };
 
 var EControllerState = {
@@ -214,7 +184,7 @@ var EControllerState = {
 		DROP_TURN		: "DROP_TURN",
 		ANIM_TURN		: "ANIM_TURN",
 		REFILL_TURN		: "REFILL_TURN",
-			
+		LASTPANG_TURN   : "LASTPANG_TURN"
 };
 
 var InGameController = function(inViewContext) {
@@ -225,8 +195,8 @@ var InGameController = function(inViewContext) {
 	var _mouseFlag = false;
 	var _controlFlag = false;
 	var _returnFlag = false;
-	var scoreData = inViewContext.scoreData;
-	
+	var _scoreData = inViewContext.scoreData;
+
 	var self = {
 		viewContext: inViewContext
 	};
@@ -260,12 +230,16 @@ var InGameController = function(inViewContext) {
 		for (var index = 0; index < blocks.length; index++) {
 			
 			var randomType = StzUtil.createRandomInteger(0, 4);
-			blocks[index] = new BlockModel(EBlockType.list[randomType], EBlockSpType.NORMAL, index, self.viewContext);
-			var blockView = blocks[index].createView(Math.floor(index / InGameBoardConfig.COL_COUNT));
+			blocks[index] = new BlockModel(EBlockType.list[randomType], index, self.viewContext);
+			blocks[index].createView(Math.floor(index / InGameBoardConfig.COL_COUNT));
 		}
 	};
 
 	self.updateView = function() {
+		if( self.viewContext.bombRemainCount === 0){
+			 self.viewContext.bombRemainCount = StzGameConfig.BOMB_CREAT_COUNT;
+		}
+		
 		for (var index = 0; index < blocks.length; index++) {
 			if (blocks[index] === null) {
 				continue;
@@ -314,6 +288,9 @@ var InGameController = function(inViewContext) {
 				this.checkMatched(function(){
 					this.dropBlocksTempCheck();
 					state = EControllerState.ANIM_TURN;
+					self.viewContext.startComboStamp = (new Date()).getTime();
+					self.viewContext.isComboUp = true;
+					
 				}.bind(this));
 				_moveBlocks = [];
 			}
@@ -405,12 +382,6 @@ var InGameController = function(inViewContext) {
 	 * 전체 인게임 보드에서 매칭된 블럭 체크
 	 */
 	self.checkMatched = function(inCallback, inCallbackContext) {
-		for (var filter in this.filters) {
-			// check property
-			if (this.filters.hasOwnProperty(filter) === false) {
-				continue;
-			}	
-		}
 		
 		var length = blocks.length;
 		var mactedCount = 0;
@@ -419,7 +390,7 @@ var InGameController = function(inViewContext) {
 		{
 			var block = blocks[i];
 			
-			if( block != null && block.view != null)
+			if( block != null && block.view != null && block.state === EBlockState.NORMAL)
 			{
 				var countUp = this.countSameTypeBlock(block, 0, -1);
 				var countDown = this.countSameTypeBlock(block, 0, 1);
@@ -433,12 +404,13 @@ var InGameController = function(inViewContext) {
 				{
 					this.killBlockRange(block.posX, block.posY - countUp, block.posX, block.posY + countDown);
 					mactedCount += countVert;
+					
 				}
 
 				if (countHoriz >= StzGameConfig.MATCH_MIN)
 				{
 					this.killBlockRange(block.posX - countLeft, block.posY, block.posX + countRight, block.posY);
-					mactedCount += countVert;
+					mactedCount += countHoriz;
 				}
 			}
 		}
@@ -447,6 +419,13 @@ var InGameController = function(inViewContext) {
 			inCallback();
 		}
 		
+        StzLog.print(mactedCount);
+        _scoreData.setScore(mactedCount);
+        self.viewContext.bombRemainCount-= 1*mactedCount;
+       
+        if( self.viewContext.bombRemainCount < 0){
+        	 self.viewContext.bombRemainCount = 0;
+        }
 		return mactedCount;
 	};
 	
@@ -540,8 +519,8 @@ var InGameController = function(inViewContext) {
 	            if(block === null) {
 	            	return;
 	            }  
-	            scoreData.setScore(1);
-	            
+	            _scoreData.setScore(1);
+
 	            block.state = EBlockState.REMOVE_ANIM;  
 	        }
 	    }
@@ -618,7 +597,7 @@ var InGameController = function(inViewContext) {
 		            	var index = j*InGameBoardConfig.ROW_COUNT + i;
 		            	var randomType = StzUtil.createRandomInteger(0, 4);
 		            	
-		            	blocks[index] = new BlockModel(EBlockType.list[randomType], EBlockSpType.NORMAL, index, self.viewContext);
+		            	blocks[index] = new BlockModel(EBlockType.list[randomType], index, self.viewContext);
 						blocks[index].createView(Math.floor(index / InGameBoardConfig.COL_COUNT));	 
 		            }
 		        }
@@ -630,7 +609,7 @@ var InGameController = function(inViewContext) {
 			return;
 		}
 
-		var hitPoint = new Phaser.Rectangle(x, y, 25, 25);
+		var hitPoint = new Phaser.Rectangle(x, y, 10, 10);
 		var length = blocks.length;
 		var hitFlag = false;
 		
@@ -654,8 +633,8 @@ var InGameController = function(inViewContext) {
 
 						if(Math.abs(_moveBlocks[0].posX - _moveBlocks[1].posX) === 1){
 							if(Math.abs(_moveBlocks[0].posY - _moveBlocks[1].posY) === 0){
-								 _mouseFlag = false;
-						         this.controlFlag(false);
+								_mouseFlag = false;
+						        this.controlFlag(false);
 						         
 								this.blockViewSwap(_moveBlocks[0], _moveBlocks[1]);
 								
@@ -699,34 +678,3 @@ var InGameController = function(inViewContext) {
 	};
 	return self;
 };
-
-var InGameMatchFilter = function() {
-	var self = {
-		// make randompang
-		FIVE_HORIZONTAL: [0, 1, 2, 3, 4], 
-		FIVE_VERTICAL: [0, InGameBoardConfig.ROW_COUNT, InGameBoardConfig.ROW_COUNT * 2, InGameBoardConfig.ROW_COUNT * 3, InGameBoardConfig.ROW_COUNT * 4],
-
-		// make circlepang
-		FIVE_KOR_N: [0, 1, 2, InGameBoardConfig.ROW_COUNT + 1, InGameBoardConfig.ROW_COUNT * 2 + 1], 
-		FIVE_KOR_H: [1, InGameBoardConfig.ROW_COUNT + 1, InGameBoardConfig.ROW_COUNT * 2, InGameBoardConfig.ROW_COUNT * 2 + 1, InGameBoardConfig.ROW_COUNT * 2 + 2],
-		FIVE_KOR_K: [0, InGameBoardConfig.ROW_COUNT, InGameBoardConfig.ROW_COUNT + 1, InGameBoardConfig.ROW_COUNT + 2, InGameBoardConfig.ROW_COUNT * 2], 
-		FIVE_KOR_J: [2, InGameBoardConfig.ROW_COUNT, InGameBoardConfig.ROW_COUNT + 1, InGameBoardConfig.ROW_COUNT + 2, InGameBoardConfig.ROW_COUNT * 2 + 2], 
-		FIVE_KOR_S: [0, InGameBoardConfig.ROW_COUNT, InGameBoardConfig.ROW_COUNT * 2, InGameBoardConfig.ROW_COUNT * 2 + 1, InGameBoardConfig.ROW_COUNT * 2 + 2], 
-		FIVE_KOR_INVERS_S: [2, InGameBoardConfig.ROW_COUNT + 2, InGameBoardConfig.ROW_COUNT * 2, InGameBoardConfig.ROW_COUNT * 2 + 1, InGameBoardConfig.ROW_COUNT * 2 + 2], 
-		FIVE_KOR_R: [0, 1, 2, InGameBoardConfig.ROW_COUNT + 2, InGameBoardConfig.ROW_COUNT * 2 + 2], 
-		FIVE_KOR_INVERS_R: [0, 1, 2, InGameBoardConfig.ROW_COUNT, InGameBoardConfig.ROW_COUNT * 2],
-			
-		// make line pang
-		FOUR_HORIZONTAL: [0, 1, 2, 3], 
-		FOUR_VERTICAL: [0, InGameBoardConfig.ROW_COUNT, InGameBoardConfig.ROW_COUNT * 2, InGameBoardConfig.ROW_COUNT * 3],
-		FOUR_RECT: [0, 1, InGameBoardConfig.ROW_COUNT, InGameBoardConfig.ROW_COUNT + 1],
-		
-		// just matched
-		THREE_HORIZONTAL: [0, 1, 2], 
-		THREE_VERTICAL: [0, InGameBoardConfig.ROW_COUNT, InGameBoardConfig.ROW_COUNT * 2],
-	};
-	
-	return self;
-};
-
-

@@ -1,6 +1,6 @@
 var EScoreConfig = {
 		UNIT_SCORE : 50,
-		COMBO_TIME : 1500
+		COMBO_TIME : 2000
 };
 
 function Score() {
@@ -18,8 +18,13 @@ function Score() {
 		this._combo = 0;
 	};
 	
-	self.getScore = function(){
+	self.getScoreText = function(){
 		return StzUtil.createNumComma(this._score);
+	}.bind(this),
+	
+	
+	self.getScore = function(){
+		return this._score;
 	}.bind(this),
 	
 	self.setScore = function(count){

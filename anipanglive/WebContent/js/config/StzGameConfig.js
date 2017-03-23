@@ -4,13 +4,15 @@ var StzGameConfig = {
     , GAME_HEIGHT: 800
     , LOCK_ORIENTATION: "PORTRAIT"     // , LOCK_ORIENTATION: "LANDSCAPE"
     , MATCH_MIN          : 3
-    ,GAME_LIMIT_TIME		: 60
+    , GAME_LIMIT_TIME		: 60
+    , BOMB_CREAT_COUNT		: 100
+    , BASE_PLAYER_PROFILE : 'assets/images/avatar_player.png'
 };
 
 var StzRealJSConfig = {
 	SERVER_ENABLE: false,
 	GAME_MEMBER_PER_ROOM: 2 
-}
+};
 
 var EEmoticonNames = {
         ALL     :'emoticon' ,

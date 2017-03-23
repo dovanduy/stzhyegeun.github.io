@@ -1,33 +1,24 @@
 var EBlockType = {
-	NONE: "",
-	ARI: "ari", 
-	BLUE: "blue", 
-	LUCY: "lucy", 
-	MAO: "mao", 
-	MICKY: "micky", 
-	MONGYI: "mongyi", 
-	PINKY: "pinky", 
+	NONE		: "",
+	ARI			: "ari", 
+	BLUE		: "blue", 
+	LUCY		: "lucy", 
+	MAO			: "mao", 
+	MICKY		: "micky", 
+	MONGYI		: "mongyi", 
+	PINKY		: "pinky", 
+	BOMB		: "bomb" 
 };
 EBlockType.list = [EBlockType.BLUE, EBlockType.MICKY, EBlockType.MONGYI, EBlockType.PINKY, EBlockType.LUCY, EBlockType.ARI, EBlockType.MAO]
 
-
-var EBlockSpType = {
-	NORMAL: 1, 
-	SP_LINE: 2, 
-	SP_CIRCLE: 3, 
-	SELECTED: 4, 
-	MATCHED: 5, 
-};
-EBlockSpType.list = [EBlockSpType.NORMAL, EBlockSpType.SP_LINE, EBlockSpType.SP_CIRCLE, EBlockSpType.SELECTED, EBlockSpType.MATCHED];
-
 var EBlockState = {
-	NORMAL: 0, 
-	SLIDING: 1, 
-	SLIDING_END: 2, 
-	MATCHED: 3,
-	REMOVE_ANIM   : 4,
+	NORMAL		: 0, 
+	SLIDING		: 1, 
+	SLIDING_END	: 2, 
+	MATCHED		: 3,
+	REMOVE_ANIM : 4,
 	ANIMATION   : 5,
-	REMOVE : 6
+	REMOVE 		: 6,
 };
 
 /**
@@ -36,10 +27,8 @@ var EBlockState = {
  * @param inType
  * @param index
  */
-function BlockModel(inType, inSpType, index, inParentContext) {
+function BlockModel(inType, index, inParentContext) {
 	this.type = inType;
-	this.spType = inSpType;
-	
 	this.index = index;
 	this.posX = index%InGameBoardConfig.ROW_COUNT;
 	this.posY = Math.floor(index/InGameBoardConfig.ROW_COUNT);
@@ -53,7 +42,6 @@ function BlockModel(inType, inSpType, index, inParentContext) {
 
 BlockModel.prototype.init = function() {
 	this.type = EBlockType.NONE;
-	this.spType = EBlockSpType.NORMAL;
 	this.state = EBlockState.NORMAL;
 	this.index = -1;
 	this.position = null;
@@ -62,7 +50,7 @@ BlockModel.prototype.init = function() {
 };
 
 BlockModel.prototype.getImageKeyname = function() {
-	var imageKeyName = this.type + '000' + this.spType + '.png';
+	var imageKeyName = this.type + '0001.png';
 	return imageKeyName;
 };
 
@@ -72,7 +60,9 @@ BlockModel.prototype.createView = function(inRow, inTouchCallback, inCallbackCon
 	}
 	
 	var result = this.viewContext.game.add.sprite(this.position.x, -1 * InGameBoardConfig.BLOCK_HEIGHT * (InGameBoardConfig.ROW_COUNT - inRow - 1), 'blocks', this.getImageKeyname(), this.viewContext.scene.fGameBoard);
-	result.scale.setTo(0.9, 0.9);
+	result.width = InGameBoardConfig.BLOCK_WIDTH;
+	result.height = InGameBoardConfig.BLOCK_HEIGHT;
+	
 	result.anchor.setTo(0.5, 0.5);
 	result.inputEnabled = true;
 	// set touch listener
