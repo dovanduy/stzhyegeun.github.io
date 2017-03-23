@@ -17,16 +17,17 @@ var EBlockSpType = {
 	SP_CIRCLE: 3, 
 	SELECTED: 4, 
 	MATCHED: 5, 
-	REMOVE : 6
 };
 EBlockSpType.list = [EBlockSpType.NORMAL, EBlockSpType.SP_LINE, EBlockSpType.SP_CIRCLE, EBlockSpType.SELECTED, EBlockSpType.MATCHED];
 
 var EBlockState = {
 	NORMAL: 0, 
-	SLID_INIT:1,
-	SLIDING: 2, 
-	SLIDING_END: 3, 
-	MATCHED: 4
+	SLIDING: 1, 
+	SLIDING_END: 2, 
+	MATCHED: 3,
+	REMOVE_ANIM   : 4,
+	ANIMATION   : 5,
+	REMOVE : 6
 };
 
 /**
@@ -39,6 +40,7 @@ function BlockModel(inType, inSpType, index, inParentContext) {
 	this.type = inType;
 	this.spType = inSpType;
 	
+	this.index = index;
 	this.posX = index%InGameBoardConfig.ROW_COUNT;
 	this.posY = Math.floor(index/InGameBoardConfig.ROW_COUNT);
 	
@@ -46,12 +48,13 @@ function BlockModel(inType, inSpType, index, inParentContext) {
 	this.view = null;
 	this.viewContext = inParentContext;
 	this.state = EBlockState.NORMAL;
-	
+	this.isMoveAndMatch = false;
 }
 
 BlockModel.prototype.init = function() {
 	this.type = EBlockType.NONE;
 	this.spType = EBlockSpType.NORMAL;
+	this.state = EBlockState.NORMAL;
 	this.index = -1;
 	this.position = null;
 	this.view = null;
@@ -79,7 +82,7 @@ BlockModel.prototype.createView = function(inRow, inTouchCallback, inCallbackCon
 		}
 		
 		if (this.position !== null) {
-			StzCommon.StzLog.print('[BlockModel (onInputDown)] index: (' + this.position.x + ', ' + this.position.y + ')');	
+			StzLog.print('[BlockModel (onInputDown)] index: (' + this.position.x + ', ' + this.position.y + ')');	
 		}
 		
 		if (inTouchCallback !== undefined) {
@@ -87,15 +90,12 @@ BlockModel.prototype.createView = function(inRow, inTouchCallback, inCallbackCon
 		}
 	}, this);
 	
-	this.view = result;
 	
-//	if (this.view.position.y !== this.position.y) {
-//		this.slidingBlock(function(){
-//			this.state = EBlockState.SLIDING_END;
-//		}.bind(this));
-//	}
+	
+	this.view = result;
 	return this.view;
 };
+
 
 BlockModel.prototype.setBlockPos = function(index){
 	this.position = InGameScene.getBoardCellPosition(index);
@@ -111,41 +111,84 @@ BlockModel.prototype.slidingBlock = function(inCallback, inCallbackContext) {
 		return;
 	}
 	
-	if (this.state === EBlockState.SLIDING || this.view.position.y === this.position.y) {
+	if (this.state === EBlockState.SLIDING) {
 		return;
 	}
 	
-	this.state = EBlockState.SLID_INIT;
-	// StzCommon.StzLog.print("[BlockModel] index: " + this.index + ", start: " + this.view.position.y + ", to: " + this.position.y);
-	this.viewContext.add.tween(this.view).to({y: this.position.y}, BlockModel.Setting.SLIDING_SECONDS * 1000, 'Quart.easeOut', true).onComplete.addOnce(function() {
-		if (inCallback !== null || inCallback !== undefined) {
-			inCallback();
-		}
-	}, inCallbackContext);
+	this.state = EBlockState.SLIDING;
+
+	if(this.moveYFlag === true){
+		this.viewContext.add.tween(this.view).to({y: this.position.y}, BlockModel.Setting.SLIDING_SECONDS * 1000, 'Quart.easeOut', true).onComplete.addOnce(function() {
+			if (inCallback !== null || inCallback !== undefined) {
+				inCallback();
+			}
+		}, inCallbackContext);
+	}
+	else{
+		this.viewContext.add.tween(this.view).to({x: this.position.x}, BlockModel.Setting.SLIDING_SECONDS * 1000, 'Quart.easeOut', true).onComplete.addOnce(function() {
+			if (inCallback !== null || inCallback !== undefined) {
+				inCallback();
+			}
+		}, inCallbackContext);
+	}
+	
 };
 
+
+
 BlockModel.prototype.updateView = function() {
-	if (this.view === null || this.viewContext === null || this.state === EBlockState.SLIDING) {
+	if(this.view == null && this.index !== -1 && this.state !== EBlockState.REMOVE){
+		this.init();
+		return;
+	}
+	if (this.viewContext === null || this.state === EBlockState.SLIDING || this.state === EBlockState.ANIMATION) {
 		return;
 	}
 	
-	if(this.state === EBlockSpType.REMOVE){
+	if(this.state === EBlockState.REMOVE_ANIM){
+		this.state = EBlockState.ANIMATION;
+		
+		var blockMatchAnim = this.viewContext.add.sprite(this.view.x, this.view.y, "animExplodeNormal",null, this.viewContext.scene.fGameBoard);
+		blockMatchAnim.animations.add("blockmatch");
+		blockMatchAnim.anchor.setTo(0.5, 0.5);
+		
 		this.view.kill();
-		this.view = null;
+		this.view= null;
+		this.KLr wj = true;
+		this.view = blockMatchAnim; 
+		blockMatchAnim.animations.play("blockmatch",15,false);
+		
+		blockMatchAnim.animations.currentAnim.onComplete.add(function(){
+			this.state = EBlockState.REMOVE;
+			this.view.kill();
+			this.view= null;
+			this.isMoveAndMatch = false;
+		}.bind(this));
 	}
 	
 	if(this.view !== null && this.state === EBlockState.NORMAL){
 		if (this.view.position.y !== this.position.y) {
+			this.moveYFlag = true;
+			this.isMoveAndMatch = true;
 			this.slidingBlock(function(){
-				this.state = EBlockState.SLIDING_END;
+				this.state = EBlockState.NORMAL;
+				this.isMoveAndMatch = false;
 			}.bind(this));
-			
-			this.state = EBlockState.SLIDING;
+		}
+		
+		else if (this.view.position.x !== this.position.x) {
+			this.isMoveAndMatch = true;
+			this.moveYFlag = false;
+			this.slidingBlock(function(){
+				this.state = EBlockState.NORMAL;
+				this.isMoveAndMatch = false;
+			}.bind(this));
 		}
 	}
 	
+	//this.isMoveAndMatch = (this.view.x === this.position.x && this.view.y === this.position.y);
 };
 
 BlockModel.Setting = {
-	SLIDING_SECONDS: 0.7	
+	SLIDING_SECONDS: 0.15	
 };

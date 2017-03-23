@@ -14,19 +14,29 @@ function InGameScene(aGame, aParent) {
 
 	/* --- pre-init-end --- */
 
-	this.game.add.sprite(0, 0, 'bgIngame', null, this);
-
 	var topUIContainer = this.game.add.group(this);
-	topUIContainer.position.setTo(0, 70);
+
+	this.game.add.sprite(0, 0, 'inGameUI', 'upPanel.png', topUIContainer);
+
+	this.game.add.sprite(8, 228, 'inGameUI', 'img_time_gauge_head.png.png', topUIContainer);
+
+	this.game.add.sprite(465, 228, 'inGameUI', 'img_time_gauge_tail.png.png', topUIContainer);
+
+	var timeGageBody = this.game.add.sprite(18, 228, 'inGameUI', 'img_time_gauge_body.png.png', topUIContainer);
 
 	var gameBoard = this.game.add.group(this);
 	gameBoard.position.setTo(0, 300);
 
+	this.game.add.sprite(0, 0, 'inGameUI', 'board.png', gameBoard);
+
 	var opponentContainer = this.game.add.group(this);
+
+	this.game.add.sprite(0, 776, 'inGameUI', 'line.png', this);
 
 	 // public fields
 
 	this.fTopUIContainer = topUIContainer;
+	this.fTimeGageBody = timeGageBody;
 	this.fGameBoard = gameBoard;
 	this.fOpponentContainer = opponentContainer;
 
@@ -38,7 +48,7 @@ function InGameScene(aGame, aParent) {
 	// set masking
 	var boardMask = this.game.add.graphics(this.fGameBoard.x, this.fGameBoard.y);
 	boardMask.beginFill(0xffffff);
-	boardMask.drawRect(0, 0, 480, 480);
+	boardMask.drawRect(0, 0, 480, 476);
 	this.fGameBoard.mask = boardMask;
 	
 	

@@ -1,238 +1,43 @@
 {
   "settings": {
-    "sceneWidth": 640,
-    "sceneHeight": 360,
+    "sceneWidth": 480,
+    "sceneHeight": 800,
     "generateOnSave": true,
     "enableStepping": false
   },
   "world": {
     "type": "group",
-    "id": "10e72147-f454-4169-8740-2a74ddcc7ad3",
+    "id": "d15b3176-d13f-4d8c-ade4-a8cc71afe4e1",
     "info": {
-      "editorName": "lobbyScene",
+      "editorName": "LobbyScene",
       "children": [
         {
           "type": "image",
-          "id": "4ff1390e-bca4-4fdc-830a-2e9ecf08042d",
+          "id": "d583024e-aeab-4c29-bd9e-4b993250f29f",
           "asset": "0",
           "info": {
-            "editorName": "bgLobby",
-            "editorPick": false
+            "editorName": "arena",
+            "x": 248,
+            "y": 310,
+            "scale.x": 1.5388442225934185,
+            "scale.y": 1.7243704571243241,
+            "anchor.x": 0.5,
+            "anchor.y": 0.5
           }
         },
         {
-          "type": "group",
-          "id": "919d629e-4a7d-43a9-b590-129a19e5c429",
+          "type": "image",
+          "id": "c5dfa694-f8c0-43be-ae6c-1ec17e6468f1",
+          "asset": "1",
           "info": {
-            "editorName": "groupMenuBotton",
-            "children": [
-              {
-                "type": "atlas-sprite",
-                "id": "0e830fd4-c6be-4131-994f-96481a9d32c1",
-                "asset": "1",
-                "info": {
-                  "editorName": "btnSetting",
-                  "editorPublic": true,
-                  "x": 370,
-                  "y": 680
-                }
-              },
-              {
-                "type": "atlas-sprite",
-                "id": "e86ace4d-20fb-48d5-a4d6-ab1094d3fbff",
-                "asset": "1",
-                "info": {
-                  "editorName": "btnMessage",
-                  "editorPick": false,
-                  "editorPublic": true,
-                  "x": 254,
-                  "y": 680
-                }
-              },
-              {
-                "type": "atlas-sprite",
-                "id": "d56441e9-5ad9-4a65-9a86-9639bae89de7",
-                "asset": "1",
-                "info": {
-                  "editorName": "btnFriends",
-                  "editorPublic": true,
-                  "x": 135,
-                  "y": 680
-                }
-              },
-              {
-                "type": "atlas-sprite",
-                "id": "e08aa53e-d9c7-477c-82ae-59b8f4640643",
-                "asset": "1",
-                "info": {
-                  "editorName": "btnMission",
-                  "editorPublic": true,
-                  "x": 13,
-                  "y": 680
-                }
-              },
-              {
-                "type": "atlas-sprite",
-                "id": "3e7c8a9e-07d8-40f9-9cd4-052d5dd3c891",
-                "asset": "2",
-                "info": {
-                  "editorName": "iconMessage_png",
-                  "x": 281,
-                  "y": 703
-                }
-              },
-              {
-                "type": "atlas-sprite",
-                "id": "52b10aaa-7cec-43e4-8e10-b8c92f7d6ce2",
-                "asset": "3",
-                "info": {
-                  "editorName": "iconSetting_png",
-                  "x": 396,
-                  "y": 699
-                }
-              },
-              {
-                "type": "atlas-sprite",
-                "id": "c4f54d6f-2451-41a1-9df8-a6264a32b871",
-                "asset": "4",
-                "info": {
-                  "editorName": "iconMisson_png",
-                  "x": 30,
-                  "y": 692
-                }
-              },
-              {
-                "type": "atlas-sprite",
-                "id": "ddbcbbde-531e-4951-9c8d-c7d42c54c852",
-                "asset": "5",
-                "info": {
-                  "editorName": "iconFriend_png",
-                  "x": 166,
-                  "y": 700
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "group",
-          "id": "5dc1956a-7e4c-4935-8284-8e2cce9b729e",
-          "info": {
-            "editorName": "groupModeButton",
-            "children": [
-              {
-                "type": "button",
-                "id": "0549e017-a4cd-4ac6-a621-70f0bd08c5ef",
-                "asset": "6",
-                "info": {
-                  "editorName": "btnMode_png11",
-                  "x": 334,
-                  "y": 552
-                }
-              },
-              {
-                "type": "button",
-                "id": "6fa28ad3-3511-478c-9cfd-2ecb733356d9",
-                "asset": "6",
-                "info": {
-                  "editorName": "btnMode_png1",
-                  "x": 181,
-                  "y": 552
-                }
-              },
-              {
-                "type": "button",
-                "id": "6b996d82-d83d-4651-9b74-4c28da92a6a9",
-                "asset": "6",
-                "info": {
-                  "editorName": "btnMode_png",
-                  "x": 33,
-                  "y": 552
-                }
-              },
-              {
-                "type": "atlas-sprite",
-                "id": "d8a4fcc9-45af-4048-ae29-33ac63a086ea",
-                "asset": "7",
-                "info": {
-                  "editorName": "ribbonmode_png",
-                  "x": 146,
-                  "y": 504
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "group",
-          "id": "f9a9ea36-574e-4a2d-bc18-0c59b7f57bf8",
-          "info": {
-            "editorName": "mainUI",
-            "children": [
-              {
-                "type": "atlas-sprite",
-                "id": "c6ffd5e2-4ae0-41cc-8ff2-5956754c35e2",
-                "asset": "8",
-                "info": {
-                  "editorName": "bgBack_png",
-                  "x": 46,
-                  "y": 99,
-                  "scale.y": 0.9414514237358661
-                }
-              },
-              {
-                "type": "atlas-sprite",
-                "id": "facb115d-c300-4471-b20c-25f8c9880e8a",
-                "asset": "9",
-                "info": {
-                  "editorName": "bgText_png",
-                  "x": 129,
-                  "y": 155
-                }
-              },
-              {
-                "type": "button",
-                "id": "15da43d2-4537-4722-b276-93c46a69b673",
-                "asset": "10",
-                "info": {
-                  "editorName": "Bitmap_5_png",
-                  "editorPublic": true,
-                  "x": 135,
-                  "y": 402
-                }
-              },
-              {
-                "type": "atlas-sprite",
-                "id": "06cde82b-2991-4a27-b275-676bab9d4d11",
-                "asset": "11",
-                "info": {
-                  "editorName": "bg_png",
-                  "editorPick": false,
-                  "editorPublic": true,
-                  "x": 58,
-                  "y": 129
-                }
-              },
-              {
-                "type": "atlas-sprite",
-                "id": "8417f84a-3df3-4e69-b914-f7822cf2ab3a",
-                "asset": "9",
-                "info": {
-                  "editorName": "bgText_png1",
-                  "x": 133,
-                  "y": 143
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "group",
-          "id": "6407bbba-0ca6-4fe7-9bd6-302b713b1c74",
-          "info": {
-            "editorName": "groupProfile",
+            "editorName": "btn_stage",
             "editorPublic": true,
-            "children": []
+            "x": 248,
+            "y": 595,
+            "scale.x": 0.8991221573684935,
+            "scale.y": 0.8428428689301836,
+            "anchor.x": 0.5,
+            "anchor.y": 0.5
           }
         }
       ]
@@ -241,74 +46,13 @@
   "asset-table": {
     "0": {
       "file": "WebContent/assets/assets-pack.json",
-      "section": "mainUI",
-      "asset": "bgLobby"
+      "section": "lobby",
+      "asset": "arena"
     },
     "1": {
       "file": "WebContent/assets/assets-pack.json",
-      "section": "mainUI",
-      "asset": "mainUI",
-      "sprite": "btn_menu.png"
-    },
-    "2": {
-      "file": "WebContent/assets/assets-pack.json",
-      "section": "mainUI",
-      "asset": "mainUI",
-      "sprite": "iconMessage.png"
-    },
-    "3": {
-      "file": "WebContent/assets/assets-pack.json",
-      "section": "mainUI",
-      "asset": "mainUI",
-      "sprite": "iconSetting.png"
-    },
-    "4": {
-      "file": "WebContent/assets/assets-pack.json",
-      "section": "mainUI",
-      "asset": "mainUI",
-      "sprite": "iconMisson.png"
-    },
-    "5": {
-      "file": "WebContent/assets/assets-pack.json",
-      "section": "mainUI",
-      "asset": "mainUI",
-      "sprite": "iconFriend.png"
-    },
-    "6": {
-      "file": "WebContent/assets/assets-pack.json",
-      "section": "mainUI",
-      "asset": "mainUI",
-      "sprite": "btnMode.png"
-    },
-    "7": {
-      "file": "WebContent/assets/assets-pack.json",
-      "section": "mainUI",
-      "asset": "mainUI",
-      "sprite": "ribbonmode.png"
-    },
-    "8": {
-      "file": "WebContent/assets/assets-pack.json",
-      "section": "mainUI",
-      "asset": "mainUI",
-      "sprite": "bgBack.png"
-    },
-    "9": {
-      "file": "WebContent/assets/assets-pack.json",
-      "section": "mainUI",
-      "asset": "mainUI",
-      "sprite": "bgText.png"
-    },
-    "10": {
-      "file": "WebContent/assets/assets-pack.json",
-      "section": "mainUI",
-      "asset": "mainUI",
-      "sprite": "Bitmap 5.png"
-    },
-    "11": {
-      "file": "WebContent/assets/assets-pack.json",
-      "section": "mainUI",
-      "asset": "mainUI",
-      "sprite": "bg.png"
+      "section": "lobby",
+      "asset": "btn_stage"
     }
   }
 }

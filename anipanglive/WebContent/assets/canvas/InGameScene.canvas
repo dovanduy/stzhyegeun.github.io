@@ -12,19 +12,53 @@
       "editorName": "InGameScene",
       "children": [
         {
-          "type": "image",
-          "id": "73a230e8-22c9-4580-91c4-1e86299e1404",
-          "asset": "0",
-          "info": {"editorName": "bgIngame"}
-        },
-        {
           "type": "group",
           "id": "77378eae-ecea-419e-9143-2135d40e145a",
           "info": {
             "editorName": "topUIContainer",
             "editorPublic": true,
-            "y": 70,
-            "children": []
+            "children": [
+              {
+                "type": "atlas-sprite",
+                "id": "2afb0613-d37c-4165-9053-32fd817c31df",
+                "asset": "0",
+                "info": {
+                  "editorName": "upPanel_png",
+                  "editorPick": false
+                }
+              },
+              {
+                "type": "atlas-sprite",
+                "id": "83fbb420-ca64-4006-8681-b53a3d43c027",
+                "asset": "1",
+                "info": {
+                  "editorName": "img_time_gauge_head_png_png",
+                  "x": 8,
+                  "y": 228
+                }
+              },
+              {
+                "type": "atlas-sprite",
+                "id": "7a066b07-f089-4473-8586-c78108e6f2cd",
+                "asset": "2",
+                "info": {
+                  "editorName": "img_time_gauge_tail_png_png",
+                  "x": 465,
+                  "y": 228
+                }
+              },
+              {
+                "type": "atlas-sprite",
+                "id": "9cb195f7-94fd-42ce-86d1-fb9280cba296",
+                "asset": "3",
+                "info": {
+                  "editorName": "timeGageBody",
+                  "editorPublic": true,
+                  "x": 18,
+                  "y": 228
+                }
+              }
+            ]
           }
         },
         {
@@ -34,7 +68,12 @@
             "editorName": "gameBoard",
             "editorPublic": true,
             "y": 300,
-            "children": []
+            "children": [{
+              "type": "atlas-sprite",
+              "id": "43ea087d-e481-4c5b-af9f-8bd77c636e88",
+              "asset": "4",
+              "info": {"editorName": "board_png"}
+            }]
           }
         },
         {
@@ -45,13 +84,55 @@
             "editorPublic": true,
             "children": []
           }
+        },
+        {
+          "type": "atlas-sprite",
+          "id": "ec76fed9-0ff6-462c-8079-31ec56f2e2b2",
+          "asset": "5",
+          "info": {
+            "editorName": "line_png",
+            "y": 776
+          }
         }
       ]
     }
   },
-  "asset-table": {"0": {
-    "file": "WebContent/assets/assets-pack.json",
-    "section": "ingame",
-    "asset": "bgIngame"
-  }}
+  "asset-table": {
+    "0": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "inGameUI",
+      "sprite": "upPanel.png"
+    },
+    "1": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "inGameUI",
+      "sprite": "img_time_gauge_head.png.png"
+    },
+    "2": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "inGameUI",
+      "sprite": "img_time_gauge_tail.png.png"
+    },
+    "3": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "inGameUI",
+      "sprite": "img_time_gauge_body.png.png"
+    },
+    "4": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "inGameUI",
+      "sprite": "board.png"
+    },
+    "5": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "inGameUI",
+      "sprite": "line.png"
+    }
+  }
 }

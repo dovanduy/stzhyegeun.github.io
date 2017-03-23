@@ -11,40 +11,62 @@ Preload.prototype = proto;
 
 Preload.prototype.preload = function() {
 	
-	this.scene = new PreloadScene(this.game);
-	
+	if (window.FBInstant) {
+		FBInstant.setLoadingProgress(40);
+	}
+
+	game.load.onFileComplete.add(this.fileComplete, this);
+	game.load.onLoadComplete.add(this.loadComplete, this);
+
+	game.load.pack("ingame", "assets/assets-pack.json");
+	game.load.pack("lobby", "assets/assets-pack.json");
+
+	game.load.start();
 };
+
 
 Preload.prototype.create = function() {
-	
-	this.game.load.onLoadStart.add(Preload.OnLoadStart, this);
-	this.game.load.onFileComplete.add(Preload.OnFileComplete, this);
-	this.game.load.onLoadComplete.add(Preload.OnLoadComplete, this);
-	
-	this.game.load.pack("mainUI", "assets/assets-pack.json");
-	this.game.load.pack("ingame", "assets/assets-pack.json");
-	
-	this.game.load.start();
+	 this.game.stage.backgroundColor = "#ffffff";
 };
 
-Preload.OnLoadStart = function() {
-	StzCommon.StzLog.print("[Preload] OnLoadStart");
+Preload.prototype.fileComplete = function(progress, cacheKey, success, totalLoaded, totalFiles) {
+    var prog = 50 + 20 * (totalLoaded - 1) / totalFiles;
+    if (window.FBInstant) {
+    	FBInstant.setLoadingProgress(prog);
+    }
 };
 
-Preload.OnFileComplete = function(progress, cacheKey, success, totalLoaded, totalFiles) {
-	StzCommon.StzLog.print("[Preload] OnLoadFileComplete (" + cacheKey + ") - " + progress + "%, " + totalLoaded + " / " + totalFiles);
+Preload.prototype.loadComplete = function () {
+	// 바인딩을 제거하지 않으면 다른 스테이트의 로딩 완료 시, 여기서 또 처리됨.
+	game.load.onLoadStart.removeAll();
+	game.load.onFileComplete.removeAll();
+	game.load.onLoadComplete.removeAll();
+
+	var userId = "0";
+	var userName = "guest";
+	var userThumbnail = "ani";
+	if (window.FBInstant) {
+		FBInstant.setLoadingProgress(100);
+		userId = FBInstant.player.getId();
+		userName = FBInstant.player.getName();
+		userThumbnail = FBInstant.player.getPhoto();
+	}
 	
-	// Calculate loadingbar width
-	var currentBarWidth = (progress / 100) * this.scene.fImgLoadingBar.MAX_TARGET_WIDTH;
-	this.scene.fImgLoadingBar.targetWidth = currentBarWidth;
+	
+	if (window.realjs && realjs.realState === realjs.EState.CONNECT) {
+		realjs.event.loginListener.add(function(data){
+			realjs.realJoinLobby(false);
+			if (window.FBInstant) {
+				FBInstant.startGameAsync().then(function() {
+					this.game.state.start("Lobby");
+				});
+			} else {
+				this.game.state.start("Lobby");
+			}
+		}, this);
+		realjs.realLogin(userId, userName, userThumbnail, '5000', '');
+	} else {
+		this.game.state.start("Lobby");
+	}
 };
 
-Preload.OnLoadComplete = function() {
-	StzCommon.StzLog.print("[Preload] OnLoadComplete");
-	
-	this.game.load.onLoadStart.removeAll();
-	this.game.load.onFileComplete.removeAll();
-	this.game.load.onLoadComplete.removeAll();
-	
-	this.game.state.start("Lobby");
-};

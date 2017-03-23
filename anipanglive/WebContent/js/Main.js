@@ -1,13 +1,53 @@
-window.onRequireLoad = function() {
+if(window.location.href.indexOf("instant-bundle") == -1 && window.location.href.indexOf("https://localhost") == -1) {
+    window.FBInstant = null;
+}
 
-	var game = new Phaser.Game(StzGameConfig.GAME_WIDTH, StzGameConfig.GAME_HEIGHT, Phaser.AUTO, '', {
-		preload: function() {
-			game.load.pack('boot', 'assets/assets-pack.json');
-		}, 
-		create: function() {
-			StzCommon.StzLog.assert(StzGameConfig !== undefined, "[index.html] StzGameConfig not loaded");
-			game.state.add('Boot', Boot);
-			game.state.start('Boot');
-		}
-	});
+if (StzRealJSConfig.SERVER_ENABLE === false) {
+	window.realjs = null;	
+}
+
+
+var startAnipangMulti = function()
+{
+	if (window.realjs) {
+		realjs.realConnect('ws://html5.stzapp.net:11000', {
+			transports: ['websocket'], 
+			path: '/rt', 
+			upgrade: false
+		});
+	}
+	
+    if (window.FBInstant) {
+        FBInstant.setLoadingProgress(10);
+    }
+
+    // set display ratio
+    var documentWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+    var documentHeight = window.innerHeight || document.docuemntElement.clientHeight || document.body.clientHeight;
+    var documentRatio = documentHeight / documentWidth;
+
+    var screenScale = 1;
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        if (documentRatio > 1.6) {
+            documentRatio = 1.6;
+        }
+    } else {
+        documentRatio = 1.67;
+    }
+
+    var gameWidth = 480 * screenScale;
+    var gameHeight = Math.floor(480 * screenScale * documentRatio); 
+	this.game = new Phaser.Game(gameWidth , gameHeight, Phaser.AUTO, 'gameContainer');
+
+    if (window.FBInstant) {
+        FBInstant.setLoadingProgress(20);
+    }
+
+	this.game.preserveDrawingBuffer = true;
+	this.game.state.add("Boot", Boot);	
+	this.game.state.add("Preload", Preload);
+	this.game.state.add("Lobby", Lobby);
+	this.game.state.add("InGame", InGame);
+
+	this.game.state.start("Boot");  
 };

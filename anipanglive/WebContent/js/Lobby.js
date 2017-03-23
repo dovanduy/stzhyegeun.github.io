@@ -1,88 +1,88 @@
-
-/**
- * Menu state.
- */
 function Lobby() {
 	Phaser.State.call(this);
 }
 
-/** @type Phaser.State */
 var proto = Object.create(Phaser.State);
 Lobby.prototype = proto;
-var ListView = window.PhaserListView.ListView;
+
+Lobby.prototype.init = function() {
+	this.isWaiting = false;
+	this.waitingTimer = this.game.time.create(false);
+	this.remainWaitingTime = 30;
+};
 
 Lobby.prototype.preload = function() {
-	this.scene = new lobbyScene(this.game);
-	
-	this.profile = new Profile(this.game, this, 0);
-	this.scene.fGroupProfile.add(this.profile.scene);
+	this.scene = new LobbyScene(this.game);
 };
 
 Lobby.prototype.create = function() {
-	this.createListItemView();
+	this.scene.fBtn_stage.events.onInputDown.add(this.OnClickGameStart, this);
+};
+
+Lobby.prototype.OnClickGameStart = function(sprite, pointer) {
+	StzLog.print("[Lobby (OnClickGameStart)]");
 	
-	this.scene.fBitmap_5_png.inputEnabled = true;
-	this.scene.fBitmap_5_png.events.onInputUp.add(this.onStartGame, this);
+	if (this.isWaiting == false) {
+		this.isWaiting = true;
+		this.scene.fTxt_stage.text = "Waiting : " + this.remainWaitingTime + " sec";
+		this.waitingTimer.loop(1000, function(){
+			if (this.isWaiting == false) {
+				return;
+			}
+			this.remainWaitingTime--;
+			this.scene.fTxt_stage.text = "Waiting : " + this.remainWaitingTime + " sec";
+			
+			if (this.remainWaitingTime <= 20) {
+				// 봇모드로 시작
+				this.startInGameState(true);
+			}
+		}, this);
+		
+		this.waitingTimer.start();
+		
+		if (window.realjs) {
+			realjs.event.getRoomListListener.add(function(data) {
+				for (var index = data.room_list.length - 1; index >= 0; index--) {
+					if (data.room_list[index].id === 'lobby') {
+						continue;
+					}
+					
+					if (data.room_list[index].user_count >= StzRealJSConfig.GAME_MEMBER_PER_ROOM) {
+						continue;
+					}
+					realjs.realJoinRoomById(data.room_list[index].id);
+					return false;
+				}
+				realjs.realCreateRoom();
+			}, this);
+			
+			realjs.event.joinRoomListener.add(function(data) {
+				if (data.members.length === 2) {
+					this.startInGameState(false);
+				} else if (data.member.length === 1){
+					StzLog.print('[Lobby] ROOM:JOIN | waiting');
+				}
+			}, this);
+			
+			realjs.event.createRoomListener.add(function(data) {
+				StzLog.print('[Lobby] ROOM:CREATE | waiting');
+			});
+			
+			realjs.realGetRoomList();
+		} else {
+			this.startInGameState(true);
+		}
+	}
+};
+
+Lobby.prototype.startInGameState = function(isBot) {
+	if (window.realjs) {
+		realjs.event.getRoomListListener.removeAll();
+		realjs.event.joinRoomListener.removeAll();
+		realjs.event.createRoomListener.removeAll();
+		realjs.realJoinLobby(false);
+	}
 	
-	this.game.state.add("InGame", InGame);
+	this.waitingTimer.stop();
 	this.game.state.start("InGame");
-};
-
-Lobby.prototype.createListItemView = function() {
-	
-   this.listView = new ListView(this.game, this.world, new Phaser.Rectangle(60, 180, 375, 266), {
-      direction: 'x',
-      padding: 10,
-      searchForClicks:true
-    });
-
-    for (var i = 0; i < 30; i++) {
-    	
-//      var img = this.game.add.image(0, 0, this.scene.fGroupItemList.generateTexture());
-//      img.inputEnabled = true;
-//      img.events.onInputUp.add(this.test, this);
-      var group = this.game.make.group(this.scene);
-      
-      var buttonUP = this.game.add.sprite(0,0,"mainUI", "btnItemBg.png", group);
-      buttonUP.name = "up"+ i;
-      buttonUP.inputEnabled = true;
-      buttonUP.events.onInputUp.add(this.test, this);
-      buttonUP.scale.set(0.9, 0.9);
-      
-      var buttonDown = this.game.add.sprite(0,110,"mainUI", "btnItemBg.png", group);
-      buttonDown.name = "down"+ i;
-      buttonDown.inputEnabled = true;
-      buttonDown.events.onInputUp.add(this.test, this);
-      buttonDown.scale.set(0.9, 0.9);
-      
-      var starUP = this.game.add.sprite(22,25,"mainUI", "ico_item_star.png", group);
-      var starDown = this.game.add.sprite(22,135,"mainUI", "ico_item_star.png", group);
-     
-      group.add(buttonUP);
-      group.add(buttonDown);
-      group.add(starUP);
-      group.add(starDown);
-      //this.scene.fGroupItemList.z = 0;
-      //var test=[buttonUP,buttonDown];
-      this.listView.add(group);
-     
-      //this.listView.addListeners(onUpdate, this.test);
-      //listView.inputEnabled = true;
-     //listView.addMultiple(buttonUP, buttonDown);
-    }
-};
-
-Lobby.prototype.test = function(sprite, pointer) {
-	StzCommon.StzLog.print("[Menu] onBtnClick - sprite: " + sprite.name);
-	 //this.listView.setPosition(pointer);
-	if(sprite.frameName === "btnItemBg.png"){
-		sprite.frameName = "btnItemClickedBg.png";
-	}
-	else{
-		sprite.frameName = "btnItemBg.png";
-	}
-};
-
-Lobby.prototype.onStartGame = function() {
-	
 };

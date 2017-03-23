@@ -1,54 +1,10 @@
 {
-    "boot": [{
-        "type": "image",
-        "key": "stz_logo",
-        "url": "lib/stz-common-js/image/stz_logo.png",
-        "overwrite": false
-    }],
-    "preload": [
-        {
-            "type": "image",
-            "key": "preloader",
-            "url": "assets/images/preloader.png",
-            "overwrite": false
-        },
-        {
-            "type": "script",
-            "key": "PreloadScene",
-            "url": "assets/canvas/PreloadScene.js"
-        },
-        {
-            "type": "image",
-            "key": "preload_loading_bar",
-            "url": "assets/images/preload_loading_bar.png",
-            "overwrite": false
-        },
-        {
-            "type": "image",
-            "key": "preload_loading_base",
-            "url": "assets/images/preload_loading_base.png",
-            "overwrite": false
-        }
-    ],
     "ingame": [
-        {
-            "type": "image",
-            "key": "bgIngame",
-            "url": "assets/images/bgIngame.png",
-            "overwrite": false
-        },
         {
             "type": "atlas",
             "key": "blocks",
             "textureURL": "assets/images/blocks.png",
             "atlasURL": "assets/images/blocks.json",
-            "format": "TEXTURE_ATLAS_JSON_ARRAY"
-        },
-        {
-            "type": "atlas",
-            "key": "board",
-            "textureURL": "assets/images/board.png",
-            "atlasURL": "assets/images/board.json",
             "format": "TEXTURE_ATLAS_JSON_ARRAY"
         },
         {
@@ -95,35 +51,36 @@
             "type": "script",
             "key": "InGameScene",
             "url": "assets/canvas/InGameScene.js"
-        }
-    ],
-    "mainUI": [
+        },
         {
             "type": "atlas",
-            "key": "mainUI",
-            "textureURL": "assets/images/mainUI.png",
-            "atlasURL": "assets/images/mainUI.json",
+            "key": "inGameUI",
+            "textureURL": "assets/images/inGameUI.png",
+            "atlasURL": "assets/images/inGameUI.json",
             "format": "TEXTURE_ATLAS_JSON_ARRAY"
+        }
+    ],
+    "lobby": [
+        {
+            "type": "image",
+            "key": "arena",
+            "url": "assets/images/arena.jpg",
+            "overwrite": false
         },
         {
             "type": "image",
-            "key": "bgLobby",
-            "url": "assets/images/bgLobby.png",
+            "key": "btn_stage",
+            "url": "assets/images/btn_stage.png",
             "overwrite": false
         },
         {
             "type": "script",
-            "key": "lobbyScene",
-            "url": "assets/canvas/lobbyScene.js"
-        },
-        {
-            "type": "script",
-            "key": "ProFileScene",
-            "url": "assets/canvas/ProFileScene.js"
+            "key": "LobbyScene",
+            "url": "assets/canvas/LobbyScene.js"
         }
     ],
     "meta": {
-        "generated": "1489383522105",
+        "generated": "1490148913993",
         "app": "Phaser Editor",
         "url": "http://phasereditor.boniatillo.com",
         "version": "1.0",

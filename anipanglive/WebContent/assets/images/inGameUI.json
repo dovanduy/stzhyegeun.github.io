@@ -1,0 +1,60 @@
+{"frames": [
+
+{
+	"filename": "board.png",
+	"frame": {"x":0,"y":0,"w":480,"h":476},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":480,"h":476},
+	"sourceSize": {"w":480,"h":476}
+},
+{
+	"filename": "img_time_gauge_body.png.png",
+	"frame": {"x":0,"y":476,"w":450,"h":23},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":450,"h":23},
+	"sourceSize": {"w":450,"h":23}
+},
+{
+	"filename": "img_time_gauge_head.png.png",
+	"frame": {"x":450,"y":476,"w":10,"h":23},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":10,"h":23},
+	"sourceSize": {"w":10,"h":23}
+},
+{
+	"filename": "img_time_gauge_tail.png.png",
+	"frame": {"x":460,"y":476,"w":10,"h":23},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":10,"h":23},
+	"sourceSize": {"w":10,"h":23}
+},
+{
+	"filename": "line.png",
+	"frame": {"x":0,"y":499,"w":480,"h":25},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":480,"h":25},
+	"sourceSize": {"w":480,"h":25}
+},
+{
+	"filename": "upPanel.png",
+	"frame": {"x":0,"y":524,"w":480,"h":299},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":480,"h":299},
+	"sourceSize": {"w":480,"h":299}
+}],
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "inGameUI.png",
+	"format": "RGBA8888",
+	"size": {"w":480,"h":823},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:16699798832bcd2c1df14f0f22482ee4:6a218a61746c3cc319b7e906580d92a7:8336dcd25fbab227545f83fa865c6ce4$"
+}
+}
