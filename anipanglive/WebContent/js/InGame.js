@@ -399,13 +399,13 @@ var InGameController = function(inViewContext) {
 			 
 			 while(true){
 				 var randomType = StzUtil.createRandomInteger(7, blocks.length);
-				 if(blocks[randomType] === undefined && blocks[randomType] === null){
+				 if(blocks[randomType] === undefined || blocks[randomType] === null){
 					 continue;
 				 }
-				 else if(blocks[randomType].type === undefined && blocks[randomType].type === EBlockType.BOMB){
+				 else if(blocks[randomType].type === undefined || blocks[randomType].type === EBlockType.BOMB){
 					 continue;
 				 }
-				 else if(blocks[randomType].state === undefined && blocks[randomType].state !== EBlockState.NORMAL){
+				 else if(blocks[randomType].state === undefined || blocks[randomType].state !== EBlockState.NORMAL){
 					 continue;
 				 }
 				 else{
