@@ -12,6 +12,7 @@ InGame.prototype.init = function(inIsBot) {
 		this.aniBot = new AniBot(this, 10);
 		this.aniBot.autoDifficulty = true; // 자동 난이도 조절
 		this.aniBot.playListener = (function() {
+			this.rivalScore = this.aniBot.score;
 			if (this.rivalText) {
 				this.rivalText.text = "AniBot\nScore: " + this.aniBot.score + "\nCombo: " + this.aniBot.combo;
 			}
@@ -23,9 +24,9 @@ InGame.prototype.init = function(inIsBot) {
 				return;
 			}
 			
+			this.rivalScore = rivalData.score;
 			if (this.rivalText) {
 				var rivalData = JSON.parse(data.m);
-				this.rivalScore = rivalData.score;
 				this.rivalText.text = "Rival\nScore: " + this.rivalScore + "\nCombo: " + rivalData.combo;
 				StzLog.print("[InGame] onMessage: " + this.rivalText.text);
 			}
@@ -168,7 +169,7 @@ InGame.prototype.stopControllGame = function() {
 	// stop user play
 	this.controller.controlFlag(false);
 	
-	this.game.state.start("Result", false, false, [this.scoreData.getScore(), this.rivalScore]);
+	this.game.state.start("Result", true, false, [this.scoreData.getScore(), this.rivalScore]);
 	
 	
 };

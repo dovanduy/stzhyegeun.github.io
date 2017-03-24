@@ -64,11 +64,11 @@ Result.prototype.create = function() {
 	loserTitle.setTextBounds(0, this.game.height / 2, this.game.width, this.game.height / 2);//8);
 
 	if (this.scores.me >= this.scores.rival) {
-		winnerTitle.text = "WINNER\n\nME!!";
-		loserTitle.text = "loser\n\nrival";
+		winnerTitle.text = "WINNER\nME!! : " + this.scores.me;
+		loserTitle.text = "loser\n\nrival : " + this.scores.rival;
 	} else {
-		winnerTitle.text = "WINNER\n\nRIVAL!!";
-		loserTitle.text = "loser\n\nme";
+		winnerTitle.text = "WINNER\n\nRIVAL!! : " + this.scores.rival;
+		loserTitle.text = "loser\n\nme : " + this.scores.me;
 	}
 	
 	var buttonStyle = { font: '32px Arial', fill: '#ffffff', boundsAlignH: 'center', boundsAlignV: 'middle' };
