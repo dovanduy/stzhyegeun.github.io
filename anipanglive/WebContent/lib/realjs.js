@@ -219,9 +219,13 @@ var REALJS_DEBUG = true;
 				if (!data) {
 					throw new Error('[realjs-on] ROOM:MESSAGE failed!!');
 				}
+				
+				if (data.room != this.getJoinedRoomId()) {
+					return;
+				}
 
 				if (REALJS_DEBUG) {
-					console.log('[realjs-on] ROOM:MESSAGE | room: ' + data.room + 't: ' + data.t);
+					console.log('[realjs-on] ROOM:MESSAGE | room: ' + data.room + ', t: ' + data.t);
 				}
 				this.realState = this.EState.MESSAGE;
 				for (var index = this.event.messageListener._list.length - 1; index >= 0; index--) {

@@ -42,8 +42,13 @@ function Score() {
 			
 			if (comboDeltaTime < EScoreConfig.COMBO_TIME) {
 				self.setCombo(_combo + 1);	
-			} else {
+			} 
+			else if(startComboStamp === 0){
+				self.setCombo(_combo + 1);	
+			}
+			else {
 				self.setCombo(0);
+				startComboStamp = 0;
 				return;
 			}
 		}
@@ -61,7 +66,7 @@ function Score() {
 	self.setCombo = function(inComboValue) {
 		_combo = inComboValue;
 		if (inComboValue === 0) {
-			startComboStame = 0;
+			startComboStamp = 0;
 		}
 		if (self.onComboUpdated) {
 			self.onComboUpdated(_combo, EScoreConfig.COMBO_TIME);

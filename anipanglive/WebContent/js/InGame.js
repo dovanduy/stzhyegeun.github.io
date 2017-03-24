@@ -23,10 +23,11 @@ InGame.prototype.init = function(inIsBot) {
 			if (data.sid === realjs.getMySessionId()) {
 				return;
 			}
-			
+
+			var rivalData = JSON.parse(data.m);
 			this.rivalScore = rivalData.score;
 			if (this.rivalText) {
-				var rivalData = JSON.parse(data.m);
+				
 				this.rivalText.text = "Rival\nScore: " + this.rivalScore + "\nCombo: " + rivalData.combo;
 				StzLog.print("[InGame] onMessage: " + this.rivalText.text);
 			}

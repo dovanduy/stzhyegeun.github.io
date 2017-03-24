@@ -33,7 +33,7 @@ Lobby.prototype.OnClickGameStart = function(sprite, pointer) {
 			this.remainWaitingTime--;
 			this.scene.fTxt_stage.text = "Waiting : " + this.remainWaitingTime + " sec";
 			
-			if (this.remainWaitingTime <= 10) {
+			if (this.remainWaitingTime <= 30) {
 				// 봇모드로 시작
 				this.startInGameState(true);
 			}
@@ -58,6 +58,11 @@ Lobby.prototype.OnClickGameStart = function(sprite, pointer) {
 			}, this);
 			
 			realjs.event.joinRoomListener.add(function(data) {
+				
+				if (data.room_id === 'lobby') {
+					return;
+				}
+				
 				if (data.members.length === 2) {
 					this.startInGameState(false);
 				} 
@@ -74,7 +79,10 @@ Lobby.prototype.startInGameState = function(isBot) {
 	if (window.realjs) {
 		realjs.event.getRoomListListener.removeAll();
 		realjs.event.joinRoomListener.removeAll();
-		realjs.realJoinLobby(false);
+		
+		if (isBot) {
+			realjs.realJoinLobby(false);
+		}
 	}
 	
 	this.waitingTimer.stop();
