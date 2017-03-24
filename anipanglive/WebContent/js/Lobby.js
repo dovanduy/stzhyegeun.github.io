@@ -33,7 +33,7 @@ Lobby.prototype.OnClickGameStart = function(sprite, pointer) {
 			this.remainWaitingTime--;
 			this.scene.fTxt_stage.text = "Waiting : " + this.remainWaitingTime + " sec";
 			
-			if (this.remainWaitingTime <= 20) {
+			if (this.remainWaitingTime <= 10) {
 				// 봇모드로 시작
 				this.startInGameState(true);
 			}

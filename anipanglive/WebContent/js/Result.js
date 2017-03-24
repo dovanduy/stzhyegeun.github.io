@@ -31,7 +31,9 @@ Result.prototype.init = function() {
 				realjs.event.messageListener.removeAll();
 				this.game.state.start("InGame");
 			} else {
+				
 				realjs.event.messageListener.removeAll();
+				realjs.realJoinLobby(false);
 				this.game.state.start("Lobby");
 			}
 			

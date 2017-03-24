@@ -402,10 +402,10 @@ var InGameController = function(inViewContext) {
 				 if(blocks[randomType] === undefined && blocks[randomType] === null){
 					 continue;
 				 }
-				 else if(blocks[randomType].type !== undefined && blocks[randomType].type === EBlockType.BOMB){
+				 else if(blocks[randomType].type === undefined && blocks[randomType].type === EBlockType.BOMB){
 					 continue;
 				 }
-				 else if(blocks[randomType].state !== undefined && blocks[randomType].state !== EBlockState.NORMAL){
+				 else if(blocks[randomType].state === undefined && blocks[randomType].state !== EBlockState.NORMAL){
 					 continue;
 				 }
 				 else{
