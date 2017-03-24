@@ -5,12 +5,12 @@ function Result() {
 var proto = Object.create(Phaser.State);
 Result.prototype = proto;
 
-Result.prototype.init = function(inMyScore, inRivalScore) {
+Result.prototype.init = function(inScores) {
 	
 	
 	this.scores = {
-		'me': inMyScore, 
-		'rival': inRivalScore
+		'me': inScores[0], 
+		'rival': inScores[1]
 	};
 	
 	this.isPlayAgain = {
@@ -54,24 +54,36 @@ Result.prototype.create = function() {
 	this.game.stage.backgroundColor = "#4BC1CE";
 	
 	var titleStyle = { font: 'bold 64px Arial', fill: '#ffffff', boundsAlignH: 'center', boundsAlignV: 'middle' };
-
+	var buttonStyle = { font: '32px Arial', fill: '#ffffff', boundsAlignH: 'center', boundsAlignV: 'middle' };
+	
+	
 	var winnerTitle = this.game.add.text(0, 0, "WINNER", titleStyle);
 	winnerTitle.setShadow(3, 3, 'rgb(0,0,0)', 2);
-	winnerTitle.setTextBounds(0, 0, this.game.width, this.game.height / 2);//8);
+	winnerTitle.setTextBounds(0, 0, this.game.width, this.game.height / 4);
 	
 	var loserTitle = this.game.add.text(0, 0, "loser", titleStyle);
 	loserTitle.setShadow(3, 3, 'rgb(0,0,0)', 2);
-	loserTitle.setTextBounds(0, this.game.height / 2, this.game.width, this.game.height / 2);//8);
+	loserTitle.setTextBounds(0, this.game.height / 2, this.game.width, this.game.height / 4);
 
-	if (this.scores.me >= this.scores.rival) {
-		winnerTitle.text = "WINNER\nME!! : " + this.scores.me;
-		loserTitle.text = "loser\n\nrival : " + this.scores.rival;
-	} else {
-		winnerTitle.text = "WINNER\n\nRIVAL!! : " + this.scores.rival;
-		loserTitle.text = "loser\n\nme : " + this.scores.me;
-	}
+	var txtWinnerScore = this.game.add.text(0, 0, "0", buttonStyle); 
+	txtWinnerScore.setTextBounds(0, this.game.height / 4, this.game.width, this.game.height / 8);
 	
-	var buttonStyle = { font: '32px Arial', fill: '#ffffff', boundsAlignH: 'center', boundsAlignV: 'middle' };
+	var txtLoserScore = this.game.add.text(0, 0, "0", buttonStyle);
+	txtLoserScore.setTextBounds(0, this.game.height / 4 * 3, this.game.width, this.game.height / 8);
+	
+	
+	if (this.scores.me >= this.scores.rival) {
+		winnerTitle.text = "WINNER\nME!!";
+		txtWinnerScore.text = "" + this.scores.me;
+		loserTitle.text = "loser\nrival";
+		txtLoserScore.text = "" + this.scores.rival;
+	} else {
+		winnerTitle.text = "WINNER\nRIVAL!!";
+		txtWinnerScore.text = "" + this.scores.rival;
+		loserTitle.text = "loser\nme";
+		txtLoserScore.text = "" + this.scores.me;
+	}	
+
 	var txtPlayAgain = this.game.add.text(0, 0, "PLAY AGAIN", buttonStyle);
 	txtPlayAgain.setTextBounds(0, this.game.height - 100, this.game.width / 2, 100);
 	txtPlayAgain.inputEnabled = true;
