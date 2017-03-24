@@ -8,46 +8,65 @@ function Score() {
 		return new Score();
 	}
 	
-	this._score = 0;
-	this._combo = 0;
-	
-	var self = {};
+	var _score = 0;
+	var _combo = 0;
+	var startComboStamp = 0;
+		
+	var self = {
+		onScoreUpdated: null,
+		onComboUpdated: null
+	};
 	
 	self.initData = function(){
-		this._score = 0;
-		this._combo = 0;
+		_score = 0;
+		_combo = 0;
+		self.onScoreUpdated = null;
+		self.onComboUpdated = null;
 	};
 	
 	self.getScoreText = function(){
-		return StzUtil.createNumComma(this._score);
-	}.bind(this),
+		return StzUtil.createNumComma(_score);
+	};
 	
 	
 	self.getScore = function(){
-		return this._score;
-	}.bind(this),
+		return _score;
+	};
 	
-	self.setScore = function(count){
-		this._score  = this._score + ((this._combo + 1)*EScoreConfig.UNIT_SCORE)*count;
-	}.bind(this),
-	
-	self.getCombo = function(){
-		return this._combo;
-	}.bind(this),
-	
-	self.setCombo = function(comboDeltaTime, isComboUp){
-		if(comboDeltaTime < EScoreConfig.COMBO_TIME){
-			if(isComboUp == true){
-				this._combo++;
+	self.setScore = function(count, inByUser){
+		_score  = _score + ((_combo + 1)*EScoreConfig.UNIT_SCORE)*count;
+		
+		if (inByUser) {
+			var currentComboStamp = (new Date()).getTime();
+			var comboDeltaTime = currentComboStamp - startComboStamp;
+			
+			if (comboDeltaTime < EScoreConfig.COMBO_TIME) {
+				self.setCombo(_combo + 1);	
+			} else {
+				self.setCombo(0);
+				return;
 			}
 		}
-		else
-		{
-			this._combo = 0;
-		}
+		startComboStamp = (new Date()).getTime();
 		
-		return this._combo;
-	}.bind(this);
+		if (self.onScoreUpdated) {
+			self.onScoreUpdated(_score);
+		}
+	};
+
+	self.getCombo = function(){
+		return _combo;
+	};
+	
+	self.setCombo = function(inComboValue) {
+		_combo = inComboValue;
+		if (inComboValue === 0) {
+			startComboStame = 0;
+		}
+		if (self.onComboUpdated) {
+			self.onComboUpdated(_combo, EScoreConfig.COMBO_TIME);
+		}
+	};
 	
 	return self;
 }

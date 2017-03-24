@@ -16,6 +16,7 @@ Lobby.prototype.preload = function() {
 };
 
 Lobby.prototype.create = function() {
+	this.game.stage.backgroundColor = "#ffffff";
 	this.scene.fBtn_stage.events.onInputDown.add(this.OnClickGameStart, this);
 };
 

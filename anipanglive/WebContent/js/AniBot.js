@@ -69,7 +69,7 @@ function AniBot(inContext, inDifficulty) {
 			return;
 		} 
 		
-		StzLog.print('[AniBot (updateDifficulty)] Change Bot Difficulty from: ' + _difficulty + ', to: ' + newDifficulty);
+		//StzLog.print('[AniBot (updateDifficulty)] Change Bot Difficulty from: ' + _difficulty + ', to: ' + newDifficulty);
 		
 		_difficulty = newDifficulty || 10;
 		MIN_MATCH_INTERVAL_MS = 100 + (_difficulty * 100);
@@ -85,7 +85,7 @@ function AniBot(inContext, inDifficulty) {
 	self.playBot = function() {
 		
 		self.combo = (_currentMatchTime <= EScoreConfig.COMBO_TIME) ? self.combo + 1 : 0;
-		StzLog.print('[AniBot] currentMatchTime: ' + _currentMatchTime);
+		//StzLog.print('[AniBot] currentMatchTime: ' + _currentMatchTime);
 		
 		var matchCount = (function() {
 			var autoMatchCount = StzUtil.createRandomInteger(0, MAX_AUTO_MATCH_COUNT);

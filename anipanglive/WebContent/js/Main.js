@@ -48,6 +48,7 @@ var startAnipangMulti = function()
 	this.game.state.add("Preload", Preload);
 	this.game.state.add("Lobby", Lobby);
 	this.game.state.add("InGame", InGame);
+	this.game.state.add("Result", Result);
 
 	this.game.state.start("Boot");  
 };

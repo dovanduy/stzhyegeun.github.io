@@ -300,7 +300,7 @@ var REALJS_DEBUG = true;
 
 		// 로비 입장 - JOIN_LOBBY
 		this.realJoinLobby = (function(isBlock) {
-			if (_isServerWaiting === true) {
+			if (isBlock && _isServerWaiting === true) {
 				return false;
 			}
 
@@ -401,18 +401,19 @@ var REALJS_DEBUG = true;
 
 		// 메시지 전송 - MESSAGE
 		this.realSendMessage = (function(inMessage, inBlock) {
-			if (_isServerWaiting === true) {
+			if (inBlock && _isServerWaiting === true) {
 				return false;
 			}
 
 			var message = inMessage.trim();
 			if (message) {
 				this.realSocket.emit("ROOM:MESSAGE", message);
-				_isServerWaiting = (isBlock && true);
-				return true;
+				_isServerWaiting = (inBlock && true);
+				
 				if (REALJS_DEBUG) {
 					console.log('[realjs-realSendMessage] message: ' + message + ', isBlock: ' + inBlock);
 				}
+				return true;
 			}
 			return false;
 		}).bind(this);

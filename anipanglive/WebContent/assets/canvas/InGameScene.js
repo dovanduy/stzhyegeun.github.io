@@ -57,7 +57,6 @@ function InGameScene(aGame, aParent) {
 	this.game.cache.addNinePatch('NPImagePlayerBG', 'inGameUI', 'bgPlayer.png', 1, 1, 0, 110);
 	this.fBgPlayer = new Phaser.NinePatchImage(this.game, 0, 0, 'NPImagePlayerBG');
 	this.fRivalContainer.add(this.fBgPlayer);
-	this.fBgPlayer.targetWidth = this.game.width / 2;
 
 	/* --- post-init-end --- */
 }
