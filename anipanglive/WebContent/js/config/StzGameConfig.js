@@ -5,7 +5,7 @@ var StzGameConfig = {
     , LOCK_ORIENTATION: "PORTRAIT"     // , LOCK_ORIENTATION: "LANDSCAPE"
     , MATCH_MIN          : 3
 	, GAME_LIMIT_TIME		: 60
-	, BOMB_CREAT_COUNT		: 20
+	, BOMB_CREAT_COUNT		: 50
 	, BOMB_REMOVE_TIME		: 150
 	, BASE_PLAYER_PROFILE : 'assets/images/avatar_player.png'
 		

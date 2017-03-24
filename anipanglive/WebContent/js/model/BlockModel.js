@@ -132,10 +132,8 @@ BlockModel.prototype.slidingBlock = function(inCallback, inCallbackContext) {
 	
 };
 
-
-
 BlockModel.prototype.updateView = function() {
-	if(this.view == null && this.index !== -1 && this.state !== EBlockState.REMOVE){
+	if(this.view === null && this.index !== -1 && this.state !== EBlockState.REMOVE){
 		this.init();
 		return;
 	}
@@ -154,12 +152,11 @@ BlockModel.prototype.updateView = function() {
 	if(this.state === EBlockState.INIT_BOMB){
 		this.type = EBlockType.BOMB;
 		this.view.animations.play("blockBombInit", 10, false);
-
-		this.view.animations.currentAnim.onComplete.add(function(){
-			this.view.animations.play("blockBombIdle", 5, true);
-			this.state = EBlockState.NORMAL;
-		}.bind(this));
 		
+		this.view.animations.currentAnim.onComplete.add(function(){
+			this.state = EBlockState.NORMAL;
+			this.view.animations.play("blockBombIdle", 5, true);
+		}.bind(this));
 	}
 	
 	if(this.view !== null && this.state === EBlockState.NORMAL){

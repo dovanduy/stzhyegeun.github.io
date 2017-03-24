@@ -5,8 +5,13 @@ function Result() {
 var proto = Object.create(Phaser.State);
 Result.prototype = proto;
 
-Result.prototype.init = function() {
+Result.prototype.init = function(inMyScore, inRivalScore) {
 	
+	
+	this.scores = {
+		'me': inMyScore, 
+		'rival': inRivalScore
+	};
 	
 	this.isPlayAgain = {
 		'me': null,
@@ -49,14 +54,23 @@ Result.prototype.create = function() {
 	this.game.stage.backgroundColor = "#4BC1CE";
 	
 	var titleStyle = { font: 'bold 64px Arial', fill: '#ffffff', boundsAlignH: 'center', boundsAlignV: 'middle' };
+
 	var winnerTitle = this.game.add.text(0, 0, "WINNER", titleStyle);
 	winnerTitle.setShadow(3, 3, 'rgb(0,0,0)', 2);
-	winnerTitle.setTextBounds(0, 0, this.game.width, this.game.height / 8);
+	winnerTitle.setTextBounds(0, 0, this.game.width, this.game.height / 2);//8);
 	
 	var loserTitle = this.game.add.text(0, 0, "loser", titleStyle);
 	loserTitle.setShadow(3, 3, 'rgb(0,0,0)', 2);
-	loserTitle.setTextBounds(0, this.game.height / 2, this.game.width, this.game.height / 8);
+	loserTitle.setTextBounds(0, this.game.height / 2, this.game.width, this.game.height / 2);//8);
 
+	if (this.scores.me >= this.scores.rival) {
+		winnerTitle.text = "WINNER\n\nME!!";
+		loserTitle.text = "loser\n\nrival";
+	} else {
+		winnerTitle.text = "WINNER\n\nRIVAL!!";
+		loserTitle.text = "loser\n\nme";
+	}
+	
 	var buttonStyle = { font: '32px Arial', fill: '#ffffff', boundsAlignH: 'center', boundsAlignV: 'middle' };
 	var txtPlayAgain = this.game.add.text(0, 0, "PLAY AGAIN", buttonStyle);
 	txtPlayAgain.setTextBounds(0, this.game.height - 100, this.game.width / 2, 100);

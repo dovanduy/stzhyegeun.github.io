@@ -13,7 +13,7 @@ InGame.prototype.init = function(inIsBot) {
 		this.aniBot.autoDifficulty = true; // 자동 난이도 조절
 		this.aniBot.playListener = (function() {
 			if (this.rivalText) {
-				this.rivalText.text = "Score: " + this.aniBot.score + "\nCombo: " + this.aniBot.combo;
+				this.rivalText.text = "AniBot\nScore: " + this.aniBot.score + "\nCombo: " + this.aniBot.combo;
 			}
 		}).bind(this);
 	} else if (window.realjs) {
@@ -25,11 +25,15 @@ InGame.prototype.init = function(inIsBot) {
 			
 			if (this.rivalText) {
 				var rivalData = JSON.parse(data.m);
-				this.rivalText.text = "Score: " + rivalData.score + "\nCombo: " + rivalData.combo;
+				this.rivalScore = rivalData.score;
+				this.rivalText.text = "Rival\nScore: " + this.rivalScore + "\nCombo: " + rivalData.combo;
 				StzLog.print("[InGame] onMessage: " + this.rivalText.text);
 			}
 		}, this);
 	}
+	
+	this.rivalScore = 0;
+	
 	//점수 및 콤보
 	this.scoreData = new Score();
 	this.scoreData.onScoreUpdated = (this.OnScoreUpdated).bind(this);
@@ -164,7 +168,7 @@ InGame.prototype.stopControllGame = function() {
 	// stop user play
 	this.controller.controlFlag(false);
 	
-	this.game.state.start("Result");
+	this.game.state.start("Result", false, false, [this.scoreData.getScore(), this.rivalScore]);
 	
 	
 };
@@ -216,6 +220,9 @@ var InGameController = function(inViewContext) {
 	var _bombToRemeveBlocksR = [];
 	var _bombAnimStartBlocks = [];
 	
+	//피벗
+	var _pivotFlag = false;
+	
 	var self = {
 		viewContext: inViewContext
 	};
@@ -229,7 +236,6 @@ var InGameController = function(inViewContext) {
 	};
 	
 	self.controlFlag = function(flag){
-		//console.log(flag);
 		_controlFlag = flag;
 	};
 	/**
@@ -303,6 +309,7 @@ var InGameController = function(inViewContext) {
 			var currentMatchedCount = 0;
 			var isByUser = false;
 			if(_moveBlocks.length === 2){
+				//_pivotFlag = true;
 				currentMatchedCount = this.checkMatched(function(){
 					this.dropBlocksTempCheck();
 					state = EControllerState.ANIM_TURN;
@@ -311,6 +318,7 @@ var InGameController = function(inViewContext) {
 				isByUser = true;
 			}
 			else{
+				//_pivotFlag = false;
 				currentMatchedCount = this.checkMatched(function(){
 					this.dropBlocksTempCheck();
 					state = EControllerState.ANIM_TURN;
@@ -379,8 +387,8 @@ var InGameController = function(inViewContext) {
 			var length = _bombAnimStartBlocks.length;
 			
 			for(var i = 0; i<length; i++){
-				if(_bombAnimStartBlocks[i].state !== EBlockState.REMOVE){
-					break;
+				if(_bombAnimStartBlocks[i].state !== EBlockState.REMOVE && _bombAnimStartBlocks[i].type !== EBlockType.BOMB){
+					return;
 				}
 			}
 			
@@ -600,18 +608,42 @@ var InGameController = function(inViewContext) {
 	    var fromY = Phaser.Math.clamp(from_Y , 0, InGameBoardConfig.ROW_COUNT - 1);
 	    var toX = Phaser.Math.clamp(to_X, 0, InGameBoardConfig.COL_COUNT - 1);
 	    var toY = Phaser.Math.clamp(to_Y, 0, InGameBoardConfig.ROW_COUNT - 1);
-
+	    
 	    for (var i = fromX; i <= toX; i++)
 	    {
 	        for (var j = fromY; j <= toY; j++)
 	        {
 	            var block =  this.getBlock(i, j);
 	            if(block === null || block.type === EBlockType.BOMB) {
-	            	return;
+	            	continue;
 	            }  
+	            
+	    	    if(_pivotFlag === true){
+	    	    	 this.pivotKillBlock(i, j-1);
+	    	    	 this.pivotKillBlock(i, j+1);
+	    	    	 this.pivotKillBlock(i-1, j);
+	    	    	 this.pivotKillBlock(i+1, j);
+	    	    }
+	    	    
 	            block.state = EBlockState.REMOVE_ANIM;  
 	        }
 	    }
+	};
+	
+	self.pivotKillBlock = function(x, y){
+		
+		if(x < 0 || x >= InGameBoardConfig.ROW_COUNT || y < 0 || y >= InGameBoardConfig.COL_COUNT ){
+			return false;
+		}
+		else if(blocks[y*InGameBoardConfig.ROW_COUNT + x].type === EBlockType.BOMB){
+			return false;
+		}
+		else if(blocks[y*InGameBoardConfig.ROW_COUNT + x].state === EBlockState.REMOVE_ANIM){
+			return false;
+		}
+		else{
+			blocks[y*InGameBoardConfig.ROW_COUNT + x].state =  EBlockState.REMOVE_ANIM;
+		}
 	};
 	
 	self.dropBlocks = function() {
@@ -693,7 +725,8 @@ var InGameController = function(inViewContext) {
 	};
 	
 	self.moveBlock = function(pointer, x, y) {
-		if(_controlFlag === false|| _mouseFlag === false || pointer.isDown === false || this.state === EControllerState.BOMB_TURN){
+		if(_controlFlag === false|| _mouseFlag === false || pointer.isDown === false 
+		|| state === EControllerState.BOMB_TURN || state === EControllerState.BOMB_WATING){
 			return;
 		}
 
@@ -798,8 +831,7 @@ var InGameController = function(inViewContext) {
 		 for (var i = 0; i < InGameBoardConfig.COL_COUNT; i++){
 			 if(blocks[i*InGameBoardConfig.ROW_COUNT + posX].type === EBlockType.BOMB){
 				 continue;
-			 }
-				 
+			 }			 
 			 _bombToRemeveBlocksUD.push(blocks[i*InGameBoardConfig.ROW_COUNT + posX]);
 		 }
 		
