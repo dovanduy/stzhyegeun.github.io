@@ -214,6 +214,7 @@ InGame.prototype.timerCheck = function(){
 		this.controller.controlFlag(false);
 		this.controller.setState(EControllerState.LASTPANG_TURN);
 		this.pivotTimer = null;
+		this.comboDuration = 0;
 		//this.stopControllGame();
 		
 		return;
