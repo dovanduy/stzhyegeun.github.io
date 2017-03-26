@@ -1,111 +1,3 @@
-/**
- * Level state.
- */
-function AniBot(inContext, inDifficulty) {
-	
-	var _context = inContext;
-	var _difficulty = inDifficulty || 10;
-	
-	var MIN_MATCH_INTERVAL_MS = 100 + (_difficulty * 100);
-	var MAX_MATCH_INTERVAL_MS = 1800 + (_difficulty * 100);
-	var PROB_FIVE_MATCH = 0.15 - (_difficulty * 0.01);
-	var PROB_FOUR_MATCH = 0.35 - (_difficulty * 0.01);
-	var MAX_AUTO_MATCH_COUNT = 30;
-	var AUTO_DIFFICULTY_SCORE_OFFSET = 100000;
-	
-	var _currentMatchTime = StzUtil.createRandomInteger(MIN_MATCH_INTERVAL_MS, MAX_MATCH_INTERVAL_MS); 
-	var _remainMatchTime = _currentMatchTime;
-	var _aniState = 1;
-	
-	var self = {
-		score: 0, 
-		combo: 0,
-		totalMatchedBlock: 0,
-		autoDifficulty: false,
-		playListener: null
-	};
-	
-	self.EState = {
-		THINKING: 0, 
-		READY: 1,
-		PLAYED: 2
-	};
-
-	self.getAniState = function() {
-		return _aniState;
-	};
-	
-	self.setNextMatch = function() {
-		if (_aniState === self.EState.PLAYED) {
-			
-			if (self.autoDifficulty) {
-				if (self.score - Score.score > AUTO_DIFFICULTY_SCORE_OFFSET) {
-					self.updateDifficulty(_difficulty + 1);
-				} else if (Score.score - self.score > AUTO_DIFFICULTY_SCORE_OFFSET) {
-					self.updateDifficulty((_difficulty <= 1) ? _difficulty : _difficulty - 1);
-				}
-			}
-			
-			_aniState = self.EState.THINKING;
-			_currentMatchTime = StzUtil.createRandomInteger(MIN_MATCH_INTERVAL_MS, MAX_MATCH_INTERVAL_MS);
-			_remainMatchTime = _currentMatchTime;
-			_aniState = self.EState.READY;
-		} 
-	};
-	
-	self.updateDifficulty = function(newDifficulty) {
-		if (_difficulty === newDifficulty) {
-			return;
-		} 
-		
-		_difficulty = newDifficulty || 10;
-		MIN_MATCH_INTERVAL_MS = 100 + (_difficulty * 100);
-		MAX_MATCH_INTERVAL_MS = 1800 + (_difficulty * 100);
-		PROB_FIVE_MATCH = 0.15 - (_difficulty * 0.01);
-		PROB_FOUR_MATCH = 0.35 - (_difficulty * 0.01);
-		
-		_currentMatchTime = StzUtil.createRandomInteger(MIN_MATCH_INTERVAL_MS, MAX_MATCH_INTERVAL_MS); 
-		_remainMatchTime = _currentMatchTime;
-		
-	};
-	
-	self.playBot = function() {
-		
-		self.combo = (_currentMatchTime <= EScoreConfig.COMBO_TIME) ? self.combo + 1 : 0;
-		console.log('[AniBot] currentMatchTime: ' + _currentMatchTime);
-		
-		var matchCount = (function() {
-			var autoMatchCount = StzUtil.createRandomInteger(0, MAX_AUTO_MATCH_COUNT);
-			var randValue = Math.random();
-			if (randValue <= PROB_FIVE_MATCH) {
-				return 5 + autoMatchCount;
-			} else if (randValue <= PROB_FOUR_MATCH) {
-				return 4 + autoMatchCount;
-			} else {
-				return 3 + autoMatchCount;
-			}
-		})();
-		
-		self.totalMatchedBlock = self.totalMatchedBlock + matchCount; 
-		self.score = self.score + ((self.combo + 1) * EScoreConfig.UNIT_SCORE * matchCount);
-		
-		_aniState = self.EState.PLAYED;
-		if (self.playListener && typeof self.playListener === 'function') {
-			self.playListener();
-		} 
-	};
-	
-	self.update = function() {
-		_remainMatchTime = _remainMatchTime - _context.game.time.elapsedMS;
-		if (_remainMatchTime <= 0 && _aniState === self.EState.READY) {
-			self.playBot();
-			self.setNextMatch();
-		}
-	};
-	
-	return self;
-}
-
 function InGame() {
 	Phaser.State.call(this);
 }
@@ -114,45 +6,112 @@ function InGame() {
 var proto = Object.create(Phaser.State);
 InGame.prototype = proto;
 
-
-
 InGame.prototype.init = function(inIsBot) {
 
 	if (inIsBot === true) {
-		this.aniBot = new AniBot(this, 5);
-		this.aniBot.autoDifficulty = false; // 자동 난이도 조절
+		this.aniBot = new AniBot(this, 10);
+		this.aniBot.autoDifficulty = true; // 자동 난이도 조절
 		this.aniBot.playListener = (function() {
+			this.rivalScore = this.aniBot.score;
 			if (this.rivalText) {
-				this.rivalText.text = "Score: " + this.aniBot.score + ", Combo: " + this.aniBot.combo + ", total: " + this.aniBot.totalMatchedBlock;
+				this.rivalText.text = "AniBot\nScore: " + this.aniBot.score + "\nCombo: " + this.aniBot.combo;
 			}
 		}).bind(this);
+	} else if (window.realjs) {
+		realjs.event.messageListener.add(function(data) {
+			
+			if (data.sid === realjs.getMySessionId()) {
+				return;
+			}
+
+			var rivalData = JSON.parse(data.m);
+			this.rivalScore = rivalData.score;
+			if (this.rivalText) {
+				
+				this.rivalText.text = "Rival\nScore: " + this.rivalScore + "\nCombo: " + rivalData.combo;
+				StzLog.print("[InGame] onMessage: " + this.rivalText.text);
+			}
+		}, this);
 	}
-	//점수 관련
-	this.scoreData = new Score();
+	
+	this.rivalScore = 0;
+	
+	//점수 및 콤보
+	this.scoreData = new Score(this.game);
+	this.scoreData.onScoreUpdated = (this.OnScoreUpdated).bind(this);
+	this.scoreData.onComboUpdated = (this.OnComboUpdated).bind(this);
+	this.scoreData.onPivotStart = (this.onPivotStart).bind(this);
+	this.scoreData.onPivotEnd = (this.onPivotEnd).bind(this);
+	this.comboDuration = 0;
+	this.pivotTimer = null;
 	
 	this.scene = new InGameScene(this);
 	this.controller = InGameController(this);
-	this.filters = InGameMatchFilter();
 	
-	this.game.input.onDown.add(function(){
-		this.controller.setMouseFlag(true);
-	}, this);
+	this.game.input.onDown.add(this.controller.clickBlock, this.controller);
 	this.game.input.addMoveCallback(this.controller.moveBlock, this.controller);
 	this.game.input.onUp.add(function(){
 		this.controller.setMouseFlag(false);
 	}, this);
 };
 
-InGame.prototype.preload = function() {
+InGame.prototype.OnScoreUpdated = function(inScore) {
+	this.myText.text = "Score: " + inScore + "\nCombo: " + this.scoreData.getCombo();
+	if (window.realjs) {
+		realjs.realSendMessage(JSON.stringify({'combo': this.scoreData.getCombo(), 'score':inScore}), false);
+	}
+};
+
+InGame.prototype.OnComboUpdated = function(inCombo, inTimerDuration) {
+	this.myText.text = "Score: " + this.scoreData.getScore() + "\nCombo: " + this.scoreData.getCombo();
+	this.comboDuration = inTimerDuration;
+};
+
+InGame.prototype.onPivotStart = function(pivotTimer) {
+	this.pivotTimer = pivotTimer;
 	
+	this.controller.setPivotFlag(true);
+	this.gameStateText.text ="PIVOT_MOVEMENT : " + this.pivotTimer.delay;
+};
+
+InGame.prototype.onPivotEnd = function() {
+	this.controller.setPivotFlag(false);
+	
+	if(this.timeCount > 0){
+		this.gameStateText.text ="PIVOT_NOT_MOVEMENT";
+	}
+	
+	this.pivotTimer = null;
+};
+
+InGame.prototype.preload = function() {
+	if (window.FBInstant) {
+		
+	} else {
+		
+	}
 };
 
 InGame.prototype.create = function() {
 	this.controller.initBoard();
 	
 	// 라이벌 관련
-	var rivalStyle = { font: 'bold 15px Arial', fill: '#fff' };
-	this.rivalText = this.game.add.text(0, 0, "", rivalStyle);
+	var rivalInfoStyle = { font: 'bold 15px Arial', fill: '#fff', boundsAlignH: 'right', boundsAlignV: 'middle' };
+	var myInfoStyle = { font: 'bold 15px Arial', fill: '#fff', boundsAlignH: 'left', boundsAlignV: 'middle' };
+	
+	this.rivalText = this.game.add.text(0, 0, "Score: 0\nCombo: 0", rivalInfoStyle);
+	this.rivalText.setTextBounds(this.game.width - 100, 0, 50, 100);
+	
+	this.myText = this.game.add.text(0, 0, "Score: 0\nCombo: 0", myInfoStyle);
+	this.myText.setTextBounds(50, 0, 50, 100);
+	
+	this.gameStateText = this.game.add.text(0, 0, "PIVOT_NOT_MOVEMENT", myInfoStyle);
+	this.gameStateText.setTextBounds(50, 150, 50, 100);
+	
+	this.txtComboTimer = this.game.add.text(0, 0, "CTimer: 0", myInfoStyle);
+	this.txtComboTimer.setTextBounds(50, 100, 50, 30);
+	
+	this.scene.fBgPlayer.targetWidth = (this.game.width / 2);
 	
 	//시간 관련
 	this.timeCount = StzGameConfig.GAME_LIMIT_TIME;
@@ -169,42 +128,105 @@ InGame.prototype.create = function() {
 	this.remainTimeText.anchor.set(0.5);
 	this.startTimestamp = (new Date()).getTime();
 	
-	this.scoreText = this.game.add.text(0,30, this.scoreData.getScore(), {
-		fontSize : '30px',
-		fill : '#FFFFFF',
-		font : 'debush'
-	},this.scene.fTopUIContainer);
-	
+    this.bombRemainCount = StzGameConfig.BOMB_CREAT_COUNT;
+    this.bombCountText = this.game.add.text(0,60, "BombRemainCount : " + this.bombRemainCount, {
+        fontSize : '20px',
+        fill : '#FFFFFF',
+        font : 'debush'
+    },this.scene.fTopUIContainer);
+   
 	this.scene.fTopUIContainer.bringToTop(this.remainTimeText);
+	
+	this.gameTimer = this.game.time.events.loop(Phaser.Timer.SECOND, this.timerCheck, this);
+	
 };
 
 InGame.prototype.update = function() {
+	
 	if (this.aniBot) {
 		this.aniBot.update();	
 	}
-	this.controller.updateView();
-	this.timerCheck();
 	
-	this.scoreText.text = this.scoreData.getScore();
+	if (this.comboDuration > 0) {
+		if(this.controller.getState() !== EControllerState.BOMB_WATING){
+			this.comboDuration = this.comboDuration - this.game.time.elapsedMS;
+		}
+		
+		if(this.comboDuration <= 0 ) {
+			this.scoreData.setCombo(0);
+			this.comboDuration = 0;
+		}
+		this.txtComboTimer.text = "CTimer: " + this.comboDuration;
+	}
+	
+	if(this.pivotTimer !== undefined && this.pivotTimer !== null){
+		var pivotRemainTime = this.pivotTimer.tick - (new Date()).getTime();
+		this.gameStateText.text ="PIVOT_MOVEMENT : " + pivotRemainTime;
+	}
+	
+    this.bombCountText.text = "BombRemainCount : " + this.bombRemainCount;
+
+	this.controller.updateView();
+};
+
+InGame.prototype.createScoreView = function() {
+	
+};
+
+InGame.prototype.updateScoreView = function (playerScore, rivalScore) {	
+	
+	if (playerScore <= 0 || rivalScore <= 0) {
+		return;
+	}
+	
+	var playerBgWidth = this.game.width * (playerScore / (playerScore + rivalScore));
+	if (playerBgWidth < 100) {
+		playerBgWidth = 100;
+	} else if (playerBgWidth > (this.game.width - 100)) {
+		playerBgWidth = (this.game.width - 100);
+	}
+	
+	this.game.add.tween(this.scene.fBgPlayer).to({'targetWidth': playerBgWidth}, 500, "Quart.easeOut", true);
+};
+
+InGame.prototype.stopControllGame = function() {
+	
+	// Stop bot play
+	if (this.aniBot && this.aniBot.isStop() === false) {
+		this.aniBot.stop();
+	}
+	
+	// stop user play
+	this.controller.controlFlag(false);
+	
+	this.game.state.start("Result", true, false, [this.scoreData.getScore(), this.rivalScore]);
+	
+	
 };
 
 InGame.prototype.timerCheck = function(){
-	var currentTimestamp = (new Date()).getTime();
-	
-	this.remainSecond = 1 - ((currentTimestamp - this.startTimestamp) / 1000);
-	
-	if(this.remainSecond <= 0){
-		
-		this.timeCount--;
-		this.remainTimeText.text = this.timeCount;
-		
-		this.startTimestamp = (new Date()).getTime();
-		
-	}
 	
 	if(this.timeCount <= 0){
-		//this.endGame();
+		this.game.time.events.remove(this.gameTimer);
+		// 게임 정지 -> 라스트팡 시작.
+		StzLog.print("[InGame (timerCheck)] 타임 업!");
+		this.gameStateText.text ="LAST_PANG";
+		this.controller.controlFlag(false);
+		this.controller.setState(EControllerState.LASTPANG_TURN);
+		this.pivotTimer = null;
+		//this.stopControllGame();
+		
+		return;
 	}
+	
+	if(this.controller.getState() !== EControllerState.BOMB_WATING){
+		this.timeCount = this.timeCount - 1;
+	}
+	
+	if (this.timeCount <= 0) {
+		this.timeCount = 0;
+	} 
+	this.remainTimeText.text = this.timeCount;
 };
 
 var EControllerState = {
@@ -214,18 +236,31 @@ var EControllerState = {
 		DROP_TURN		: "DROP_TURN",
 		ANIM_TURN		: "ANIM_TURN",
 		REFILL_TURN		: "REFILL_TURN",
-			
+		
+		BOMB_TURN		: "BOMB_TURN",
+		BOMB_WATING		: "BOMB_WATING",
+		
+		LASTPANG_TURN   : "LASTPANG_TURN",
+		GAME_END		: "GAME_END"
 };
 
 var InGameController = function(inViewContext) {
 	
-	var blocks = StzUtil.createArray(InGameBoardConfig.ROW_COUNT * InGameBoardConfig.COL_COUNT);
-	var state = EControllerState.USER_TURN;
+	var _blocks = StzUtil.createArray(InGameBoardConfig.ROW_COUNT * InGameBoardConfig.COL_COUNT);
+	var _state = EControllerState.USER_TURN;
 	var _moveBlocks = [];
 	var _mouseFlag = false;
 	var _controlFlag = false;
 	var _returnFlag = false;
-	var scoreData = inViewContext.scoreData;
+	var _scoreData = inViewContext.scoreData;
+	//폭탄으로 제거되는 블럭들 (위아래, 오른쪽, 왼쪽)
+	var _bombToRemeveBlocksUD = [];
+	var _bombToRemeveBlocksL = [];
+	var _bombToRemeveBlocksR = [];
+	var _bombAnimStartBlocks = [];
+	
+	//피벗
+	var _pivotFlag = false;
 	
 	var self = {
 		viewContext: inViewContext
@@ -240,16 +275,28 @@ var InGameController = function(inViewContext) {
 	};
 	
 	self.controlFlag = function(flag){
-		//console.log(flag);
 		_controlFlag = flag;
 	};
+	
+	self.setState= function(state){
+		_state = state;
+	};
+	
+	self.getState= function(){
+		return _state;
+	};
+	
+	self.setPivotFlag= function(flag){
+		_pivotFlag = flag;
+	};
+	
 	/**
 	 * 블럭 객체 반환
 	 */
 	self.getBlock = function(inRowIndex, inColIndex) {
 		StzLog.assert(inRowIndex >= 0 && inRowIndex < InGameBoardConfig.ROW_COUNT, '[InGameController] Invalide inRowIndex: ' + inRowIndex);
 		StzLog.assert(inColIndex >= 0 && inColIndex < InGameBoardConfig.COL_COUNT, '[InGameController] Invalide inColIndex: ' + inColIndex);
-		return blocks[inColIndex*InGameBoardConfig.ROW_COUNT + inRowIndex];
+		return _blocks[inColIndex*InGameBoardConfig.ROW_COUNT + inRowIndex];
 	};
 	
 	/**
@@ -257,27 +304,29 @@ var InGameController = function(inViewContext) {
 	 */
 	self.initBoard = function() {
 		
-		for (var index = 0; index < blocks.length; index++) {
+		for (var index = 0; index < _blocks.length; index++) {
 			
 			var randomType = StzUtil.createRandomInteger(0, 4);
-			blocks[index] = new BlockModel(EBlockType.list[randomType], EBlockSpType.NORMAL, index, self.viewContext);
-			var blockView = blocks[index].createView(Math.floor(index / InGameBoardConfig.COL_COUNT));
+			_blocks[index] = new BlockModel(EBlockType.list[randomType], index, self.viewContext);
+			_blocks[index].createView(Math.floor(index / InGameBoardConfig.COL_COUNT));
 		}
 	};
 
 	self.updateView = function() {
-		for (var index = 0; index < blocks.length; index++) {
-			if (blocks[index] === null) {
+		 this.checkBomb();
+		
+		for (var index = 0; index < _blocks.length; index++) {
+			if (_blocks[index] === null) {
 				continue;
 			}
-			blocks[index].updateView();
+			_blocks[index].updateView();
 		}
 		
 		if(_returnFlag === true){
 			if(this.checkSlidingEnd() === true){
 				this.blockViewSwap(_moveBlocks[0], _moveBlocks[1]);
 	            
-	            state = EControllerState.SLIDING_TURN;
+				_state = EControllerState.SLIDING_TURN;
 	            
 				_moveBlocks = [];
 				_returnFlag = false;
@@ -286,64 +335,202 @@ var InGameController = function(inViewContext) {
 		
 		this.dropBlocksTempCheck();
 		
-		if(state === EControllerState.USER_TURN){
+		if(_state === EControllerState.USER_TURN){
 			
 			if(this.checkNormal() === false){
-				StzLog.print("슬라이드 유무 체크");
-				state = EControllerState.SLIDING_TURN;
+				//StzLog.print("슬라이드 유무 체크");
+				_state = EControllerState.SLIDING_TURN;
 			}
 		}
-		else if(state === EControllerState.SLIDING_TURN){
+		else if(_state === EControllerState.SLIDING_TURN){
 			if(this.checkSlidingEnd() === true){
-				StzLog.print("슬라이드 끝남 체크");
+				//StzLog.print("슬라이드 끝남 체크");
 				this.controlFlag(true);
 				
 				if(this.dropBlocks() === true){
-					state = EControllerState.REFILL_TURN;
+					_state = EControllerState.REFILL_TURN;
 					this.controlFlag(true);
 				}	
 				else{
-					state = EControllerState.MATCH_TURN;
+					_state = EControllerState.MATCH_TURN;
 				}
 			}
 		}
-		else if(state === EControllerState.MATCH_TURN){
-			StzLog.print("매치시작");
-			
+		else if(_state === EControllerState.MATCH_TURN){
+			//StzLog.print("매치시작");
+			var currentMatchedCount = 0;
+			var isByUser = false;
 			if(_moveBlocks.length === 2){
-				this.checkMatched(function(){
+				//_pivotFlag = true;
+				currentMatchedCount = this.twoBlockCheckMatched(_moveBlocks[0], _moveBlocks[1], function(){
 					this.dropBlocksTempCheck();
-					state = EControllerState.ANIM_TURN;
+					_state = EControllerState.ANIM_TURN;
 				}.bind(this));
 				_moveBlocks = [];
+				isByUser = true;
 			}
 			else{
-				this.checkMatched(function(){
+				currentMatchedCount = this.checkMatched(function(){
 					this.dropBlocksTempCheck();
-					state = EControllerState.ANIM_TURN;
+					_state = EControllerState.ANIM_TURN;
 					_moveBlocks = [];
 				}.bind(this));
+				isByUser = false;
+			}
+			if (currentMatchedCount > 0) {
+				 self.viewContext.bombRemainCount-= 1*currentMatchedCount;
+				_scoreData.setScore(currentMatchedCount, isByUser);	
 			}
 		}
-		else if(state === EControllerState.ANIM_TURN){
+		else if(_state === EControllerState.ANIM_TURN){
 			this.controlFlag(true);
 			if(this.checkAnim() === true){
-				StzLog.print("애니매이션 체크");
-				state = EControllerState.DROP_TURN;
+				//StzLog.print("애니매이션 체크");
+				_state = EControllerState.DROP_TURN;
 			}
 		}
 		
-		else if(state === EControllerState.DROP_TURN){
-			StzLog.print("드롭시작");
+		else if(_state === EControllerState.DROP_TURN){
+			//StzLog.print("드롭시작");
 			this.dropBlocks();
-			state = EControllerState.REFILL_TURN;
+			_state = EControllerState.REFILL_TURN;
 		}
 		
-		else if(state === EControllerState.REFILL_TURN){
-			StzLog.print("리필");
+		else if(_state === EControllerState.REFILL_TURN){
+			//StzLog.print("리필");
 			this.refillBoard();
 			
-			state = EControllerState.USER_TURN;
+			_state = EControllerState.USER_TURN;
+		}
+		else if(_state === EControllerState.BOMB_TURN){
+			this.bombOperate();
+			_state = EControllerState.BOMB_WATING;
+		}
+		
+		else if(_state === EControllerState.BOMB_WATING){
+			
+			if(this.isBombCompleted() === true){
+				_state = EControllerState.USER_TURN;
+			}
+			
+		}
+		else if(_state === EControllerState.LASTPANG_TURN){
+			var bombIndex = -1;
+			if(this.checkNormal() === true){
+				bombIndex = this.getBlocksBombTypeIndex();
+				
+				if(bombIndex !== -1){
+					this.bombToRemoveBlockCheck(_blocks[bombIndex]);
+					this.bombOperate();
+				}
+			}
+			else{
+				if(this.isBombCompleted() === false){
+					return;
+				}
+			}
+
+			if(this.isBombCompleted() === true && this.checkNormal() === true){
+				bombIndex = this.getBlocksBombTypeIndex();
+				if(bombIndex === -1){
+					_state = EControllerState.GAME_END;
+				}
+			}
+			else if(this.isBombCompleted() === true){
+				this.dropBlocks();
+				this.refillBoard();
+			}
+		}
+		
+		else if(_state === EControllerState.GAME_END){
+			self.viewContext.time.events.add(2000, function(){
+				self.viewContext.stopControllGame();
+			}.bind(this));
+		}
+		
+	};
+	
+	
+	self.getBlocksBombTypeIndex = function(){
+		for (var index = 0; index < _blocks.length; index ++) {
+			if (_blocks[index].type === EBlockType.BOMB) {
+				return index;
+			}
+		}	
+		return -1;
+	};
+	
+	self.isBombCompleted = function(){
+		var length = _bombAnimStartBlocks.length;
+		
+		for(var i = 0; i<length; i++){
+			if(_bombAnimStartBlocks[i].state !== EBlockState.REMOVE && _bombAnimStartBlocks[i].type !== EBlockType.BOMB){
+				return false;
+			}
+		}
+		
+		_scoreData.setScore(length);
+		
+		_bombToRemeveBlocksUD = [];
+		_bombToRemeveBlocksL = [];
+		_bombToRemeveBlocksR = [];
+		_bombAnimStartBlocks = [];
+		return true;
+	};
+	
+	self.bombOperate = function(){
+		var delay = 0;
+		
+		for(var i = 0; i<_bombToRemeveBlocksUD.length; i++){
+			delay = (i*StzGameConfig.BOMB_REMOVE_TIME);
+			
+			_bombToRemeveBlocksUD[i].removeToBombDelayTime = delay;
+			_bombToRemeveBlocksUD[i].state = EBlockState.REMOVE_TO_BOMB;
+			
+			_bombAnimStartBlocks.push(_bombToRemeveBlocksUD[i]);
+		}
+		var tempDelay = 0;
+		
+		for(var i = 0; i<_bombToRemeveBlocksL.length; i++){
+			tempDelay = delay + ((i+1)*StzGameConfig.BOMB_REMOVE_TIME);
+			
+			_bombToRemeveBlocksL[i].removeToBombDelayTime = tempDelay;
+			_bombToRemeveBlocksL[i].state = EBlockState.REMOVE_TO_BOMB;
+			
+			_bombAnimStartBlocks.push(_bombToRemeveBlocksL[i]);	
+		}
+		
+		for(var i = 0; i<_bombToRemeveBlocksR.length; i++){
+			tempDelay = delay + ((i+1)*StzGameConfig.BOMB_REMOVE_TIME);
+			
+			_bombToRemeveBlocksR[i].removeToBombDelayTime = tempDelay;
+			_bombToRemeveBlocksR[i].state = EBlockState.REMOVE_TO_BOMB;
+			
+			_bombAnimStartBlocks.push(_bombToRemeveBlocksR[i]);	
+		}
+	};
+	
+	self.checkBomb = function(){
+		if( self.viewContext.bombRemainCount === 0){
+			
+			 self.viewContext.bombRemainCount = StzGameConfig.BOMB_CREAT_COUNT;
+			 
+			 while(true){
+				 var randomType = StzUtil.createRandomInteger(7, _blocks.length);
+				 if(_blocks[randomType] === undefined || _blocks[randomType] === null){
+					 continue;
+				 }
+				 else if(_blocks[randomType].type === undefined || _blocks[randomType].type === EBlockType.BOMB){
+					 continue;
+				 }
+				 else if(_blocks[randomType].state === undefined || _blocks[randomType].state !== EBlockState.NORMAL){
+					 continue;
+				 }
+				 else{
+					 _blocks[randomType].state = EBlockState.INIT_BOMB;
+					 break;
+				 }
+			 }
 		}
 	};
 	
@@ -351,33 +538,33 @@ var InGameController = function(inViewContext) {
 		var index = toBlock.index;
 		var preIndex = fromBlock.index;
 			
-		if(blocks[index] === null || blocks[index].state === undefined|| 
-		(blocks[index].state !== EBlockState.NORMAL && blocks[index].state !== EBlockState.SLIDING_END && blocks[index].state !== EBlockState.REMOVE)){
+		if(_blocks[index] === null || _blocks[index].state === undefined|| 
+		(_blocks[index].state !== EBlockState.NORMAL && _blocks[index].state !== EBlockState.SLIDING_END && _blocks[index].state !== EBlockState.REMOVE)){
 			return;
 		}
 		
-		if(blocks[preIndex] === null || blocks[preIndex].state === undefined || 
-		(blocks[preIndex].state !== EBlockState.NORMAL && blocks[preIndex].state !== EBlockState.SLIDING_END && blocks[preIndex].state !== EBlockState.REMOVE)){
+		if(_blocks[preIndex] === null || _blocks[preIndex].state === undefined || 
+		(_blocks[preIndex].state !== EBlockState.NORMAL && _blocks[preIndex].state !== EBlockState.SLIDING_END && _blocks[preIndex].state !== EBlockState.REMOVE)){
 			return;
 		}
 		
-		blocks[index].state = EBlockState.NORMAL;
-		blocks[preIndex].state = EBlockState.NORMAL;
+		_blocks[index].state = EBlockState.NORMAL;
+		_blocks[preIndex].state = EBlockState.NORMAL;
 		
-		var temp = blocks[index].view;
-        blocks[index].view = blocks[preIndex].view;
-        blocks[preIndex].view = temp; 
+		var temp = _blocks[index].view;
+        _blocks[index].view = _blocks[preIndex].view;
+        _blocks[preIndex].view = temp; 
         	
-        var temp = blocks[index].type;
-        blocks[index].type = blocks[preIndex].type;
-        blocks[preIndex].type = temp; 
+        var temp = _blocks[index].type;
+        _blocks[index].type = _blocks[preIndex].type;
+        _blocks[preIndex].type = temp; 
 	};
 	
 	// 컨트롤러에서 ...
 	self.checkSlidingEnd = function(){
-		for (var index = 0; index < blocks.length; index ++) {
-			if (blocks[index].state !== EBlockState.NORMAL
-				&&blocks[index].state !== EBlockState.REMOVE) {
+		for (var index = 0; index < _blocks.length; index ++) {
+			if (_blocks[index].state !== EBlockState.NORMAL
+				&&_blocks[index].state !== EBlockState.REMOVE) {
 				return false;
 			}
 		}	
@@ -385,8 +572,8 @@ var InGameController = function(inViewContext) {
 	};
 	
 	self.checkNormal = function(){
-		for (var index = 0; index < blocks.length; index ++) {
-			if (blocks[index].state !== EBlockState.NORMAL) {
+		for (var index = 0; index < _blocks.length; index ++) {
+			if (_blocks[index].state !== EBlockState.NORMAL) {
 				return false;
 			}
 		}	
@@ -394,8 +581,8 @@ var InGameController = function(inViewContext) {
 	};
 	
 	self.checkAnim = function(){
-		for (var index = 0; index < blocks.length; index ++) {
-			if (blocks[index].state === EBlockState.ANIMATION) {
+		for (var index = 0; index < _blocks.length; index ++) {
+			if (_blocks[index].state === EBlockState.ANIMATION) {
 				return false;
 			}
 		}	
@@ -405,21 +592,15 @@ var InGameController = function(inViewContext) {
 	 * 전체 인게임 보드에서 매칭된 블럭 체크
 	 */
 	self.checkMatched = function(inCallback, inCallbackContext) {
-		for (var filter in this.filters) {
-			// check property
-			if (this.filters.hasOwnProperty(filter) === false) {
-				continue;
-			}	
-		}
 		
-		var length = blocks.length;
+		var length = _blocks.length;
 		var mactedCount = 0;
 		
 		for(var i =0; i < length; i++)
 		{
-			var block = blocks[i];
+			var block = _blocks[i];
 			
-			if( block != null && block.view != null)
+			if( block != null && block.view != null && block.state === EBlockState.NORMAL)
 			{
 				var countUp = this.countSameTypeBlock(block, 0, -1);
 				var countDown = this.countSameTypeBlock(block, 0, 1);
@@ -431,14 +612,13 @@ var InGameController = function(inViewContext) {
 				
 				if (countVert >= StzGameConfig.MATCH_MIN)
 				{
-					this.killBlockRange(block.posX, block.posY - countUp, block.posX, block.posY + countDown);
-					mactedCount += countVert;
+					mactedCount += this.killBlockRange(block.posX, block.posY - countUp, block.posX, block.posY + countDown);
+					
 				}
 
 				if (countHoriz >= StzGameConfig.MATCH_MIN)
 				{
-					this.killBlockRange(block.posX - countLeft, block.posY, block.posX + countRight, block.posY);
-					mactedCount += countVert;
+					mactedCount += this.killBlockRange(block.posX - countLeft, block.posY, block.posX + countRight, block.posY);
 				}
 			}
 		}
@@ -446,14 +626,17 @@ var InGameController = function(inViewContext) {
 		if (inCallback !== null || inCallback !== undefined) {
 			inCallback();
 		}
-		
+       
+        if( self.viewContext.bombRemainCount < 0){
+        	 self.viewContext.bombRemainCount = 0;
+        }
 		return mactedCount;
 	};
 	
 	/**
-	 * 전체 인게임 보드에서 매칭된 블럭 체크
+	 * 두블럭의 이동으로 제거 되는 블럭이 있는지 체크
 	 */
-	self.tempCheckMatched = function(fromBlock, toBlock) {
+	self.isRemoveTwoBlockCheckMatched = function(fromBlock, toBlock) {
 		
 		for (var filter in this.filters) {
 			// check property
@@ -488,6 +671,7 @@ var InGameController = function(inViewContext) {
 
 	    // now process the shifted (swapped) gem
 
+	    
 	    countUp = this.countSameTypeBlock(toBlock, 0, -1);
 	    countDown = this.countSameTypeBlock(toBlock, 0, 1);
 	    countLeft = this.countSameTypeBlock(toBlock, -1, 0);
@@ -509,6 +693,66 @@ var InGameController = function(inViewContext) {
 	    return true;
 	};
 	
+	/**
+	 * 두블럭의 이동으로 제거되는 블럭 제거
+	 */
+	self.twoBlockCheckMatched = function(fromBlock, toBlock, inCallback, inCallbackContext) {
+		
+		for (var filter in this.filters) {
+			// check property
+			if (this.filters.hasOwnProperty(filter) === false) {
+				continue;
+			}	
+		}
+
+		if (fromBlock === null) { return; }
+
+	    if (toBlock === null ) { return; }
+
+	    // process the selected gem
+	    var mactedCount = 0;
+	    var countUp = this.countSameTypeBlock(fromBlock, 0, -1);
+	    var countDown = this.countSameTypeBlock(fromBlock, 0, 1);
+	    var countLeft = this.countSameTypeBlock(fromBlock, -1, 0);
+	    var countRight = this.countSameTypeBlock(fromBlock, 1, 0);
+
+	    var countHoriz = countLeft + countRight + 1;
+	    var countVert = countUp + countDown + 1;
+	
+	    var block = fromBlock;
+	    if (countVert >= StzGameConfig.MATCH_MIN)
+	    {
+	    	mactedCount += this.killBlockRange(block.posX, block.posY - countUp, block.posX, block.posY + countDown, _pivotFlag);
+	    }
+
+	    if (countHoriz >= StzGameConfig.MATCH_MIN)
+	    {
+	    	mactedCount += this.killBlockRange(block.posX - countLeft, block.posY, block.posX + countRight, block.posY, _pivotFlag);
+	    }
+
+	    // now process the shifted (swapped) gem
+	    block = toBlock;
+	    countUp = this.countSameTypeBlock(toBlock, 0, -1);
+	    countDown = this.countSameTypeBlock(toBlock, 0, 1);
+	    countLeft = this.countSameTypeBlock(toBlock, -1, 0);
+	    countRight = this.countSameTypeBlock(toBlock, 1, 0);
+
+	    countHoriz = countLeft + countRight + 1;
+	    countVert = countUp + countDown + 1;
+
+	    if (countVert >= StzGameConfig.MATCH_MIN)
+	    {
+	    	mactedCount += this.killBlockRange(block.posX, block.posY - countUp, block.posX, block.posY + countDown, _pivotFlag);
+	    }
+
+	    if (countHoriz >= StzGameConfig.MATCH_MIN)
+	    {
+	    	mactedCount += this.killBlockRange(block.posX - countLeft, block.posY, block.posX + countRight, block.posY, _pivotFlag);
+	    }
+
+	    return mactedCount;
+	};
+	
 	self.countSameTypeBlock = function(startBlock, moveX, moveY) {
 		var curX = startBlock.posX + moveX;
 		var curY = startBlock.posY + moveY;
@@ -525,26 +769,77 @@ var InGameController = function(inViewContext) {
 		return count;
 	};
 	
-	self.killBlockRange = function(from_X, from_Y, to_X, to_Y) {
+	self.killBlockRange = function(from_X, from_Y, to_X, to_Y, pivot_Flag) {
 		
 		var fromX = Phaser.Math.clamp(from_X, 0, InGameBoardConfig.COL_COUNT - 1);
 	    var fromY = Phaser.Math.clamp(from_Y , 0, InGameBoardConfig.ROW_COUNT - 1);
 	    var toX = Phaser.Math.clamp(to_X, 0, InGameBoardConfig.COL_COUNT - 1);
 	    var toY = Phaser.Math.clamp(to_Y, 0, InGameBoardConfig.ROW_COUNT - 1);
-
+	    var pivotFlag = false;
+	    var mactedCount = 0;
+	    
+	    if(pivotFlag === undefined){
+	    	pivotFlag = false;
+	    }
+	    else{
+	    	pivotFlag = pivot_Flag;
+	    }
+	    
 	    for (var i = fromX; i <= toX; i++)
 	    {
 	        for (var j = fromY; j <= toY; j++)
 	        {
 	            var block =  this.getBlock(i, j);
-	            if(block === null) {
-	            	return;
+	            if(block === null || block.type === EBlockType.BOMB) {
+	            	continue;
 	            }  
-	            scoreData.setScore(1);
 	            
-	            block.state = EBlockState.REMOVE_ANIM;  
+	    	    if(pivotFlag === true){
+	    	    	if(this.isPivotKillBlock(i, j-1) === true){
+	    	    		_blocks[(j-1)*InGameBoardConfig.ROW_COUNT + i].state =  EBlockState.REMOVE_ANIM;
+	    	    		mactedCount++;
+	    	    	}   	
+	    	    	if(this.isPivotKillBlock(i, j+1) === true){
+	    	    		_blocks[(j+1)*InGameBoardConfig.ROW_COUNT + i].state =  EBlockState.REMOVE_ANIM;
+	    	    		mactedCount++;
+	    	    	}
+	    	    	if(this.isPivotKillBlock(i-1, j) === true){
+	    	    		_blocks[j*InGameBoardConfig.ROW_COUNT + (i-1)].state =  EBlockState.REMOVE_ANIM;
+	    	    		mactedCount++;
+	    	    	}
+	    	    	if(this.isPivotKillBlock(i+1, j) === true){
+	    	    		_blocks[j*InGameBoardConfig.ROW_COUNT + (i+1)].state =  EBlockState.REMOVE_ANIM;
+	    	    		mactedCount++;
+	    	    	}	
+	    	    	if(this.isPivotKillBlock(i, j) === true){
+	    	    		_blocks[j*InGameBoardConfig.ROW_COUNT + i].state =  EBlockState.REMOVE_ANIM;
+	    	    		mactedCount++;
+	    	    	}	
+	    	    } 
+	    	    else{
+		        	  mactedCount++;
+			          block.state = EBlockState.REMOVE_ANIM; 
+		        }
 	        }
+	      
 	    }
+	    return mactedCount;
+	};
+	
+	self.isPivotKillBlock = function(x, y){
+		
+		if(x < 0 || x >= InGameBoardConfig.ROW_COUNT || y < 0 || y >= InGameBoardConfig.COL_COUNT ){
+			return false;
+		}
+		else if(_blocks[y*InGameBoardConfig.ROW_COUNT + x].type === EBlockType.BOMB){
+			return false;
+		}
+		else if(_blocks[y*InGameBoardConfig.ROW_COUNT + x].state === EBlockState.REMOVE_ANIM){
+			return false;
+		}
+		else{
+			return true;
+		}
 	};
 	
 	self.dropBlocks = function() {
@@ -567,7 +862,7 @@ var InGameController = function(inViewContext) {
 	            	var preIndex = j*InGameBoardConfig.ROW_COUNT + i;
 	            	var index = (j+dropRowCount)*InGameBoardConfig.ROW_COUNT + i;
 
-	            	this.blockViewSwap(blocks[index], blocks[preIndex]);
+	            	this.blockViewSwap(_blocks[index], _blocks[preIndex]);
 	            	
 	            	dropflag = true;
 	            }
@@ -595,7 +890,7 @@ var InGameController = function(inViewContext) {
 	            {
 	            	var preIndex = j*InGameBoardConfig.ROW_COUNT + i;
 	            	
-	            	blocks[preIndex].isMoveAndMatch = true;
+	            	_blocks[preIndex].isMoveAndMatch = true;
 	            }
 
 	        }
@@ -618,26 +913,27 @@ var InGameController = function(inViewContext) {
 		            	var index = j*InGameBoardConfig.ROW_COUNT + i;
 		            	var randomType = StzUtil.createRandomInteger(0, 4);
 		            	
-		            	blocks[index] = new BlockModel(EBlockType.list[randomType], EBlockSpType.NORMAL, index, self.viewContext);
-						blocks[index].createView(Math.floor(index / InGameBoardConfig.COL_COUNT));	 
+		            	_blocks[index] = new BlockModel(EBlockType.list[randomType], index, self.viewContext);
+						_blocks[index].createView(Math.floor(index / InGameBoardConfig.COL_COUNT));	 
 		            }
 		        }
 		    }
 	};
 	
 	self.moveBlock = function(pointer, x, y) {
-		if(_controlFlag === false|| _mouseFlag === false || pointer.isDown === false){
+		if(_controlFlag === false|| _mouseFlag === false || pointer.isDown === false 
+		|| _state === EControllerState.BOMB_TURN || _state === EControllerState.BOMB_WATING){
 			return;
 		}
 
-		var hitPoint = new Phaser.Rectangle(x, y, 25, 25);
-		var length = blocks.length;
+		var hitPoint = new Phaser.Rectangle(x, y, 10, 10);
+		var length = _blocks.length;
 		var hitFlag = false;
 		
 		for(var i=0;i<length;i++){
-			var block = blocks[i];
+			var block = _blocks[i];
 			if(block !== null && block.view !== null){
-				if(Phaser.Rectangle.intersects(hitPoint, block.view.getBounds())){
+				if(Phaser.Rectangle.intersects(hitPoint, block.view.getBounds()) && block.type !== EBlockType.BOMB){
 					if(block.isMoveAndMatch === true) {
 						return;
 					}
@@ -654,14 +950,14 @@ var InGameController = function(inViewContext) {
 
 						if(Math.abs(_moveBlocks[0].posX - _moveBlocks[1].posX) === 1){
 							if(Math.abs(_moveBlocks[0].posY - _moveBlocks[1].posY) === 0){
-								 _mouseFlag = false;
-						         this.controlFlag(false);
+								_mouseFlag = false;
+						        this.controlFlag(false);
 						         
 								this.blockViewSwap(_moveBlocks[0], _moveBlocks[1]);
 								
 					            this.dropBlocksTempCheck();
-					            _returnFlag = this.tempCheckMatched(_moveBlocks[0], _moveBlocks[1]);
-					            state = EControllerState.USER_TURN;
+					            _returnFlag = this.isRemoveTwoBlockCheckMatched(_moveBlocks[0], _moveBlocks[1], false);
+					            _state = EControllerState.USER_TURN;
 					            return;
 							}
 		
@@ -674,8 +970,8 @@ var InGameController = function(inViewContext) {
 								this.blockViewSwap(_moveBlocks[0], _moveBlocks[1]);
 								
 					            this.dropBlocksTempCheck();
-					            _returnFlag = this.tempCheckMatched(_moveBlocks[0], _moveBlocks[1]);
-					            state = EControllerState.USER_TURN;
+					            _returnFlag = this.isRemoveTwoBlockCheckMatched(_moveBlocks[0], _moveBlocks[1], false);
+					            _state = EControllerState.USER_TURN;
 					            return;
 							}
 						}
@@ -697,36 +993,59 @@ var InGameController = function(inViewContext) {
 			_moveBlocks = [];
 		}
 	};
-	return self;
-};
-
-var InGameMatchFilter = function() {
-	var self = {
-		// make randompang
-		FIVE_HORIZONTAL: [0, 1, 2, 3, 4], 
-		FIVE_VERTICAL: [0, InGameBoardConfig.ROW_COUNT, InGameBoardConfig.ROW_COUNT * 2, InGameBoardConfig.ROW_COUNT * 3, InGameBoardConfig.ROW_COUNT * 4],
-
-		// make circlepang
-		FIVE_KOR_N: [0, 1, 2, InGameBoardConfig.ROW_COUNT + 1, InGameBoardConfig.ROW_COUNT * 2 + 1], 
-		FIVE_KOR_H: [1, InGameBoardConfig.ROW_COUNT + 1, InGameBoardConfig.ROW_COUNT * 2, InGameBoardConfig.ROW_COUNT * 2 + 1, InGameBoardConfig.ROW_COUNT * 2 + 2],
-		FIVE_KOR_K: [0, InGameBoardConfig.ROW_COUNT, InGameBoardConfig.ROW_COUNT + 1, InGameBoardConfig.ROW_COUNT + 2, InGameBoardConfig.ROW_COUNT * 2], 
-		FIVE_KOR_J: [2, InGameBoardConfig.ROW_COUNT, InGameBoardConfig.ROW_COUNT + 1, InGameBoardConfig.ROW_COUNT + 2, InGameBoardConfig.ROW_COUNT * 2 + 2], 
-		FIVE_KOR_S: [0, InGameBoardConfig.ROW_COUNT, InGameBoardConfig.ROW_COUNT * 2, InGameBoardConfig.ROW_COUNT * 2 + 1, InGameBoardConfig.ROW_COUNT * 2 + 2], 
-		FIVE_KOR_INVERS_S: [2, InGameBoardConfig.ROW_COUNT + 2, InGameBoardConfig.ROW_COUNT * 2, InGameBoardConfig.ROW_COUNT * 2 + 1, InGameBoardConfig.ROW_COUNT * 2 + 2], 
-		FIVE_KOR_R: [0, 1, 2, InGameBoardConfig.ROW_COUNT + 2, InGameBoardConfig.ROW_COUNT * 2 + 2], 
-		FIVE_KOR_INVERS_R: [0, 1, 2, InGameBoardConfig.ROW_COUNT, InGameBoardConfig.ROW_COUNT * 2],
-			
-		// make line pang
-		FOUR_HORIZONTAL: [0, 1, 2, 3], 
-		FOUR_VERTICAL: [0, InGameBoardConfig.ROW_COUNT, InGameBoardConfig.ROW_COUNT * 2, InGameBoardConfig.ROW_COUNT * 3],
-		FOUR_RECT: [0, 1, InGameBoardConfig.ROW_COUNT, InGameBoardConfig.ROW_COUNT + 1],
+	
+	self.clickBlock = function(pointer) {
+		var length = _blocks.length;
+		var hitPoint = new Phaser.Rectangle(pointer.x, pointer.y, 10, 10);
 		
-		// just matched
-		THREE_HORIZONTAL: [0, 1, 2], 
-		THREE_VERTICAL: [0, InGameBoardConfig.ROW_COUNT, InGameBoardConfig.ROW_COUNT * 2],
+		for(var i=0;i<length;i++){
+			var block = _blocks[i];
+			if(block !== null && block.view !== null){
+				if(Phaser.Rectangle.intersects(hitPoint, block.view.getBounds())){
+					if(block.type === EBlockType.BOMB && this.checkNormal() === true){
+						StzLog.print("폭탄 클릭");
+						this.bombToRemoveBlockCheck(block);
+						_state = EControllerState.BOMB_TURN;
+					}
+					else{
+						_mouseFlag = true;
+					}
+				}
+			}
+		}
+	};
+	
+	self.bombToRemoveBlockCheck = function(bombBlock){
+		if(_bombToRemeveBlocksUD.length !== 0){
+			return;
+		}
+		
+		bombBlock.type = EBlockType.NONE;
+		
+		var posX = bombBlock.posX;
+
+		 for (var i = 0; i < InGameBoardConfig.COL_COUNT; i++){
+			 if(_blocks[i*InGameBoardConfig.ROW_COUNT + posX].type === EBlockType.BOMB){
+				 continue;
+			 }			 
+			 _bombToRemeveBlocksUD.push(_blocks[i*InGameBoardConfig.ROW_COUNT + posX]);
+		 }
+		
+		 for (var i = posX - 1; i >= 0; i--){
+			 if(_blocks[(InGameBoardConfig.ROW_COUNT-1)*InGameBoardConfig.ROW_COUNT + i].type === EBlockType.BOMB){
+				 continue;
+			 }
+			 _bombToRemeveBlocksL.push(_blocks[(InGameBoardConfig.ROW_COUNT-1)*InGameBoardConfig.ROW_COUNT + i]);
+		 }
+
+		 for (var i = posX + 1; i < InGameBoardConfig.ROW_COUNT; i++){
+			 if(_blocks[(InGameBoardConfig.ROW_COUNT-1)*InGameBoardConfig.ROW_COUNT + i].type === EBlockType.BOMB){
+				 continue;
+			 }
+			 
+			 _bombToRemeveBlocksR.push(_blocks[(InGameBoardConfig.ROW_COUNT-1)*InGameBoardConfig.ROW_COUNT + i]);
+		 }
 	};
 	
 	return self;
 };
-
-

@@ -58,15 +58,15 @@ Preload.prototype.loadComplete = function () {
 			realjs.realJoinLobby(false);
 			if (window.FBInstant) {
 				FBInstant.startGameAsync().then(function() {
-					this.game.state.start("InGame");
+					this.game.state.start("Lobby");
 				});
 			} else {
-				this.game.state.start("InGame");
+				this.game.state.start("Lobby");
 			}
 		}, this);
 		realjs.realLogin(userId, userName, userThumbnail, '5000', '');
 	} else {
-		this.game.state.start("InGame");
+		this.game.state.start("Lobby");
 	}
 };
 

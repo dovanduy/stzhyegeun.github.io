@@ -29,7 +29,9 @@ function InGameScene(aGame, aParent) {
 
 	this.game.add.sprite(0, 0, 'inGameUI', 'board.png', gameBoard);
 
-	var opponentContainer = this.game.add.group(this);
+	var rivalContainer = this.game.add.group(this);
+
+	this.game.add.sprite(0, 0, 'inGameUI', 'bgRival.png', rivalContainer);
 
 	this.game.add.sprite(0, 776, 'inGameUI', 'line.png', this);
 
@@ -38,7 +40,7 @@ function InGameScene(aGame, aParent) {
 	this.fTopUIContainer = topUIContainer;
 	this.fTimeGageBody = timeGageBody;
 	this.fGameBoard = gameBoard;
-	this.fOpponentContainer = opponentContainer;
+	this.fRivalContainer = rivalContainer;
 
 	/* --- post-init-begin --- */
 
@@ -51,7 +53,10 @@ function InGameScene(aGame, aParent) {
 	boardMask.drawRect(0, 0, 480, 476);
 	this.fGameBoard.mask = boardMask;
 	
-	
+	// Add Player BG ninepatch image
+	this.game.cache.addNinePatch('NPImagePlayerBG', 'inGameUI', 'bgPlayer.png', 1, 1, 0, 110);
+	this.fBgPlayer = new Phaser.NinePatchImage(this.game, 0, 0, 'NPImagePlayerBG');
+	this.fRivalContainer.add(this.fBgPlayer);
 
 	/* --- post-init-end --- */
 }

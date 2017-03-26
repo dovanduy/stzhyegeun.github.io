@@ -1,48 +1,114 @@
 var EScoreConfig = {
-		UNIT_SCORE : 50,
-		COMBO_TIME : 1500
+		UNIT_SCORE 				: 50,
+		ANIBOT_COMBO_TIME 		: 2000,
+		INIT_COMBO_TIME 		: 4000,
+		COMBO_DELTA_DURATION      : 500,
+		MIN_COMBO_DURATION		: 1500,
+		PIVOT_START_COMBO		: 5,
+		PIVOT_TIME				: 5000,
 };
 
-function Score() {
+function Score(inParentContext) {
 	if(!(this instanceof Score)){
 		return new Score();
 	}
-	
-	this._score = 0;
-	this._combo = 0;
-	
-	var self = {};
-	
-	self.initData = function(){
-		this._score = 0;
-		this._combo = 0;
+	var _viewContext = inParentContext;
+	var _score = 0;
+	var _combo = 0;
+	var _comboDuration = EScoreConfig.INIT_COMBO_TIME;
+	var _pivotCombo	= 0;
+	var _pivotStartFlag = false;
+	var startComboStamp = 0;
+		
+	var self = {
+		onScoreUpdated	: null,
+		onComboUpdated	: null,
+		onPivotStart  	: null,
+		onPivotEnd		: null
 	};
 	
+	self.initData = function(){
+		_score = 0;
+		_combo = 0;
+		self.onScoreUpdated = null;
+		self.onComboUpdated = null;
+		self.onPivotStart 	= null;
+		self.onPivotEnd 	= null;
+	};
+	
+	self.getScoreText = function(){
+		return StzUtil.createNumComma(_score);
+	};
+	
+	
 	self.getScore = function(){
-		return StzUtil.createNumComma(this._score);
-	}.bind(this),
+		return _score;
+	};
 	
-	self.setScore = function(count){
-		this._score  = this._score + ((this._combo + 1)*EScoreConfig.UNIT_SCORE)*count;
-	}.bind(this),
-	
-	self.getCombo = function(){
-		return this._combo;
-	}.bind(this),
-	
-	self.setCombo = function(comboDeltaTime, isComboUp){
-		if(comboDeltaTime < EScoreConfig.COMBO_TIME){
-			if(isComboUp == true){
-				this._combo++;
+	self.setScore = function(count, inByUser){
+		_score  = _score + ((_combo + 1)*EScoreConfig.UNIT_SCORE)*count;
+		
+		if (inByUser) {
+			var currentComboStamp = (new Date()).getTime();
+			var comboDeltaTime = currentComboStamp - startComboStamp;
+			
+			if (comboDeltaTime < _comboDuration) {
+				self.setCombo(_combo + 1);	
+			} 
+			else if(startComboStamp === 0){
+				self.setCombo(_combo + 1);	
+			}
+			else {
+				self.setCombo(0);
+				startComboStamp = 0;
+				return;
 			}
 		}
-		else
-		{
-			this._combo = 0;
+		startComboStamp = (new Date()).getTime();
+		
+		if (self.onScoreUpdated) {
+			self.onScoreUpdated(_score);
+		}
+	};
+
+	self.getCombo = function(){
+		return _combo;
+	};
+	
+	self.setCombo = function(inComboValue) {
+		_combo = inComboValue;
+		if (inComboValue === 0) {
+			_pivotCombo = 0;
+			startComboStamp = 0;
+			_comboDuration = EScoreConfig.INIT_COMBO_TIME;
+		}
+		if (self.onComboUpdated) {
+			_comboDuration = EScoreConfig.INIT_COMBO_TIME - ((_combo-1)*EScoreConfig.COMBO_DELTA_DURATION);
+			if(_comboDuration < EScoreConfig.MIN_COMBO_DURATION){
+				_comboDuration = EScoreConfig.MIN_COMBO_DURATION;
+			}
+			
+			if(_pivotStartFlag === false && inComboValue !== 0){
+				_pivotCombo++;
+			}
+			
+			self.onComboUpdated(_combo, _comboDuration);
 		}
 		
-		return this._combo;
-	}.bind(this);
+		if(_pivotCombo === EScoreConfig.PIVOT_START_COMBO){
+			if (self.onPivotStart) {
+				var pivotTimer = _viewContext.time.events.add(EScoreConfig.PIVOT_TIME, function(){
+					_pivotStartFlag = false;
+					if (self.onPivotEnd) {
+						self.onPivotEnd();
+					}
+				}.bind(this));
+				_pivotCombo = 0;
+				_pivotStartFlag = true;
+				self.onPivotStart(pivotTimer);
+			}
+		}
+	};
 	
 	return self;
 }

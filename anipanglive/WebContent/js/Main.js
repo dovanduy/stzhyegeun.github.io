@@ -10,7 +10,7 @@ if (StzRealJSConfig.SERVER_ENABLE === false) {
 var startAnipangMulti = function()
 {
 	if (window.realjs) {
-		realjs.realConnect('ws://html5.stzapp.net:11000', {
+		realjs.realConnect('wss://html5.stzapp.net:11001', {
 			transports: ['websocket'], 
 			path: '/rt', 
 			upgrade: false
@@ -37,7 +37,7 @@ var startAnipangMulti = function()
 
     var gameWidth = 480 * screenScale;
     var gameHeight = Math.floor(480 * screenScale * documentRatio); 
-	this.game = new Phaser.Game(gameWidth , gameHeight, Phaser.CANVAS, 'gameContainer');
+	this.game = new Phaser.Game(gameWidth , gameHeight, Phaser.AUTO, 'gameContainer');
 
     if (window.FBInstant) {
         FBInstant.setLoadingProgress(20);
@@ -48,6 +48,7 @@ var startAnipangMulti = function()
 	this.game.state.add("Preload", Preload);
 	this.game.state.add("Lobby", Lobby);
 	this.game.state.add("InGame", InGame);
+	this.game.state.add("Result", Result);
 
 	this.game.state.start("Boot");  
 };
