@@ -899,7 +899,8 @@ var InGameController = function(inViewContext) {
 		else if(_blocks[y*InGameBoardConfig.ROW_COUNT + x].type === EBlockType.BOMB){
 			return false;
 		}
-		else if(_blocks[y*InGameBoardConfig.ROW_COUNT + x].state === EBlockState.REMOVE_ANIM){
+
+		else if(_blocks[y*InGameBoardConfig.ROW_COUNT + x].state !== EBlockState.NORMAL){
 			return false;
 		}
 		else{
@@ -991,17 +992,18 @@ var InGameController = function(inViewContext) {
 	
 	self.moveBlock = function(pointer, x, y) {
 		if(_controlFlag === false|| _mouseFlag === false || pointer.isDown === false 
-		|| _state === EControllerState.BOMB_TURN || _state === EControllerState.BOMB_WATING){
+		|| _state === EControllerState.BOMB_TURN || _state === EControllerState.BOMB_WATING || _moveBlocks.length === 0){
 			return;
 		}
 
-		var hitPoint = new Phaser.Rectangle(x, y, 10, 10);
+		var hitPoint = new Phaser.Rectangle(x, y, 1, 1);
 		var length = _blocks.length;
 		var hitFlag = false;
 		
 		for(var i=0;i<length;i++){
 			var block = _blocks[i];
 			if(block !== null && block.view !== null && block.state === EBlockState.NORMAL){
+				//block.view.setBounds(block.view.x, block.view.y, block.view.width*0.9, block.view.height*0.9);
 				if(Phaser.Rectangle.intersects(hitPoint, block.view.getBounds()) && block.type !== EBlockType.BOMB){
 					if(block.isMoveAndMatch === true) {
 						return;
@@ -1074,11 +1076,12 @@ var InGameController = function(inViewContext) {
 			return;
 		}
 		var length = _blocks.length;
-		var hitPoint = new Phaser.Rectangle(pointer.x, pointer.y, 10, 10);
+		var hitPoint = new Phaser.Rectangle(pointer.x, pointer.y, 1, 1);
 		
 		for(var i=0;i<length;i++){
 			var block = _blocks[i];
-			if(block !== null && block.view !== null){
+			if(block !== undefined && block !== null && block.view !== undefined && block.view !== null){
+				//block.view.setBounds(block.view.x, block.view.y, block.view.width*0.9, block.view.height*0.9);
 				if(Phaser.Rectangle.intersects(hitPoint, block.view.getBounds())){
 					if(block.type === EBlockType.BOMB && this.checkNormal() === true){
 						StzLog.print("폭탄 클릭");
