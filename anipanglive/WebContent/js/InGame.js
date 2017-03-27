@@ -14,7 +14,7 @@ InGame.prototype.init = function(inIsBot) {
 		this.aniBot.playListener = (function() {
 			this.rivalScore = this.aniBot.score;
 			if (this.rivalText) {
-				this.rivalText.text = "AniBot\nScore: " + this.aniBot.score + "\nCombo: " + this.aniBot.combo;
+				this.rivalText.text = "AniBot(" + this.aniBot.getDifficulty() + ")\nScore: " + this.aniBot.score + "\nCombo: " + this.aniBot.combo;
 			}
 		}).bind(this);
 	} else if (window.realjs) {
@@ -25,7 +25,10 @@ InGame.prototype.init = function(inIsBot) {
 			}
 
 			var rivalData = JSON.parse(data.m);
-			this.rivalScore = rivalData.score;
+			if (rivalData.hasOwnProperty('score')) {
+				this.rivalScore = rivalData.score;	
+			}
+			
 			if (this.rivalText) {
 				
 				this.rivalText.text = "Rival\nScore: " + this.rivalScore + "\nCombo: " + rivalData.combo;
@@ -36,6 +39,8 @@ InGame.prototype.init = function(inIsBot) {
 	
 	this.rivalScore = 0;
 	
+	this.isGameStarted = false;
+	
 	//점수 및 콤보
 	this.scoreData = new Score(this.game);
 	this.scoreData.onScoreUpdated = (this.OnScoreUpdated).bind(this);
@@ -45,9 +50,13 @@ InGame.prototype.init = function(inIsBot) {
 	this.comboDuration = 0;
 	this.pivotTimer = null;
 	
+	// init Scene
 	this.scene = new InGameScene(this);
+	
+	// init Controller
 	this.controller = InGameController(this);
 	
+	// init UserInteraction
 	this.game.input.onDown.add(this.controller.clickBlock, this.controller);
 	this.game.input.addMoveCallback(this.controller.moveBlock, this.controller);
 	this.game.input.onUp.add(this.controller.unClickBlock, this.controller);
@@ -58,6 +67,7 @@ InGame.prototype.OnScoreUpdated = function(inScore) {
 	if (window.realjs) {
 		realjs.realSendMessage(JSON.stringify({'combo': this.scoreData.getCombo(), 'score':inScore}), false);
 	}
+	this.updateScoreView(this.scoreData.getScore(), inScore);
 };
 
 InGame.prototype.OnComboUpdated = function(inCombo, inTimerDuration) {
@@ -91,7 +101,6 @@ InGame.prototype.preload = function() {
 };
 
 InGame.prototype.create = function() {
-	this.controller.initBoard();
 	
 	// 라이벌 관련
 	var rivalInfoStyle = { font: 'bold 15px Arial', fill: '#fff', boundsAlignH: 'right', boundsAlignV: 'middle' };
@@ -136,11 +145,43 @@ InGame.prototype.create = function() {
    
 	this.scene.fTopUIContainer.bringToTop(this.remainTimeText);
 	
+	this.playGameStartCounter();
+};
+
+InGame.prototype.playGameStartCounter = function() {
+	var countToGameStart = 3;
+	var txtGameStartCount = this.game.add.text(this.game.width / 2, this.game.height / 2, countToGameStart + "", { fill: '#ffffff', font: 'bold 64px debush'});
+
+	this.game.time.events.loop(Phaser.Timer.SECOND, function() {
+		countToGameStart = countToGameStart - 1;
+		
+		if (countToGameStart < 0) {
+			this.game.time.events.removeAll();
+			txtGameStartCount.destroy(true);
+			
+			this.startGame();
+		} else {
+			txtGameStartCount.text = countToGameStart + "";	
+		}
+	}, this);
+};
+
+InGame.prototype.startGame = function() {
+	this.isGameStarted = true;
+	this.controller.initBoard();
 	this.gameTimer = this.game.time.events.loop(Phaser.Timer.SECOND, this.timerCheck, this);
+};
+
+InGame.prototype.OnCountGameStartTimer = function() {
+
 	
 };
 
 InGame.prototype.update = function() {
+	
+	if (this.isGameStarted === false) {
+		return;
+	}
 	
 	if (this.aniBot) {
 		this.aniBot.update();	
@@ -164,7 +205,6 @@ InGame.prototype.update = function() {
 	}
 	
     this.bombCountText.text = "BombRemainCount : " + this.bombRemainCount;
-
 	this.controller.updateView();
 };
 
@@ -182,7 +222,7 @@ InGame.prototype.updateScoreView = function (playerScore, rivalScore) {
 	if (playerBgWidth < 100) {
 		playerBgWidth = 100;
 	} else if (playerBgWidth > (this.game.width - 100)) {
-		playerBgWidth = (this.game.width - 100);
+		playerBgWidth = (this.game.width - 100);4
 	}
 	
 	this.game.add.tween(this.scene.fBgPlayer).to({'targetWidth': playerBgWidth}, 500, "Quart.easeOut", true);
@@ -322,12 +362,11 @@ var InGameController = function(inViewContext) {
 			_blocks[index].updateView();
 		}
 		
-		if(_moveBlocks.length === 2){
-			if(this.checkSlidingEnd() === true){
+		if(_moveBlocks.length === 2 && _state !== EControllerState.LASTPANG_TURN && _state !== EControllerState.GAME_END){
+			if(this.twoCheckSlidingEnd(_moveBlocks[0], _moveBlocks[1]) === true){
 				//_pivotFlag = true;
 				currentMatchedCount = this.twoBlockCheckMatched(_moveBlocks[0], _moveBlocks[1], function(){
 					this.dropBlocksTempCheck();
-					_state = EControllerState.ANIM_TURN;
 				}.bind(this));
 					
 				if(currentMatchedCount > 0){
@@ -335,9 +374,12 @@ var InGameController = function(inViewContext) {
 						_scoreData.setScore(currentMatchedCount, true);	
 				}
 				else{
-					this.blockViewSwap(_moveBlocks[0], _moveBlocks[1]);
-					_state = EControllerState.SLIDING_TURN;
+					this.blockViewSwap(_moveBlocks[0], _moveBlocks[1], ESlideVelocity.BLOCK_RETRUN);
 				}
+				
+				if(this.dropBlocks() === true){
+					_state = EControllerState.REFILL_TURN;
+				}	
 				
 				this.initBlockFrame();
 				_moveBlocks = [];
@@ -345,11 +387,6 @@ var InGameController = function(inViewContext) {
 		}
 		
 		this.dropBlocksTempCheck();
-		
-		if(this.dropBlocks() === true){
-			_state = EControllerState.REFILL_TURN;
-			this.controlFlag(true);
-		}	
 		
 		if(_state === EControllerState.USER_TURN){
 			
@@ -543,7 +580,7 @@ var InGameController = function(inViewContext) {
 		}
 	};
 	
-	self.blockViewSwap = function(toBlock, fromBlock){
+	self.blockViewSwap = function(toBlock, fromBlock, slidVelocity){
 		if(toBlock === undefined || fromBlock === undefined || toBlock.index === undefined || fromBlock.index === undefined){
 			return;
 		}
@@ -563,6 +600,9 @@ var InGameController = function(inViewContext) {
 		_blocks[index].state = EBlockState.NORMAL;
 		_blocks[preIndex].state = EBlockState.NORMAL;
 		
+		_blocks[index].slidVelocity =	slidVelocity;
+		_blocks[preIndex].slidVelocity = slidVelocity;
+		
 		var temp = _blocks[index].view;
         _blocks[index].view = _blocks[preIndex].view;
         _blocks[preIndex].view = temp; 
@@ -580,6 +620,19 @@ var InGameController = function(inViewContext) {
 				return false;
 			}
 		}	
+		return true;
+	};
+	
+	// 컨트롤러에서 ...
+	self.twoCheckSlidingEnd = function(fromBlock, toBlock){
+		
+		if (fromBlock.state !== EBlockState.NORMAL
+				&&fromBlock.state !== EBlockState.REMOVE
+				&&toBlock.state !== EBlockState.NORMAL
+				&&toBlock.state !== EBlockState.REMOVE) {
+				return false;
+			}
+
 		return true;
 	};
 	
@@ -802,7 +855,7 @@ var InGameController = function(inViewContext) {
 	        for (var j = fromY; j <= toY; j++)
 	        {
 	            var block =  this.getBlock(i, j);
-	            if(block === null || block.type === EBlockType.BOMB) {
+	            if(block === null ||block.state !== EBlockState.NORMAL || block.type === EBlockType.BOMB) {
 	            	continue;
 	            }  
 	            
@@ -877,7 +930,7 @@ var InGameController = function(inViewContext) {
 	            	_blocks[index].setImageFrame(EBlockImage.NORMAL);
 	            	_blocks[preIndex].setImageFrame(EBlockImage.NORMAL);
 	            	
-	            	this.blockViewSwap(_blocks[index], _blocks[preIndex]);
+	            	this.blockViewSwap(_blocks[index], _blocks[preIndex], ESlideVelocity.BLOCK_DROP);
 	            	
 	            	dropflag = true;
 	            }
@@ -966,7 +1019,7 @@ var InGameController = function(inViewContext) {
 								_mouseFlag = false;
 						       // this.controlFlag(false);
 						         
-								this.blockViewSwap(_moveBlocks[0], _moveBlocks[1]);
+								this.blockViewSwap(_moveBlocks[0], _moveBlocks[1], ESlideVelocity.BLOCK_MOVE);
 
 					            _returnFlag = this.isRemoveTwoBlockCheckMatched(_moveBlocks[0], _moveBlocks[1], false);
 					            _state = EControllerState.USER_TURN;
@@ -983,7 +1036,7 @@ var InGameController = function(inViewContext) {
 								_mouseFlag = false;
 						        //this.controlFlag(false);
 						            
-								this.blockViewSwap(_moveBlocks[0], _moveBlocks[1]);
+								this.blockViewSwap(_moveBlocks[0], _moveBlocks[1], ESlideVelocity.BLOCK_MOVE);
 
 					            _returnFlag = this.isRemoveTwoBlockCheckMatched(_moveBlocks[0], _moveBlocks[1], false);
 					            _state = EControllerState.USER_TURN;

@@ -42,14 +42,11 @@ Preload.prototype.loadComplete = function () {
 	game.load.onFileComplete.removeAll();
 	game.load.onLoadComplete.removeAll();
 
-	var userId = "0";
-	var userName = "guest";
-	var userThumbnail = "ani";
 	if (window.FBInstant) {
 		FBInstant.setLoadingProgress(100);
-		userId = FBInstant.player.getId();
-		userName = FBInstant.player.getName();
-		userThumbnail = FBInstant.player.getPhoto();
+		window.PlayerInfo.id = FBInstant.player.getId();
+		window.PlayerInfo.name = FBInstant.player.getName();
+		window.PlayerInfo.thumbnail = FBInstant.player.getPhoto();
 	}
 	
 	
@@ -64,7 +61,7 @@ Preload.prototype.loadComplete = function () {
 				this.game.state.start("Lobby");
 			}
 		}, this);
-		realjs.realLogin(userId, userName, userThumbnail, '5000', '');
+		realjs.realLogin(window.PlayerInfo.id, window.PlayerInfo.name, window.PlayerInfo.thumbnail, '5000', '');
 	} else {
 		this.game.state.start("Lobby");
 	}

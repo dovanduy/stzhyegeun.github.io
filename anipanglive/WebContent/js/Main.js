@@ -7,6 +7,18 @@ if (StzRealJSConfig.SERVER_ENABLE === false) {
 }
 
 
+window.PlayerInfo = {
+	'name': 'Me',
+	'id': '0', 
+	'thumbnail': 'ani'
+};
+
+window.RivalInfo = {
+	'name': 'Rival',
+	'id': '1',
+	'thumbnail': 'blue'
+};
+
 var startAnipangMulti = function()
 {
 	if (window.realjs) {
@@ -43,7 +55,7 @@ var startAnipangMulti = function()
         FBInstant.setLoadingProgress(20);
     }
 
-	this.game.preserveDrawingBuffer = true;
+	//this.game.preserveDrawingBuffer = true;
 	this.game.state.add("Boot", Boot);	
 	this.game.state.add("Preload", Preload);
 	this.game.state.add("Lobby", Lobby);
