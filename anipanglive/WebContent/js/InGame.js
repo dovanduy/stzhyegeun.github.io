@@ -1014,10 +1014,12 @@ var InGameController = function(inViewContext) {
 							return;
 						}
 						
-						_moveBlocks.push(block);
-						block.setImageFrame(EBlockImage.CLICKED);
-						if(Math.abs(_moveBlocks[0].posX - _moveBlocks[1].posX) === 1){
-							if(Math.abs(_moveBlocks[0].posY - _moveBlocks[1].posY) === 0){
+						
+						if(Math.abs(_moveBlocks[0].posX - block.posX) === 1){
+							if(Math.abs(_moveBlocks[0].posY - block.posY) === 0){
+								_moveBlocks.push(block);
+								block.setImageFrame(EBlockImage.CLICKED);
+								
 								_mouseFlag = false;
 						       // this.controlFlag(false);
 						         
@@ -1033,8 +1035,11 @@ var InGameController = function(inViewContext) {
 							}
 		
 						}
-						else if(Math.abs(_moveBlocks[0].posY - _moveBlocks[1].posY) === 1){
-							if(Math.abs(_moveBlocks[0].posX - _moveBlocks[1].posX) === 0){
+						else if(Math.abs(_moveBlocks[0].posY - block.posY) === 1){
+							if(Math.abs(_moveBlocks[0].posX - block.posX) === 0){
+								_moveBlocks.push(block);
+								block.setImageFrame(EBlockImage.CLICKED);
+								
 								_mouseFlag = false;
 						        //this.controlFlag(false);
 						            
