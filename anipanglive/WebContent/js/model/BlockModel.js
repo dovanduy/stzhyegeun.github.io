@@ -25,6 +25,11 @@ var EBlockState = {
 	REMOVE_TO_BOMB		: 9
 };
 
+var EBlockImage = {
+		NORMAL 		: 1,
+		REMOVE		: 4,
+		CLICKED 	: 5
+};
 /**
  * 인게임 블럭 데이터 구조
  * @param inColor
@@ -58,6 +63,14 @@ BlockModel.prototype.init = function() {
 BlockModel.prototype.getImageKeyname = function() {
 	var imageKeyName = this.type + '0001.png';
 	return imageKeyName;
+};
+
+BlockModel.prototype.setImageFrame = function(imageNum) {
+	if(this.state ===  EBlockState.NORMAL &&this.view !== undefined  &&this.view !== null 
+			&& this.view.frameName !== undefined && this.view.frameName !== null && this.isMoveAndMatch !== true){
+		this.view.frameName = this.type + '000' +  imageNum + '.png';
+	}
+	
 };
 
 BlockModel.prototype.createView = function(inRow, inTouchCallback, inCallbackContext) {
@@ -188,14 +201,20 @@ BlockModel.prototype.removeBlock = function(animationName, removeToBombDelayTime
 	var blockMatchAnim = this.viewContext.add.sprite(this.view.x, this.view.y, animationName ,null, this.viewContext.scene.fGameBoard);
 	blockMatchAnim.animations.add(animationName);
 	blockMatchAnim.anchor.setTo(0.5, 0.5);
-
+	blockMatchAnim.visible = false;
 	this.isMoveAndMatch = true;
 
 	if(removeToBombDelayTime === undefined){
-		this.view.kill();
-		this.view= null;
-		this.view = blockMatchAnim; 
-		blockMatchAnim.animations.play(animationName,15,false);
+		
+		this.view.frameName = this.type + '0004.png';
+		this.viewContext.time.events.add(200, function(){
+			blockMatchAnim.visible = true;
+			this.view.kill();
+			this.view= null;
+			this.view = blockMatchAnim;
+			blockMatchAnim.animations.play(animationName,15,false);
+		}.bind(this));
+		
 		
 		blockMatchAnim.animations.currentAnim.onComplete.add(function(){
 			this.state = EBlockState.REMOVE;
@@ -205,7 +224,6 @@ BlockModel.prototype.removeBlock = function(animationName, removeToBombDelayTime
 		}.bind(this));
 	}
 	else{
-		blockMatchAnim.visible = false;
 		this.viewContext.time.events.add(removeToBombDelayTime, bombRemoveAnim.bind(this, blockMatchAnim, animationName));
 	}
 	
@@ -228,5 +246,5 @@ BlockModel.prototype.removeBlock = function(animationName, removeToBombDelayTime
 };
 
 BlockModel.Setting = {
-	SLIDING_SECONDS: 0.10	
+	SLIDING_SECONDS: 0.15	
 };
