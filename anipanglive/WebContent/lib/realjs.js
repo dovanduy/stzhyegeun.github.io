@@ -409,6 +409,11 @@ var REALJS_DEBUG = true;
 				return false;
 			}
 
+			// 로비에서는 메시지를 보내지 않도록 제거
+			if (this.getJoinedRoomId() === "lobby") {
+				return false;
+			}
+			
 			var message = inMessage.trim();
 			if (message) {
 				this.realSocket.emit("ROOM:MESSAGE", message);

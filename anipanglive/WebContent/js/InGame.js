@@ -112,7 +112,7 @@ InGame.prototype.create = function() {
 	this.myText = this.game.add.text(0, 0, "Score: 0\nCombo: 0", myInfoStyle);
 	this.myText.setTextBounds(50, 0, 50, 100);
 	
-	this.gameStateText = this.game.add.text(0, 0, "PIVOT_NOT_MOVEMENT", myInfoStyle);
+	this.gameStateText = this.game.add.text(0, 0, "FEVER_NOT_MOVEMENT", myInfoStyle);
 	this.gameStateText.setTextBounds(50, 150, 50, 100);
 	
 	this.txtComboTimer = this.game.add.text(0, 0, "CTimer: 0", myInfoStyle);
@@ -222,7 +222,7 @@ InGame.prototype.updateScoreView = function (playerScore, rivalScore) {
 	if (playerBgWidth < 100) {
 		playerBgWidth = 100;
 	} else if (playerBgWidth > (this.game.width - 100)) {
-		playerBgWidth = (this.game.width - 100);4
+		playerBgWidth = (this.game.width - 100);
 	}
 	
 	this.game.add.tween(this.scene.fBgPlayer).to({'targetWidth': playerBgWidth}, 500, "Quart.easeOut", true);
@@ -246,15 +246,18 @@ InGame.prototype.stopControllGame = function() {
 InGame.prototype.timerCheck = function(){
 	
 	if(this.timeCount <= 0){
-		this.game.time.events.remove(this.gameTimer);
-		// 게임 정지 -> 라스트팡 시작.
+		this.controller.controlFlag(false);
 		StzLog.print("[InGame (timerCheck)] 타임 업!");
 		this.gameStateText.text ="LAST_PANG";
-		this.controller.controlFlag(false);
-		this.controller.setState(EControllerState.LASTPANG_TURN);
-		this.pivotTimer = null;
-		this.comboDuration = 0;
-		//this.stopControllGame();
+		
+		if(this.controller.checkNormal() === true){
+			this.game.time.events.remove(this.gameTimer);
+			
+			// 게임 정지 -> 라스트팡 시작.
+			this.controller.setState(EControllerState.LASTPANG_TURN);
+			this.pivotTimer = null;
+			this.comboDuration = 0;
+		}
 		
 		return;
 	}
@@ -290,13 +293,14 @@ var InGameController = function(inViewContext) {
 	var _state = EControllerState.USER_TURN;
 	var _moveBlocks = [];
 	var _mouseFlag = false;
-	var _controlFlag = false;
-	var _returnFlag = false;
+	var _controlFlag = true;
+	var _tempMoveBlocks = [];
 	var _scoreData = inViewContext.scoreData;
 	//폭탄으로 제거되는 블럭들 (위아래, 오른쪽, 왼쪽)
 	var _bombToRemeveBlocksUD = [];
 	var _bombToRemeveBlocksL = [];
 	var _bombToRemeveBlocksR = [];
+	//폭탄으로 의해 터지는 애니매이션이 실행된 블럭들
 	var _bombAnimStartBlocks = [];
 	
 	//피벗
@@ -315,7 +319,13 @@ var InGameController = function(inViewContext) {
 	};
 	
 	self.controlFlag = function(flag){
-		_controlFlag = flag;
+		if(inViewContext.timeCount <= 0){
+			_controlFlag = false;
+		}
+		else{
+			_controlFlag = flag;
+		}
+		
 	};
 	
 	self.setState= function(state){
@@ -350,6 +360,18 @@ var InGameController = function(inViewContext) {
 			_blocks[index] = new BlockModel(EBlockType.list[randomType], index, self.viewContext);
 			_blocks[index].createView(Math.floor(index / InGameBoardConfig.COL_COUNT));
 		}
+		
+		if(this.checkMatched(true, function(){}) !== 0){
+			for (var index = 0; index < _blocks.length; index++) {
+				_blocks[index].distory();
+			}
+			_blocks =  StzUtil.createArray(InGameBoardConfig.ROW_COUNT * InGameBoardConfig.COL_COUNT);
+			self.initBoard();
+		}
+		else{
+			
+			return;
+		}
 	};
 
 	self.updateView = function() {
@@ -362,10 +384,11 @@ var InGameController = function(inViewContext) {
 			_blocks[index].updateView();
 		}
 		
-		if(_moveBlocks.length === 2 && _state !== EControllerState.LASTPANG_TURN && _state !== EControllerState.GAME_END){
-			if(this.twoCheckSlidingEnd(_moveBlocks[0], _moveBlocks[1]) === true){
+		//블럭 손으로 이동 후 매치 하는 부분
+		if(_tempMoveBlocks.length === 2 && _state !== EControllerState.LASTPANG_TURN && _state !== EControllerState.GAME_END){
+			if(this.twoCheckSlidingEnd(_tempMoveBlocks[0], _tempMoveBlocks[1]) === true){
 				//_pivotFlag = true;
-				currentMatchedCount = this.twoBlockCheckMatched(_moveBlocks[0], _moveBlocks[1], function(){
+				currentMatchedCount = this.twoBlockCheckMatched(_tempMoveBlocks[0], _tempMoveBlocks[1], function(){
 					this.dropBlocksTempCheck();
 				}.bind(this));
 					
@@ -374,18 +397,15 @@ var InGameController = function(inViewContext) {
 						_scoreData.setScore(currentMatchedCount, true);	
 				}
 				else{
-					this.blockViewSwap(_moveBlocks[0], _moveBlocks[1], ESlideVelocity.BLOCK_RETRUN);
+					this.blockViewSwap(_tempMoveBlocks[0], _tempMoveBlocks[1], ESlideVelocity.BLOCK_RETRUN);
+					
 				}
-				
-				if(this.dropBlocks() === true){
-					_state = EControllerState.REFILL_TURN;
-				}	
-				
+				this.controlFlag(true);
 				this.initBlockFrame();
-				_moveBlocks = [];
+				_tempMoveBlocks = [];
 			}
 		}
-		
+		//떨어질 예정인 블럭들 못움직이게 설정
 		this.dropBlocksTempCheck();
 		
 		if(_state === EControllerState.USER_TURN){
@@ -394,28 +414,21 @@ var InGameController = function(inViewContext) {
 				//StzLog.print("슬라이드 유무 체크");
 				_state = EControllerState.SLIDING_TURN;
 			}
-
-
 		}
 		else if(_state === EControllerState.SLIDING_TURN){
 			if(this.checkSlidingEnd() === true){
 				//StzLog.print("슬라이드 끝남 체크");
-				this.controlFlag(true);
-				this.initBlockFrame();
-				if(this.dropBlocks() === true){
-					_state = EControllerState.REFILL_TURN;
-					this.controlFlag(true);
-				}	
-				else{
-					_state = EControllerState.MATCH_TURN;
-				}
+				this.initAllBlockFrame();
+				_state = EControllerState.MATCH_TURN;
+				
 			}
 		}
 		else if(_state === EControllerState.MATCH_TURN){
 			//StzLog.print("매치시작");
 			var currentDropMatchedCount = 0;
 
-			currentDropMatchedCount = this.checkMatched(function(){
+			currentDropMatchedCount = this.checkMatched(false, function(){
+				//떨어질 예정인 블럭들 못움직이게 설정
 				this.dropBlocksTempCheck();
 				_state = EControllerState.ANIM_TURN;
 			}.bind(this));
@@ -426,26 +439,14 @@ var InGameController = function(inViewContext) {
 			}
 		}
 		else if(_state === EControllerState.ANIM_TURN){
-			this.controlFlag(true);
 			if(this.checkAnim() === true){
 				//StzLog.print("애니매이션 체크");
-				_state = EControllerState.DROP_TURN;
+				_state = EControllerState.USER_TURN;
 			}
 		}
-		
-		else if(_state === EControllerState.DROP_TURN){
-			//StzLog.print("드롭시작");
-			this.dropBlocks();
-			_state = EControllerState.REFILL_TURN;
-		}
-		
-		else if(_state === EControllerState.REFILL_TURN){
-			//StzLog.print("리필");
-			this.refillBoard();
-			
-			_state = EControllerState.USER_TURN;
-		}
+
 		else if(_state === EControllerState.BOMB_TURN){
+			this.controlFlag(false);
 			this.bombOperate();
 			_state = EControllerState.BOMB_WATING;
 		}
@@ -453,20 +454,25 @@ var InGameController = function(inViewContext) {
 		else if(_state === EControllerState.BOMB_WATING){
 			
 			if(this.isBombCompleted() === true){
+				this.controlFlag(true);
 				_state = EControllerState.USER_TURN;
 			}
 			
 		}
 		else if(_state === EControllerState.LASTPANG_TURN){
 			var bombIndex = -1;
+			var lastPangMachedCount = 0;
 			if(this.checkNormal() === true){
-				if(this.checkMatched(function() {}.bind(this)) === 0){
+				if(lastPangMachedCount = this.checkMatched(false, function() {}.bind(this)) === 0){
 					bombIndex = this.getBlocksBombTypeIndex();
 					
 					if(bombIndex !== -1){
 						this.bombToRemoveBlockCheck(_blocks[bombIndex]);
 						this.bombOperate();
 					}
+				}
+				if (lastPangMachedCount > 0) {
+					_scoreData.setScore(lastPangMachedCount, false);	
 				}
 			
 			}
@@ -494,9 +500,18 @@ var InGameController = function(inViewContext) {
 			}.bind(this));
 		}
 		
+		//블럭 드랍과 리필 로직은 스테이트와 상관없이 동작 (라스트팡, 폭탄 상태때는 작동하지 않음)
+		if( _state !== EControllerState.LASTPANG_TURN && _state !== EControllerState.GAME_END 
+				&& _state !== EControllerState.BOMB_TURN && _state !== EControllerState.BOMB_WATING){
+				this.dropBlocks();
+				this.refillBoard();
+		}
+		
 	};
 	
-	
+	/**
+	 * 폭탄이 존재하는지 체크하는 로직
+	 */
 	self.getBlocksBombTypeIndex = function(){
 		for (var index = 0; index < _blocks.length; index ++) {
 			if (_blocks[index].type === EBlockType.BOMB) {
@@ -506,6 +521,9 @@ var InGameController = function(inViewContext) {
 		return -1;
 	};
 	
+	/**
+	 * 폭탄 애니매이션이 끝난는지 검사하는 로직
+	 */
 	self.isBombCompleted = function(){
 		var length = _bombAnimStartBlocks.length;
 		
@@ -524,6 +542,9 @@ var InGameController = function(inViewContext) {
 		return true;
 	};
 	
+	/**
+	 * 폭탄 클릭 시 터질 블럭을 찾는 로직
+	 */
 	self.bombOperate = function(){
 		var delay = 0;
 		
@@ -556,6 +577,9 @@ var InGameController = function(inViewContext) {
 		}
 	};
 	
+	/**
+	 * 블럭 카운트를 체크하여 블럭을 생성하는 로직
+	 */
 	self.checkBomb = function(){
 		if( self.viewContext.bombRemainCount === 0){
 			
@@ -580,6 +604,9 @@ var InGameController = function(inViewContext) {
 		}
 	};
 	
+	/**
+	 * 블럭의 스압 로직
+	 */
 	self.blockViewSwap = function(toBlock, fromBlock, slidVelocity){
 		if(toBlock === undefined || fromBlock === undefined || toBlock.index === undefined || fromBlock.index === undefined){
 			return;
@@ -587,12 +614,12 @@ var InGameController = function(inViewContext) {
 		var index = toBlock.index;
 		var preIndex = fromBlock.index;
 			
-		if(_blocks[index] === null || _blocks[index].state === undefined|| 
+		if(_blocks[index] === undefined || _blocks[index] === null || _blocks[index].state === undefined|| 
 		(_blocks[index].state !== EBlockState.NORMAL && _blocks[index].state !== EBlockState.SLIDING_END && _blocks[index].state !== EBlockState.REMOVE)){
 			return;
 		}
 		
-		if(_blocks[preIndex] === null || _blocks[preIndex].state === undefined || 
+		if(_blocks[preIndex] === undefined || _blocks[preIndex] === null || _blocks[preIndex].state === undefined || 
 		(_blocks[preIndex].state !== EBlockState.NORMAL && _blocks[preIndex].state !== EBlockState.SLIDING_END && _blocks[preIndex].state !== EBlockState.REMOVE)){
 			return;
 		}
@@ -612,9 +639,15 @@ var InGameController = function(inViewContext) {
         _blocks[preIndex].type = temp; 
 	};
 	
-	// 컨트롤러에서 ...
+	/**
+	 * 모든 블럭들이 슬라이드 여부가 끝난는지 체크
+	 */
 	self.checkSlidingEnd = function(){
 		for (var index = 0; index < _blocks.length; index ++) {
+			//블럭의 이동 속도를 체크하여 이 블록이 어느 이동이였는지 체크
+			if(_blocks[index].slidVelocity === ESlideVelocity.BLOCK_RETRUN || _blocks[index] === ESlideVelocity.BLOCK_MOVE){
+				continue;
+			}
 			if (_blocks[index].state !== EBlockState.NORMAL
 				&&_blocks[index].state !== EBlockState.REMOVE) {
 				return false;
@@ -623,7 +656,9 @@ var InGameController = function(inViewContext) {
 		return true;
 	};
 	
-	// 컨트롤러에서 ...
+	/**
+	 * 선택된 두 블럭의 상태가 슬라이드가 끝난 여부 체크
+	 */
 	self.twoCheckSlidingEnd = function(fromBlock, toBlock){
 		
 		if (fromBlock.state !== EBlockState.NORMAL
@@ -636,8 +671,14 @@ var InGameController = function(inViewContext) {
 		return true;
 	};
 	
+	/**
+	 * 블럭들이 노멀 상태인지 체크
+	 */
 	self.checkNormal = function(){
 		for (var index = 0; index < _blocks.length; index ++) {
+			if(_blocks[index].slidVelocity === ESlideVelocity.BLOCK_RETRUN || _blocks[index] === ESlideVelocity.BLOCK_MOVE){
+				continue;
+			}
 			if (_blocks[index].state !== EBlockState.NORMAL) {
 				return false;
 			}
@@ -645,6 +686,9 @@ var InGameController = function(inViewContext) {
 		return true;
 	};
 	
+	/**
+	 * 애니매이션 중인 블럭이 있는지 체크
+	 */
 	self.checkAnim = function(){
 		for (var index = 0; index < _blocks.length; index ++) {
 			if (_blocks[index].state === EBlockState.ANIMATION) {
@@ -653,13 +697,22 @@ var InGameController = function(inViewContext) {
 		}	
 		return true;
 	};
+	
 	/**
 	 * 전체 인게임 보드에서 매칭된 블럭 체크
 	 */
-	self.checkMatched = function(inCallback, inCallbackContext) {
+	self.checkMatched = function(remove_Flag, inCallback, inCallbackContext) {
 		
 		var length = _blocks.length;
 		var mactedCount = 0;
+		var removeFlag = false;
+		
+		if(remove_Flag === undefined){
+			removeFlag = false;
+		}
+		else{
+			removeFlag = remove_Flag;
+		}
 		
 		for(var i =0; i < length; i++)
 		{
@@ -677,13 +730,21 @@ var InGameController = function(inViewContext) {
 				
 				if (countVert >= StzGameConfig.MATCH_MIN)
 				{
-					mactedCount += this.killBlockRange(block.posX, block.posY - countUp, block.posX, block.posY + countDown);
+					if(removeFlag === true){
+						return 1;
+					}
 					
+					mactedCount += this.killBlockRange(block.posX, block.posY - countUp, block.posX, block.posY + countDown);
 				}
 
 				if (countHoriz >= StzGameConfig.MATCH_MIN)
 				{
+					if(removeFlag === true){
+						return 1;
+					}
+					
 					mactedCount += this.killBlockRange(block.posX - countLeft, block.posY, block.posX + countRight, block.posY);
+					
 				}
 			}
 		}
@@ -695,6 +756,11 @@ var InGameController = function(inViewContext) {
         if( self.viewContext.bombRemainCount < 0){
         	 self.viewContext.bombRemainCount = 0;
         }
+        
+        if(removeFlag === true){
+			return 0;
+		}
+        
 		return mactedCount;
 	};
 	
@@ -759,7 +825,7 @@ var InGameController = function(inViewContext) {
 	};
 	
 	/**
-	 * 두블럭의 이동으로 제거되는 블럭 제거
+	 * 두블럭의 이동으로 제거되는 블럭 체크
 	 */
 	self.twoBlockCheckMatched = function(fromBlock, toBlock, inCallback, inCallbackContext) {
 		
@@ -818,13 +884,17 @@ var InGameController = function(inViewContext) {
 	    return mactedCount;
 	};
 	
+	/**
+	 * 주변에 같은 블럭의 개수를 체크하는 로직
+	 */
 	self.countSameTypeBlock = function(startBlock, moveX, moveY) {
 		var curX = startBlock.posX + moveX;
 		var curY = startBlock.posY + moveY;
 		var count = 0;
 
 		while (curX >= 0 && curY >= 0 && curX < InGameBoardConfig.COL_COUNT 
-				&& curY < InGameBoardConfig.ROW_COUNT &&this.getBlock(curX, curY) != null && this.getBlock(curX, curY).type === startBlock.type)
+				&& curY < InGameBoardConfig.ROW_COUNT &&this.getBlock(curX, curY) != null && this.getBlock(curX, curY).type === startBlock.type
+				&& this.getBlock(curX, curY).state === EBlockState.NORMAL && startBlock.state === EBlockState.NORMAL)
 		{
 			count++;
 		    curX += moveX;
@@ -834,6 +904,9 @@ var InGameController = function(inViewContext) {
 		return count;
 	};
 	
+	/**
+	 * 제거 범위를 매게변수로 입력 받아서 블럭 상태를 제거 상태로 만드는 로직
+	 */
 	self.killBlockRange = function(from_X, from_Y, to_X, to_Y, pivot_Flag) {
 		
 		var fromX = Phaser.Math.clamp(from_X, 0, InGameBoardConfig.COL_COUNT - 1);
@@ -855,28 +928,28 @@ var InGameController = function(inViewContext) {
 	        for (var j = fromY; j <= toY; j++)
 	        {
 	            var block =  this.getBlock(i, j);
-	            if(block === null ||block.state !== EBlockState.NORMAL || block.type === EBlockType.BOMB) {
+	            if(block === null || block.type === EBlockType.BOMB) {
 	            	continue;
 	            }  
 	            
 	    	    if(pivotFlag === true){
-	    	    	if(this.isPivotKillBlock(i, j-1) === true){
+	    	    	if(this.isFeverKillBlock(i, j-1) === true){
 	    	    		_blocks[(j-1)*InGameBoardConfig.ROW_COUNT + i].state =  EBlockState.REMOVE_ANIM;
 	    	    		mactedCount++;
 	    	    	}   	
-	    	    	if(this.isPivotKillBlock(i, j+1) === true){
+	    	    	if(this.isFeverKillBlock(i, j+1) === true){
 	    	    		_blocks[(j+1)*InGameBoardConfig.ROW_COUNT + i].state =  EBlockState.REMOVE_ANIM;
 	    	    		mactedCount++;
 	    	    	}
-	    	    	if(this.isPivotKillBlock(i-1, j) === true){
+	    	    	if(this.isFeverKillBlock(i-1, j) === true){
 	    	    		_blocks[j*InGameBoardConfig.ROW_COUNT + (i-1)].state =  EBlockState.REMOVE_ANIM;
 	    	    		mactedCount++;
 	    	    	}
-	    	    	if(this.isPivotKillBlock(i+1, j) === true){
+	    	    	if(this.isFeverKillBlock(i+1, j) === true){
 	    	    		_blocks[j*InGameBoardConfig.ROW_COUNT + (i+1)].state =  EBlockState.REMOVE_ANIM;
 	    	    		mactedCount++;
 	    	    	}	
-	    	    	if(this.isPivotKillBlock(i, j) === true){
+	    	    	if(this.isFeverKillBlock(i, j) === true){
 	    	    		_blocks[j*InGameBoardConfig.ROW_COUNT + i].state =  EBlockState.REMOVE_ANIM;
 	    	    		mactedCount++;
 	    	    	}	
@@ -891,7 +964,10 @@ var InGameController = function(inViewContext) {
 	    return mactedCount;
 	};
 	
-	self.isPivotKillBlock = function(x, y){
+	/**
+	 * 피벗 모드일 경우 블럭 떨어 뜨리는 로직
+	 */
+	self.isFeverKillBlock = function(x, y){
 		
 		if(x < 0 || x >= InGameBoardConfig.ROW_COUNT || y < 0 || y >= InGameBoardConfig.COL_COUNT ){
 			return false;
@@ -908,6 +984,9 @@ var InGameController = function(inViewContext) {
 		}
 	};
 	
+	/**
+	 * 빈공간 발생 시 블럭 아래에서 위로 떨어뜨리는 로직
+	 */
 	self.dropBlocks = function() {
 		var dropflag = false;
 	    for (var i = 0; i < InGameBoardConfig.COL_COUNT; i++)
@@ -941,6 +1020,9 @@ var InGameController = function(inViewContext) {
 	    return dropflag;
 	};
 	
+	/**
+	 * 떨어질 에정인 블럭들 체크하여 못 움직이게 설정
+	 */
 	self.dropBlocksTempCheck = function() {
 	    for (var i = 0; i < InGameBoardConfig.COL_COUNT; i++)
 	    {
@@ -1003,8 +1085,7 @@ var InGameController = function(inViewContext) {
 		for(var i=0;i<length;i++){
 			var block = _blocks[i];
 			if(block !== null && block.view !== null && block.state === EBlockState.NORMAL){
-				//block.view.setBounds(block.view.x, block.view.y, block.view.width*0.9, block.view.height*0.9);
-				if(Phaser.Rectangle.intersects(hitPoint, block.view.getBounds()) && block.type !== EBlockType.BOMB){
+				if(Phaser.Rectangle.intersects(hitPoint, block.view.getBounds())){
 					if(block.isMoveAndMatch === true) {
 						return;
 					}
@@ -1018,19 +1099,18 @@ var InGameController = function(inViewContext) {
 						if(Math.abs(_moveBlocks[0].posX - block.posX) === 1){
 							if(Math.abs(_moveBlocks[0].posY - block.posY) === 0){
 								_moveBlocks.push(block);
-								block.setImageFrame(EBlockImage.CLICKED);
-								
+								this.controlFlag(false);
 								_mouseFlag = false;
-						       // this.controlFlag(false);
-						         
+								
 								this.blockViewSwap(_moveBlocks[0], _moveBlocks[1], ESlideVelocity.BLOCK_MOVE);
-
-					            _returnFlag = this.isRemoveTwoBlockCheckMatched(_moveBlocks[0], _moveBlocks[1], false);
-					            _state = EControllerState.USER_TURN;
-					            if(_returnFlag == true){
-					            	_moveBlocks[0].isMoveAndMatch = true;
-					            	_moveBlocks[1].isMoveAndMatch = true;
-					            }
+								
+								_tempMoveBlocks.push(_moveBlocks[0]);
+								_tempMoveBlocks.push(_moveBlocks[1]);
+								
+								_moveBlocks[0].isMoveAndMatch = true;
+				            	_moveBlocks[1].isMoveAndMatch = true;
+					           
+					           
 					            return;
 							}
 		
@@ -1038,19 +1118,16 @@ var InGameController = function(inViewContext) {
 						else if(Math.abs(_moveBlocks[0].posY - block.posY) === 1){
 							if(Math.abs(_moveBlocks[0].posX - block.posX) === 0){
 								_moveBlocks.push(block);
-								block.setImageFrame(EBlockImage.CLICKED);
-								
+								this.controlFlag(false);
 								_mouseFlag = false;
-						        //this.controlFlag(false);
-						            
+							
 								this.blockViewSwap(_moveBlocks[0], _moveBlocks[1], ESlideVelocity.BLOCK_MOVE);
 
-					            _returnFlag = this.isRemoveTwoBlockCheckMatched(_moveBlocks[0], _moveBlocks[1], false);
-					            _state = EControllerState.USER_TURN;
-					            if(_returnFlag == true){
-					            	_moveBlocks[0].isMoveAndMatch = true;
-					            	_moveBlocks[1].isMoveAndMatch = true;
-					            }
+								_tempMoveBlocks.push(_moveBlocks[0]);
+								_tempMoveBlocks.push(_moveBlocks[1]);
+								
+								_moveBlocks[0].isMoveAndMatch = true;
+				            	_moveBlocks[1].isMoveAndMatch = true;
 					            return;
 							}
 						}
@@ -1071,7 +1148,7 @@ var InGameController = function(inViewContext) {
 		}
 		if(hitFlag === false){
 			_mouseFlag = false;
-			this.initBlockFrame();
+			this.initAllBlockFrame();
 			_moveBlocks = [];
 		}
 	};
@@ -1086,7 +1163,6 @@ var InGameController = function(inViewContext) {
 		for(var i=0;i<length;i++){
 			var block = _blocks[i];
 			if(block !== undefined && block !== null && block.view !== undefined && block.view !== null){
-				//block.view.setBounds(block.view.x, block.view.y, block.view.width*0.9, block.view.height*0.9);
 				if(Phaser.Rectangle.intersects(hitPoint, block.view.getBounds())){
 					if(block.type === EBlockType.BOMB && this.checkNormal() === true){
 						StzLog.print("폭탄 클릭");
@@ -1103,17 +1179,12 @@ var InGameController = function(inViewContext) {
 						_moveBlocks.push(block);
 					}
 				}
-				else{
-					//this.initBlockFrame();
-				}
 			}
 		}
 	};
 	
 	self.unClickBlock = function(pointer) {
-		if(_moveBlocks.length === 1){
-			_moveBlocks = [];
-		}
+		_moveBlocks = [];
 	};
 	
 	self.bombToRemoveBlockCheck = function(bombBlock){

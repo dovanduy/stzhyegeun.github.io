@@ -33,6 +33,7 @@ var startAnipangMulti = function()
         FBInstant.setLoadingProgress(10);
     }
 
+    /*
     // set display ratio
     var documentWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
     var documentHeight = window.innerHeight || document.docuemntElement.clientHeight || document.body.clientHeight;
@@ -49,8 +50,11 @@ var startAnipangMulti = function()
 
     var gameWidth = 480 * screenScale;
     var gameHeight = Math.floor(480 * screenScale * documentRatio); 
-	this.game = new Phaser.Game(gameWidth , gameHeight, Phaser.WEBGL, 'gameContainer');
-
+    */
+	//this.game = new Phaser.Game(gameWidth , gameHeight, Phaser.WEBGL, 'gameContainer');
+    this.game = new Phaser.Game(480 , 800, Phaser.WEBGL, 'gameContainer');
+    
+    
     if (window.FBInstant) {
         FBInstant.setLoadingProgress(20);
     }

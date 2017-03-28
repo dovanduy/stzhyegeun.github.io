@@ -44,7 +44,7 @@ Preload.prototype.loadComplete = function () {
 
 	if (window.FBInstant) {
 		FBInstant.setLoadingProgress(100);
-		window.PlayerInfo.id = FBInstant.player.getId();
+		window.PlayerInfo.id = FBInstant.player.getID();
 		window.PlayerInfo.name = FBInstant.player.getName();
 		window.PlayerInfo.thumbnail = FBInstant.player.getPhoto();
 	}

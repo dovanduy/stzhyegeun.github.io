@@ -201,8 +201,6 @@ BlockModel.prototype.updateView = function() {
 			}.bind(this));
 		}
 	}
-	
-	//this.isMoveAndMatch = (this.view.x === this.position.x && this.view.y === this.position.y);
 };
 
 BlockModel.prototype.removeBlock = function(animationName, removeToBombDelayTime) {
@@ -253,6 +251,9 @@ BlockModel.prototype.removeBlock = function(animationName, removeToBombDelayTime
 	}
 };
 
-BlockModel.Setting = {
-	SLIDING_SECONDS: 0.3	
+BlockModel.prototype.distory = function() {
+	if(this.view !== undefined && this.view !== null){
+		this.view.kill();
+		this.view= null;
+	}
 };
