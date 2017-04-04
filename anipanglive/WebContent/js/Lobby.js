@@ -8,7 +8,7 @@ Lobby.prototype = proto;
 Lobby.prototype.init = function() {
 	this.isWaiting = false;
 	this.waitingTimer = this.game.time.create(false);
-	this.remainWaitingTime = 30;
+	this.remainWaitingTime = 0;
 };
 
 Lobby.prototype.preload = function() {
@@ -17,25 +17,65 @@ Lobby.prototype.preload = function() {
 
 Lobby.prototype.create = function() {
 	this.game.stage.backgroundColor = "#ffffff";
+	
+	// make Play with bot Text
+	this.txtPlayWithBot = this.game.add.text(this.game.width / 2, 680, "Play with Ani", {font: '24px debush', fill: '#000000'});
+	this.txtPlayWithBot.anchor.set(0.5, 0.5);
+	this.txtPlayWithBot.visible = false;
+	this.txtPlayWithBot.inputEnabled = true;
+	this.txtPlayWithBot.events.onInputUp.add(function() {
+		this.startInGameState(true);
+	}, this);
+	
+	
 	this.scene.fBtn_stage.events.onInputDown.add(this.OnClickGameStart, this);
+	
+	this.OnClickGameStart(null, null);
 };
+
+Lobby.prototype.cancelWaiting = function() {
+	
+	if (window.realjs) {
+		realjs.realJoinLobby(false);
+	}
+	
+	this.waitingTimer.stop();
+	this.isWaiting = false;
+	this.scene.fTxt_stage.text = "Start";
+};
+
 
 Lobby.prototype.OnClickGameStart = function(sprite, pointer) {
 	StzLog.print("[Lobby (OnClickGameStart)]");
 	
 	if (this.isWaiting == false) {
 		this.isWaiting = true;
-		this.scene.fTxt_stage.text = "Waiting : " + this.remainWaitingTime + " sec";
+		this.scene.fTxt_stage.text = "Waiting";
+		
 		this.waitingTimer.loop(1000, function(){
 			if (this.isWaiting == false) {
 				return;
 			}
-			this.remainWaitingTime--;
-			this.scene.fTxt_stage.text = "Waiting : " + this.remainWaitingTime + " sec";
+			this.remainWaitingTime++;
 			
-			if (this.remainWaitingTime <= 20) {
-				// 봇모드로 시작
-				this.startInGameState(true);
+			switch (this.remainWaitingTime % 4) {
+			case 0:
+				this.scene.fTxt_stage.text = "Waiting";
+				break;
+			case 1: 
+				this.scene.fTxt_stage.text = "Waiting.";
+				break;
+			case 2:
+				this.scene.fTxt_stage.text = "Waiting..";
+				break;
+			case 3:
+				this.scene.fTxt_stage.text = "Waiting...";
+				break;
+			}
+			
+			if (this.remainWaitingTime >= 10) {
+				this.txtPlayWithBot.visible = true;
+				this.waitingTimer.stop();
 			}
 		}, this);
 		
@@ -69,9 +109,9 @@ Lobby.prototype.OnClickGameStart = function(sprite, pointer) {
 			}, this);
 			
 			realjs.realGetRoomList();
-		} else {
-			this.startInGameState(true);
-		}
+		} 
+	} else {
+		this.cancelWaiting();
 	}
 };
 

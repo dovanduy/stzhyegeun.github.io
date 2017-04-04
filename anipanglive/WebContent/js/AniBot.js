@@ -6,13 +6,17 @@ function AniBot(inContext, inDifficulty) {
 	
 	var _context = inContext;
 	var _difficulty = inDifficulty || 10;
+	var _remainDifficultyUpdateTime = 0;
 	
 	var MIN_MATCH_INTERVAL_MS = 100 + (_difficulty * 100);
 	var MAX_MATCH_INTERVAL_MS = 1800 + (_difficulty * 100);
 	var PROB_FIVE_MATCH = 0.15 - (_difficulty * 0.01);
 	var PROB_FOUR_MATCH = 0.35 - (_difficulty * 0.01);
 	var MAX_AUTO_MATCH_COUNT = 30;
-	var AUTO_DIFFICULTY_SCORE_OFFSET = 30000;
+	
+	var AUTO_DIFFICULTY_SCORE_OFFSET = 20000;
+	var AUTO_DIFFICULTY_SCORE_CHANGE_MS = 5000;
+	
 	
 	var _currentMatchTime = StzUtil.createRandomInteger(MIN_MATCH_INTERVAL_MS, MAX_MATCH_INTERVAL_MS); 
 	var _remainMatchTime = _currentMatchTime;
@@ -36,8 +40,12 @@ function AniBot(inContext, inDifficulty) {
 		THINKING: 0, 
 		READY: 1,
 		PLAYED: 2
-	};
+	};5
 
+	self.getDifficulty = function() {
+		return _difficulty;
+	};
+	
 	self.isStop = function() {
 		return _isStopUpdate;
 	};
@@ -49,7 +57,7 @@ function AniBot(inContext, inDifficulty) {
 	self.setNextMatch = function() {
 		if (_aniState === self.EState.PLAYED) {
 			
-			if (self.autoDifficulty) {
+			if (self.autoDifficulty && _remainDifficultyUpdateTime <= 0) {
 				if (self.score - _context.scoreData.getScore() > AUTO_DIFFICULTY_SCORE_OFFSET) {
 					self.updateDifficulty(_difficulty + 1);
 				} else if (_context.scoreData.getScore() - self.score > AUTO_DIFFICULTY_SCORE_OFFSET) {
@@ -79,7 +87,7 @@ function AniBot(inContext, inDifficulty) {
 		
 		_currentMatchTime = StzUtil.createRandomInteger(MIN_MATCH_INTERVAL_MS, MAX_MATCH_INTERVAL_MS); 
 		_remainMatchTime = _currentMatchTime;
-		
+		_remainDifficultyUpdateTime = AUTO_DIFFICULTY_SCORE_CHANGE_MS;
 	};
 	
 	self.playBot = function() {
@@ -115,6 +123,11 @@ function AniBot(inContext, inDifficulty) {
 		}
 		
 		_remainMatchTime = _remainMatchTime - _context.game.time.elapsedMS;
+		
+		if (self.autoDifficulty && _remainDifficultyUpdateTime > 0) {
+			_remainDifficultyUpdateTime = _remainDifficultyUpdateTime - _context.game.time.elapsedMS;	
+		}
+		
 		if (_remainMatchTime <= 0 && _aniState === self.EState.READY) {
 			self.playBot();
 			self.setNextMatch();

@@ -32,16 +32,13 @@ Result.prototype.init = function(inScores) {
 				return;
 			}
 			
+			realjs.event.messageListener.removeAll();
 			if (this.isPlayAgain.me === true && this.isPlayAgain.rival === true) {
-				realjs.event.messageListener.removeAll();
 				this.game.state.start("InGame");
 			} else {
-				
-				realjs.event.messageListener.removeAll();
 				realjs.realJoinLobby(false);
-				this.game.state.start("Lobby");
+				//this.game.state.start("Lobby");
 			}
-			
 		}, this);
 	}
 };
@@ -108,6 +105,12 @@ Result.prototype.create = function() {
 			width: 200, 
 			height: 200
 	};
+	
+	if (window.FBInstant) {
+		FBInstant.setScore(this.scores.me);
+		FBInstant.takeScreenshotAsync();
+	}
+	
 };
 
 Result.prototype.OnClickExitToLobby = function(item) {
@@ -116,28 +119,45 @@ Result.prototype.OnClickExitToLobby = function(item) {
 		realjs.event.messageListener.removeAll();
 		realjs.realJoinLobby(false);
 	}
-	this.game.state.start("Lobby");
+	
+	if (window.FBInstant) {
+		FBInstant.endGameAsync().then(function() {
+			this.game.state.start("Lobby");
+		});
+	} else {
+		this.game.state.start("Lobby");	
+	}
+	
 };
 
 Result.prototype.OnClickPlayAgain = function(item) {
+	
+	this.isPlayAgain.me = true;
 	
 	if (window.realjs) {
 		realjs.realSendMessage(JSON.stringify({'isPlayAgain': true}), false);
 	}
 	
-	this.isPlayAgain.me = true;
 	
 	if (this.isPlayAgain.rival === null) {
 		return;
 	}
+
+	if (window.realjs) {
+		realjs.event.messageListener.removeAll();
+	}
 	
 	if (this.isPlayAgain.me === true && this.isPlayAgain.rival === true) {
-		realjs.event.messageListener.removeAll();
 		this.game.state.start("InGame");
 	} else {
-		realjs.event.messageListener.removeAll();
-		this.game.state.start("Lobby");
+		
+		if (window.FBInsatnt) {
+			FBInstant.endGameAsync().then(function() {
+				this.game.state.start("Lobby");
+			});
+		} else {
+			this.game.state.start("Lobby");	
+		}
+		
 	}
 };
-
-

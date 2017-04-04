@@ -25,6 +25,17 @@ var EBlockState = {
 	REMOVE_TO_BOMB		: 9
 };
 
+var EBlockImage = {
+		NORMAL 		: 1,
+		REMOVE		: 4,
+		CLICKED 	: 5
+};
+
+var ESlideVelocity = {
+		BLOCK_MOVE 		: 0.1,
+		BLOCK_RETRUN	: 0.5,
+		BLOCK_DROP 	: 0.2
+};
 /**
  * 인게임 블럭 데이터 구조
  * @param inColor
@@ -43,6 +54,8 @@ function BlockModel(inType, index, inParentContext) {
 	this.state = EBlockState.NORMAL;
 	this.isMoveAndMatch = false;
 	this.removeToBombDelayTime = 0;
+	
+	this.slidVelocity = 0;
 }
 
 BlockModel.prototype.init = function() {
@@ -53,11 +66,21 @@ BlockModel.prototype.init = function() {
 	this.view = null;
 	this.viewContext = null;
 	this.removeToBombDelayTime = 0;
+	
+	this.slidVelocity = 0;
 };
 
 BlockModel.prototype.getImageKeyname = function() {
 	var imageKeyName = this.type + '0001.png';
 	return imageKeyName;
+};
+
+BlockModel.prototype.setImageFrame = function(imageNum) {
+	if(this.state ===  EBlockState.NORMAL &&this.view !== undefined  &&this.view !== null 
+			&& this.view.frameName !== undefined && this.view.frameName !== null && this.isMoveAndMatch !== true){
+		this.view.frameName = this.type + '000' +  imageNum + '.png';
+	}
+	
 };
 
 BlockModel.prototype.createView = function(inRow, inTouchCallback, inCallbackContext) {
@@ -88,7 +111,7 @@ BlockModel.prototype.createView = function(inRow, inTouchCallback, inCallbackCon
 	
 	result.animations.add("blockBombInit", Phaser.Animation.generateFrameNames("bomb", 1, 5, ".png", 4), 5, false);
 	result.animations.add("blockBombIdle", Phaser.Animation.generateFrameNames("bomb", 3, 5, ".png", 4), 5, false);
-	
+	this.slidVelocity = ESlideVelocity.BLOCK_DROP;
 	this.view = result;
 	return this.view;
 };
@@ -116,14 +139,14 @@ BlockModel.prototype.slidingBlock = function(inCallback, inCallbackContext) {
 	this.state = EBlockState.SLIDING;
 
 	if(this.moveYFlag === true){
-		this.viewContext.add.tween(this.view).to({y: this.position.y}, BlockModel.Setting.SLIDING_SECONDS * 1000, 'Quart.easeOut', true).onComplete.addOnce(function() {
+		this.viewContext.add.tween(this.view).to({y: this.position.y}, this.slidVelocity * 1000, 'Quart.easeOut', true).onComplete.addOnce(function() {
 			if (inCallback !== null || inCallback !== undefined) {
 				inCallback();
 			}
 		}, inCallbackContext);
 	}
 	else{
-		this.viewContext.add.tween(this.view).to({x: this.position.x}, BlockModel.Setting.SLIDING_SECONDS * 1000, 'Quart.easeOut', true).onComplete.addOnce(function() {
+		this.viewContext.add.tween(this.view).to({x: this.position.x}, this.slidVelocity * 1000, 'Quart.easeOut', true).onComplete.addOnce(function() {
 			if (inCallback !== null || inCallback !== undefined) {
 				inCallback();
 			}
@@ -178,8 +201,6 @@ BlockModel.prototype.updateView = function() {
 			}.bind(this));
 		}
 	}
-	
-	//this.isMoveAndMatch = (this.view.x === this.position.x && this.view.y === this.position.y);
 };
 
 BlockModel.prototype.removeBlock = function(animationName, removeToBombDelayTime) {
@@ -188,14 +209,20 @@ BlockModel.prototype.removeBlock = function(animationName, removeToBombDelayTime
 	var blockMatchAnim = this.viewContext.add.sprite(this.view.x, this.view.y, animationName ,null, this.viewContext.scene.fGameBoard);
 	blockMatchAnim.animations.add(animationName);
 	blockMatchAnim.anchor.setTo(0.5, 0.5);
-
+	blockMatchAnim.visible = false;
 	this.isMoveAndMatch = true;
 
 	if(removeToBombDelayTime === undefined){
-		this.view.kill();
-		this.view= null;
-		this.view = blockMatchAnim; 
-		blockMatchAnim.animations.play(animationName,15,false);
+		
+		this.view.frameName = this.type + '0004.png';
+		this.viewContext.time.events.add(200, function(){
+			blockMatchAnim.visible = true;
+			this.view.kill();
+			this.view= null;
+			this.view = blockMatchAnim;
+			blockMatchAnim.animations.play(animationName,15,false);
+		}.bind(this));
+		
 		
 		blockMatchAnim.animations.currentAnim.onComplete.add(function(){
 			this.state = EBlockState.REMOVE;
@@ -205,7 +232,6 @@ BlockModel.prototype.removeBlock = function(animationName, removeToBombDelayTime
 		}.bind(this));
 	}
 	else{
-		blockMatchAnim.visible = false;
 		this.viewContext.time.events.add(removeToBombDelayTime, bombRemoveAnim.bind(this, blockMatchAnim, animationName));
 	}
 	
@@ -223,10 +249,11 @@ BlockModel.prototype.removeBlock = function(animationName, removeToBombDelayTime
 			this.isMoveAndMatch = false;
 		}.bind(this));
 	}
-	
-	
 };
 
-BlockModel.Setting = {
-	SLIDING_SECONDS: 0.10	
+BlockModel.prototype.distory = function() {
+	if(this.view !== undefined && this.view !== null){
+		this.view.kill();
+		this.view= null;
+	}
 };
