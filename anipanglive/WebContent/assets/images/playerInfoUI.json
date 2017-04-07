@@ -1,0 +1,92 @@
+{"frames": [
+
+{
+	"filename": "face_player_lose.png",
+	"frame": {"x":366,"y":0,"w":219,"h":170},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":219,"h":170},
+	"sourceSize": {"w":219,"h":170}
+},
+{
+	"filename": "face_player_win.png",
+	"frame": {"x":663,"y":0,"w":116,"h":170},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":116,"h":170},
+	"sourceSize": {"w":116,"h":170}
+},
+{
+	"filename": "face_rival_lose.png",
+	"frame": {"x":585,"y":0,"w":78,"h":170},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":78,"h":170},
+	"sourceSize": {"w":78,"h":170}
+},
+{
+	"filename": "face_rival_win.png",
+	"frame": {"x":0,"y":170,"w":78,"h":170},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":78,"h":170},
+	"sourceSize": {"w":78,"h":170}
+},
+{
+	"filename": "player_bg.png",
+	"frame": {"x":0,"y":362,"w":720,"h":192},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":720,"h":192},
+	"sourceSize": {"w":720,"h":192}
+},
+{
+	"filename": "player_thumb.png",
+	"frame": {"x":80,"y":0,"w":90,"h":90},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":90,"h":90},
+	"sourceSize": {"w":90,"h":90}
+},
+{
+	"filename": "playerThumbLine.png",
+	"frame": {"x":265,"y":0,"w":102,"h":102},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":102,"h":102},
+	"sourceSize": {"w":102,"h":102}
+},
+{
+	"filename": "rival_bg.png",
+	"frame": {"x":78,"y":170,"w":720,"h":192},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":720,"h":192},
+	"sourceSize": {"w":720,"h":192}
+},
+{
+	"filename": "rival_thumb.png",
+	"frame": {"x":0,"y":0,"w":80,"h":80},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":80,"h":80},
+	"sourceSize": {"w":80,"h":80}
+},
+{
+	"filename": "rivalThumbLine.png",
+	"frame": {"x":170,"y":0,"w":93,"h":94},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":94,"h":94},
+	"sourceSize": {"w":94,"h":94}
+}],
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "playerInfoUI.png",
+	"format": "RGBA8888",
+	"size": {"w":798,"h":554},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:ed36941863a8ef0cf471c67fe59a8e9a:eee27a14d5cc092c8509a3c3202b78b5:92597bc9293fb1b1789e40b81dd0af15$"
+}
+}

@@ -14,50 +14,128 @@ function InGameScene(aGame, aParent) {
 
 	/* --- pre-init-end --- */
 
+	this.game.add.sprite(0, 0, 'inGameBG', null, this);
+
 	var topUIContainer = this.game.add.group(this);
 
-	this.game.add.sprite(0, 0, 'inGameUI', 'upPanel.png', topUIContainer);
+	var timeGageBody = this.game.add.sprite(151, 1021, 'middle_bar', null, topUIContainer);
 
-	this.game.add.sprite(8, 228, 'inGameUI', 'img_time_gauge_head.png.png', topUIContainer);
+	this.game.add.sprite(136, 1021, 'timer_start', null, topUIContainer);
 
-	this.game.add.sprite(465, 228, 'inGameUI', 'img_time_gauge_tail.png.png', topUIContainer);
+	var timerEnd = this.game.add.sprite(668, 1021, 'timer_end', null, topUIContainer);
 
-	var timeGageBody = this.game.add.sprite(18, 228, 'inGameUI', 'img_time_gauge_body.png.png', topUIContainer);
+	var warning = this.game.add.sprite(0, 0, 'warning', null, this);
+
+	var feverAnimContainer = this.game.add.group(this);
+	feverAnimContainer.position.setTo(0, 120);
 
 	var gameBoard = this.game.add.group(this);
-	gameBoard.position.setTo(0, 300);
+	gameBoard.position.setTo(0, 260);
 
-	this.game.add.sprite(0, 0, 'inGameUI', 'board.png', gameBoard);
+	var bottomUIContainer = this.game.add.group(this);
+
+	var bombGauge = this.game.add.sprite(360, 1170, 'bombGauge', 0, bottomUIContainer);
+	bombGauge.anchor.setTo(0.5, 0.5);
 
 	var rivalContainer = this.game.add.group(this);
+	rivalContainer.position.setTo(290, 0);
 
-	this.game.add.sprite(0, 0, 'inGameUI', 'bgRival.png', rivalContainer);
+	this.game.add.sprite(0, 0, 'playerInfoUI', 'rival_bg.png', rivalContainer);
 
-	this.game.add.sprite(0, 776, 'inGameUI', 'line.png', this);
+	var thumbRival = this.game.add.sprite(193, 73, 'playerInfoUI', 'rival_thumb.png', rivalContainer);
+	thumbRival.anchor.setTo(0.5, 0.5);
+
+	this.game.add.sprite(146, 25, 'playerInfoUI', 'rivalThumbLine.png', rivalContainer);
+
+	var rivalFaceWin = this.game.add.sprite(70, 3, 'playerInfoUI', 'face_rival_win.png', rivalContainer);
+
+	var rivalFaceLose = this.game.add.sprite(70, -3, 'playerInfoUI', 'face_rival_lose.png', rivalContainer);
+
+	var meContainer = this.game.add.group(this);
+	meContainer.position.setTo(-340, 0);
+
+	this.game.add.sprite(0, 0, 'playerInfoUI', 'player_bg.png', meContainer);
+
+	var thumbMe = this.game.add.sprite(538, 71, 'playerInfoUI', 'player_thumb.png', meContainer);
+	thumbMe.anchor.setTo(0.5, 0.5);
+
+	this.game.add.sprite(488, 21, 'playerInfoUI', 'playerThumbLine.png', meContainer);
+
+	var meFaceLose = this.game.add.sprite(510, -2, 'playerInfoUI', 'face_player_lose.png', meContainer);
+
+	var meFaceWin = this.game.add.sprite(585, 0, 'playerInfoUI', 'face_player_win.png', meContainer);
+
+	var txtStateImage = this.game.add.group(this);
+	txtStateImage.position.setTo(370, 550);
 
 	 // public fields
 
 	this.fTopUIContainer = topUIContainer;
 	this.fTimeGageBody = timeGageBody;
+	this.fTimerEnd = timerEnd;
+	this.fWarning = warning;
+	this.fFeverAnimContainer = feverAnimContainer;
 	this.fGameBoard = gameBoard;
+	this.fBombGauge = bombGauge;
 	this.fRivalContainer = rivalContainer;
+	this.fThumbRival = thumbRival;
+	this.fRivalFaceWin = rivalFaceWin;
+	this.fRivalFaceLose = rivalFaceLose;
+	this.fMeContainer = meContainer;
+	this.fThumbMe = thumbMe;
+	this.fMeFaceLose = meFaceLose;
+	this.fMeFaceWin = meFaceWin;
+	this.fTxtStateImage = txtStateImage;
 
 	/* --- post-init-begin --- */
+	
+	var meNameStyle = {fontSize: '35px', font: 'hs_bubbleregular', fill: '#8b4b00', boundsAlignH: 'right', boundsAlignV: 'top'};
+	var meScoreStyle = {fontSize: '38px', font: 'hs_bubbleregular', fill: '#bc6500', boundsAlignH: 'right', boundsAlignV: 'bottom'};
+	var rivalNameStyle = {fontSize: '32px', font: 'hs_bubbleregular', fill: '#532170', boundsAlignH: 'left', boundsAlignV: 'top'};
+	var rivalScoreStyle = {fontSize: '31px', font: 'hs_bubbleregular', fill: '#6c2d90', boundsAlignH: 'left', boundsAlignV: 'bottom'};
 
-	// you can insert code here
-	// make board
-
-	// set masking
+	var meTextYOffset = this.fThumbMe.y - 36.5;
+	this.fMeName = this.game.add.text(0, 0, window.MeInfo.name, meNameStyle);
+	this.fMeContainer.add(this.fMeName);
+	this.fMeName.setTextBounds(10, meTextYOffset, 465, 85);
+	this.fMeScore = this.game.add.text(0, 0, '0', meScoreStyle);
+	this.fMeContainer.add(this.fMeScore);
+	this.fMeScore.setTextBounds(10, meTextYOffset, 465, 85);
+	
+	var rivalTextYOffset = this.fThumbRival.y - 33.5;
+	this.fRivalName = this.game.add.text(0, 0, window.RivalInfo.name, rivalNameStyle);
+	this.fRivalContainer.add(this.fRivalName);
+	this.fRivalName.setTextBounds(245, rivalTextYOffset, 465, 75);
+	this.fRivalScore = this.game.add.text(0, 0, '0', rivalScoreStyle);
+	this.fRivalContainer.add(this.fRivalScore);
+	this.fRivalScore.setTextBounds(245, rivalTextYOffset, 465, 75);
+	
+	// set board masking
 	var boardMask = this.game.add.graphics(this.fGameBoard.x, this.fGameBoard.y);
 	boardMask.beginFill(0xffffff);
-	boardMask.drawRect(0, 0, 480, 476);
+	boardMask.drawRect(0, 0, 720, 754);
 	this.fGameBoard.mask = boardMask;
 	
-	// Add Player BG ninepatch image
-	this.game.cache.addNinePatch('NPImagePlayerBG', 'inGameUI', 'bgPlayer.png', 1, 1, 0, 110);
-	this.fBgPlayer = new Phaser.NinePatchImage(this.game, 0, 0, 'NPImagePlayerBG');
-	this.fRivalContainer.add(this.fBgPlayer);
+	// thumbnail setting - 'meProfileImage'
+	if (this.game.cache.checkImageKey('meProfileImage') === true) {
+		var meProfileImage = this.game.add.image(0, 0, 'meProfileImage');
+		this.fThumbMe.addChild(meProfileImage);
 
+		var ratio = (this.fThumbMe.width - 5) / meProfileImage.width;
+		meProfileImage.scale.setTo(ratio, ratio);
+		meProfileImage.anchor.setTo(0.5, 0.5);
+		
+	}
+
+	// thumbnail setting - 'rivalProfileImage'
+	if (this.game.cache.checkImageKey('rivalProfileImage') === true) {
+		var rivalProfileImage = this.game.add.image(0,0, 'rivalProfileImage');
+		this.fThumbRival.addChild(rivalProfileImage);
+		
+		ratio = (this.fThumbRival.width - 5) / rivalProfileImage.width;
+		rivalProfileImage.scale.setTo(ratio, ratio);
+		rivalProfileImage.anchor.setTo(0.5, 0.5);
+	}
 	/* --- post-init-end --- */
 }
 
@@ -82,7 +160,7 @@ InGameScene.getBoardCellPosition = function(inIndex) {
 		
 	
 	var resultX = leftBoardMargin + (InGameBoardConfig.BLOCK_WIDTH / 2) + (indexX * InGameBoardConfig.BLOCK_WIDTH);
-	var resultY = (InGameBoardConfig.BLOCK_HEIGHT / 2) + (indexY * InGameBoardConfig.BLOCK_HEIGHT);
+	var resultY = ((InGameBoardConfig.BLOCK_HEIGHT) + indexY * (InGameBoardConfig.BLOCK_HEIGHT + InGameBoardConfig.BLOCK_Y_OFFSET));
 	
 	return {x: resultX, y: resultY};
 };

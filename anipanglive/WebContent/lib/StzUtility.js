@@ -75,3 +75,65 @@ StzUtil.createNumComma = function(num) {
     return str;
 };
 
+StzUtil.sumArrays = function(fromArray, toArray) {
+	var fromFlag = true;
+	var toFlag = true;
+	
+	if(fromArray === undefined || fromArray === null || fromArray.length === 0 ){
+		fromFlag = false;
+	}
+	
+	if(toArray === undefined || toArray === null || toArray.length === 0 ){
+		toFlag = false;
+	}
+	
+	if(fromFlag === false && toFlag === false){
+		return [];
+	}
+	else if(fromFlag === true && toFlag === false){
+		return fromArray;
+	}
+	else if(fromFlag === false && toFlag === true){
+		return toArray;
+	}
+	else{
+		var mainArray = (fromArray.length >= toArray.length)? fromArray:toArray;
+		var subArray = (fromArray.length >= toArray.length)? toArray:fromArray;
+		
+		var mainLength = mainArray.length;
+		var subLength = subArray.length;
+		
+		
+		for(var i =0;i<subLength;i++){
+			var sameFlag = false;
+			
+			for(var j =0;j<mainLength;j++){
+				if(subArray[i] === mainArray[j]){
+					sameFlag = true;
+					continue;
+				}
+			}
+			
+			if(sameFlag === false){
+				mainArray.push(subArray[i]);
+			}
+		}
+		return mainArray;
+	}
+};
+
+StzUtil.millysecondToSM = function(ms){
+	var second = Math.floor(ms/100);
+	var millySecond = ms%100;
+	
+	var finalTime = strPadLeft(second,'0',2)+':'+strPadLeft(millySecond,'0',2);
+	
+	return finalTime;
+};
+
+StzUtil.strPadLeft = function(string,pad,length){
+	
+};
+function strPadLeft(string,pad,length) {
+    return (new Array(length+1).join(pad)+string).slice(-length);
+}

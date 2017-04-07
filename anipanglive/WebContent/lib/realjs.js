@@ -76,9 +76,11 @@ var REALJS_DEBUG = true;
 		this.joinLobbyListener = new RealEventListener();
 		this.getRoomListListener = new RealEventListener();
 		this.createRoomListener = new RealEventListener();
+		this.leaveRoomListener = new RealEventListener();
 		this.joinRoomListener = new RealEventListener();
 		this.roomReadyListener = new RealEventListener();
 		this.messageListener = new RealEventListener();		
+		this.roomStartListener = new RealEventListener();
 	};
 
 	var RealJS = function() {
@@ -105,16 +107,17 @@ var REALJS_DEBUG = true;
 
 		this.EState = {
 			NONE: 0,
-			CONNECT: 1, 
-			LOGIN: 2, 
-			JOIN_LOBBY: 3, 
-			GET_ROOM_LIST: 4, 
-			CREATE_ROOM: 5, 
-			JOIN_ROOM: 6, 
-			ROOM_READY: 7, 
-			WAITING: 8, 
-			MESSAGE: 9, 
-			END: 10
+			CONNECT: 1,
+			INIT: 2, 
+			LOGIN: 3, 
+			JOIN_LOBBY: 4, 
+			GET_ROOM_LIST: 5, 
+			CREATE_ROOM: 6, 
+			JOIN_ROOM: 7, 
+			ROOM_READY: 8, 
+			WAITING: 9, 
+			MESSAGE: 10, 
+			END: 11
 		};
 		this.realState = this.EState.NONE;		
 		
@@ -178,8 +181,13 @@ var REALJS_DEBUG = true;
 				}
 
 				if (REALJS_DEBUG) {
-					console.log('[realjs-on] ROOM:JOIN | roomId: ' + data.room_id + ', memberCount: ' + data.members.length);
+					console.log('[realjs-on] ROOM:JOIN | data.type: ' + data.type + ', roomId: ' + data.room_id + ', memberCount: ' + data.members.length);
 				}
+				
+				if (data.type !== 'ROOM:JOIN') {
+					return false;
+				}
+				
 				_joinedRoomId = data.room_id;
 				if (data.room_id === 'lobby') {
 					this.realState = this.EState.JOIN_LOBBY;
@@ -212,6 +220,22 @@ var REALJS_DEBUG = true;
 				}
 			}).bind(this));
 
+			// 게임 스타트 - ROOM_START
+			this.realSocket.on("ROOM:START", (function(data){
+				_isServerWaiting = false;
+				if (!data) {
+					throw new Error('[realjs-on] ROOM:START failed!!');
+				}
+				
+				if (REALJS_DEBUG) {
+					console.log('[realjs-on] ROOM:START | room_id: ');
+				}
+				for (var index = this.event.roomStartListener._list.length - 1; index >= 0; index--) {
+					this.event.roomStartListener._list[index](data);
+				}
+			}).bind(this));
+			
+			
 			// 메시지 수신 - MESSAGE
 			// { 'm', 't', 'n', 'sid', 'room' }
 			this.realSocket.on("ROOM:MESSAGE", (function(data) {
@@ -221,6 +245,11 @@ var REALJS_DEBUG = true;
 				}
 				
 				if (data.room != this.getJoinedRoomId()) {
+					return;
+				}
+				
+				// 내가 보낸 메시지라면 차단
+				if (data.sid === this.getMySessionId()) {
 					return;
 				}
 
@@ -233,6 +262,20 @@ var REALJS_DEBUG = true;
 				}
 			}).bind(this));
 
+			// 방 떠남 - LEAVE_ROOM
+			this.realSocket.on("ROOM:LEAVE", (function(data) {
+				if (!data) {
+					throw new Error('[realjs-on] ROOM:LEAVE failed!!');
+				}
+				
+				if (REALJS_DEBUG) {
+					console.log('[realjs-on] ROOM:LEAVE');
+				}
+				for (var index = this.event.leaveRoomListener._list.length - 1; index >= 0; index--) {
+					this.event.leaveRoomListener._list[index](data);
+				}
+			}).bind(this));
+			
 			// 방 생성 - CREATE_ROOM
 			// { 'type', 'room_id', 'ok', 't' }
 			this.realSocket.on("ROOM:CREATE", (function(data) {
@@ -273,33 +316,107 @@ var REALJS_DEBUG = true;
 		///////////////////
 		// SOCKET SENDER //
 		///////////////////
-
-		// LOGIN - 로그인
-		this.realLogin = (function(inUserId, inUserName, inThumbnail, inRemain, inDeviceId) {
-			if (this.realSocket === null) {
-				this.realState = NONE;
+		this.realGetUserInfo = function(inRealId, inCallback, inContext) {
+			if (typeof window.$ === 'undefined') {
+				this.realState = EState.NONE;
 				return false;
 			}
-
+			
+			var reqUrl = "https://html5.stzapp.net:11001/api/user/info?user_ids=";
+			if (typeof inRealId === 'object') {
+				for (var index = 0; index < inRealId.length; index++) {
+					reqUrl = reqUrl + (index === 0 ? inRealId[index] : ',' + inRealId[index]);
+				}
+			} else {
+				reqUrl = reqUrl + inRealId;
+			}
+			$.get(reqUrl, function(res) {
+				if (!res) {
+					throw new Error('[realjs-on] GET user info failed!!');
+				}
+				
+				if (typeof inCallback !== 'undefined' && inCallback != null) {
+					if (typeof inContext !== 'undefined' && inContext != null) {
+						inCallback.call(inContext, res);
+					} else {
+						inCallback(res);	
+					}
+				}
+			});
+		};
+		
+		this.realInitUser = (function(inUserId, inUserName, inThumbnail, inCallback, inContext) {
+			
+			if (typeof window.$ === 'undefined') {
+				this.realState = EState.NONE;
+				return false;
+			}
+			
 			if (_isServerWaiting === true) {
 				return false;
 			}
+			
+			var reqUrl = "https://html5.stzapp.net:11001/api/init?platform_id=" + inUserId;
+			
+			if (typeof inUserName !== "undefined") {
+				reqUrl = reqUrl + "&name=" + inUserName;
+			}
+			
+			if (typeof inThumbnail !== "undefined") {
+				reqUrl = reqUrl + "&thumbnail=" + encodeURIComponent(inThumbnail);
+			}
+			
+			$.get(reqUrl, (function(res) {
+				
+				if (!res) {
+					throw new Error('[realjs-on] INIT failed!!');
+				}
 
-			var type = "IO:LOGIN";
-			var data = {
-				"type": type, 
-				"user_id": inUserId, 
-				"name": inUserName, 
-				"thumbnail": inThumbnail, 
-				"remain": inRemain, 
-				"device_id": inDeviceId
-			};
-			this.realSocket.emit(type, data);
-			_isServerWaiting = true;
+				if (REALJS_DEBUG) {
+					console.log('[realjs-on] INIT | id: ' + res.id);
+				}
+				this.realState = this.EState.INIT;
+				
+				if (typeof inCallback !== 'undefined' && inCallback != null) {
+					if (typeof inContext !== 'undefined' && inContext != null) {
+						inCallback.call(inContext, res.id);
+					} else {
+						inCallback(res.id);	
+					}
+				}
+			}).bind(this));
+			
 			if (REALJS_DEBUG) {
-				console.log('[realjs-realLogin] userId: ' + inUserId + ', userName: ' + inUserName + ', \nthumbnail: ' + inThumbnail + ', \nremain: ' + inRemain + ', deviceId: ' + inDeviceId);
+				console.log('[realjs-realLogin] userId: ' + inUserId + ', userName: ' + inUserName + ', \nthumbnail: ' + inThumbnail);
 			}
 			return true;
+		}).bind(this);
+		
+		// LOGIN - 로그인
+		this.realLogin = (function(inUserId, inUserName, inThumbnail) {
+			
+			this.realInitUser(inUserId, inUserName, inThumbnail, function(inInitId) {
+				if (this.realSocket === null) {
+					this.realState = NONE;
+					return false;
+				}
+
+				if (_isServerWaiting === true) {
+					return false;
+				}
+
+				var type = "IO:LOGIN";
+				var data = {
+					"type": type, 
+					"user_id": inInitId, 
+				};
+				this.realSocket.emit(type, data);
+				_isServerWaiting = true;
+				if (REALJS_DEBUG) {
+					console.log('[realjs-realLogin] userId: ' + inUserId + ', userName: ' + inUserName + ', \nthumbnail: ' + inThumbnail);
+				}
+				return true;
+			}, this);
 		}).bind(this);
 
 		// 로비 입장 - JOIN_LOBBY
@@ -322,6 +439,30 @@ var REALJS_DEBUG = true;
 			return true;
 		}).bind(this);
 
+		// 방에서 게임 시작 - ROOM_START
+		this.realRoomStart = (function() {
+			if (_isServerWaiting === true) {
+				return false;
+			}
+			
+			var type="ROOM:START";
+			var joinedRoomId = this.getJoinedRoomId();
+			
+			if (joinedRoomId.substring(0, 3) === "gr:") {
+				var data = {
+					'type': type, 
+					'room_id': joinedRoomId
+				};
+				this.realSocket.emit(type, data);
+				_isServerWaiting = true;
+				if (REALJS_DEBUG) {
+					console.log('[realjs-realRoomStart] roomId: ' + joinedRoomId);
+				}
+				return true;
+			}
+			return false;
+		}).bind(this);
+		
 		// 특정 방 입장 - JOIN_ROOM
 		this.realJoinRoomById = (function(inRoomId) {
 			if (_isServerWaiting === true) {

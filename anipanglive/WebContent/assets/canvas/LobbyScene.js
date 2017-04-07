@@ -14,24 +14,91 @@ function LobbyScene(aGame, aParent) {
 
 	/* --- pre-init-end --- */
 
-	var arena = this.game.add.sprite(248, 310, 'arena', null, this);
-	arena.scale.setTo(1.5388442225934185, 1.7243704571243241);
-	arena.anchor.setTo(0.5, 0.5);
+	this.game.add.sprite(0, 0, 'common_bg', null, this);
 
-	var btn_stage = this.game.add.sprite(248, 595, 'btn_stage', null, this);
-	btn_stage.scale.setTo(0.8991221573684935, 0.8428428689301836);
-	btn_stage.anchor.setTo(0.5, 0.5);
+	var rivalAnonyProfile = this.game.add.sprite(515, 630, 'profile', null, this);
+	rivalAnonyProfile.anchor.setTo(0.5, 0.5);
+
+	var meAnonyProfile = this.game.add.sprite(195, 630, 'profile', null, this);
+	meAnonyProfile.anchor.setTo(0.5, 0.5);
+
+	var meProfileContainer = this.game.add.group(this);
+	meProfileContainer.position.setTo(195, 630);
+
+	var rivalProfileContainer = this.game.add.group(this);
+	rivalProfileContainer.position.setTo(515, 630);
+
+	var thumbMaskMe = this.game.add.sprite(195, 630, 'thumb_bg', null, this);
+	thumbMaskMe.anchor.setTo(0.5, 0.5);
+
+	var thubmMaskRIval = this.game.add.sprite(515, 630, 'thumb_bg', null, this);
+	thubmMaskRIval.anchor.setTo(0.5, 0.5);
+
+	this.game.add.sprite(301, 230, 'count', null, this);
+
+	this.game.add.sprite(146, 365, 'waiting', null, this);
+
+	var animate_dot_1 = this.game.add.sprite(452, 471, 'animate_dot', null, this);
+
+	var animate_dot_2 = this.game.add.sprite(475, 471, 'animate_dot', null, this);
+
+	var animate_dot_3 = this.game.add.sprite(498, 471, 'animate_dot', null, this);
+
+	var common_vs = this.game.add.sprite(303, 587, 'common_vs', null, this);
 
 	 // public fields
 
-	this.fBtn_stage = btn_stage;
+	this.fMeProfileContainer = meProfileContainer;
+	this.fRivalProfileContainer = rivalProfileContainer;
+	this.fAnimate_dot_1 = animate_dot_1;
+	this.fAnimate_dot_2 = animate_dot_2;
+	this.fAnimate_dot_3 = animate_dot_3;
+	this.fCommon_vs = common_vs;
 
 	/* --- post-init-begin --- */
 
-	// you can insert code here
-	this.fBtn_stage.inputEnabled = true;
-	this.fTxt_stage = this.game.add.text(this.fBtn_stage.position.x, this.fBtn_stage.position.y, "START!", {font: 'bold 32px Arial', fill: "#fff", align: 'center'});
-	this.fTxt_stage.anchor.setTo(0.5);
+// Optional setting
+	var txtIceEnabled = this.game.add.text(0, 0, 'ICE Enabled: ' + InGameInterruptedConfig.IS_ICE, {fontSize: '50px', fill: '#ffffff', font: 'hs_bubbleregular', boundsAlignH: 'center', boundsAlignV: 'top'});
+	txtIceEnabled.setTextBounds(0, 760, this.game.width, 200);
+	txtIceEnabled.inputEnabled = true;
+	txtIceEnabled.events.onInputDown.add(function() {
+		InGameInterruptedConfig.IS_ICE = !InGameInterruptedConfig.IS_ICE;
+		txtIceEnabled.text = 'ICE Enabled: ' + InGameInterruptedConfig.IS_ICE;
+	}, this);
+
+	// input enabled
+	this.fCommon_vs.inputEnabled = true;
+	
+	// init dots
+	this.fAnimate_dot_1.visible = false;
+	this.fAnimate_dot_2.visible = false;
+	this.fAnimate_dot_3.visible = false;
+	
+	// set meProfileImage
+	var profileImageSize = 160;
+	if (this.game.cache.checkImageKey('meProfileImage') === true) {
+		var meProfileImage = this.game.add.image(0, 0, 'meProfileImage');
+		this.fMeProfileContainer.add(meProfileImage);
+		var ratio = profileImageSize / meProfileImage.width;
+		meProfileImage.scale.setTo(ratio, ratio);
+		meProfileImage.anchor.setTo(0.5, 0.5);
+	}
+	
+	// set names
+	var nameFontStyle = {fontSize: '30px', fill: '#043d52', font: 'hs_bubbleregular', boundsAlignH: 'center', boundsAlignV: 'top'};
+	this.fMeName = this.game.add.text(0, 0, window.MeInfo.name, nameFontStyle);
+	this.fMeName.setTextBounds(115, 720, 160, 50);
+	
+	this.fRivalName = this.game.add.text(0, 0, 'rival', nameFontStyle);
+	this.fRivalName.setTextBounds(435, 720, 160, 50);
+	this.fRivalName.visible = false;
+	
+	this.setWaitingDots = function(inSec) {
+		var indexSec = inSec % 4;
+		this.fAnimate_dot_1.visible = (indexSec > 0);
+		this.fAnimate_dot_2.visible = (indexSec > 1);
+		this.fAnimate_dot_3.visible = (indexSec > 2);
+	};
 
 	/* --- post-init-end --- */
 }

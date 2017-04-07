@@ -1,0 +1,255 @@
+{
+  "settings": {
+    "sceneWidth": 720,
+    "sceneHeight": 1280,
+    "generateOnSave": true,
+    "enableStepping": false
+  },
+  "world": {
+    "type": "group",
+    "id": "244583f9-d283-4ccb-9611-bf993bbec12d",
+    "info": {
+      "editorName": "ResultScene",
+      "children": [
+        {
+          "type": "image",
+          "id": "9271f85e-2588-4ed0-9cad-2acca08bc09e",
+          "asset": "0",
+          "info": {"editorName": "common_bg"}
+        },
+        {
+          "type": "image",
+          "id": "c0e9ba8a-446c-4446-8970-bce41e530b5d",
+          "asset": "1",
+          "info": {
+            "editorName": "imgWinnerTitle",
+            "x": 206,
+            "y": 104
+          }
+        },
+        {
+          "type": "group",
+          "id": "3cab5c45-b329-4608-b8b7-ec1e2dabf31b",
+          "info": {
+            "editorName": "winnerProfileContainer",
+            "editorPublic": true,
+            "x": 359,
+            "y": 359,
+            "children": []
+          }
+        },
+        {
+          "type": "group",
+          "id": "739216c3-b05e-4c3f-a80b-e74ec918839d",
+          "info": {
+            "editorName": "loserProfileContainer",
+            "editorPublic": true,
+            "x": 359,
+            "y": 716,
+            "children": []
+          }
+        },
+        {
+          "type": "image",
+          "id": "37b6fef7-9b0a-4405-9d56-2ee7e418d3b0",
+          "asset": "2",
+          "info": {
+            "editorName": "btnNewGame",
+            "editorPublic": true,
+            "x": 90,
+            "y": 1098
+          }
+        },
+        {
+          "type": "image",
+          "id": "2e15e99e-2617-4bed-a774-e85cf09877bd",
+          "asset": "3",
+          "info": {
+            "editorName": "btnRematch",
+            "editorPublic": true,
+            "x": 90,
+            "y": 956
+          }
+        },
+        {
+          "type": "image",
+          "id": "57362689-d1a0-493d-9eae-7e9be5dc47f7",
+          "asset": "4",
+          "info": {
+            "editorName": "imgThumbLose",
+            "x": 359,
+            "y": 716,
+            "anchor.x": 0.5,
+            "anchor.y": 0.5
+          }
+        },
+        {
+          "type": "image",
+          "id": "13673ab1-c092-4f64-afa5-eb2cc85eb3c3",
+          "asset": "5",
+          "info": {
+            "editorName": "imgThumbWin",
+            "x": 359,
+            "y": 359,
+            "anchor.x": 0.5,
+            "anchor.y": 0.5
+          }
+        },
+        {
+          "type": "image",
+          "id": "ad9851a6-26e5-4291-8c3b-dc2d687530df",
+          "asset": "6",
+          "info": {
+            "editorName": "imgNewpaper",
+            "x": 189,
+            "y": 774
+          }
+        },
+        {
+          "type": "image",
+          "id": "bbea2db7-cf57-421b-9e35-cab42fe850e6",
+          "asset": "7",
+          "info": {
+            "editorName": "imgWinnerBacklight_a",
+            "x": 88,
+            "y": 146
+          }
+        },
+        {
+          "type": "image",
+          "id": "c93a3050-657c-4caa-9c46-ced14dd1fe5a",
+          "asset": "8",
+          "info": {
+            "editorName": "imgWinnerCrown",
+            "x": 186,
+            "y": 163
+          }
+        },
+        {
+          "type": "image",
+          "id": "3a52d8ab-5196-4263-bfa8-f13867d7afcd",
+          "asset": "9",
+          "info": {
+            "editorName": "imgWinnerEffect",
+            "x": 117,
+            "y": 166
+          }
+        },
+        {
+          "type": "image",
+          "id": "8559aef8-0b57-4f02-ad61-3968b4aae054",
+          "asset": "10",
+          "info": {
+            "editorName": "imgWinnerLeftBlock",
+            "x": 113,
+            "y": 350
+          }
+        },
+        {
+          "type": "image",
+          "id": "7c6ce276-805a-4604-a365-a481ab0ef975",
+          "asset": "11",
+          "info": {
+            "editorName": "imgWinnerRightBlock",
+            "x": 412,
+            "y": 333
+          }
+        },
+        {
+          "type": "image",
+          "id": "0dac8c88-7974-435b-8d3a-422b92da99ec",
+          "asset": "12",
+          "info": {
+            "editorName": "common_vs",
+            "x": 360,
+            "y": 582,
+            "anchor.x": 0.5,
+            "anchor.y": 0.5
+          }
+        },
+        {
+          "type": "image",
+          "id": "f92c678e-e0bf-4005-87ab-22aa2938b97e",
+          "asset": "13",
+          "info": {
+            "editorName": "coin",
+            "x": 476,
+            "y": 459
+          }
+        }
+      ]
+    }
+  },
+  "asset-table": {
+    "0": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "lobby",
+      "asset": "common_bg"
+    },
+    "1": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "result",
+      "asset": "imgWinnerTitle"
+    },
+    "2": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "result",
+      "asset": "btnNewGame"
+    },
+    "3": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "result",
+      "asset": "btnRematch"
+    },
+    "4": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "result",
+      "asset": "imgThumbLose"
+    },
+    "5": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "result",
+      "asset": "imgThumbWin"
+    },
+    "6": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "result",
+      "asset": "imgNewpaper"
+    },
+    "7": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "result",
+      "asset": "imgWinnerBacklight_a"
+    },
+    "8": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "result",
+      "asset": "imgWinnerCrown"
+    },
+    "9": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "result",
+      "asset": "imgWinnerEffect"
+    },
+    "10": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "result",
+      "asset": "imgWinnerLeftBlock"
+    },
+    "11": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "result",
+      "asset": "imgWinnerRightBlock"
+    },
+    "12": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "lobby",
+      "asset": "common_vs"
+    },
+    "13": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "result",
+      "asset": "coin"
+    }
+  }
+}

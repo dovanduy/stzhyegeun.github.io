@@ -1,5 +1,0 @@
-<TextureAtlas name="explode_stripe_left" imagePath="texture.png">
-  <SubTexture name="star_01" x="91" y="77" width="59" height="55"/>
-  <SubTexture name="magicmissile_tail" x="0" y="0" width="251" height="75"/>
-  <SubTexture name="magicmissile_head" x="0" y="77" width="89" height="74"/>
-</TextureAtlas>

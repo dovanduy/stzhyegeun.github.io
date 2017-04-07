@@ -9,40 +9,10 @@
         },
         {
             "type": "spritesheet",
-            "key": "animExplodeCircle",
-            "url": "assets/spritesheets/animExplodeCircle.png",
-            "frameWidth": 150,
-            "frameHeight": 150,
-            "frameMax": -1,
-            "margin": 0,
-            "spacing": 0
-        },
-        {
-            "type": "spritesheet",
             "key": "animExplodeNormal",
             "url": "assets/spritesheets/animExplodeNormal.png",
-            "frameWidth": 140,
-            "frameHeight": 140,
-            "frameMax": -1,
-            "margin": 0,
-            "spacing": 0
-        },
-        {
-            "type": "spritesheet",
-            "key": "animExplodeRandompang",
-            "url": "assets/spritesheets/animExplodeRandompang.png",
-            "frameWidth": 76,
-            "frameHeight": 76,
-            "frameMax": -1,
-            "margin": 0,
-            "spacing": 0
-        },
-        {
-            "type": "spritesheet",
-            "key": "animHint",
-            "url": "assets/spritesheets/animHint.png",
-            "frameWidth": 76,
-            "frameHeight": 76,
+            "frameWidth": 178,
+            "frameHeight": 178,
             "frameMax": -1,
             "margin": 0,
             "spacing": 0
@@ -53,34 +23,315 @@
             "url": "assets/canvas/InGameScene.js"
         },
         {
+            "type": "spritesheet",
+            "key": "bombGauge",
+            "url": "assets/spritesheets/bomb_gauge.png",
+            "frameWidth": 180,
+            "frameHeight": 190,
+            "frameMax": -1,
+            "margin": 0,
+            "spacing": 0
+        },
+        {
+            "type": "image",
+            "key": "inGameBG",
+            "url": "assets/images/inGameUI/inGameBG.jpg",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "timer_end",
+            "url": "assets/images/inGameUI/timer_end.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "timer_start",
+            "url": "assets/images/inGameUI/timer_start.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "middle_bar",
+            "url": "assets/images/inGameUI/middle_bar.png",
+            "overwrite": false
+        },
+        {
             "type": "atlas",
-            "key": "inGameUI",
-            "textureURL": "assets/images/inGameUI.png",
-            "atlasURL": "assets/images/inGameUI.json",
+            "key": "playerInfoUI",
+            "textureURL": "assets/images/playerInfoUI.png",
+            "atlasURL": "assets/images/playerInfoUI.json",
             "format": "TEXTURE_ATLAS_JSON_ARRAY"
+        },
+        {
+            "type": "audio",
+            "key": "BGM_Game",
+            "urls": ["assets/sounds/BGM_Game.mp3"],
+            "autoDecode": true
+        },
+        {
+            "type": "audio",
+            "key": "SE_Block_Click",
+            "urls": ["assets/sounds/SE_Block_Click.wav"],
+            "autoDecode": true
+        },
+        {
+            "type": "audio",
+            "key": "SE_Block_MissMatch",
+            "urls": ["assets/sounds/SE_Block_MissMatch.wav"],
+            "autoDecode": true
+        },
+        {
+            "type": "audio",
+            "key": "SE_Block_Switch",
+            "urls": ["assets/sounds/SE_Block_Switch.wav"],
+            "autoDecode": true
+        },
+        {
+            "type": "audio",
+            "key": "SE_Combo3",
+            "urls": ["assets/sounds/SE_Combo3.mp3"],
+            "autoDecode": true
+        },
+        {
+            "type": "audio",
+            "key": "SE_Combo5",
+            "urls": ["assets/sounds/SE_Combo5.mp3"],
+            "autoDecode": true
+        },
+        {
+            "type": "audio",
+            "key": "SE_Combo7",
+            "urls": ["assets/sounds/SE_Combo7.mp3"],
+            "autoDecode": true
+        },
+        {
+            "type": "audio",
+            "key": "SE_Match1",
+            "urls": ["assets/sounds/SE_Match1.wav"],
+            "autoDecode": true
+        },
+        {
+            "type": "audio",
+            "key": "SE_Match2",
+            "urls": ["assets/sounds/SE_Match2.wav"],
+            "autoDecode": true
+        },
+        {
+            "type": "audio",
+            "key": "SE_Match3",
+            "urls": ["assets/sounds/SE_Match3.wav"],
+            "autoDecode": true
+        },
+        {
+            "type": "atlas",
+            "key": "fontCombo",
+            "textureURL": "assets/images/fontCombo.png",
+            "atlasURL": "assets/images/fontCombo.json",
+            "format": "TEXTURE_ATLAS_JSON_ARRAY"
+        },
+        {
+            "type": "image",
+            "key": "warning",
+            "url": "assets/images/inGameUI/warning.png",
+            "overwrite": false
+        },
+        {
+            "type": "spritesheet",
+            "key": "animFeverMode",
+            "url": "assets/spritesheets/animFeverMode.png",
+            "frameWidth": 720,
+            "frameHeight": 898,
+            "frameMax": -1,
+            "margin": 0,
+            "spacing": 0
+        },
+        {
+            "type": "atlas",
+            "key": "txtImage",
+            "textureURL": "assets/images/inGameUI/txtImage.png",
+            "atlasURL": "assets/images/inGameUI/txtImage.json",
+            "format": "TEXTURE_ATLAS_JSON_ARRAY"
+        },
+        {
+            "type": "audio",
+            "key": "SE_Fever_Loop",
+            "urls": ["assets/sounds/SE_Fever_Loop.mp3"],
+            "autoDecode": true
+        },
+        {
+            "type": "audio",
+            "key": "SE_Ready_Voice",
+            "urls": ["assets/sounds/SE_Ready_Voice.mp3"],
+            "autoDecode": true
+        },
+        {
+            "type": "audio",
+            "key": "SE_Result",
+            "urls": ["assets/sounds/SE_Result.mp3"],
+            "autoDecode": true
+        },
+        {
+            "type": "audio",
+            "key": "SE_Start_Voice",
+            "urls": ["assets/sounds/SE_Start_Voice.mp3"],
+            "autoDecode": true
+        },
+        {
+            "type": "audio",
+            "key": "SE_Match_Special",
+            "urls": ["assets/sounds/SE_Match_Special.wav"],
+            "autoDecode": true
         }
     ],
     "lobby": [
         {
+            "type": "script",
+            "key": "LobbyScene",
+            "url": "assets/canvas/LobbyScene.js"
+        },
+        {
             "type": "image",
-            "key": "arena",
-            "url": "assets/images/arena.jpg",
+            "key": "btnPlayWithAni",
+            "url": "assets/images/btnPlayWithAni.png",
             "overwrite": false
         },
         {
             "type": "image",
-            "key": "btn_stage",
-            "url": "assets/images/btn_stage.png",
+            "key": "common_bg",
+            "url": "assets/images/common_bg.jpg",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "animate_dot",
+            "url": "assets/images/lobby/animate_dot.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "common_vs",
+            "url": "assets/images/lobby/common_vs.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "count",
+            "url": "assets/images/lobby/count.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "thumb_bg",
+            "url": "assets/images/lobby/thumb_bg.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "waiting",
+            "url": "assets/images/lobby/waiting.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "profile",
+            "url": "assets/images/lobby/profile.jpg",
+            "overwrite": false
+        }
+    ],
+    "result": [
+        {
+            "type": "image",
+            "key": "btnResultNewGame",
+            "url": "assets/images/btnResultNewGame.jpg",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "btnResultRematch",
+            "url": "assets/images/btnResultRematch.png",
             "overwrite": false
         },
         {
             "type": "script",
-            "key": "LobbyScene",
-            "url": "assets/canvas/LobbyScene.js"
+            "key": "ResultScene",
+            "url": "assets/canvas/ResultScene.js"
+        },
+        {
+            "type": "image",
+            "key": "btnNewGame",
+            "url": "assets/images/result/btnNewGame.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "btnRematch",
+            "url": "assets/images/result/btnRematch.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "imgNewpaper",
+            "url": "assets/images/result/imgNewpaper.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "imgThumbLose",
+            "url": "assets/images/result/imgThumbLose.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "imgThumbWin",
+            "url": "assets/images/result/imgThumbWin.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "imgWinnerBacklight_a",
+            "url": "assets/images/result/imgWinnerBacklight_a.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "imgWinnerCrown",
+            "url": "assets/images/result/imgWinnerCrown.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "imgWinnerEffect",
+            "url": "assets/images/result/imgWinnerEffect.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "imgWinnerLeftBlock",
+            "url": "assets/images/result/imgWinnerLeftBlock.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "imgWinnerRightBlock",
+            "url": "assets/images/result/imgWinnerRightBlock.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "imgWinnerTitle",
+            "url": "assets/images/result/imgWinnerTitle.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "coin",
+            "url": "assets/images/result/coin.png",
+            "overwrite": false
         }
     ],
     "meta": {
-        "generated": "1490148913993",
+        "generated": "1491469679548",
         "app": "Phaser Editor",
         "url": "http://phasereditor.boniatillo.com",
         "version": "1.0",

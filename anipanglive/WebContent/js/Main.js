@@ -7,17 +7,29 @@ if (StzRealJSConfig.SERVER_ENABLE === false) {
 }
 
 
-window.PlayerInfo = {
+window.MeInfo = {
+	'real_id': '0',
 	'name': 'Me',
 	'id': '0', 
-	'thumbnail': 'ani'
+	'thumbnail': "https://scontent-hkg3-1.xx.fbcdn.net/v/t1.0-1/p320x320/12096103_10204089815400231_2121453525092547468_n.jpg?oh=e4e97914489731d4e6546b9cdc472f79&oe=59602C0B"
+};
+
+var ERivalState = {
+	GAME: "GAME",
+	DISCONNECT: "DISCONNECT"
 };
 
 window.RivalInfo = {
+	'real_id': '0',
 	'name': 'Rival',
 	'id': '1',
-	'thumbnail': 'blue'
+	'thumbnail': "https://scontent-hkg3-1.xx.fbcdn.net/v/t1.0-1/p320x320/12096103_10204089815400231_2121453525092547468_n.jpg?oh=e4e97914489731d4e6546b9cdc472f79&oe=59602C0B", 
+	'state': ERivalState.GAME
 };
+
+window.isComboShow = true;
+window.isScoreShow = true;
+window.isScoreFly = true;
 
 var startAnipangMulti = function()
 {
@@ -52,7 +64,7 @@ var startAnipangMulti = function()
     var gameHeight = Math.floor(480 * screenScale * documentRatio); 
     */
 	//this.game = new Phaser.Game(gameWidth , gameHeight, Phaser.WEBGL, 'gameContainer');
-    this.game = new Phaser.Game(480 , 800, Phaser.WEBGL, 'gameContainer');
+    this.game = new Phaser.Game(720 , 1280, Phaser.WEBGL, 'gameContainer');
     
     
     if (window.FBInstant) {

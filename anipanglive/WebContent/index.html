@@ -14,12 +14,58 @@
         
         <title>Anipang Live</title>
         
+        <!-- webfont -->
+        <link rel="stylesheet" href="assets/webfonts/hs_bubble/specimen_stylesheet.css" type="text/css" charset="utf-8" />
+        <link rel="stylesheet" href="assets/webfonts/hs_bubble/stylesheet.css" type="text/css" charset="utf-8" />
+        
+        <style>
+            * {
+                padding: 0;
+                margin: 0;    
+            }
+    
+            html, body {
+                background: #000;
+                color: #fff;
+                overflow: hidden;
+                touch-action: none;
+                -ms-touch-action: none;
+                width: 100%;
+                height: 100%;
+            }
+    
+            canvas {
+                touch-action-delay: none;
+                touch-action: none;
+                -ms-touch-action: none;
+            }
+    
+            #gameContainer {
+                width : 100%;
+                height : 100%;
+            }
+            
+            .fontPreload {
+                font-family: 'hs_bubbleregular';
+                position: absolute;
+                left: -100px;
+            }
+        </style>
+        
+        <!-- 
+        <script src="lib/jquery-3.1.1.min.js"></script>
+        <script src="lib/phaser.min.js"></script>
+        <script src="lib/realjs.min.js"></script>
+        <script src="https://connect.facebook.com/en_US/fbinstant.2.0.js"></script>
+        <script src="js/config/StzGameConfig.js"></script>
+          -->
+          
         <!-- Library -->
-       	<script src="lib/phaser.js"></script>
-        <script src="lib/phaser-list-view.js"></script>
+       	<script src="lib/phaser.min.js"></script>
+        <script src="lib/phaser_extends/ext.phaser.animation.js"></script>
         <script src="lib/jquery-3.1.1.min.js"></script>
         <script src="https://connect.facebook.com/en_US/fbinstant.2.0.js"></script>
-        <script src="lib/realjs.js"></script>        
+        <script src="lib/realjs.min.js"></script>        
 
         <!-- Game Logic -->
         <script src="js/config/StzGameConfig.js"></script>
@@ -32,43 +78,17 @@
 		<script src="js/Result.js"></script>
 		<script src="js/model/BlockModel.js"></script>
 		<script src="js/model/Score.js"></script>
+		<script src="js/controller/InGameController.js"></script>
+		<script src="js/controller/InGameMatchFilter.js"></script>
+		<script src="js/controller/InGameSpecialBlock.js"></script>
 		
         <!-- Plugins -->        
-        <script src="js/popup/PopupManager.js"></script>
         <script src="lib/StzLog.js"></script>
         <script src="lib/StzUtility.js"></script>
-		<script src="lib/plugin/nine-patch-phaser-plugin.min.js"></script>
-        
-         <style>
-            * {
-	            padding: 0;
-	            margin: 0;    
-	        }
-	
-	        html, body {
-	            background: #000;
-	            color: #fff;
-	            overflow: hidden;
-	            touch-action: none;
-	            -ms-touch-action: none;
-	            width: 100%;
-	            height: 100%;
-	        }
-	
-	        canvas {
-	            touch-action-delay: none;
-	            touch-action: none;
-	            -ms-touch-action: none;
-	        }
-	
-	        #gameContainer {
-	            width : 100%;
-	            height : 100%;
-	        }
-        </style>
     </head>
 
     <body>
+        <div class='fontPreload'>.</div>
         <div id="gameContainer"></div>
         <script>
             if (window.FBInstant) {

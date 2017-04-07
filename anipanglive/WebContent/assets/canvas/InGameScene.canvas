@@ -1,7 +1,7 @@
 {
   "settings": {
-    "sceneWidth": 480,
-    "sceneHeight": 800,
+    "sceneWidth": 720,
+    "sceneHeight": 1280,
     "generateOnSave": true,
     "enableStepping": false
   },
@@ -12,6 +12,15 @@
       "editorName": "InGameScene",
       "children": [
         {
+          "type": "image",
+          "id": "da7d3a78-204a-4764-b8ed-b8a0f3d6313d",
+          "asset": "0",
+          "info": {
+            "editorName": "inGameBG",
+            "editorPick": false
+          }
+        },
+        {
           "type": "group",
           "id": "77378eae-ecea-419e-9143-2135d40e145a",
           "info": {
@@ -19,46 +28,59 @@
             "editorPublic": true,
             "children": [
               {
-                "type": "atlas-sprite",
-                "id": "2afb0613-d37c-4165-9053-32fd817c31df",
-                "asset": "0",
-                "info": {
-                  "editorName": "upPanel_png",
-                  "editorPick": false
-                }
-              },
-              {
-                "type": "atlas-sprite",
-                "id": "83fbb420-ca64-4006-8681-b53a3d43c027",
+                "type": "image",
+                "id": "2c433552-f74e-4c40-b459-764c1352c322",
                 "asset": "1",
-                "info": {
-                  "editorName": "img_time_gauge_head_png_png",
-                  "x": 8,
-                  "y": 228
-                }
-              },
-              {
-                "type": "atlas-sprite",
-                "id": "7a066b07-f089-4473-8586-c78108e6f2cd",
-                "asset": "2",
-                "info": {
-                  "editorName": "img_time_gauge_tail_png_png",
-                  "x": 465,
-                  "y": 228
-                }
-              },
-              {
-                "type": "atlas-sprite",
-                "id": "9cb195f7-94fd-42ce-86d1-fb9280cba296",
-                "asset": "3",
                 "info": {
                   "editorName": "timeGageBody",
                   "editorPublic": true,
-                  "x": 18,
-                  "y": 228
+                  "x": 151,
+                  "y": 1021
+                }
+              },
+              {
+                "type": "image",
+                "id": "672b43ba-5296-48a8-8a50-a404ebad6060",
+                "asset": "2",
+                "info": {
+                  "editorName": "timer_start",
+                  "x": 136,
+                  "y": 1021
+                }
+              },
+              {
+                "type": "image",
+                "id": "8a6c0c16-e7f7-42d2-9412-0b7967dfd923",
+                "asset": "3",
+                "info": {
+                  "editorName": "timerEnd",
+                  "editorPublic": true,
+                  "x": 668,
+                  "y": 1021
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "image",
+          "id": "af3b554a-05b6-4612-8f93-95b2d9435dd0",
+          "asset": "4",
+          "info": {
+            "editorName": "warning",
+            "editorPick": false,
+            "editorPublic": true,
+            "editorShow": false
+          }
+        },
+        {
+          "type": "group",
+          "id": "dc16c636-9282-4d79-9629-f592e67eec73",
+          "info": {
+            "editorName": "feverAnimContainer",
+            "editorPublic": true,
+            "y": 120,
+            "children": []
           }
         },
         {
@@ -67,12 +89,27 @@
           "info": {
             "editorName": "gameBoard",
             "editorPublic": true,
-            "y": 300,
+            "y": 260,
+            "children": []
+          }
+        },
+        {
+          "type": "group",
+          "id": "9979f920-9cac-47fd-8b06-2d81e5a96645",
+          "info": {
+            "editorName": "bottomUIContainer",
             "children": [{
-              "type": "atlas-sprite",
-              "id": "43ea087d-e481-4c5b-af9f-8bd77c636e88",
-              "asset": "4",
-              "info": {"editorName": "board_png"}
+              "type": "spritesheet",
+              "id": "ce0507f5-b467-4684-a89a-e2c60c2964c9",
+              "asset": "5",
+              "info": {
+                "editorName": "bombGauge",
+                "editorPublic": true,
+                "x": 360,
+                "y": 1170,
+                "anchor.x": 0.5,
+                "anchor.y": 0.5
+              }
             }]
           }
         },
@@ -82,21 +119,139 @@
           "info": {
             "editorName": "rivalContainer",
             "editorPublic": true,
-            "children": [{
-              "type": "atlas-sprite",
-              "id": "722bddc2-364f-4de9-b166-7f3cdf79fba0",
-              "asset": "5",
-              "info": {"editorName": "bgRival"}
-            }]
+            "x": 290,
+            "children": [
+              {
+                "type": "atlas-sprite",
+                "id": "163bc58a-509c-41d8-bbe7-0c6059f0d1a5",
+                "asset": "6",
+                "info": {
+                  "editorName": "bgRival",
+                  "editorPick": false
+                }
+              },
+              {
+                "type": "atlas-sprite",
+                "id": "43fd0c4a-f7f0-4c5d-aaf8-d1676f255092",
+                "asset": "7",
+                "info": {
+                  "editorName": "thumbRival",
+                  "editorPublic": true,
+                  "x": 193,
+                  "y": 73,
+                  "anchor.x": 0.5,
+                  "anchor.y": 0.5
+                }
+              },
+              {
+                "type": "atlas-sprite",
+                "id": "5e5f113d-1eeb-4197-a62c-9a289c120511",
+                "asset": "8",
+                "info": {
+                  "editorName": "rivalThumbLine_png",
+                  "x": 146,
+                  "y": 25
+                }
+              },
+              {
+                "type": "atlas-sprite",
+                "id": "0721c778-0891-4684-9b89-3d641ba5ed84",
+                "asset": "9",
+                "info": {
+                  "editorName": "rivalFaceWin",
+                  "editorPublic": true,
+                  "x": 70,
+                  "y": 3
+                }
+              },
+              {
+                "type": "atlas-sprite",
+                "id": "73c1c589-edd6-41d7-81cd-90f9caf3ae96",
+                "asset": "10",
+                "info": {
+                  "editorName": "rivalFaceLose",
+                  "editorPublic": true,
+                  "x": 70,
+                  "y": -3
+                }
+              }
+            ]
           }
         },
         {
-          "type": "atlas-sprite",
-          "id": "ec76fed9-0ff6-462c-8079-31ec56f2e2b2",
-          "asset": "6",
+          "type": "group",
+          "id": "a06168cd-bcbe-43a7-b845-ab61706dc878",
           "info": {
-            "editorName": "line_png",
-            "y": 776
+            "editorName": "meContainer",
+            "editorPublic": true,
+            "x": -340,
+            "children": [
+              {
+                "type": "atlas-sprite",
+                "id": "5db7ca97-943f-49c2-8ab7-38b2b7f8eb99",
+                "asset": "11",
+                "info": {
+                  "editorName": "bgMe",
+                  "editorPick": false
+                }
+              },
+              {
+                "type": "atlas-sprite",
+                "id": "5f85b97f-e978-4916-a584-55495217a831",
+                "asset": "12",
+                "info": {
+                  "editorName": "thumbMe",
+                  "editorPublic": true,
+                  "x": 538,
+                  "y": 71,
+                  "anchor.x": 0.5,
+                  "anchor.y": 0.5
+                }
+              },
+              {
+                "type": "atlas-sprite",
+                "id": "9a1e7e60-bcba-4678-b0ab-be24d127c836",
+                "asset": "13",
+                "info": {
+                  "editorName": "playerThumbLine_png",
+                  "x": 488,
+                  "y": 21
+                }
+              },
+              {
+                "type": "atlas-sprite",
+                "id": "5f2a1181-7a7f-43b0-9e31-961d5118d4c4",
+                "asset": "14",
+                "info": {
+                  "editorName": "meFaceLose",
+                  "editorPick": false,
+                  "editorPublic": true,
+                  "x": 510,
+                  "y": -2
+                }
+              },
+              {
+                "type": "atlas-sprite",
+                "id": "cd73db4a-e4ac-42e0-85bb-13b66c27c8ca",
+                "asset": "15",
+                "info": {
+                  "editorName": "meFaceWin",
+                  "editorPublic": true,
+                  "x": 585
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "group",
+          "id": "3802e4b1-28b5-4ec3-aad0-1388d40dce17",
+          "info": {
+            "editorName": "txtStateImage",
+            "editorPublic": true,
+            "x": 370,
+            "y": 550,
+            "children": []
           }
         }
       ]
@@ -106,44 +261,93 @@
     "0": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "ingame",
-      "asset": "inGameUI",
-      "sprite": "upPanel.png"
+      "asset": "inGameBG"
     },
     "1": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "ingame",
-      "asset": "inGameUI",
-      "sprite": "img_time_gauge_head.png.png"
+      "asset": "middle_bar"
     },
     "2": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "ingame",
-      "asset": "inGameUI",
-      "sprite": "img_time_gauge_tail.png.png"
+      "asset": "timer_start"
     },
     "3": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "ingame",
-      "asset": "inGameUI",
-      "sprite": "img_time_gauge_body.png.png"
+      "asset": "timer_end"
     },
     "4": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "ingame",
-      "asset": "inGameUI",
-      "sprite": "board.png"
+      "asset": "warning"
     },
     "5": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "ingame",
-      "asset": "inGameUI",
-      "sprite": "bgRival.png"
+      "asset": "bombGauge",
+      "sprite": "0"
     },
     "6": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "ingame",
-      "asset": "inGameUI",
-      "sprite": "line.png"
+      "asset": "playerInfoUI",
+      "sprite": "rival_bg.png"
+    },
+    "7": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "playerInfoUI",
+      "sprite": "rival_thumb.png"
+    },
+    "8": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "playerInfoUI",
+      "sprite": "rivalThumbLine.png"
+    },
+    "9": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "playerInfoUI",
+      "sprite": "face_rival_win.png"
+    },
+    "10": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "playerInfoUI",
+      "sprite": "face_rival_lose.png"
+    },
+    "11": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "playerInfoUI",
+      "sprite": "player_bg.png"
+    },
+    "12": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "playerInfoUI",
+      "sprite": "player_thumb.png"
+    },
+    "13": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "playerInfoUI",
+      "sprite": "playerThumbLine.png"
+    },
+    "14": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "playerInfoUI",
+      "sprite": "face_player_lose.png"
+    },
+    "15": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "playerInfoUI",
+      "sprite": "face_player_win.png"
     }
   }
 }

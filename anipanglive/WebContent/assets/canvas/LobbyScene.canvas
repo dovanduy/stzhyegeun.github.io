@@ -1,7 +1,7 @@
 {
   "settings": {
-    "sceneWidth": 480,
-    "sceneHeight": 800,
+    "sceneWidth": 720,
+    "sceneHeight": 1280,
     "generateOnSave": true,
     "enableStepping": false
   },
@@ -13,31 +13,142 @@
       "children": [
         {
           "type": "image",
-          "id": "d583024e-aeab-4c29-bd9e-4b993250f29f",
+          "id": "e84c11e6-9fae-4f74-9669-a1a8c7afb3f3",
           "asset": "0",
+          "info": {"editorName": "common_bg"}
+        },
+        {
+          "type": "image",
+          "id": "505a55d1-496d-4cfa-ba35-19dc8570b452",
+          "asset": "1",
           "info": {
-            "editorName": "arena",
-            "x": 248,
-            "y": 310,
-            "scale.x": 1.5388442225934185,
-            "scale.y": 1.7243704571243241,
+            "editorName": "rivalAnonyProfile",
+            "x": 515,
+            "y": 630,
             "anchor.x": 0.5,
             "anchor.y": 0.5
           }
         },
         {
           "type": "image",
-          "id": "c5dfa694-f8c0-43be-ae6c-1ec17e6468f1",
+          "id": "16da9e96-0efb-4b80-8d99-d5f9e21dfd23",
           "asset": "1",
           "info": {
-            "editorName": "btn_stage",
-            "editorPublic": true,
-            "x": 248,
-            "y": 595,
-            "scale.x": 0.8991221573684935,
-            "scale.y": 0.8428428689301836,
+            "editorName": "meAnonyProfile",
+            "x": 195,
+            "y": 630,
             "anchor.x": 0.5,
             "anchor.y": 0.5
+          }
+        },
+        {
+          "type": "group",
+          "id": "e9ce892c-96b5-4d3a-8963-46e23134eafd",
+          "info": {
+            "editorName": "meProfileContainer",
+            "editorPublic": true,
+            "x": 195,
+            "y": 630,
+            "children": []
+          }
+        },
+        {
+          "type": "group",
+          "id": "c259441b-2822-4cef-922d-8de5e7e32583",
+          "info": {
+            "editorName": "rivalProfileContainer",
+            "editorPublic": true,
+            "x": 515,
+            "y": 630,
+            "children": []
+          }
+        },
+        {
+          "type": "image",
+          "id": "94a012b5-98b4-463b-9358-6cea70867172",
+          "asset": "2",
+          "info": {
+            "editorName": "thumbMaskMe",
+            "x": 195,
+            "y": 630,
+            "anchor.x": 0.5,
+            "anchor.y": 0.5
+          }
+        },
+        {
+          "type": "image",
+          "id": "2a0fd25a-93b2-4759-a5a4-3c8a55d1b662",
+          "asset": "2",
+          "info": {
+            "editorName": "thubmMaskRIval",
+            "x": 515,
+            "y": 630,
+            "anchor.x": 0.5,
+            "anchor.y": 0.5
+          }
+        },
+        {
+          "type": "image",
+          "id": "ccd755fe-e5f0-481d-84cb-83d80f602682",
+          "asset": "3",
+          "info": {
+            "editorName": "count",
+            "x": 301,
+            "y": 230
+          }
+        },
+        {
+          "type": "image",
+          "id": "c5a63472-ee58-493d-9b41-82078445c17e",
+          "asset": "4",
+          "info": {
+            "editorName": "waiting",
+            "x": 146,
+            "y": 365
+          }
+        },
+        {
+          "type": "image",
+          "id": "7682162b-2aec-4e61-b963-eee749f4f969",
+          "asset": "5",
+          "info": {
+            "editorName": "animate_dot_1",
+            "editorPublic": true,
+            "x": 452,
+            "y": 471
+          }
+        },
+        {
+          "type": "image",
+          "id": "89045082-25f8-47f6-b84b-5b58561c4d7a",
+          "asset": "5",
+          "info": {
+            "editorName": "animate_dot_2",
+            "editorPublic": true,
+            "x": 475,
+            "y": 471
+          }
+        },
+        {
+          "type": "image",
+          "id": "b6092da4-daa6-4e17-b7e5-250d546903d8",
+          "asset": "5",
+          "info": {
+            "editorName": "animate_dot_3",
+            "editorPublic": true,
+            "x": 498,
+            "y": 471
+          }
+        },
+        {
+          "type": "image",
+          "id": "aa50b6d0-37d4-42f9-8b0e-9a3df874cd76",
+          "asset": "6",
+          "info": {
+            "editorName": "common_vs",
+            "editorPublic": true,
+            "x": 303,
+            "y": 587
           }
         }
       ]
@@ -47,12 +158,37 @@
     "0": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "lobby",
-      "asset": "arena"
+      "asset": "common_bg"
     },
     "1": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "lobby",
-      "asset": "btn_stage"
+      "asset": "profile"
+    },
+    "2": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "lobby",
+      "asset": "thumb_bg"
+    },
+    "3": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "lobby",
+      "asset": "count"
+    },
+    "4": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "lobby",
+      "asset": "waiting"
+    },
+    "5": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "lobby",
+      "asset": "animate_dot"
+    },
+    "6": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "lobby",
+      "asset": "common_vs"
     }
   }
 }

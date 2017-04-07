@@ -17,7 +17,13 @@ Boot.prototype.preload = function() {
 
 Boot.prototype.create = function() {
 	
-	this.input.maxPointers = 1;
+	this.input.maxPointers = 6;
+	
+	this.game.input.addPointer();
+	this.game.input.addPointer();
+	this.game.input.addPointer();
+	this.game.input.addPointer();
+
 	this.game.stage.disableVisibilityChange = true;
 	this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
 	this.scale.pageAlignHorizontally = true;

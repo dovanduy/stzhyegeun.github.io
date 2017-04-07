@@ -1,9 +1,9 @@
 var EScoreConfig = {
 		UNIT_SCORE 				: 50,
-		ANIBOT_COMBO_TIME 		: 2000,
-		INIT_COMBO_TIME 		: 4000,
+		ANIBOT_COMBO_TIME 		: 2500,
+		INIT_COMBO_TIME 		: 5000,
 		COMBO_DELTA_DURATION      : 500,
-		MIN_COMBO_DURATION		: 1500,
+		MIN_COMBO_DURATION		: 2500,
 		PIVOT_START_COMBO		: 5,
 		PIVOT_TIME				: 5000,
 };
@@ -77,6 +77,17 @@ function Score(inParentContext) {
 	
 	self.setCombo = function(inComboValue) {
 		_combo = inComboValue;
+		
+		if(_combo === 3){
+			StzSoundList[ESoundName.SE_COMBO3].play();
+		}
+		else if( _combo === 5){
+			StzSoundList[ESoundName.SE_COMBO5].play();
+		}
+		else if(_combo === 7){
+			StzSoundList[ESoundName.SE_COMBO7].play();
+		}
+		
 		if (inComboValue === 0) {
 			_pivotCombo = 0;
 			startComboStamp = 0;

@@ -5,7 +5,7 @@ function AniBot(inContext, inDifficulty) {
 	}
 	
 	var _context = inContext;
-	var _difficulty = inDifficulty || 10;
+	var _difficulty = inDifficulty || 20;
 	var _remainDifficultyUpdateTime = 0;
 	
 	var MIN_MATCH_INTERVAL_MS = 100 + (_difficulty * 100);
@@ -14,8 +14,8 @@ function AniBot(inContext, inDifficulty) {
 	var PROB_FOUR_MATCH = 0.35 - (_difficulty * 0.01);
 	var MAX_AUTO_MATCH_COUNT = 30;
 	
-	var AUTO_DIFFICULTY_SCORE_OFFSET = 20000;
-	var AUTO_DIFFICULTY_SCORE_CHANGE_MS = 5000;
+	var AUTO_DIFFICULTY_SCORE_OFFSET = 10000;
+	var AUTO_DIFFICULTY_SCORE_CHANGE_MS = 10000;
 	
 	
 	var _currentMatchTime = StzUtil.createRandomInteger(MIN_MATCH_INTERVAL_MS, MAX_MATCH_INTERVAL_MS); 
@@ -28,6 +28,7 @@ function AniBot(inContext, inDifficulty) {
 		score: 0, 
 		combo: 0,
 		totalMatchedBlock: 0,
+		remainBombCount: StzGameConfig.BOMB_CREAT_COUNT,
 		autoDifficulty: false,
 		playListener: null, 
 		info: {
@@ -107,12 +108,16 @@ function AniBot(inContext, inDifficulty) {
 			}
 		})();
 		
+		self.remainBombCount = self.remainBombCount - matchCount;
 		self.totalMatchedBlock = self.totalMatchedBlock + matchCount; 
 		self.score = self.score + ((self.combo + 1) * EScoreConfig.UNIT_SCORE * matchCount);
 		
 		_aniState = self.EState.PLAYED;
 		if (self.playListener && typeof self.playListener === 'function') {
 			self.playListener();
+		} 
+		if (self.remainBombCount <= 0) {
+			self.remainBombCount = StzGameConfig.BOMB_CREAT_COUNT;
 		} 
 	};
 	
