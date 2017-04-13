@@ -10,9 +10,16 @@ Lobby.prototype.init = function() {
 	this.waitingTime = 0;
 	this.isBot = true;
 	this.isHost = false;
+	this.isStart = false;
+	window.RivalInfo.state = ERivalState.GAME;
 };
 
 Lobby.prototype.preload = function() {
+	
+	if (StzGameConfig.DEBUG_MODE) {
+		this.game.add.plugin(Phaser.Plugin.Debug);	
+	}
+	
 	this.game.load.crossOrigin = 'Anonymous';
 	if (window.MeInfo.thumbnail.indexOf("http") >= 0) {
 		this.game.load.image('meProfileImage', window.MeInfo.thumbnail);	
@@ -20,13 +27,35 @@ Lobby.prototype.preload = function() {
 };
 
 Lobby.prototype.create = function() {
+
+	// 라이벌 인포 초기화 
+	window.RivalInfo.real_id = 0;
+	window.RivalInfo.name = 'Rival';
+	window.RivalInfo.id = 0;
+	window.RivalInfo.thumbnail = "https://scontent-hkg3-1.xx.fbcdn.net/v/t1.0-1/p320x320/12096103_10204089815400231_2121453525092547468_n.jpg?oh=e4e97914489731d4e6546b9cdc472f79&oe=59602C0B";
+		
+	if (this.game.cache.checkImageKey('rivalProfileImage')) {
+		this.game.cache.removeImage('rivalProfileImage');
+	}
+
 	
 	this.scene = new LobbyScene(this.game);
 	
 	if (window.realjs) {
 		// ROOM:START - 리스너 등록
+		realjs.event.roomStartListener.removeAll();
 		realjs.event.roomStartListener.add(function(data){
+			if (this.isStart) {
+				return;
+			}
+			this.isStart = true;
 			this.isBot = false;
+			
+			if (data.hasOwnProperty('t')) {
+				window.gameStartTime = data.t + (Phaser.Timer.SECOND * 2);
+			} else {
+				window.gameStartTime = null;
+			}
 			this.startInGameState();
 		}, this);	
 	}
@@ -53,6 +82,7 @@ Lobby.prototype.waitingFriends = function() {
 	this.waitingTimer.start();
 	
 	if (window.realjs) {
+		realjs.event.getRoomListListener.removeAll();
 		realjs.event.getRoomListListener.add(function(data) {
 			for (var index = data.waiting.length - 1; index >= 0; index--) {
 				
@@ -77,6 +107,7 @@ Lobby.prototype.waitingFriends = function() {
 			realjs.realCreateRoom();
 		}, this);
 		
+		realjs.event.joinRoomListener.removeAll();
 		realjs.event.joinRoomListener.add(function(data) {
 			
 			if (data.room_id === 'lobby') {
@@ -106,9 +137,9 @@ Lobby.prototype.waitingFriends = function() {
 					this.isBot = false;
 					this.loadRivalInfo(function() {
 						this.setRivalInfo();
-							if (this.isHost) {
-								realjs.realRoomStart();
-							}
+							//if (this.isHost) {
+							realjs.realRoomStart();
+							//}
 					}, this);
 				}, this);
 			} 
@@ -133,13 +164,14 @@ Lobby.prototype.setRivalInfo = function() {
 	
 	this.scene.fRivalName.text = window.RivalInfo.name;
 	this.scene.fRivalName.visible = true;
+	this.scene.fTxtRivalLevel.visible = true;
 	
 	if (this.game.cache.checkImageKey('rivalProfileImage') === true) {
-		var rivalProfileImage = this.game.add.image(0, 0, 'rivalProfileImage');
-		this.scene.fRivalProfileContainer.add(rivalProfileImage);
-		var ratio = 160 / rivalProfileImage.width;
-		rivalProfileImage.scale.setTo(ratio, ratio);
-		rivalProfileImage.anchor.setTo(0.5, 0.5);
+		this.rivalProfileImage = this.game.add.image(0, 0, 'rivalProfileImage');
+		this.scene.fRivalProfileContainer.add(this.rivalProfileImage);
+		var ratio = 160 / this.rivalProfileImage.width;
+		this.rivalProfileImage.scale.setTo(ratio, ratio);
+		this.rivalProfileImage.anchor.setTo(0.5, 0.5);
 	}
 };
 
@@ -186,5 +218,32 @@ Lobby.prototype.startInGameState = function() {
 			realjs.realJoinLobby(false);	
 		}
 	}
-	this.game.state.start("InGame", true, false, this.isBot);
+	
+	
+	if (this.startDelayTimer) {
+		this.game.time.events.remove(this.startDelayTimer);
+		this.startDelayTimer = null;
+	}
+	
+	this.startDelayTimer = this.game.time.events.add(Phaser.Timer.SECOND, function() {
+		this.game.time.events.remove(this.startDelayTimer);
+		this.startDelayTimer = null;
+		this.game.state.start("InGame", true, false, this.isBot);
+	}, this);
+};
+
+Lobby.prototype.shutdown = function() {
+
+	this.waitingTimer = null;
+	
+	if (this.rivalProfileImage) {
+		this.rivalProfileImage.destroy();
+		this.rivalProfileImage = null;
+	}
+	
+	// remove Tweens
+	this.game.tweens.removeAll();
+	
+	// remove Timers
+	this.game.time.removeAll();
 };

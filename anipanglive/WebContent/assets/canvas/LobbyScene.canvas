@@ -150,6 +150,32 @@
             "x": 303,
             "y": 587
           }
+        },
+        {
+          "type": "image",
+          "id": "886e96aa-80af-405c-8874-20bfb11f2a73",
+          "asset": "7",
+          "info": {
+            "editorName": "meLevelBg",
+            "editorPublic": true,
+            "x": 195,
+            "y": 785,
+            "anchor.x": 0.5,
+            "anchor.y": 0.5
+          }
+        },
+        {
+          "type": "image",
+          "id": "49794ecf-7c9a-4f41-b35e-68ecbd1520be",
+          "asset": "7",
+          "info": {
+            "editorName": "rivalLevelBg",
+            "editorPublic": true,
+            "x": 515,
+            "y": 785,
+            "anchor.x": 0.5,
+            "anchor.y": 0.5
+          }
         }
       ]
     }
@@ -189,6 +215,11 @@
       "file": "WebContent/assets/assets-pack.json",
       "section": "lobby",
       "asset": "common_vs"
+    },
+    "7": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "lobby",
+      "asset": "lv_bg"
     }
   }
 }

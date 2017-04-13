@@ -7,6 +7,8 @@ Result.prototype = proto;
 
 Result.prototype.init = function(inScores) {
 	
+	this.isStart = false;
+	
 	this.scores = {
 		'me': inScores[0], 
 		'rival': inScores[1]
@@ -18,6 +20,23 @@ Result.prototype.init = function(inScores) {
 	};
 	
 	if (window.realjs) {
+		realjs.event.roomStartListener.removeAll();
+		realjs.event.roomStartListener.add(function(data) {
+			if (this.isStart) {
+				return;
+			}
+			
+			this.isStart = true;
+			
+			if (data.hasOwnProperty('t')) {
+				window.gameStartTime = data.t + (Phaser.Timer.SECOND * 2);
+			} else {
+				window.gameStartTime = null;
+			}
+			
+			this.game.state.start("InGame");
+		}, this);
+		
 		realjs.event.leaveRoomListener.removeAll();
 		realjs.event.leaveRoomListener.add(function(data) {
 			if (data.user_id != window.MeInfo.real_id) {
@@ -44,11 +63,12 @@ Result.prototype.init = function(inScores) {
 			
 			if (this.isPlayAgain.me === true && this.isPlayAgain.rival === true) {
 				
-				this.initData();
-				this.game.state.start("InGame");
+				this.initData(false);
+				//this.game.state.start("InGame");
+				realjs.realRoomStart();
 			} else {
 				
-				this.initData();
+				this.initData(true);
 				if (window.realjs) {
 					realjs.realJoinLobby(false);	
 				}
@@ -153,11 +173,15 @@ Result.prototype.create = function() {
 	}.bind(this));
 };
 
-Result.prototype.initData = function() {
+Result.prototype.initData = function(isCleanRivalData) {
+	
 	this.scores.me = 0;
 	this.scores.rival = 0;
 	this.isPlayAgain.me = null;
 	this.isPlayAgain.rival = null;
+	
+	this.time.removeAll();
+	this.tweens.removeAll();
 };
 
 Result.prototype.OnClickExitToLobby = function(item) {
@@ -167,7 +191,7 @@ Result.prototype.OnClickExitToLobby = function(item) {
 		realjs.realJoinLobby(false);
 	}
 	
-	this.initData();
+	this.initData(true);
 	
 	if (window.FBInstant) {
 		FBInstant.endGameAsync().then(function() {
@@ -197,10 +221,11 @@ Result.prototype.OnClickPlayAgain = function(item) {
 	}
 	
 	if (this.isPlayAgain.me === true && this.isPlayAgain.rival === true) {
-		this.initData();
-		this.game.state.start("InGame");
+		this.initData(false);
+		//this.game.state.start("InGame");
+		realjs.realRoomStart();
 	} else {
-		this.initData();
+		this.initData(true);
 		if (window.realjs) {
 			realjs.realJoinLobby(false);	
 		}

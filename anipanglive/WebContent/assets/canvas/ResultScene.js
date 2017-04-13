@@ -18,25 +18,31 @@ function ResultScene(aGame, aParent) {
 
 	this.game.add.sprite(206, 104, 'imgWinnerTitle', null, this);
 
+	var winnerHaloContainer = this.game.add.group(this);
+	winnerHaloContainer.position.setTo(359, 359);
+
+	var resultWinnerHalo = this.game.add.sprite(0, 0, 'resultWinnerHalo', 0, winnerHaloContainer);
+	resultWinnerHalo.anchor.setTo(0.5, 0.5);
+
 	var winnerProfileContainer = this.game.add.group(this);
 	winnerProfileContainer.position.setTo(359, 359);
 
 	var loserProfileContainer = this.game.add.group(this);
-	loserProfileContainer.position.setTo(359, 716);
+	loserProfileContainer.position.setTo(359, 745);
 
-	var btnNewGame = this.game.add.sprite(90, 1098, 'btnNewGame', null, this);
+	var btnNewGame = this.game.add.sprite(90, 1118, 'btnNewGame', null, this);
 
-	var btnRematch = this.game.add.sprite(90, 956, 'btnRematch', null, this);
+	var btnRematch = this.game.add.sprite(90, 980, 'btnRematch', null, this);
 
-	var imgThumbLose = this.game.add.sprite(359, 716, 'imgThumbLose', null, this);
+	var imgThumbLose = this.game.add.sprite(359, 745, 'imgThumbLose', null, this);
 	imgThumbLose.anchor.setTo(0.5, 0.5);
 
 	var imgThumbWin = this.game.add.sprite(359, 359, 'imgThumbWin', null, this);
 	imgThumbWin.anchor.setTo(0.5, 0.5);
 
-	this.game.add.sprite(189, 774, 'imgNewpaper', null, this);
+	this.game.add.sprite(89, 147, 'imgWinnerBacklight_a', null, this);
 
-	this.game.add.sprite(88, 146, 'imgWinnerBacklight_a', null, this);
+	this.game.add.sprite(189, 790, 'imgNewpaper', null, this);
 
 	this.game.add.sprite(186, 163, 'imgWinnerCrown', null, this);
 
@@ -46,17 +52,27 @@ function ResultScene(aGame, aParent) {
 
 	this.game.add.sprite(412, 333, 'imgWinnerRightBlock', null, this);
 
-	var common_vs = this.game.add.sprite(360, 582, 'common_vs', null, this);
+	var common_vs = this.game.add.sprite(360, 630, 'common_vs', null, this);
+	common_vs.scale.setTo(0.7, 0.7);
 	common_vs.anchor.setTo(0.5, 0.5);
 
 	this.game.add.sprite(476, 459, 'coin', null, this);
 
+	var meLevelBg = this.game.add.sprite(360, 520, 'lv_bg_s', null, this);
+	meLevelBg.anchor.setTo(0.5, 0.5);
+
+	var rivalLevelBg = this.game.add.sprite(360, 885, 'lv_bg', null, this);
+	rivalLevelBg.anchor.setTo(0.5, 0.5);
+
 	 // public fields
 
+	this.fResultWinnerHalo = resultWinnerHalo;
 	this.fWinnerProfileContainer = winnerProfileContainer;
 	this.fLoserProfileContainer = loserProfileContainer;
 	this.fBtnNewGame = btnNewGame;
 	this.fBtnRematch = btnRematch;
+	this.fMeLevelBg = meLevelBg;
+	this.fRivalLevelBg = rivalLevelBg;
 
 	/* --- post-init-begin --- */
 
@@ -80,16 +96,30 @@ function ResultScene(aGame, aParent) {
 	var scoreStyle = {fontSize: '36px', fill: '#007f93', font: 'hs_bubbleregular', boundsAlignH: 'center', boundsAlignV: 'top'};
 	
 	this.fWinnerName = this.game.add.text(0, 0, 'winner', nameStyle);
-	this.fWinnerName.setTextBounds(0, 455, this.game.width, 45);
+	this.fWinnerName.setTextBounds(0, 458, this.game.width, 45);
 	this.fWinnerScore = this.game.add.text(0, 0, '99,999,999', scoreStyle);
-	this.fWinnerScore.setTextBounds(0, 500, this.game.width, 45);
+	this.fWinnerScore.setTextBounds(0, 547, this.game.width, 45);
 
 	this.fLoserName = this.game.add.text(0, 0, 'loser', nameStyle);
 	this.fLoserName.alpha = 0.7;
-	this.fLoserName.setTextBounds(0, 800, this.game.width, 45);
+	this.fLoserName.setTextBounds(0, 822, this.game.width, 45);
 	this.fLoserScore = this.game.add.text(0, 0, '99,999,998', scoreStyle);
 	this.fLoserScore.alpha = 0.7;
-	this.fLoserScore.setTextBounds(0, 845, this.game.width, 45);
+	this.fLoserScore.setTextBounds(0, 912, this.game.width, 45);
+	
+	var txtMeLevel = this.game.add.text(0, 0, "LV.1", {fontSize: '26px', fill: '#e2fbff', font: 'hs_bubbleregular', boundsAlignH: 'center', boundsAlignV: 'middle'});
+	txtMeLevel.stroke = '#1b6670';
+	txtMeLevel.strokeThickness = 2;
+	txtMeLevel.setTextBounds(this.fMeLevelBg.left, this.fMeLevelBg.top + 3, this.fMeLevelBg.width, this.fMeLevelBg.height);
+	
+	var txtRivalLevel = this.game.add.text(0, 0, "LV.1", {fontSize: '26px', fill: '#e2fbff', font: 'hs_bubbleregular', boundsAlignH: 'center', boundsAlignV: 'middle'});
+	txtRivalLevel.stroke = '#1b6670';
+	txtRivalLevel.strokeThickness = 2;
+	txtRivalLevel.setTextBounds(this.fRivalLevelBg.left, this.fRivalLevelBg.top + 3, this.fRivalLevelBg.width, this.fRivalLevelBg.height);
+	
+	this.fResultWinnerHalo.animations.add('resultWinnerHalo', [0, 1, 2, 3], 15, true);
+	this.fResultWinnerHalo.animations.play('resultWinnerHalo');
+	
 	
 	/* --- post-init-end --- */
 }
@@ -102,4 +132,15 @@ ResultScene.prototype.constructor = Phaser.Group;
 /* --- end generated code --- */
 
 // you can insert code here
-
+ResultScene.prototype.superDestroy = ResultScene.prototype.destroy;
+ResultScene.prototype.destroy = function(destroyChildren, soft) {
+	
+	this.fWinnerName.destroy();
+	this.fWinnerScore.destroy();
+	this.fLoserName.destroy();
+	this.fLoserScore.destroy();
+	
+	this.fResultWinnerHalo.animations.stop('resultWinnerHalo');
+	
+	this.superDestroy(destroyChildren, soft);
+};

@@ -46,6 +46,12 @@ function LobbyScene(aGame, aParent) {
 
 	var common_vs = this.game.add.sprite(303, 587, 'common_vs', null, this);
 
+	var meLevelBg = this.game.add.sprite(195, 785, 'lv_bg', null, this);
+	meLevelBg.anchor.setTo(0.5, 0.5);
+
+	var rivalLevelBg = this.game.add.sprite(515, 785, 'lv_bg', null, this);
+	rivalLevelBg.anchor.setTo(0.5, 0.5);
+
 	 // public fields
 
 	this.fMeProfileContainer = meProfileContainer;
@@ -54,18 +60,49 @@ function LobbyScene(aGame, aParent) {
 	this.fAnimate_dot_2 = animate_dot_2;
 	this.fAnimate_dot_3 = animate_dot_3;
 	this.fCommon_vs = common_vs;
+	this.fMeLevelBg = meLevelBg;
+	this.fRivalLevelBg = rivalLevelBg;
 
 	/* --- post-init-begin --- */
 
-// Optional setting
-	var txtIceEnabled = this.game.add.text(0, 0, 'ICE Enabled: ' + InGameInterruptedConfig.IS_ICE, {fontSize: '50px', fill: '#ffffff', font: 'hs_bubbleregular', boundsAlignH: 'center', boundsAlignV: 'top'});
-	txtIceEnabled.setTextBounds(0, 760, this.game.width, 200);
-	txtIceEnabled.inputEnabled = true;
-	txtIceEnabled.events.onInputDown.add(function() {
-		InGameInterruptedConfig.IS_ICE = !InGameInterruptedConfig.IS_ICE;
-		txtIceEnabled.text = 'ICE Enabled: ' + InGameInterruptedConfig.IS_ICE;
-	}, this);
-
+//	var txtIceEnabled = this.game.add.text(0, 0, 'Interrupt Max Count: ' + InGameInterruptedConfig.ICE_MAX_COUNT, {fontSize: '50px', fill: '#ffffff', font: 'hs_bubbleregular', boundsAlignH: 'center', boundsAlignV: 'top'});
+//	txtIceEnabled.setTextBounds(0, 760, this.game.width, 200);
+//	
+//	var txtIceUP = this.game.add.text(0, 70, 'Interrupt Max Count UP(Click)', {fontSize: '40px', fill: '#ffffff', font: 'hs_bubbleregular', boundsAlignH: 'center', boundsAlignV: 'top'});
+//	txtIceUP.setTextBounds(0, 760, this.game.width, 200);
+//	txtIceUP.inputEnabled = true;
+//	txtIceUP.events.onInputDown.add(function() {
+//		InGameInterruptedConfig.ICE_MAX_COUNT++;
+//		InGameInterruptedConfig.CLOUD_MAX_COUNT++;
+//		txtIceEnabled.text = 'Interrupt Max Count: ' + InGameInterruptedConfig.ICE_MAX_COUNT;
+//	}, this);
+//	
+//	var txtIceDown = this.game.add.text(0, 140, 'Interrupt Max Count DOWN(Click)', {fontSize: '40px', fill: '#ffffff', font: 'hs_bubbleregular', boundsAlignH: 'center', boundsAlignV: 'top'});
+//	txtIceDown.setTextBounds(0, 760, this.game.width, 200);
+//	txtIceDown.inputEnabled = true;
+//	txtIceDown.events.onInputDown.add(function() {
+//		InGameInterruptedConfig.ICE_MAX_COUNT--;
+//		InGameInterruptedConfig.CLOUD_MAX_COUNT--;
+//		
+//		if(InGameInterruptedConfig.ICE_MAX_COUNT < 0){
+//			InGameInterruptedConfig.ICE_MAX_COUNT = 0;
+//			InGameInterruptedConfig.CLOUD_MAX_COUNT = 0;
+//		}
+//		
+//		txtIceEnabled.text = 'Interrupt Max Count: ' + InGameInterruptedConfig.ICE_MAX_COUNT;
+//	}, this);
+	
+	this.fTxtMeLevel = this.game.add.text(0, 0, "LV.1", {fontSize: '30px', fill: '#e2fbff', font: 'hs_bubbleregular', boundsAlignH: 'center', boundsAlignV: 'middle'});
+	this.fTxtMeLevel.stroke = '#1b6670';
+	this.fTxtMeLevel.strokeThickness = 2;
+	this.fTxtMeLevel.setTextBounds(this.fMeLevelBg.left, this.fMeLevelBg.top + 5, this.fMeLevelBg.width, this.fMeLevelBg.height);
+	
+	this.fTxtRivalLevel = this.game.add.text(0, 0, "LV.1", {fontSize: '30px', fill: '#e2fbff', font: 'hs_bubbleregular', boundsAlignH: 'center', boundsAlignV: 'middle'});
+	this.fTxtRivalLevel.stroke = '#1b6670';
+	this.fTxtRivalLevel.strokeThickness = 2;
+	this.fTxtRivalLevel.setTextBounds(this.fRivalLevelBg.left, this.fRivalLevelBg.top + 5, this.fRivalLevelBg.width, this.fRivalLevelBg.height);
+	this.fTxtRivalLevel.visible = false;
+	
 	// input enabled
 	this.fCommon_vs.inputEnabled = true;
 	
@@ -77,11 +114,11 @@ function LobbyScene(aGame, aParent) {
 	// set meProfileImage
 	var profileImageSize = 160;
 	if (this.game.cache.checkImageKey('meProfileImage') === true) {
-		var meProfileImage = this.game.add.image(0, 0, 'meProfileImage');
-		this.fMeProfileContainer.add(meProfileImage);
-		var ratio = profileImageSize / meProfileImage.width;
-		meProfileImage.scale.setTo(ratio, ratio);
-		meProfileImage.anchor.setTo(0.5, 0.5);
+		this.meProfileImage = this.game.add.image(0, 0, 'meProfileImage');
+		this.fMeProfileContainer.add(this.meProfileImage);
+		var ratio = profileImageSize / this.meProfileImage.width;
+		this.meProfileImage.scale.setTo(ratio, ratio);
+		this.meProfileImage.anchor.setTo(0.5, 0.5);
 	}
 	
 	// set names
@@ -111,4 +148,12 @@ LobbyScene.prototype.constructor = Phaser.Group;
 /* --- end generated code --- */
 
 // you can insert code here
-
+LobbyScene.prototype.superDestroy = LobbyScene.prototype.destroy;
+LobbyScene.prototype.destroy = function(destroyChildren, soft) {
+	
+	this.meProfileImage.destroy();
+	this.fTxtRivalLevel.destroy();
+	this.fTxtMeLevel.destroy();
+	
+	this.superDestroy(destroyChildren, soft);
+};

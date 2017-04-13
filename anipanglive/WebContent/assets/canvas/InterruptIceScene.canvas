@@ -1,0 +1,62 @@
+{
+  "settings": {
+    "sceneWidth": 640,
+    "sceneHeight": 360,
+    "generateOnSave": true,
+    "enableStepping": false
+  },
+  "world": {
+    "type": "group",
+    "id": "73fc9396-f289-4931-88e9-33bf0bbf22c3",
+    "info": {
+      "editorName": "InterruptIceScene",
+      "children": [
+        {
+          "type": "atlas-sprite",
+          "id": "36f2631f-06ed-49cc-bb17-7907634ca08c",
+          "asset": "0",
+          "info": {
+            "editorName": "bgIceCounter",
+            "editorPublic": true
+          }
+        },
+        {
+          "type": "atlas-sprite",
+          "id": "161b1b74-40af-4537-91a4-128712c4ed54",
+          "asset": "1",
+          "info": {
+            "editorName": "countTimer",
+            "editorPublic": true,
+            "x": 95,
+            "y": 22
+          }
+        },
+        {
+          "type": "group",
+          "id": "cce8fbd7-c016-4764-8d0d-ea01bdcceec3",
+          "info": {
+            "editorName": "iceProfile",
+            "editorPublic": true,
+            "x": 64,
+            "y": 65,
+            "children": []
+          }
+        }
+      ]
+    }
+  },
+  "asset-table": {
+    "0": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "interruptIce",
+      "sprite": "counter_thumb.png"
+    },
+    "1": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "interruptIce",
+      "sprite": "ice_05.png"
+    }
+  }
+}

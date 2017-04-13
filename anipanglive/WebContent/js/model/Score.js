@@ -18,7 +18,7 @@ function Score(inParentContext) {
 	var _comboDuration = EScoreConfig.INIT_COMBO_TIME;
 	var _pivotCombo	= 0;
 	var _pivotStartFlag = false;
-	var startComboStamp = 0;
+	var startComboStamp = -1;
 		
 	var self = {
 		onScoreUpdated	: null,
@@ -58,6 +58,9 @@ function Score(inParentContext) {
 			else if(startComboStamp === 0){
 				self.setCombo(_combo + 1);	
 			}
+			else if(startComboStamp === -1){
+				self.setCombo(0);	
+			}
 			else {
 				self.setCombo(0);
 				startComboStamp = 0;
@@ -70,7 +73,11 @@ function Score(inParentContext) {
 			self.onScoreUpdated(_score);
 		}
 	};
-
+	
+	self.initStartComboStamp = function(){
+		startComboStamp = (new Date()).getTime();
+	};
+	
 	self.getCombo = function(){
 		return _combo;
 	};
@@ -99,7 +106,7 @@ function Score(inParentContext) {
 				_comboDuration = EScoreConfig.MIN_COMBO_DURATION;
 			}
 			
-			if(_pivotStartFlag === false && inComboValue !== 0){
+			if(_pivotStartFlag === false){
 				_pivotCombo++;
 			}
 			

@@ -64,7 +64,7 @@ var startAnipangMulti = function()
     var gameHeight = Math.floor(480 * screenScale * documentRatio); 
     */
 	//this.game = new Phaser.Game(gameWidth , gameHeight, Phaser.WEBGL, 'gameContainer');
-    this.game = new Phaser.Game(720 , 1280, Phaser.WEBGL, 'gameContainer');
+    this.game = new Phaser.Game(720 , 1280, Phaser.AUTO, 'gameContainer');
     
     
     if (window.FBInstant) {

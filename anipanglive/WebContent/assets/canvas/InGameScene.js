@@ -18,52 +18,86 @@ function InGameScene(aGame, aParent) {
 
 	var topUIContainer = this.game.add.group(this);
 
-	var timeGageBody = this.game.add.sprite(151, 1021, 'middle_bar', null, topUIContainer);
+	var timerEnd = this.game.add.sprite(668, 1031, 'timerGauge', 'green_start.png', topUIContainer);
 
-	this.game.add.sprite(136, 1021, 'timer_start', null, topUIContainer);
+	var timer_start = this.game.add.sprite(38, 1031, 'timerGauge', 'green_end.png', topUIContainer);
 
-	var timerEnd = this.game.add.sprite(668, 1021, 'timer_end', null, topUIContainer);
+	var timeGageBody = this.game.add.sprite(53, 1031, 'timerGauge', 'middle_bar_.png', topUIContainer);
+
+	var bottomUIContainer = this.game.add.group(this);
+
+	var btnCloud = this.game.add.sprite(296, 1086, 'bottomUI', 'cloud_btn_disable.png', bottomUIContainer);
+
+	var btnCloudEnable = this.game.add.sprite(296, 1086, 'bottomUI', 'cloud_btn_enable.png', bottomUIContainer);
+
+	var btnIce = this.game.add.sprite(128, 1086, 'bottomUI', 'ice_btn_disable.png', bottomUIContainer);
+
+	var btnIceEnable = this.game.add.sprite(128, 1086, 'bottomUI', 'ice_btn_enable.png', bottomUIContainer);
+
+	var animUpperUI = this.game.add.sprite(0, 0, 'animUpperUI', 3, bottomUIContainer);
+
+	this.game.add.sprite(457, 1086, 'bottomUI', 'btn_lock.png', bottomUIContainer);
+
+	var animMaxEffectGroup = this.game.add.group(bottomUIContainer);
+
+	var cloudFire = this.game.add.sprite(302, 1015, 'bottomUI', 'fire.png', bottomUIContainer);
+
+	var iceFire = this.game.add.sprite(135, 1015, 'bottomUI', 'fire.png', bottomUIContainer);
+
+	var boardAnimLayer = this.game.add.group(this);
+
+	var animLoseBoard = this.game.add.sprite(0, 265, 'animLoseBoard', 0, boardAnimLayer);
 
 	var warning = this.game.add.sprite(0, 0, 'warning', null, this);
 
 	var feverAnimContainer = this.game.add.group(this);
-	feverAnimContainer.position.setTo(0, 120);
+	feverAnimContainer.position.setTo(0, 110);
 
 	var gameBoard = this.game.add.group(this);
-	gameBoard.position.setTo(0, 260);
+	gameBoard.position.setTo(0, 275);
 
-	var bottomUIContainer = this.game.add.group(this);
-
-	var bombGauge = this.game.add.sprite(360, 1170, 'bombGauge', 0, bottomUIContainer);
-	bombGauge.anchor.setTo(0.5, 0.5);
+	var animBoardNoticeContainer = this.game.add.group(this);
 
 	var rivalContainer = this.game.add.group(this);
-	rivalContainer.position.setTo(290, 0);
-
-	this.game.add.sprite(0, 0, 'playerInfoUI', 'rival_bg.png', rivalContainer);
-
-	var thumbRival = this.game.add.sprite(193, 73, 'playerInfoUI', 'rival_thumb.png', rivalContainer);
-	thumbRival.anchor.setTo(0.5, 0.5);
-
-	this.game.add.sprite(146, 25, 'playerInfoUI', 'rivalThumbLine.png', rivalContainer);
-
-	var rivalFaceWin = this.game.add.sprite(70, 3, 'playerInfoUI', 'face_rival_win.png', rivalContainer);
-
-	var rivalFaceLose = this.game.add.sprite(70, -3, 'playerInfoUI', 'face_rival_lose.png', rivalContainer);
+	rivalContainer.position.setTo(514, 54);
 
 	var meContainer = this.game.add.group(this);
-	meContainer.position.setTo(-340, 0);
+	meContainer.position.setTo(90, 54);
 
-	this.game.add.sprite(0, 0, 'playerInfoUI', 'player_bg.png', meContainer);
+	var meCrown = this.game.add.sprite(73, 24, 'upperUI', 'crown.png', this);
 
-	var thumbMe = this.game.add.sprite(538, 71, 'playerInfoUI', 'player_thumb.png', meContainer);
-	thumbMe.anchor.setTo(0.5, 0.5);
+	var rivalCrown = this.game.add.sprite(486, 24, 'upperUI', 'crown.png', this);
 
-	this.game.add.sprite(488, 21, 'playerInfoUI', 'playerThumbLine.png', meContainer);
+	var tinkleStars = this.game.add.group(this);
 
-	var meFaceLose = this.game.add.sprite(510, -2, 'playerInfoUI', 'face_player_lose.png', meContainer);
+	var meStar4 = this.game.add.sprite(43, 45, 'upperUI', 'star03.png', tinkleStars);
 
-	var meFaceWin = this.game.add.sprite(585, 0, 'playerInfoUI', 'face_player_win.png', meContainer);
+	var meStar3 = this.game.add.sprite(196, 117, 'upperUI', 'star03.png', tinkleStars);
+
+	var meStar2 = this.game.add.sprite(167, 26, 'upperUI', 'star02.png', tinkleStars);
+
+	var meStar1 = this.game.add.sprite(5, 133, 'upperUI', 'star01.png', tinkleStars);
+
+	var rivalStar1 = this.game.add.sprite(707, 133, 'upperUI', 'star01.png', tinkleStars);
+	rivalStar1.scale.setTo(-1.0, 1.0);
+
+	var rivalStar2 = this.game.add.sprite(484, 26, 'upperUI', 'star02.png', tinkleStars);
+
+	var rivalStar3 = this.game.add.sprite(465, 117, 'upperUI', 'star03.png', tinkleStars);
+
+	var rivalStar4 = this.game.add.sprite(617, 45, 'upperUI', 'star03.png', tinkleStars);
+
+	var winnerSun = this.game.add.sprite(310, 0, 'upperUI', 'winner_sun.png', this);
+
+	var upperUIContainer = this.game.add.group(this);
+
+	var vsIcon = this.game.add.sprite(310, 80, 'upperUI', 'vs.png', upperUIContainer);
+
+	this.game.add.sprite(0, 252, 'upperUI', 'top_bar.png', upperUIContainer);
+
+	var interruptIce = this.game.add.group(this);
+
+	var interruptCloud = this.game.add.group(this);
 
 	var txtStateImage = this.game.add.group(this);
 	txtStateImage.position.setTo(370, 550);
@@ -71,71 +105,165 @@ function InGameScene(aGame, aParent) {
 	 // public fields
 
 	this.fTopUIContainer = topUIContainer;
-	this.fTimeGageBody = timeGageBody;
 	this.fTimerEnd = timerEnd;
+	this.fTimer_start = timer_start;
+	this.fTimeGageBody = timeGageBody;
+	this.fBottomUIContainer = bottomUIContainer;
+	this.fBtnCloud = btnCloud;
+	this.fBtnCloudEnable = btnCloudEnable;
+	this.fBtnIce = btnIce;
+	this.fBtnIceEnable = btnIceEnable;
+	this.fAnimUpperUI = animUpperUI;
+	this.fAnimMaxEffectGroup = animMaxEffectGroup;
+	this.fCloudFire = cloudFire;
+	this.fIceFire = iceFire;
+	this.fAnimLoseBoard = animLoseBoard;
 	this.fWarning = warning;
 	this.fFeverAnimContainer = feverAnimContainer;
 	this.fGameBoard = gameBoard;
-	this.fBombGauge = bombGauge;
+	this.fAnimBoardNoticeContainer = animBoardNoticeContainer;
 	this.fRivalContainer = rivalContainer;
-	this.fThumbRival = thumbRival;
-	this.fRivalFaceWin = rivalFaceWin;
-	this.fRivalFaceLose = rivalFaceLose;
 	this.fMeContainer = meContainer;
-	this.fThumbMe = thumbMe;
-	this.fMeFaceLose = meFaceLose;
-	this.fMeFaceWin = meFaceWin;
+	this.fMeCrown = meCrown;
+	this.fRivalCrown = rivalCrown;
+	this.fMeStar4 = meStar4;
+	this.fMeStar3 = meStar3;
+	this.fMeStar2 = meStar2;
+	this.fMeStar1 = meStar1;
+	this.fRivalStar1 = rivalStar1;
+	this.fRivalStar2 = rivalStar2;
+	this.fRivalStar3 = rivalStar3;
+	this.fRivalStar4 = rivalStar4;
+	this.fWinnerSun = winnerSun;
+	this.fUpperUIContainer = upperUIContainer;
+	this.fVsIcon = vsIcon;
+	this.fInterruptIce = interruptIce;
+	this.fInterruptCloud = interruptCloud;
 	this.fTxtStateImage = txtStateImage;
 
 	/* --- post-init-begin --- */
 	
-	var meNameStyle = {fontSize: '35px', font: 'hs_bubbleregular', fill: '#8b4b00', boundsAlignH: 'right', boundsAlignV: 'top'};
-	var meScoreStyle = {fontSize: '38px', font: 'hs_bubbleregular', fill: '#bc6500', boundsAlignH: 'right', boundsAlignV: 'bottom'};
-	var rivalNameStyle = {fontSize: '32px', font: 'hs_bubbleregular', fill: '#532170', boundsAlignH: 'left', boundsAlignV: 'top'};
-	var rivalScoreStyle = {fontSize: '31px', font: 'hs_bubbleregular', fill: '#6c2d90', boundsAlignH: 'left', boundsAlignV: 'bottom'};
-
-	var meTextYOffset = this.fThumbMe.y - 36.5;
-	this.fMeName = this.game.add.text(0, 0, window.MeInfo.name, meNameStyle);
+	// tinkleStar init
+	this.fMeStar4.visible = false;
+	this.fMeStar3.visible = false;
+	this.fMeStar2.visible = false;
+	this.fMeStar1.visible = false;
+	this.fRivalStar1.visible = false;
+	this.fRivalStar2.visible = false;
+	this.fRivalStar3.visible = false;
+	this.fRivalStar4.visible = false;
+	
+	// crown init
+	this.fMeCrown.alpha = 0;
+	this.fRivalCrown.alpha = 0;
+	
+	var nameStyle = {fontSize: '15px', font: 'hs_bubbleregular', fill: '#e4fcff', boundsAlignH: 'center', boundsAlignV: 'top'};
+	
+	this.fMeName = this.game.add.text(0, 0, window.MeInfo.name, nameStyle);
 	this.fMeContainer.add(this.fMeName);
-	this.fMeName.setTextBounds(10, meTextYOffset, 465, 85);
-	this.fMeScore = this.game.add.text(0, 0, '0', meScoreStyle);
+	this.fMeName.setTextBounds(-33, 108, 171, 72);
+	
+	this.fMeScore = this.game.add.bitmapText(52, 130, 'scoreUIText', '0', 45);
 	this.fMeContainer.add(this.fMeScore);
-	this.fMeScore.setTextBounds(10, meTextYOffset, 465, 85);
+	this.fMeScore.anchor.set(0.5, 0);
 	
-	var rivalTextYOffset = this.fThumbRival.y - 33.5;
-	this.fRivalName = this.game.add.text(0, 0, window.RivalInfo.name, rivalNameStyle);
+	this.fRivalName = this.game.add.text(0, 0, window.RivalInfo.name, nameStyle);
 	this.fRivalContainer.add(this.fRivalName);
-	this.fRivalName.setTextBounds(245, rivalTextYOffset, 465, 75);
-	this.fRivalScore = this.game.add.text(0, 0, '0', rivalScoreStyle);
-	this.fRivalContainer.add(this.fRivalScore);
-	this.fRivalScore.setTextBounds(245, rivalTextYOffset, 465, 75);
+	this.fRivalName.setTextBounds(-33, 108, 171, 72);
 	
+	this.fRivalScore = this.game.add.bitmapText(52, 130, 'scoreUIText','0', 45);
+	this.fRivalContainer.add(this.fRivalScore);
+	this.fRivalScore.anchor.set(0.5, 0);
+	
+	this.winSunPosXArray = [90, 310, 514];
 	// set board masking
 	var boardMask = this.game.add.graphics(this.fGameBoard.x, this.fGameBoard.y);
 	boardMask.beginFill(0xffffff);
 	boardMask.drawRect(0, 0, 720, 754);
 	this.fGameBoard.mask = boardMask;
 	
+	// setting maskImage;
+	this.fProfileMaskImage = this.game.add.sprite(0, 0, 'upperUI', 'thumbnail.png');
+	this.fProfileMaskImage.visible = false;
 	// thumbnail setting - 'meProfileImage'
 	if (this.game.cache.checkImageKey('meProfileImage') === true) {
-		var meProfileImage = this.game.add.image(0, 0, 'meProfileImage');
-		this.fThumbMe.addChild(meProfileImage);
-
-		var ratio = (this.fThumbMe.width - 5) / meProfileImage.width;
-		meProfileImage.scale.setTo(ratio, ratio);
-		meProfileImage.anchor.setTo(0.5, 0.5);
 		
+		var meImage = this.game.add.image(0, 0, 'meProfileImage');
+		var ratio = this.fProfileMaskImage.width / meImage.width;
+		meImage.scale.setTo(ratio, ratio);
+		
+		var meProfileBMD = this.game.make.bitmapData(this.fProfileMaskImage.width, this.fProfileMaskImage.height);
+		meProfileBMD.alphaMask(meImage, this.fProfileMaskImage);
+		this.meProfileImage = this.game.add.image(0, 0, meProfileBMD);
+		this.fMeContainer.add(this.meProfileImage);
+		
+		meImage.kill();
 	}
 
 	// thumbnail setting - 'rivalProfileImage'
 	if (this.game.cache.checkImageKey('rivalProfileImage') === true) {
-		var rivalProfileImage = this.game.add.image(0,0, 'rivalProfileImage');
-		this.fThumbRival.addChild(rivalProfileImage);
 		
-		ratio = (this.fThumbRival.width - 5) / rivalProfileImage.width;
-		rivalProfileImage.scale.setTo(ratio, ratio);
-		rivalProfileImage.anchor.setTo(0.5, 0.5);
+		var rivalImage = this.game.add.image(0, 0, 'rivalProfileImage');
+		ratio = this.fProfileMaskImage.width / rivalImage.width;
+		rivalImage.scale.setTo(ratio, ratio);
+		
+		var rivalProfileBMD = this.game.make.bitmapData(this.fProfileMaskImage.width, this.fProfileMaskImage.height);
+		rivalProfileBMD.alphaMask(rivalImage, this.fProfileMaskImage);
+		this.rivalProfileImage = this.game.add.image(0,0, rivalProfileBMD);
+		this.fRivalContainer.add(this.rivalProfileImage);
+		
+		rivalImage.kill();
 	}
+	
+	var fBtnCloudMask = this.game.add.graphics(this.fBtnCloudEnable.x, this.fBtnCloudEnable.y);
+	fBtnCloudMask.beginFill(0xffffff);
+	fBtnCloudMask.drawRect(0, this.fBtnCloudEnable.height, this.fBtnCloudEnable.width, 0);
+	this.fBtnCloudEnable.mask = fBtnCloudMask;
+	
+	var fBtnIceMask = this.game.add.graphics(this.fBtnIceEnable.x, this.fBtnIceEnable.y);
+	fBtnIceMask.beginFill(0xffffff);
+	fBtnIceMask.drawRect(0, this.fBtnIceEnable.height, this.fBtnIceEnable.width, 0);
+	this.fBtnIceEnable.mask = fBtnIceMask;
+	
+	
+	//interrup animations
+	
+	//CLOUD Thumnail
+	this.cloudProfileAnim = this.game.add.sprite(this.fRivalContainer.x - 15, this.fRivalContainer.y - 55, 'upperUI', 'cloud_01.png', this.fUpperUIContainer);
+	this.cloudProfileAnim.animations.add('cloudProfileAnim', ['cloud_01.png', 'cloud_02.png', 'cloud_03.png', 'cloud_04.png', 'cloud_05.png'], 5, true);
+	this.cloudProfileAnim.visible = false;
+	
+	//?��?��
+	
+	//ICE Thumnail
+	this.iceProfileAnim = this.game.add.sprite(this.fRivalContainer.x-this.fMeContainer.x-13, this.fRivalContainer.y-this.fMeContainer.y-13, 'upperUI', 'ice_thumbnail_01.png', this.fMeContainer);
+	this.iceProfileAnim.animations.add('iceProfileAnim', ['ice_thumbnail_01.png', 'ice_thumbnail_02.png'], 2, false);
+	this.iceProfileAnim.visible = false;
+	
+	//Thumnail
+	
+	//?��?�� ?��배경
+	this.iceBackGoundAnim = this.game.add.sprite(this.fVsIcon.x, 0, 'upperUI', 'ice_bg_01.png', this.fBottomUIContainer);
+	this.iceBackGoundAnim.animations.add('iceBackGoundAnim', ['ice_bg_01.png', 'ice_bg_02.png'], 2, false);
+	this.iceBackGoundAnim.visible = false;
+	
+	//구름 ?��배경
+	this.cloudBackGroudAnim = this.game.add.sprite(0, 0, 'upperUI', 'cloud_moving_bg.png', this.fBottomUIContainer);
+	this.cloudBackGroudAnim.x = this.game.world.width - this.cloudBackGroudAnim.width*0.3;
+	this.cloudBackGroudAnim.visible = false;
+	
+	this.fIceFire.visible = false;
+	this.fCloudFire.visible = false;
+	
+//	this.fAnimLoseBoard.animations.add('loseBoard', [0, 1], 5, true);
+//	this.fAnimLoseBoard.animations.stop('loseBoard');
+	this.fAnimLoseBoard.visible = false;
+	
+	this.animBoardNotice =  this.game.add.sprite(0, 0, 'boardNotice', 'cloud_charged.png', this.fAnimBoardNoticeContainer);
+	this.animBoardNotice.visible = false;
+	this.animBoardNotice.scale.set(0.5,0.5);
+	this.animBoardNotice.anchor.set(0.5,0.5);
+	this.boardNoticeTween = null;
 	/* --- post-init-end --- */
 }
 
@@ -147,9 +275,34 @@ InGameScene.prototype.constructor = Phaser.Group;
 /* --- end generated code --- */
 
 // you can insert code here
+InGameScene.prototype.boardNoticePlay = function(frameName){
+	if(this.boardNoticeTween !== null){
+		this.game.tweens.remove(this.boardNoticeTween);
+		this.boardNoticeTween = null;
+		this.animBoardNotice.visible = false;
+		this.animBoardNotice.alpha = 1;
+		this.animBoardNotice.scale.set(0.5,0.5);
+	}
+	this.animBoardNotice.visible = true;
+	this.animBoardNotice.frameName = frameName;
+	
+	this.animBoardNotice.x = this.game.world.centerX;
+	this.animBoardNotice.y = this.game.world.centerY - 100;
+	
+	this.boardNoticeTween = this.game.add.tween(this.animBoardNotice.scale).to({x: 1, y: 1}, 250, Phaser.Easing.Linear.None, true)
+	.onComplete.addOnce(function() {
+		this.boardNoticeTween = this.game.add.tween(this.animBoardNotice).to({alpha:0}, 500, Phaser.Easing.Linear.None, true)
+		.onComplete.addOnce(function() {
+			this.animBoardNotice.visible = false;
+			this.boardNoticeTween = null;
+			this.animBoardNotice.scale.set(0.5,0.5);
+			this.animBoardNotice.alpha = 1;
+		}.bind(this));
+	}.bind(this));
+};
+
 InGameScene.getBoardCellPosition = function(inIndex) {
 	var leftBoardMargin = (StzGameConfig.GAME_WIDTH - (InGameBoardConfig.BLOCK_WIDTH * InGameBoardConfig.COL_COUNT)) / 2;
-	//StzCommon.StzLog.print("[InGameScene] leftBoardMargin = " + leftBoardMargin);
 	// check parameter validation
 	if (inIndex < 0 || inIndex >= InGameBoardConfig.COL_COUNT * InGameBoardConfig.ROW_COUNT) {
 		return null;
@@ -164,3 +317,88 @@ InGameScene.getBoardCellPosition = function(inIndex) {
 	
 	return {x: resultX, y: resultY};
 };
+
+InGameScene.prototype.changeCrownOwner = function(inWinner) {
+	
+};
+
+
+InGameScene.prototype.stopTinkleStar = function() {
+	
+	if (this.tinkleTimer !== undefined && this.tinkleTimer !== null) {
+		this.tinkleTimer.stop(false);
+	}
+	
+	this.fMeStar4.visible = false;
+	this.fMeStar3.visible = false;
+	this.fMeStar2.visible = false;
+	this.fMeStar1.visible = false;
+	this.fRivalStar1.visible = false;
+	this.fRivalStar2.visible = false;
+	this.fRivalStar3.visible = false;
+	this.fRivalStar4.visible = false;
+};
+
+InGameScene.prototype.playTinkleStar = function(inWinner) {
+	
+	var count = 0;
+	
+	if (this.tinkleTimer === undefined || this.tinkleTimer === null) {
+		this.tinkleTimer = this.game.time.create(false);
+	} 
+		
+	if (this.tinkleTimer.running) {
+		this.stopTinkleStar();
+	}
+	
+	this.tinkleTimer.removeAll();
+	this.tinkleTimer.loop(500, onTinkleStarTimer.bind(this));
+	this.tinkleTimer.start();	
+	
+	function onTinkleStarTimer() {
+		count = (count + 1) % 4;
+		
+		switch (inWinner) {
+		case "me":
+			this.fMeStar1.visible = (count === 0);
+			this.fMeStar2.visible = (count === 1);
+			this.fMeStar3.visible = (count === 2);
+			this.fMeStar4.visible = (count === 3);
+			break;
+		case "rival":
+			this.fRivalStar1.visible = (count === 0);
+			this.fRivalStar2.visible = (count === 1);
+			this.fRivalStar3.visible = (count === 2);
+			this.fRivalStar4.visible = (count === 3);
+			break;
+		}
+	}
+};
+
+InGameScene.prototype.playLoseBoard = function() {
+	if (this.fAnimLoseBoard && this.fAnimLoseBoard.visible === false) {
+		//this.fAnimLoseBoard.animations.play('loseBoard');
+		this.fAnimLoseBoard.visible = true;
+	}
+};
+
+InGameScene.prototype.stopLoseBoard = function() {
+	if (this.fAnimLoseBoard && this.fAnimLoseBoard.visible === true) {
+		//this.fAnimLoseBoard.animations.stop('loseBoard');
+		this.fAnimLoseBoard.visible = false;
+	}
+};
+
+InGameScene.prototype.superDestroy = InGameScene.prototype.destroy;
+InGameScene.prototype.destroy = function(destroyChildren, soft) {
+	this.fMeName.kill();
+	this.fMeScore.kill();	
+	this.fRivalName.kill();
+
+	this.fProfileMaskImage.destroy();
+	this.meProfileImage.destroy();
+	this.rivalProfileImage.destroy();
+	
+	this.superDestroy(destroyChildren, soft);
+};
+

@@ -1,0 +1,60 @@
+{"frames": [
+
+{
+	"filename": "btn_lock.png",
+	"frame": {"x":0,"y":0,"w":144,"h":140},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":144,"h":140},
+	"sourceSize": {"w":144,"h":140}
+},
+{
+	"filename": "cloud_btn_disable.png",
+	"frame": {"x":0,"y":140,"w":144,"h":140},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":144,"h":140},
+	"sourceSize": {"w":144,"h":140}
+},
+{
+	"filename": "cloud_btn_enable.png",
+	"frame": {"x":0,"y":280,"w":144,"h":140},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":144,"h":140},
+	"sourceSize": {"w":144,"h":140}
+},
+{
+	"filename": "fire.png",
+	"frame": {"x":0,"y":420,"w":125,"h":82},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":125,"h":82},
+	"sourceSize": {"w":125,"h":82}
+},
+{
+	"filename": "ice_btn_disable.png",
+	"frame": {"x":0,"y":502,"w":148,"h":140},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":148,"h":140},
+	"sourceSize": {"w":148,"h":140}
+},
+{
+	"filename": "ice_btn_enable.png",
+	"frame": {"x":0,"y":642,"w":148,"h":140},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":148,"h":140},
+	"sourceSize": {"w":148,"h":140}
+}],
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "bottomUI.png",
+	"format": "RGBA8888",
+	"size": {"w":148,"h":782},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:f84dae14ed4df55878ea74ce5b0365c5:c656de764499f207cac8df0f2a1743dd:a0b588546a0a57bdbd1395614ecb2757$"
+}
+}

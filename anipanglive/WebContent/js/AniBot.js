@@ -28,7 +28,7 @@ function AniBot(inContext, inDifficulty) {
 		score: 0, 
 		combo: 0,
 		totalMatchedBlock: 0,
-		remainBombCount: StzGameConfig.BOMB_CREAT_COUNT,
+		remainBombCount: 150/*StzGameConfig.ICE_CREAT_COUNT*/,
 		autoDifficulty: false,
 		playListener: null, 
 		info: {
@@ -41,7 +41,7 @@ function AniBot(inContext, inDifficulty) {
 		THINKING: 0, 
 		READY: 1,
 		PLAYED: 2
-	};5
+	};
 
 	self.getDifficulty = function() {
 		return _difficulty;
@@ -117,7 +117,7 @@ function AniBot(inContext, inDifficulty) {
 			self.playListener();
 		} 
 		if (self.remainBombCount <= 0) {
-			self.remainBombCount = StzGameConfig.BOMB_CREAT_COUNT;
+			self.remainBombCount = 150;/*StzGameConfig.ICE_CREAT_COUNT*/;
 		} 
 	};
 	

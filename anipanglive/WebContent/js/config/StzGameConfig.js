@@ -1,14 +1,14 @@
 var StzGameConfig = {
-    DEBUG_MODE: true
+    DEBUG_MODE: false
     , GAME_WIDTH: 720
     , GAME_HEIGHT: 1280
     , LOCK_ORIENTATION: "PORTRAIT"     // , LOCK_ORIENTATION: "LANDSCAPE"
     , MATCH_MIN          : 3
     , GAUGE_TIMER_BODY_INITIAL_SCALE	: 1
-    , GAME_WARNING_TIME		: 500
-	, GAME_LIMIT_TIME		: 6000
-	, GAME_LEVEL_UP_TIME	: 4500
-	, BOMB_CREAT_COUNT		: 50
+    , GAME_WARNING1_TIME	: 10000
+    , GAME_WARNING2_TIME	: 3000
+	, GAME_LIMIT_TIME		: 45000
+	, GAME_LEVEL_UP_TIME	: 30000
 	, BOMB_REMOVE_TIME		: 150
 	, BASE_PLAYER_PROFILE : 'assets/images/avatar_player.png'
 	, USER_LEAVE_CHECK_TIME : 10000
@@ -32,13 +32,24 @@ var InGameBoardConfig = {
     COL_COUNT : 7,
     BLOCK_WIDTH : 100,
     BLOCK_HEIGHT : 100,
-    BLOCK_Y_OFFSET : 2
+    BLOCK_Y_OFFSET : 2,
+    
+    BOARD_Y_OFFSET 	: 275,
+    BOARD_WIDTH 	: 720,
+    BOARD_HEIGHT 	: 745
 };
 
 var InGameInterruptedConfig = {
 	IS_ICE: true,
-	ICE_TIME: 3,
+	ICE_TIME: 5,
 	ICE_BREAK_RULE: "unbreakable", // "unbreakable", "breakable-each"
+	ICE_MAX_COUNT : 1,
+	ICE_CREAT_COUNT		: 15,
+	
+	//구름 시간은 ms으로
+	CLOUD_TIME : 5000,
+	CLOUD_MAX_COUNT : 1,
+	CLOUD_CREAT_COUNT		: 15
 };
 
 var ESoundName = {
@@ -49,15 +60,24 @@ var ESoundName = {
 		SE_COMBO3			: "SE_Combo3",
 		SE_COMBO5			: "SE_Combo5",	
 		SE_COMBO7			: "SE_Combo7",
-		SE_MATCH1			: "SE_Match1",
-		SE_MATCH2			: "SE_Match2",
-		SE_MATCH3			: "SE_Match3",
+		SE_MATCH1_1			: "SE_Match1_1",
+		SE_MATCH1_2			: "SE_Match1_2",
+		SE_MATCH2_1			: "SE_Match2_1",
+		SE_MATCH2_2			: "SE_Match2_2",
+		SE_MATCH3_1			: "SE_Match3_1",
+		SE_MATCH3_2			: "SE_Match3_2",
 		SE_MATCH			: "SE_Match",
 		SE_FEVER_LOOP		: "SE_Fever_Loop",
 		SE_READY_VOICE		: "SE_Ready_Voice",
 		SE_RESULT			: "SE_Result",
 		SE_START_VOICE		: "SE_Start_Voice",	
-		SE_MATCH_SPECIAL	: "SE_Match_Special"
+		SE_MATCH_SPECIAL	: "SE_Match_Special",
+		SE_SKILL_FULL		: "SE_Skill_Full",
+		SE_ICE_ATTACK		: "SE_Ice_Attack",
+		SE_RAIN_ATTACK		: "SE_Rain_Attack",
+		SE_SKILL_BUTTON		: "SE_Skill_Button",
+		SE_COUNTDOWN1		: "SE_Countdown1",
+		SE_COUNTDOWN2		: "SE_Countdown2"		
 };
 
 var StzSoundList = {};

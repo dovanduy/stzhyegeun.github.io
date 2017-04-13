@@ -50,14 +50,24 @@ Preload.prototype.loadComplete = function () {
 	StzSoundList[ESoundName.SE_COMBO3] = game.add.audio(ESoundName.SE_COMBO3);
 	StzSoundList[ESoundName.SE_COMBO5] = game.add.audio(ESoundName.SE_COMBO5);
 	StzSoundList[ESoundName.SE_COMBO7] = game.add.audio(ESoundName.SE_COMBO7);
-	StzSoundList[ESoundName.SE_MATCH1] = game.add.audio(ESoundName.SE_MATCH1);
-	StzSoundList[ESoundName.SE_MATCH2] = game.add.audio(ESoundName.SE_MATCH2);
-	StzSoundList[ESoundName.SE_MATCH3] = game.add.audio(ESoundName.SE_MATCH3);
+	StzSoundList[ESoundName.SE_MATCH1_1] = game.add.audio(ESoundName.SE_MATCH1_1);
+	StzSoundList[ESoundName.SE_MATCH1_2] = game.add.audio(ESoundName.SE_MATCH1_2);
+	StzSoundList[ESoundName.SE_MATCH2_1] = game.add.audio(ESoundName.SE_MATCH2_1);
+	StzSoundList[ESoundName.SE_MATCH2_2] = game.add.audio(ESoundName.SE_MATCH2_2);
+	StzSoundList[ESoundName.SE_MATCH3_1] = game.add.audio(ESoundName.SE_MATCH3_1);
+	StzSoundList[ESoundName.SE_MATCH3_2] = game.add.audio(ESoundName.SE_MATCH3_2);
 	StzSoundList[ESoundName.SE_FEVER_LOOP] = game.add.audio(ESoundName.SE_FEVER_LOOP);
 	StzSoundList[ESoundName.SE_READY_VOICE] = game.add.audio(ESoundName.SE_READY_VOICE);
 	StzSoundList[ESoundName.SE_RESULT] = game.add.audio(ESoundName.SE_RESULT);
 	StzSoundList[ESoundName.SE_START_VOICE] = game.add.audio(ESoundName.SE_START_VOICE);
 	StzSoundList[ESoundName.SE_MATCH_SPECIAL] = game.add.audio(ESoundName.SE_MATCH_SPECIAL);
+	StzSoundList[ESoundName.SE_SKILL_FULL] = game.add.audio(ESoundName.SE_SKILL_FULL);
+	StzSoundList[ESoundName.SE_ICE_ATTACK] = game.add.audio(ESoundName.SE_ICE_ATTACK);
+	StzSoundList[ESoundName.SE_RAIN_ATTACK] = game.add.audio(ESoundName.SE_RAIN_ATTACK);
+	StzSoundList[ESoundName.SE_SKILL_BUTTON] = game.add.audio(ESoundName.SE_SKILL_BUTTON);
+	StzSoundList[ESoundName.SE_COUNTDOWN1] = game.add.audio(ESoundName.SE_COUNTDOWN1);
+	StzSoundList[ESoundName.SE_COUNTDOWN2] = game.add.audio(ESoundName.SE_COUNTDOWN2);
+	
 	
 	if (window.FBInstant) {
 		FBInstant.setLoadingProgress(100);
@@ -68,6 +78,7 @@ Preload.prototype.loadComplete = function () {
 	
 	
 	if (window.realjs && realjs.realState === realjs.EState.CONNECT) {
+		realjs.event.loginListener.removeAll();
 		realjs.event.loginListener.add(function(data){
 			
 			if (data.hasOwnProperty('id')) {

@@ -5,7 +5,6 @@ function InGame() {
 /** @type Phaser.State */
 var proto = Object.create(Phaser.State);
 InGame.prototype = proto;
-
 InGame.prototype.init = function(inIsBot) {
 
 	// 게임 종료 체크용
@@ -20,13 +19,9 @@ InGame.prototype.init = function(inIsBot) {
 			if (InGameInterruptedConfig.IS_ICE) {
 				StzLog.print('[InGame] aniBot remain Ice Count: ' + (this.aniBot.remainBombCount));
 				if (this.aniBot.remainBombCount <= 0) {
-					var targetInterruptList = this.controller.interruptedIce.getInterruptedBlocks();
-					this.controller.interruptedIce.setInterrupted(targetInterruptList, true, function(inRemainCount) {
-						StzLog.print('[InGame] IceInterrupted Remain: ' + inRemainCount);
-						if(inRemainCount <= 0){
-							this.controller.setState(EControllerState.MATCH_TURN);
-						}
-					}, this);	
+					this.controller.interruptedCloud.addCloudInterrupt();
+					this.controller.interruptedIce.addIceInterrupt(4);
+					
 				}
 			}
 			
@@ -34,7 +29,7 @@ InGame.prototype.init = function(inIsBot) {
 			this.updateScoreView(this.scoreData.getScore(), this.rivalScore);
 		}).bind(this);
 	} else if (window.realjs) {
-		
+		realjs.event.leaveRoomListener.removeAll();
 		realjs.event.leaveRoomListener.add(function(data) {
 			
 			if (data.room_id === 'lobby') {
@@ -47,12 +42,20 @@ InGame.prototype.init = function(inIsBot) {
 			}
 		}, this);
 		
+		realjs.event.messageListener.removeAll();
 		realjs.event.messageListener.add(function(data) {
 			
 			if (data.sid === realjs.getMySessionId()) {
 				return;
 			}
 
+			// time interpolation
+			if (data.hasOwnProperty('t') && window.gameStartTime) {
+				var currentServerTime = data.t;
+				this.timeCount = StzGameConfig.GAME_LIMIT_TIME - (currentServerTime - window.gameStartTime);
+				StzLog.print('[InGame (messageListener)] Time Interp - processTime: ' + (currentServerTime - window.gameStartTime) + ', timeCount: ' + this.timeCount);
+			}
+			
 			var rivalData = JSON.parse(data.m);
 			
 			this.lastRivalMessageTime = (new Date()).getTime();
@@ -73,16 +76,23 @@ InGame.prototype.init = function(inIsBot) {
 				
 				var iceIndexs = this.controller.interruptedIce.getInterruptedBlocks();
 				if (iceIndexs.length > 0) {
-					this.controller.interruptedIce.setInterrupted(iceIndexs, true, function(inRemainCount) {
-						console.log('[InGame] IceInterrupted Remain: ' + inRemainCount);
-						if(inRemainCount <= 0){
-							this.controller.setState(EControllerState.MATCH_TURN);
-						}
-					}, this);
+					this.controller.interruptedIce.addIceInterrupt(4);
+//					this.controller.interruptedIce.setInterrupted(iceIndexs, true, function(inRemainCount) {
+//						console.log('[InGame] IceInterrupted Remain: ' + inRemainCount);
+//						if(inRemainCount <= 0){
+//							this.controller.setState(EControllerState.MATCH_TURN);
+//						}
+//					}, this);
 				}
 				
 			}
+			
+			if (rivalData.hasOwnProperty('cloudInterrupt')) {
+				this.controller.interruptedCloud.addCloudInterrupt();
+			}
+			
 		}, this);
+		
 	}
 	
 	this.rivalScore = 0;
@@ -112,10 +122,14 @@ InGame.prototype.OnComboUpdated = function(inCombo, inTimerDuration) {
 };
 
 InGame.prototype.onPivotStart = function(pivotTimer) {
+	this.scene.boardNoticePlay("fever_time.png");
+	
 	StzSoundList[ESoundName.SE_FEVER_LOOP].play("", 0, 1, true);
 	
 	this.feverAnim.visible = true;
 	this.feverAnim.play("animFeverMode", 5, true);
+	
+	StzSoundList[ESoundName.BGM_GAME]._sound.playbackRate.value = 1.1;
 	
 	this.pivotTimer = pivotTimer;
 	
@@ -127,6 +141,8 @@ InGame.prototype.onPivotEnd = function() {
 	StzSoundList[ESoundName.SE_FEVER_LOOP].stop();
 	
 	this.controller.setPivotFlag(false);
+	
+	StzSoundList[ESoundName.BGM_GAME]._sound.playbackRate.value = 1.0;
 	
 	this.feverAnim.visible = false;
 	this.feverAnim.animations.stop("animFeverMode");
@@ -159,24 +175,9 @@ InGame.prototype.create = function() {
 	
     // 방해 얼음 테스트코드
 	this.game.input.mouse.capture = true;
-	/*
-	var thumbMeBMD = this.game.make.bitmapData(this.scene.fThumbMe.width, this.scene.fThumbMe.height);
-	thumbMeBMD.draw(this.fThumbMe);
-	this.scene.fMeThumbContainer.mask = thumbMeBMD;
-	*/
-	
 	
 	// init Controller
 	this.controller = InGameController(this);
-	
-	// you can insert code here
-
-	this.scene.fMeContainer.x = -1 * this.game.width / 2 + 15;
-	this.scene.fRivalContainer.x = (this.game.width / 2) - 65;
-
-	
-	this.scene.fMeFaceLose.visible = false;
-	this.scene.fRivalFaceLose.visible = false;
 	
 	// init UserInteraction
 	this.game.input.onDown.add(this.controller.clickBlock, this.controller);
@@ -185,28 +186,31 @@ InGame.prototype.create = function() {
 	
 	//시간 관련
 	this.timeCount = StzGameConfig.GAME_LIMIT_TIME;
-	
-	this.remainTimeText = this.game.add.text(this.scene.fTimeGageBody.x - 65, 
-			this.scene.fTimeGageBody.y + this.scene.fTimeGageBody.height/2 +2, StzUtil.millysecondToSM(this.timeCount), {
-		fontSize : '30px',
-		fill : '#FFFFFF',
-		font : 'hs_bubbleregular'
-	},this.scene.fTopUIContainer);
 
-	this.remainTimeText.anchor.set(0.5);	
-	this.scene.fTopUIContainer.bringToTop(this.remainTimeText);
-	
-	this.remainTimeText.anchor.set(0.5);
 	this.startTimestamp = (new Date()).getTime();
 	
-    this.bombRemainCount = StzGameConfig.BOMB_CREAT_COUNT;
-    this.bombCountText = this.game.add.text(0,60, "BombRemainCount : " + this.bombRemainCount, {
-        fontSize : '20px',
-        fill : '#FFFFFF',
-        font : 'hs_bubbleregular'
-    },this.scene.fTopUIContainer);
-   
-	this.scene.fTopUIContainer.bringToTop(this.remainTimeText);
+	//아이스 인터럽트 관련 변수
+    this.iceInterruptBlockRemainCount = InGameInterruptedConfig.ICE_CREAT_COUNT;
+    this.icePrevBlockRemainCount = 0;
+    this.iceInterrupCount = 0;
+    this.maxIceEffectAnim = this.game.add.sprite(this.scene.fBtnIce.x - 10, this.scene.fBtnIce.y - 10, "animMaxEffect", null, this.scene.fAnimMaxEffectGroup);
+    this.maxIceEffectAnim.animations.add("animMaxEffect");
+    this.maxIceEffectAnim.visible = false;
+    this.iceAnimTimer = null;
+
+    //구름 인터럽트 관련 변수
+    this.cloudInterruptBlockRemainCount = InGameInterruptedConfig.CLOUD_CREAT_COUNT;
+    this.cloudPrevBlockRemainCount = 0;
+    this.cloudInterrupCount = 0;
+    this.maxCloudEffectAnim = this.game.add.sprite(this.scene.fBtnCloud.x - 10, this.scene.fBtnCloud.y - 10, "animMaxEffect", null, this.scene.fAnimMaxEffectGroup);
+    this.maxCloudEffectAnim.animations.add("animMaxEffect");
+    this.maxCloudEffectAnim.visible = false;
+    this.cloudAnimTimer = null;
+    
+    this.scene.fBtnIce.events.onInputDown.add(this.sendInterrupt, this);
+    this.scene.fBtnCloud.events.onInputDown.add(this.sendInterrupt, this);
+    this.scene.fBtnIce.inputEnabled = false;
+    this.scene.fBtnCloud.inputEnabled = false;
 
 	StzSoundList[ESoundName.BGM_GAME].play('', 0, 1, true);
 	
@@ -219,14 +223,6 @@ InGame.prototype.create = function() {
 	this.txtStateImage.anchor.set(0.5, 0.5);
 	this.txtStateImage.visible = false;
 	
-//	this.starSpriteArray = [];
-//	for(var i=0; i < 5; i++){
-//		var fameName =  "star0" + (i+1)+".png";
-//		this.starSpriteArray.push(this.game.add.sprite(this.scene.fThumbMe.x,this.scene.fThumbMe.y, "starSprite" ,fameName ,this.scene.fMeContainer));
-//		this.starSpriteArray[i].anchor.set(0.5,0.5);
-//		this.starSpriteArray[i].visible = false;
-//	}
-
 	this.playGameStartCounter();
 };
 
@@ -253,7 +249,7 @@ InGame.prototype.playGameStartCounter = function() {
 			
 			this.txtStateImage.visible = false;
 			this.controller.controlFlag(true);
-			this.gameTimer = this.game.time.events.loop(10, this.timerCheck, this);
+			this.gameTimer = this.game.time.events.loop((Phaser.Timer.SECOND / 10), this.timerCheck, this);
 			this.controller.hintTimerStart();
 		} 
 	}, this);
@@ -281,15 +277,173 @@ InGame.prototype.update = function() {
 			this.comboDuration = 0;
 		}
 	}
+	
+	this.checkInterruptCount();
+	this.controller.updateView();
+};
 
-	if (this.bombRemainCount === 0) {
-		this.bombRemainCount = StzGameConfig.BOMB_CREAT_COUNT;
-		if (window.realjs && InGameInterruptedConfig.IS_ICE) {
-			realjs.realSendMessage(JSON.stringify({'iceInterrupt': 4}), false);
+InGame.prototype.checkInterruptCount = function(){
+	//얼음 블럭 남은 카운터에 따라 얼음 공격 개수를 채워짐
+	if (this.iceInterruptBlockRemainCount === 0 && (this.scene.fBtnIce.inputEnabled === null || this.scene.fBtnIce.inputEnabled === false)) {
+		//보드 중앙에 나오는 차지 애니매이션
+		this.scene.boardNoticePlay("ice_charged.png");
+		
+		this.scene.fIceFire.visible = true;
+		this.iceInterrupCount++;
+	    this.scene.fBtnIce.inputEnabled = true;
+
+	    this.maxIceEffectAnim.visible = true;
+	    this.maxIceEffectAnim.animations.play("animMaxEffect",20, true);
+	    
+		if(this.iceInterrupCount >= InGameInterruptedConfig.ICE_MAX_COUNT){
+			this.iceInterrupCount = InGameInterruptedConfig.ICE_MAX_COUNT;
 		}
+		StzSoundList[ESoundName.SE_SKILL_FULL].play();
+	}
+	else if(this.iceInterruptBlockRemainCount < 0){
+		this.iceInterruptBlockRemainCount = 0;
+	}
+	//
+	else if(this.icePrevBlockRemainCount !== this.iceInterruptBlockRemainCount){
+		var iceGauge = (InGameInterruptedConfig.ICE_CREAT_COUNT - this.iceInterruptBlockRemainCount)/InGameInterruptedConfig.ICE_CREAT_COUNT;
+		this.scene.fBtnIceEnable.mask.destroy();
+		this.scene.fBtnIceEnable.mask = this.game.add.graphics(this.scene.fBtnIceEnable.x, this.scene.fBtnIceEnable.y);
+		this.scene.fBtnIceEnable.mask.beginFill(0xffffff);
+		this.scene.fBtnIceEnable.mask.drawRect(0, this.scene.fBtnIceEnable.height, this.scene.fBtnIceEnable.width, -this.scene.fBtnIceEnable.height*iceGauge);
+		this.icePrevBlockRemainCount = this.iceInterruptBlockRemainCount;
 	}
 	
-	this.controller.updateView();
+	//구름 블럭 남은 카운터에 따라 구름 공격 개수를 채워짐
+	if (this.cloudInterruptBlockRemainCount === 0 && (this.scene.fBtnCloud.inputEnabled === null || this.scene.fBtnCloud.inputEnabled === false)) {
+		//보드 중앙에 나오는 차지 애니매이션
+		this.scene.boardNoticePlay("cloud_charged.png");
+		
+		this.scene.fCloudFire.visible = true;
+		this.cloudInterrupCount++;
+	    this.scene.fBtnCloud.inputEnabled = true;
+	    
+	    this.maxCloudEffectAnim.visible = true;
+	    this.maxCloudEffectAnim.animations.play("animMaxEffect",20, true);
+	    
+		if(this.cloudInterrupCount >= InGameInterruptedConfig.CLOUD_MAX_COUNT){
+			this.cloudInterrupCount = InGameInterruptedConfig.CLOUD_MAX_COUNT;
+		}
+		StzSoundList[ESoundName.SE_SKILL_FULL].play();
+	}
+	else if(this.cloudInterruptBlockRemainCount < 0){
+		this.cloudInterruptBlockRemainCount = 0;
+	}
+	
+	else if(this.cloudPrevBlockRemainCount !== this.cloudInterruptBlockRemainCount){
+		var cloudGauge = (InGameInterruptedConfig.CLOUD_CREAT_COUNT - this.cloudInterruptBlockRemainCount)/InGameInterruptedConfig.CLOUD_CREAT_COUNT;
+		this.scene.fBtnCloudEnable.mask.destroy();
+		this.scene.fBtnCloudEnable.mask = this.game.add.graphics(this.scene.fBtnCloudEnable.x, this.scene.fBtnCloudEnable.y);
+		this.scene.fBtnCloudEnable.mask.beginFill(0xffffff);
+		this.scene.fBtnCloudEnable.mask.drawRect(0, this.scene.fBtnCloudEnable.height, this.scene.fBtnCloudEnable.width, -this.scene.fBtnCloudEnable.height*cloudGauge);
+		this.cloudPrevBlockRemainCount = this.cloudInterruptBlockRemainCount;
+	}
+};
+
+//게이지가 풀로찬 하단 버튼 클릭 할 경우
+InGame.prototype.sendInterrupt = function(sprite){
+	StzSoundList[ESoundName.SE_SKILL_BUTTON].play();
+	 this.scoreData.initStartComboStamp();
+    if(sprite === this.scene.fBtnIce){
+    	if (window.realjs) {
+    		if(this.iceInterrupCount > 0){
+    			this.scene.fIceFire.visible = false;
+    		    this.scene.fBtnIce.inputEnabled = false;
+    			this.iceInterruptBlockRemainCount = InGameInterruptedConfig.ICE_CREAT_COUNT;
+    			this.iceInterrupCount--;
+    			
+    			this.maxIceEffectAnim.visible = false;
+    		    this.maxIceEffectAnim.animations.stop("animMaxEffect");
+    		    
+    		    var attackPoint = this.game.add.image(this.scene.fBtnIce.x, this.scene.fBtnIce.y, 'light');
+    		    attackPoint.anchor.set(0.5, 0.5);
+    		    
+    		    var fromPosition = attackPoint.world;
+    		    var toPosition = this.scene.fRivalContainer.position;
+    		    var centralPosition = new Phaser.Point(this.game.world.centerX, this.game.world.centerY);
+    		    //공격 시 상대방 프로필 쪽에 공격 당한 애니매이션 재생
+    		    this.moveSpriteByQuadraticBezierCurve(attackPoint, fromPosition, centralPosition, toPosition, 500, function(){
+    		    	StzSoundList[ESoundName.SE_ICE_ATTACK].play();
+    		    	attackPoint.kill();
+    		    	attackPoint = null;
+    		    	this.scene.iceProfileAnim.visible = true;
+    		    	this.scene.iceProfileAnim.play('iceProfileAnim',2, false);
+    		    	
+    		    	this.scene.iceBackGoundAnim.visible = true;
+    		    	this.scene.iceBackGoundAnim.play('iceBackGoundAnim',2, false);
+    		    	
+    		    	if(this.iceAnimTimer !== null){
+    		    		this.game.time.events.remove(this.iceAnimTimer);
+    		    		this.iceAnimTimer = null;
+    		    	}
+    		    	
+    		    	this.iceAnimTimer = this.game.time.events.add(InGameInterruptedConfig.ICE_TIME*1000, function(){
+    		    		this.scene.iceProfileAnim.visible = false;
+    		    		this.scene.iceBackGoundAnim.visible = false;
+    		    		this.iceAnimTimer = null;
+    		    	}.bind(this));
+    		    	
+    		    	realjs.realSendMessage(JSON.stringify({'iceInterrupt': 4}), false);
+    		    }.bind(this, attackPoint));
+    		}
+    	}
+    }
+    else if(sprite === this.scene.fBtnCloud){
+    	if (window.realjs) {
+    		if(this.cloudInterrupCount > 0){
+    			this.scene.fCloudFire.visible = false;
+    			this.scene.fBtnCloud.inputEnabled = false;
+    			this.cloudInterruptBlockRemainCount = InGameInterruptedConfig.CLOUD_CREAT_COUNT;
+    			this.cloudInterrupCount--;
+    			
+    			this.maxCloudEffectAnim.visible = false;
+    		    this.maxCloudEffectAnim.animations.stop("animMaxEffect");
+    		    
+    		    var attackPoint = this.game.add.image(this.scene.fBtnCloud.x, this.scene.fBtnCloud.y, 'light');
+    		    attackPoint.anchor.set(0.5, 0.5);
+    		    
+    		    var fromPosition = attackPoint.world;
+    		    var toPosition = this.scene.fRivalContainer.position;
+    		    var centralPosition = new Phaser.Point(this.game.world.centerX, this.game.world.centerY);
+    		    //공격 시 상대방 프로필 쪽에 공격 당한 애니매이션 재생
+    		    this.moveSpriteByQuadraticBezierCurve(attackPoint, fromPosition, centralPosition, toPosition, 500, function(){
+    		    	StzSoundList[ESoundName.SE_RAIN_ATTACK].play();
+    		    	attackPoint.kill();
+    		    	attackPoint = null;
+    		    	this.scene.cloudProfileAnim.visible = true;
+    		    	this.scene.cloudProfileAnim.play('cloudProfileAnim',5, true);
+    		    	
+    		    	this.scene.cloudBackGroudAnim.visible = true;
+    		    	var moveX = this.game.world.width - this.scene.cloudBackGroudAnim.width;
+    		    	var cloudTween = this.game.add.tween(this.scene.cloudBackGroudAnim).to({x:moveX}, 2000, 'Quart.easeOut', true)
+    				.onComplete.addOnce(function() {
+    					cloudTween = null;
+    				}.bind(this, cloudTween));
+    		    	
+    		    	
+    		    	if(this.cloudAnimTimer !== null){
+    		    		this.game.time.events.remove(this.cloudAnimTimer);
+    		    		this.cloudAnimTimer = null;
+    		    	}
+    		    	
+    		    	this.cloudAnimTimer = this.game.time.events.add(InGameInterruptedConfig.CLOUD_TIME, function(){
+    		    		this.scene.cloudProfileAnim.visible = false;
+    		    		this.scene.cloudBackGroudAnim.visible = false;
+    		    		this.scene.cloudBackGroudAnim.x = this.game.world.width - this.scene.cloudBackGroudAnim.width*0.3;
+    		    		this.scene.cloudProfileAnim.animations.stop('cloudProfileAnim');
+    		    		
+    		    		this.cloudAnimTimer = null;
+    		    	}.bind(this));
+    		    	
+    		    	realjs.realSendMessage(JSON.stringify({'cloudInterrupt': 4}), false);
+    		    }.bind(this, attackPoint));
+    		}
+    	}
+    }
 };
 
 InGame.prototype.updateScoreView = function (playerScore, rivalScore) {	
@@ -297,22 +451,100 @@ InGame.prototype.updateScoreView = function (playerScore, rivalScore) {
 	// 점수 업데이트
 	this.scene.fMeScore.text = this.scoreData.getScoreText();
 	this.scene.fRivalScore.text = StzUtil.createNumComma(rivalScore);
+	var frameNum = 0;
 	
 	if (playerScore <= 0 || rivalScore <= 0) {
-		return;
+		frameNum = 3;
 	}
+	else{
+		frameNum = this.checkFrameNum(rivalScore/playerScore);
+	}
+	
+	if(this.prevFrame !== frameNum){
+		var moveX = 0;
+		this.prevFrame = frameNum;
+		if(frameNum === 0){
+			// rival win
+			this.scene.playTinkleStar('rival');
+			this.scene.playLoseBoard();
+			moveX = this.scene.winSunPosXArray[2];
+		}
+		else if(frameNum === 3){
+			// middle
+			this.scene.stopTinkleStar();
+			this.scene.stopLoseBoard();
+			moveX = this.scene.winSunPosXArray[1];
+		}
+		else if(frameNum === 6){
+			// me win
+			this.scene.playTinkleStar('me');
+			this.scene.stopLoseBoard();
+			moveX = this.scene.winSunPosXArray[0];
+		}
+		
+		var curFrame = this.scene.fAnimUpperUI.animations.currentFrame.index;
+		
+		var isUp = (curFrame > frameNum)?true:false;
+		var frameArray = [];
+		if(isUp === true){
+			for(var i=curFrame; i>=frameNum; i--){
+				frameArray.push(i);
+			}
+		}
+		else{
+			for(var i=curFrame; i<=frameNum; i++){
+				frameArray.push(i);
+			}
+		}
+
+		this.scene.fAnimUpperUI.animations.add('animUpper', frameArray, 5 , false);
+		this.scene.fAnimUpperUI.animations.play('animUpper');	
+		
+		if(moveX !== 0){
+
+			if (this.meCrownTween) {
+				this.game.tweens.remove(this.meCrownTween);
+				this.meCrownTween = null;
+			}
+			this.meCrownTween = this.game.add.tween(this.scene.fMeCrown).to({alpha: (moveX !== this.scene.winSunPosXArray[0] ? 0 : 1)}, 1000, 'Quart.easeOut', true)
+			.onComplete.addOnce(function() {
+				this.meCrownTween = null;
+			}.bind(this));
+			
+			if (this.rivalCrownTween) {
+				this.game.tweens.remove(this.rivalCrownTween);
+				this.rivalCrowTween = null;
+			}
+			this.rivalCrowTween = this.game.add.tween(this.scene.fRivalCrown).to({alpha: (moveX !== this.scene.winSunPosXArray[2] ? 0 : 1)}, 1000, 'Quart.easeOut', true)
+			.onComplete.addOnce(function() {
+				this.rivalCrowTween = null;
+			}.bind(this));
+			
+			if(this.sunTween !== undefined && this.sunTween !== null){
+				this.game.tweens.remove(this.sunTween);
+				this.sunTween = null;
+			}
+			
+			this.sunTween = this.game.add.tween(this.scene.fWinnerSun).to({x:moveX}, 2000, 'Quart.easeOut', true)
+			.onComplete.addOnce(function() {
+				this.sunTween = null;
+			}.bind(this, moveX));
+		}
+		
+	}
+	//this.scene.setWinner((playerScore >= rivalScore ? 'me' : 'rival'));
 	
 	// 표정 업데이트
-	this.scene.fRivalFaceLose.visible = (playerScore >= rivalScore);
-	this.scene.fMeFaceWin.visible = (playerScore >= rivalScore);
-	this.scene.fRivalFaceWin.visible = (playerScore < rivalScore);
-	this.scene.fMeFaceLose.visible = (playerScore < rivalScore);
-	
-	var rivalOffset = this.game.width * (playerScore / (playerScore + rivalScore)) ;
-	if (rivalOffset >= this.game.width - 100) {
-		rivalOffset = this.game.width - 100;
-	}
-	var meOffset = this.game.width - rivalOffset; 
+//	this.scene.fRivalFaceLose.visible = (playerScore >= rivalScore);
+//	this.scene.fMeFaceWin.visible = (playerScore >= rivalScore);
+//	this.scene.fRivalFaceWin.visible = (playerScore < rivalScore);
+//	this.scene.fMeFaceLose.visible = (playerScore < rivalScore);
+//	
+//	var rivalOffset = this.game.width * (playerScore / (playerScore + rivalScore)) ;
+//	if (rivalOffset >= this.game.width - 100) {
+//		rivalOffset = this.game.width - 100;
+//	}
+//	var meOffset = this.game.width - rivalOffset; 
 	
 	//-360
 //	if(meOffset < 360){
@@ -326,10 +558,28 @@ InGame.prototype.updateScoreView = function (playerScore, rivalScore) {
 //		}
 //	}
 
-	this.game.add.tween(this.scene.fMeContainer).to({'x': -1 * meOffset + 15}, 500, "Quart.easeOut", true);
-	this.game.add.tween(this.scene.fRivalContainer).to({'x': (rivalOffset - 65)}, 500, "Quart.easeOut", true);
+//	this.game.add.tween(this.scene.fMeContainer).to({'x': -1 * meOffset + 15}, 500, "Quart.easeOut", true);
+//	this.game.add.tween(this.scene.fRivalContainer).to({'x': (rivalOffset - 65)}, 500, "Quart.easeOut", true);
 
 };
+
+InGame.prototype.checkFrameNum = function(percent){
+	var frameNum = 0;
+	
+	if(percent < 0.8){
+		frameNum = 6;
+	}
+
+	else if(percent>=0.8 && percent<=1.2){
+		frameNum = 3;
+	}
+	
+	else{
+		frameNum = 0;
+	}
+	
+	return frameNum;
+}; 
 
 InGame.prototype.checkGameEnd = function() {
 	
@@ -369,6 +619,7 @@ InGame.prototype.stopControllGame = function() {
 		this.ingameWaiting.destroy();
 	}
 	
+	BlockViewPool.init();
 	this.game.state.start("Result", true, false, [this.scoreData.getScore(), this.rivalScore]);
 };
 
@@ -417,8 +668,13 @@ InGame.prototype.timerCheck = function(){
 		this.controller.setLevelUP();
 	}
 	
-	if(this.timeCount === StzGameConfig.GAME_WARNING_TIME){
-		this.warningTimer = this.game.time.events.loop(250, function(){
+	if(this.timeCount <= StzGameConfig.GAME_WARNING1_TIME && this.scene.fTimer_start.frameName ===  "green_end.png"){
+		//타이머 색깔 노란색
+		this.scene.fTimer_start.frameName = "yellow_end.png";
+		this.scene.fTimeGageBody.frameName = "middle_bar_yellow.png";
+		this.scene.fTimerEnd.frameName = "yellow_start.png";
+		
+		this.warningTimer = this.game.time.events.loop(200, function(){
 			if(this.scene.fWarning.visible === false){
 				this.scene.fWarning.visible = true;
 			}
@@ -427,25 +683,49 @@ InGame.prototype.timerCheck = function(){
 			}
 			
 		}, this);
+		
+		StzSoundList[ESoundName.SE_COUNTDOWN1].play();
+		StzSoundList[ESoundName.SE_COUNTDOWN1].onStop.add(function(){
+			if(this.timeCount <= 0){
+				return;
+			}
+			StzSoundList[ESoundName.SE_COUNTDOWN2].play();
+		}, this);
+		
+		StzSoundList[ESoundName.SE_COUNTDOWN2].onStop.add(function(){
+			if(this.timeCount <= 0){
+				return;
+			}
+			StzSoundList[ESoundName.SE_COUNTDOWN1].play();
+		}, this);
 	}
 	
-	this.timeCount = this.timeCount - 1;
+	if(this.timeCount <= StzGameConfig.GAME_WARNING2_TIME && this.scene.fTimer_start.frameName ===  "yellow_end.png"){
+		//타이머 색깔 빨간색
+		this.scene.fTimer_start.frameName = "red_end.png";
+		this.scene.fTimeGageBody.frameName = "middle_bar_red.png";
+		this.scene.fTimerEnd.frameName = "red_start.png";
+	}
+	
+	this.timeCount = this.timeCount - (Phaser.Timer.SECOND / 10);
 
 	
 	if (this.timeCount <= 0) {
 		this.timeCount = 0;
 	}
 	this.scene.fTimeGageBody.scale.x =  (StzGameConfig.GAUGE_TIMER_BODY_INITIAL_SCALE / StzGameConfig.GAME_LIMIT_TIME * this.timeCount);
-	this.scene.fTimerEnd.x = this.scene.fTimeGageBody.x + this.scene.fTimeGageBody.width;
-	this.remainTimeText.text = StzUtil.millysecondToSM (this.timeCount);
+	this.scene.fTimerEnd.x = this.scene.fTimeGageBody.x + this.scene.fTimeGageBody.width - 1;
 };
 
-InGame.prototype.moveSpriteByQuadraticBezierCurve = function(inSprite, inFromPoint, inCentralPoint, inToPoint, inCallback, inContext) {
+InGame.prototype.moveSpriteByQuadraticBezierCurve = function(inSprite, inFromPoint, inCentralPoint, inToPoint, operateTime, inCallback, inContext) {
+	if(operateTime === undefined){
+		operateTime = 500;
+	}
 	inSprite.anchor.set(0.5, 0.5);
 	var bezierTween = game.add.tween(inSprite).to({
 		x: [inFromPoint.x, inCentralPoint.x, inCentralPoint.x, inToPoint.x],
 		y: [inFromPoint.y, inCentralPoint.y, inCentralPoint.y, inToPoint.y],
-	}, 500,Phaser.Easing.Quadratic.InOut, true, 0).interpolation(function(v, k){
+	}, operateTime,Phaser.Easing.Quadratic.InOut, true, 0).interpolation(function(v, k){
 		return Phaser.Math.bezierInterpolation(v, k);
 	});
 	bezierTween.onComplete.addOnce(function() {
@@ -463,28 +743,15 @@ InGame.prototype.moveSpriteByQuadraticBezierCurve = function(inSprite, inFromPoi
 	});
 };
 
-
-InGame.prototype.updateBombGauge = function() {
-	this.bombCountText.text = "BombRemainCount : " + this.bombRemainCount;
-	var accumulateCount = StzGameConfig.BOMB_CREAT_COUNT - this.bombRemainCount;
-	var currentFrameIndex = Math.floor((accumulateCount / StzGameConfig.BOMB_CREAT_COUNT * 100) / 20);
-	this.scene.fBombGauge.frame = currentFrameIndex;
-};
-
-
-InGame.prototype.createComboText = function(inBlockModel) {
+InGame.prototype.createComboText = function() {
 	
 	if (window.isComboShow === false) {
 		return;
 	}
-	if(inBlockModel === undefined || inBlockModel === null){
-		return;
-	}
-	var txtComboFontStyle = { fontSize: '24px', font: 'hs_bubbleregular', fill: '#8b4b00'};
-	var txtCombo = this.game.add.text(inBlockModel.view.world.x, inBlockModel.view.world.y, (this.scoreData.getCombo() + 1) + 'combo', txtComboFontStyle);
+
+	var txtCombo = this.game.add.bitmapText(this.game.world.centerX, 270, 'comboAndScoreBitmapText', 'C' + (this.scoreData.getCombo() + 1), 55);
 	txtCombo.anchor.setTo(0.5, 1.0);
-	txtCombo.y = txtCombo.y - (inBlockModel.view.height / 3);
-	
+
 	var comboShowTimer = this.game.time.events.add(Phaser.Timer.SECOND * 0.5, function() {
 		if (txtCombo) {
 			txtCombo.kill();
@@ -498,12 +765,22 @@ InGame.prototype.createScoreText = function(x, y, count) {
 		return;
 	}
 	
-	var txtScoreFontStyle = { fontSize: '36px', font: 'hs_bubbleregular', fill: '#8b4b00'};
 	var machedBlocksLength = count;
 	var currentCombo = this.scoreData.getCombo();
+	var bitmapFont = null;
+	var fontSize = 0;
 	
-	var txtScore = this.game.add.text(x , y , machedBlocksLength*(currentCombo+1)* EScoreConfig.UNIT_SCORE, txtScoreFontStyle);
-	txtScore.anchor.setTo(0.5, 1.0);
+	if(this.controller.getPivotFlag() === true){
+		bitmapFont = 'feverScoreBitmapText';
+		fontSize = 45;
+	}
+	else{
+		bitmapFont = 'comboAndScoreBitmapText';
+		fontSize = 35;
+	}
+
+	var txtScore = this.game.add.bitmapText(x , y , bitmapFont, machedBlocksLength*(currentCombo+1)* EScoreConfig.UNIT_SCORE, fontSize);
+	txtScore.anchor.setTo(0.5, 1.4);
 	
 	var scoreShowTimer = null;
 	    scoreShowTimer = this.game.time.events.add(Phaser.Timer.SECOND * 0.5, function(scoreTimer) {
@@ -512,30 +789,6 @@ InGame.prototype.createScoreText = function(x, y, count) {
 			txtScore.kill();
 		}
 	}, this, scoreShowTimer);
-	
-//	var txtScoreFontStyle = { fontSize: '36px', font: 'hs_bubbleregular', fill: '#8b4b00'};
-//	var currentCombo = this.scoreData.getCombo();
-//	var txtScore = this.game.add.text(inBlockModel.view.world.x, inBlockModel.view.world.y + 20, ((currentCombo === 0 ? 1 : currentCombo) * EScoreConfig.UNIT_SCORE), txtScoreFontStyle);
-//	txtScore.anchor.setTo(0.5, 0.5);
-//	txtScore.y = txtScore.y - (inBlockModel.view.height / 4);
-//	
-//	var scoreShowTimer = this.game.time.events.add(Phaser.Timer.SECOND * 0.5, function() {
-//		if (txtScore !== undefined && txtScore !== null) {
-//			txtScore.kill();
-////			if (window.isScoreFly === false) {
-////					
-////			} else {
-////				var fromPosition = txtScore.position;
-////				var toPosition = this.scene.fThumbMe.world;
-////				var centralPosition = new Phaser.Point(toPosition.x, 290);
-////				this.moveSpriteByQuadraticBezierCurve(txtScore, fromPosition, centralPosition, toPosition, function() {
-////					if (txtScore) {
-////						txtScore.kill();
-////					}
-////				}, this);
-////			}
-//		}
-//	}, this);	
 };
 
 InGame.prototype.showWaitingFriends = function() {
@@ -545,3 +798,28 @@ InGame.prototype.showWaitingFriends = function() {
 	this.ingameWaitingTween = this.game.add.tween(this.ingameWaiting.scale).to({'x': 1.5, 'y': 1.5}, 1000, Phaser.Easing.Linear.None, true, 0, -1, true);
 };
 
+InGame.prototype.shutdown = function() {
+	// remove Tweens
+	this.game.tweens.removeAll();
+	
+	// remove Timers
+	this.game.time.removeAll();
+	
+	if (this.feverAnim) {
+		// remove animations
+		this.feverAnim.animations.destroy();
+		// remove Sprites
+		this.feverAnim.kill();
+		this.feverAnim = null;	
+	}
+	
+	if (this.txtStateImage) {
+		this.txtStateImage.kill();
+		this.txtStateImage = null;	
+	}
+	
+	if (this.ingameWaiting) {
+		this.ingameWaiting.kill();
+		this.ingameWaiting = null;
+	}
+};

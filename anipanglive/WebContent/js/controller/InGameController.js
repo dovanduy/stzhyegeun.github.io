@@ -1,5 +1,6 @@
 
 var EControllerState = {
+		NONE_TURN		: "NONE_TURN",
 		USER_TURN 		: "USER_TURN",
 		SLIDING_TURN 	: "SLIDING_TURN",
 		MATCH_TURN 		: "MATCH_TURN",
@@ -23,7 +24,7 @@ var InGameController = function(inViewContext) {
 	var _scoreData = inViewContext.scoreData;
 
 	var _hintTimer = null;
-	var _hitIndex = null;
+	var _hintIndexArray = [];
 
 	//피벗
 	var _pivotFlag = false;
@@ -31,19 +32,10 @@ var InGameController = function(inViewContext) {
 	//난이도 증가 데이터 (0~15->0  15 ~끝까지 ->1)
 	var _levelCount = 0;
 	
-	// 인덱스 체커
-	var tweenBombAroundList = {
-		'TOP_LEFT': { x: -1 * InGameBoardConfig.BLOCK_WIDTH / 2, y: -1 * InGameBoardConfig.BLOCK_HEIGHT / 2},
-		'TOP_CENTER': { x: 0, y: -1 * InGameBoardConfig.BLOCK_HEIGHT / 2},
-		'TOP_RIGHT': { x: InGameBoardConfig.BLOCK_WIDTH / 2, y: -1 * InGameBoardConfig.BLOCK_HEIGHT / 2 },
-		'MIDDLE_LEFT': { x: -1 * InGameBoardConfig.BLOCK_WIDTH / 2, y: 0 },
-		'MIDDLE_RIGHT': { x: InGameBoardConfig.BLOCK_WIDTH / 2, y: 0 },
-		'BOTTOM_LEFT': { x: -1 * InGameBoardConfig.BLOCK_WIDTH / 2, y: InGameBoardConfig.BLOCK_HEIGHT / 2 },
-		'BOTTOM_CENTER': {x: 0, y: InGameBoardConfig.BLOCK_HEIGHT / 2 },
-		'BOTTOM_RIGHT': {x: InGameBoardConfig.BLOCK_WIDTH / 2, y: InGameBoardConfig.BLOCK_HEIGHT / 2}
-	};
-
-	var indexChecker = {
+	//블럭 연속 매칭 카운트
+	var _soundMatchedCount = 1;
+	
+	var _indexChecker = {
 		indexMap: {
 			'TOP_LEFT': -1 * InGameBoardConfig.ROW_COUNT - 1, 
 			'TOP_CENTER': -1 * InGameBoardConfig.ROW_COUNT, 
@@ -95,9 +87,15 @@ var InGameController = function(inViewContext) {
 	};
 	
 	var self = {
-		viewContext: inViewContext
+		viewContext: inViewContext,
+		indexChecker: _indexChecker
 	};
-
+	
+	//얼음 관련 인터럽트
+	self.interruptedIce = new InGameInterruptIce(self.viewContext, self);
+	//구름 관련 인터럽트
+	self.interruptedCloud = new InGameInterruptCloud(self.viewContext, self);
+	
 	self.setLevelUP = function(){
 		_levelCount++;
 	};
@@ -136,28 +134,46 @@ var InGameController = function(inViewContext) {
 		return _pivotFlag;
 	};
 	
+	/**
+	 * 힌트 타이머 동작 
+	 */
 	self.hintTimerStart = function(){
+		if(_state === EControllerState.LASTPANG_TURN && _state === EControllerState.GAME_END){
+			return;
+		}
+		
 		if(_hintTimer !== null){
 			self.viewContext.time.events.remove(_hintTimer);
 			_hintTimer = null;
 		}
-
-		if(_hitIndex !== null){
-			_blocks[_hitIndex].isHintOn = false;
-			_hitIndex = null;
+		// 힌트 목록 초기화
+		if(_hintIndexArray !== null && _hintIndexArray.length > 0){
+			_hintIndexArray.splice(0, _hintIndexArray.length);
+			BlockViewPool.unloadList(EBlockAnimation.ANIM_HINT, EBlockAnimation.ANIM_HINT);
 		}
 		
-		_hintTimer = self.viewContext.time.events.add(4000, function(){
+		_hintTimer = self.viewContext.time.events.add(3000, function(){
 			self.viewContext.time.events.remove(_hintTimer);
-			_hitIndex = self.searchHintBlock();
+			_hintIndexArray = self.searchHintBlock();
 			
-			if(_hitIndex !== null){
-				if(_blocks[_hitIndex] !== undefined && _blocks[_hitIndex] !== null 
-					&& _blocks[_hitIndex].view !== undefined && _blocks[_hitIndex].view !== null){
-					_blocks[_hitIndex].isHintOn = true;
+			if (_hintIndexArray) {
+				for (var i = 0; i < _hintIndexArray.length; i++) {
+					if (_blocks[_hintIndexArray[i]] && _blocks[_hintIndexArray[i]].view) {
+						var hintAnim = BlockViewPool.loadView(EBlockAnimation.ANIM_HINT, this.viewContext, _blocks[_hintIndexArray[i]].view.x, _blocks[_hintIndexArray[i]].view.y, EBlockAnimation.ANIM_HINT, null, this.viewContext.scene.fGameBoard);
+						hintAnim.animations.add(EBlockAnimation.ANIM_HINT);
+						hintAnim.anchor.setTo(0.5, 0.94);
+						hintAnim.width = InGameBoardConfig.BLOCK_WIDTH + 15;
+						hintAnim.height = InGameBoardConfig.BLOCK_HEIGHT + 15;
+						hintAnim.animations.play(EBlockAnimation.ANIM_HINT, 5, true);
+						hintAnim.visible = true;
+					}
 				}
 			}
-		});
+		}.bind(this));
+	};
+	
+	self.hintStop = function() {
+		
 	};
 	
 	/**
@@ -186,14 +202,26 @@ var InGameController = function(inViewContext) {
 	/**
 	 * 스페셜 블럭으로 인해 파괴되는 블럭 점수 계산하기 위한 콜백
 	 */
-	self.speicalBlockScoreCallBack = function(removeBlockCount, index) {
+	self.speicalBlockScoreCallBack = function(removeBlockCount, index, inRemoveBlockList) {
+
+		
+		if (inRemoveBlockList && inRemoveBlockList.length > 0) {
+			
+			for (var indexRemoveList = inRemoveBlockList.length - 1; indexRemoveList >= 0; indexRemoveList--) {
+				var currentBlock = inRemoveBlockList[indexRemoveList];
+				if (currentBlock && currentBlock.isInterrupted) {
+					self.interruptedIce.removeInterruptedByIndex(currentBlock.index);
+				}
+			}
+		}
+		
 		if(removeBlockCount <= 0){
 			return;
 		}
 		
-		_scoreData.setScore(removeBlockCount, true);	
+		_scoreData.setScore(removeBlockCount, true);
 		self.viewContext.createScoreText(_blocks[index].view.world.x, _blocks[index].view.world.y, removeBlockCount);
-		self.viewContext.createComboText(_blocks[index]);
+		self.viewContext.createComboText();	
 	};
 	
 	/**
@@ -204,7 +232,12 @@ var InGameController = function(inViewContext) {
 		for (var index = 0; index < _blocks.length; index++) {
 			
 			var randomType = StzUtil.createRandomInteger(0, 4);
-			_blocks[index] = new BlockModel(EBlockType.list[randomType], index, self.viewContext, this.speicalBlockCallBack.bind(this));
+			if (_blocks[index] === null || _blocks[index] === undefined) {
+				_blocks[index] = new BlockModel(EBlockType.list[randomType], index, self.viewContext, this.speicalBlockCallBack.bind(this));	
+			} else {
+				_blocks[index].init();
+				_blocks[index].type = EBlockType.list[randomType];
+			}
 			_blocks[index].createView(Math.floor(index / InGameBoardConfig.COL_COUNT));
 		}
 		
@@ -222,6 +255,14 @@ var InGameController = function(inViewContext) {
 
 	self.updateView = function() {
 		
+		if(self.interruptedIce) {
+			self.interruptedIce.updateInterrupt();
+		}
+		
+		if(self.interruptedCloud) {
+			self.interruptedCloud.updateInterrupt();
+		}
+		
 		for (var index = 0; index < _blocks.length; index++) {
 			if (_blocks[index] === null) {
 				continue;
@@ -229,58 +270,83 @@ var InGameController = function(inViewContext) {
 			_blocks[index].updateView();
 		}
 		
+		//떨어 질 예정인 블럭들을 못움직이게 하기(매번 주기적으로 체크)
+		this.dropBlocksTempCheck();
+		
+		//손으로 스왑한 블럭의 경우 따로 매칭 체크
 		if(_state !== EControllerState.LASTPANG_TURN && _state !== EControllerState.GAME_END ){
+			//매칭된 블럭
 			var machedArray = this.getMouseMoveMatched();
+			//손으로 스압한 블럭이 스페셜 블럭
 			var specialArray = this.getSpecialArray();
 			
 			var length = machedArray.length;
 			if(this.isMouseMoveMatchedCheckSlidingEnd(machedArray) === true && this.isMouseMoveMatchedCheckSlidingEnd(specialArray) ){
 
+				//매칭 된 블럭이 MATCH_MIN 보다 클 경우 (손으로 스압 했을 때 블럭이 매칭된 경우)
 				if(length >= StzGameConfig.MATCH_MIN){
+						//매칭신시사운드 매치 카운트 초기화
+						_soundMatchedCount = 1;
+						_scoreData.setScore(length, true);	
+					
 						self.hintTimerStart();
 						self.viewContext.time.events.add(100, function(){
-							StzSoundList[ESoundName.SE_MATCH + StzUtil.createRandomInteger(1,3)].play();
+							StzSoundList[ESoundName.SE_MATCH+"1_"+StzUtil.createRandomInteger(1,2)].play();
 						});
 						
 						if(_pivotFlag === true){
-							for(var i=0;i<length;i++){
-								machedArray[i].setBlockState(EBlockState.REMOVE_ANIM);
-								machedArray[i].isTwoMatched = false;
-							}
 							self.viewContext.createScoreText(_blocks[machedArray[0].spicialCreatePosIndex].view.world.x, _blocks[machedArray[0].spicialCreatePosIndex].view.world.y, length);
 						}
-						else{
+							//매칭 배열에 들어 있는 블럭들을 타입, 매칭의 시작 점을 기준으로 정렬
 							var devideBlocks = this.devideBlock(machedArray);
 							
 							var devideLength = devideBlocks.length;
 							for(var i=0;i<devideLength;i++){
-								this.checkAndCreateSpecialBlock(devideBlocks[i]);
+								//매칭 된 블럭을 체크 하고 스페셜 블럭으로 만들거나 터트림
+								this.checkAndCreateSpecialBlock(devideBlocks[i], true);
 							}
-						}
 							
-						self.viewContext.bombRemainCount-= 1*length;
-						self.viewContext.updateBombGauge();
-						_scoreData.setScore(length, true);	
+						//피버모드일 경우 특수블럭 만드는부분 제외
+//						if(_pivotFlag === true){
+//							for(var i=0;i<length;i++){
+//								machedArray[i].setBlockState(EBlockState.REMOVE_ANIM);
+//								machedArray[i].isTwoMatched = false;
+//							}
+//							self.viewContext.createScoreText(_blocks[machedArray[0].spicialCreatePosIndex].view.world.x, _blocks[machedArray[0].spicialCreatePosIndex].view.world.y, length);
+//						}
+//						else{
+					
+						
+						//}	
+							
+						this.viewContext.createComboText();
+
 				}
 	
 				if(specialArray.length === 1){
+					//현재 움직인 블럭이 스페셜 블럭인데 한 개인 경우
+					_soundMatchedCount = 1;
 					self.hintTimerStart();
 					InGameSpecialBlock.specialBlockOperate(_blocks, specialArray[0].index, specialArray[0].type, this.speicalBlockScoreCallBack);
-					specialArray[0].isTwoMatched = false;
+					
 				}
-				else{
-					for(var i =0; i< specialArray.length;i++){
-						specialArray[i].isTwoMatched = false;
-					}
+				else if(specialArray.length !== 0){
+					_soundMatchedCount = 1;
+					var devideSpecialBlocks = self.sortToTouchIdSpecialBlocks(specialArray);
+					InGameSpecialBlock.specialBlocksOperate(_blocks, devideSpecialBlocks, this.speicalBlockScoreCallBack);
+
 				}
 			}
 		}
 
 		if(_state === EControllerState.USER_TURN){
-			
+			//슬라이드 중인 블럭이 없을 경우 매칭 유무 체크 상태로 변경
 			if(this.checkNormal() === false){
 				//StzLog.print("슬라이드 유무 체크");
 				_state = EControllerState.SLIDING_TURN;
+			}
+			else{
+				_state = EControllerState.MATCH_TURN;
 			}
 		}
 		else if(_state === EControllerState.SLIDING_TURN){
@@ -296,26 +362,33 @@ var InGameController = function(inViewContext) {
 			var currentDropMatchedCount = 0;
 
 			currentDropMatchedCount = this.checkMatched(false, function(){
-				//떨어질 예정인 블럭들 못움직이게 설정
-				this.dropBlocksTempCheck();
 				_state = EControllerState.ANIM_TURN;
 			}.bind(this));
 
 			if (currentDropMatchedCount > 0) {
+				_soundMatchedCount++;
+				if(_soundMatchedCount > 3){
+					_soundMatchedCount = 3;
+				}
+				var soundMatchedCount = _soundMatchedCount;
 				self.viewContext.time.events.add(100, function(){
-					StzSoundList[ESoundName.SE_MATCH + StzUtil.createRandomInteger(1,3)].play();
-				});
-				 self.viewContext.bombRemainCount-= 1*currentDropMatchedCount;
-				 self.viewContext.updateBombGauge();
+					StzSoundList[ESoundName.SE_MATCH + soundMatchedCount+"_"+StzUtil.createRandomInteger(1,2)].play();
+				}.bind(soundMatchedCount));
+				 //self.viewContext.bombRemainCount-= 1*currentDropMatchedCount;
+				 //self.viewContext.updateBombGauge();
 				_scoreData.setScore(currentDropMatchedCount, false);	
+				self.hintTimerStart();
 			}
-		}
-		else if(_state === EControllerState.ANIM_TURN){
-			if(this.checkAnim() === true){
-				//StzLog.print("애니매이션 체크");
+			else{
 				_state = EControllerState.USER_TURN;
 			}
 		}
+//		else if(_state === EControllerState.ANIM_TURN){
+//			if(this.checkAnim() === true){
+//				//StzLog.print("애니매이션 체크");
+//				_state = EControllerState.DROP_TURN;
+//			}
+//		}
 
 		else if(_state === EControllerState.LASTPANG_TURN){
 			
@@ -333,7 +406,7 @@ var InGameController = function(inViewContext) {
 				}
 				else if (lastPangMachedCount > 0) {
 					self.viewContext.time.events.add(100, function(){
-						StzSoundList[ESoundName.SE_MATCH + StzUtil.createRandomInteger(1,3)].play();
+						StzSoundList[ESoundName.SE_MATCH +"1_"+StzUtil.createRandomInteger(1,2)].play();
 					});
 
 					_scoreData.setScore(lastPangMachedCount, false);	
@@ -367,19 +440,22 @@ var InGameController = function(inViewContext) {
 		}
 		
 		//블럭 드랍과 리필 로직은 스테이트와 상관없이 동작 (라스트팡, 폭탄 상태때는 작동하지 않음)
-		if( this.isDroping() === false&& _state !== EControllerState.LASTPANG_TURN && _state !== EControllerState.GAME_END){
+		if( /*this.checkAnim() === true &&*/ _state !== EControllerState.LASTPANG_TURN && _state !== EControllerState.GAME_END && this.isDroping() === false){
 			if(this.dropBlocks() === true){
 				this.refillBoard(true);
 				
 				if(_pivotFlag === true){
 					this.AllBlockClickFrame();
 				}
-				
-			}	
+				_state = EControllerState.USER_TURN;
+			}
 		}
 		
 	};
 	
+	/**
+	 * 현재 드롭 중인 상태가 있는지 체크
+	 */
 	self.isDroping = function(){
 		for (var index = 0; index < _blocks.length; index ++) {
 			if (_blocks[index].slidVelocity === ESlideVelocity.BLOCK_DROP) {
@@ -420,7 +496,6 @@ var InGameController = function(inViewContext) {
 		}
 		
 		if(_blocks[index].returnFlag === true || _blocks[preIndex].returnFlag === true){
-			//debugger;
 			_blocks[index].returnFlag = false;
 			 _blocks[preIndex].returnFlag = false;
 			 
@@ -515,6 +590,37 @@ var InGameController = function(inViewContext) {
 		return -1;
 	};
 	
+	self.sortToTouchIdSpecialBlocks = function(speicalBlocks){
+		var devideBlocks = [];
+		var speicalLength = speicalBlocks.length;
+		
+		for(var i =0; i < speicalLength; i++){
+			if(devideBlocks.length === 0){
+				devideBlocks[0] = [];
+				devideBlocks[0].push(speicalBlocks[i]);
+			}
+			else{
+				var devideLength = devideBlocks.length;
+				var sameFlag = false;
+				
+				for(var j =0; j < devideLength; j++){
+					if(devideBlocks[j][0].touchId === speicalBlocks[i].touchId){
+						devideBlocks[j].push(speicalBlocks[i]);
+						sameFlag = true;
+						break;
+					}
+				}
+				
+				if(sameFlag === false){
+					devideBlocks[devideLength] = [];
+					devideBlocks[devideLength].push(speicalBlocks[i]);
+				}
+			}
+		}
+		
+		return devideBlocks;
+	};
+	
 	/**
 	 * 매치된 블럭을 타입별로 나눔
 	 */
@@ -553,7 +659,7 @@ var InGameController = function(inViewContext) {
 	/**
 	 * 매치된 블럭을 체크하여 스페셜블록을 만듬
 	 */
-	self.checkAndCreateSpecialBlock = function(machedBlocks){
+	self.checkAndCreateSpecialBlock = function(machedBlocks, isMoveMatched){
 		var blockLength = machedBlocks.length;
 		var spicialCreatePosIndex = machedBlocks[0].spicialCreatePosIndex;
 		
@@ -612,7 +718,10 @@ var InGameController = function(inViewContext) {
 		if(spicialCreatePosIndex === -1){
 			return;
 		}
-		self.viewContext.createScoreText(_blocks[spicialCreatePosIndex].view.world.x, _blocks[spicialCreatePosIndex].view.world.y, machedBlocks.length);
+		
+		if(isMoveMatched === false || _pivotFlag === false ){
+			self.viewContext.createScoreText(_blocks[spicialCreatePosIndex].view.world.x, _blocks[spicialCreatePosIndex].view.world.y, machedBlocks.length);
+		}
 	};
 	/**
 	 * 모든 블럭들이 슬라이드 여부가 끝난는지 체크
@@ -632,22 +741,9 @@ var InGameController = function(inViewContext) {
 	 */
 	self.checkSlidingEnd = function(){
 		for (var index = 0; index < _blocks.length; index ++) {
-			//블럭의 이동 속도를 체크하여 이 블록이 어느 이동이였는지 체크
-			if(_blocks[index].slidVelocity === ESlideVelocity.BLOCK_RETRUN || _blocks[index] === ESlideVelocity.BLOCK_MOVE){
-				continue;
-			}
 			
-			if (_blocks[index].isTwoMatched === true) {
-				continue;
-			}
-			
-			// NOTE @hyegeun 얼음 방해 : 방해가 있는 경우 블럭 모델이나 뷰가 없을 수도 있다.
-			if (!_blocks[index] || !_blocks[index].view) {
-				continue;
-			}
-			
-			// NOTE @hyegeun 얼음 방해 : 방해가 있는 경우 슬라이드 여부 체크 스킵
-			if (_blocks[index].isInterrupted) {
+			//블럭에 외적 요소의 저항이 있는 경우 체크
+			if(_blocks[index].isExternalFactors() === false){
 				continue;
 			}
 			
@@ -665,10 +761,6 @@ var InGameController = function(inViewContext) {
 	self.checkNormal = function(){
 		for (var index = 0; index < _blocks.length; index ++) {
 		
-			if (_blocks[index].isTwoMatched === true) {
-				continue;
-			}
-			
 			if (_blocks[index].state !== EBlockState.NORMAL) {
 				return false;
 			}
@@ -681,6 +773,12 @@ var InGameController = function(inViewContext) {
 	 */
 	self.checkAnim = function(){
 		for (var index = 0; index < _blocks.length; index ++) {
+			
+			//블럭에 외적 요소의 저항이 있는 경우 체크
+			if(_blocks[index].isExternalFactors() === false){
+				continue;
+			}
+
 			if (_blocks[index].state === EBlockState.ANIMATION) {
 				return false;
 			}
@@ -699,7 +797,7 @@ var InGameController = function(inViewContext) {
 			var movePosLength = movePos.length;
 			
 			for(var j =0; j < movePosLength; j++){
-				if(i+movePos[j] <= 0 || i+movePos[j] > length){
+				if(i+movePos[j] <= 0 || i+movePos[j] >= length){
 					continue;
 				}
 				
@@ -716,7 +814,7 @@ var InGameController = function(inViewContext) {
 				}
 				
 				var block = _blocks[i+movePos[j]];
-				
+
 				// NOTE @hyegeun 방해 얼음 - isOneMoveCheckMatched에서 방해 블럭은 건너뜀
 				if (block.isInterrupted === true) {
 					continue;
@@ -791,28 +889,32 @@ var InGameController = function(inViewContext) {
 					var curType =  _blocks[i].type;
 					var preType = _blocks[i+movePos[j]].type;
 					
+					var arrayVert = [];
+					var arrayHoriz = [];
+					
 					block.type = curType;
 					_blocks[i].type = preType;
 					
-					var countUp = this.countSameTypeBlock(block, 0, -1);
-					var countDown = this.countSameTypeBlock(block, 0, 1);
-					var countLeft = this.countSameTypeBlock(block, -1, 0);
-					var countRight = this.countSameTypeBlock(block, 1, 0);
+					arrayVert.push(_blocks[i].index);
+					arrayHoriz.push(_blocks[i].index);
 					
-					var countHoriz = countLeft + countRight + 1;
-					var countVert = countUp + countDown + 1;
+					arrayVert = StzUtil.sumArrays(arrayVert, this.countSameTypeBlock(block, 0, -1, true));
+					arrayVert = StzUtil.sumArrays(arrayVert, this.countSameTypeBlock(block, 0, 1, true));
 					
+					arrayHoriz = StzUtil.sumArrays(arrayHoriz, this.countSameTypeBlock(block, -1, 0, true));
+					arrayHoriz = StzUtil.sumArrays(arrayHoriz, this.countSameTypeBlock(block, 1, 0, true));
+
 					block.type = preType;
 					_blocks[i].type = curType;
 					
-					if (countVert >= StzGameConfig.MATCH_MIN)
+					if (arrayVert.length >= StzGameConfig.MATCH_MIN)
 					{
-						return i;
+						return arrayVert;
 					}
 
-					if (countHoriz >= StzGameConfig.MATCH_MIN)
+					if (arrayHoriz.length >= StzGameConfig.MATCH_MIN)
 					{
-						return i;
+						return arrayHoriz;
 					}	
 				}
 			}
@@ -892,7 +994,7 @@ var InGameController = function(inViewContext) {
 		var devideLength = devideBlocks.length;
 		
 		for(var i=0;i<devideLength;i++){
-			this.checkAndCreateSpecialBlock(devideBlocks[i]);
+			this.checkAndCreateSpecialBlock(devideBlocks[i], false);
 			mactedCount += devideBlocks[i].length;
 		}
 		
@@ -900,10 +1002,10 @@ var InGameController = function(inViewContext) {
 			inCallback();
 		}
        
-        if( self.viewContext.bombRemainCount < 0 && removeFlag === false){
-        	 self.viewContext.bombRemainCount = 0;
-        	 self.viewContext.updateBombGauge();
-        }
+//        if( self.viewContext.IceInterruptRemainCount < 0 && removeFlag === false){
+//        	 self.viewContext.IceInterruptRemainCount = 0;
+//        	 self.viewContext.updateBombGauge();
+//        }
         
         if(removeFlag === true){
 			return 0;
@@ -1011,11 +1113,19 @@ var InGameController = function(inViewContext) {
 	/**
 	 * 주변에 같은 블럭의 개수를 체크하는 로직
 	 */
-	self.countSameTypeBlock = function(startBlock, moveX, moveY) {
+	self.countSameTypeBlock = function(startBlock, moveX, moveY, isArray_Flag) {
 		var curX = startBlock.posX + moveX;
 		var curY = startBlock.posY + moveY;
 		var count = 0;
-
+		var isArrayFlag = false;
+		var indexArray = [];
+		
+		if(isArray_Flag === undefined){
+			isArrayFlag = false;
+		}
+		else{
+			isArrayFlag = isArray_Flag;
+		}
 		
 		while (curX >= 0 && curY >= 0 && curX < InGameBoardConfig.COL_COUNT 
 				&& curY < InGameBoardConfig.ROW_COUNT &&this.getBlock(curX, curY) != undefined &&this.getBlock(curX, curY) != null && this.getBlock(curX, curY).type === startBlock.type
@@ -1028,13 +1138,23 @@ var InGameController = function(inViewContext) {
 			if (currentBlock.isInterrupted === true) {
 				break;
 			}
+			if(isArrayFlag === true){
+				indexArray.push(curX + InGameBoardConfig.ROW_COUNT*curY);
+			}
+			else{
+				count++;
+			}
 			
-			count++;
 		    curX += moveX;
 		    curY += moveY;
 		}
 
-		return count;
+		if(isArrayFlag === false){
+			return count;
+		}
+		else{
+			return indexArray;
+		}
 	};
 	
 	/**
@@ -1236,11 +1356,15 @@ var InGameController = function(inViewContext) {
 	            	 
 	            	var index = j*InGameBoardConfig.ROW_COUNT + i;
 	            	var randomType = StzUtil.createRandomInteger(0, 4 + _levelCount);
-	            	
-	            	_blocks[index] = new BlockModel(EBlockType.list[randomType], index, self.viewContext, this.speicalBlockCallBack);
-					_blocks[index].createView(Math.floor(index / InGameBoardConfig.COL_COUNT));
+	            
+	            	if (_blocks[index] === null || _blocks[index] === undefined) {
+	            		_blocks[index] = new BlockModel(EBlockType.list[randomType], index, self.viewContext, this.speicalBlockCallBack);	
+	            	} else {
+	            		_blocks[index].init();
+	            		_blocks[index].type = EBlockType.list[randomType];
+	            	}
+	            	_blocks[index].createView(Math.floor(index / InGameBoardConfig.COL_COUNT));
 					refillBlocks.push(_blocks[index]);
-				
 	            }
 	        }
 	    }
@@ -1249,7 +1373,6 @@ var InGameController = function(inViewContext) {
 			for (var index = 0; index < refillBlocks.length; index++) {
 				refillBlocks[index].destroy();
 			}
-			this.refillBoard(true);
 		}
 	};
 	
@@ -1270,6 +1393,8 @@ var InGameController = function(inViewContext) {
             return;
 		}
 
+		//self.hintStop();
+		
 		var hitPoint = new Phaser.Rectangle(x, y, 30, 30);
 		var length = _blocks.length;
 		var machedBlocks = [];
@@ -1332,6 +1457,7 @@ var InGameController = function(inViewContext) {
 									&& _moveBlocks[pointer.id].toBlock.isBlockSpicial() === false){
 									_moveBlocks[pointer.id].fromBlock.returnFlag = true;
 									_moveBlocks[pointer.id].toBlock.returnFlag = true;
+
 								}
 			
 								delete _moveBlocks[pointer.id];
@@ -1341,18 +1467,10 @@ var InGameController = function(inViewContext) {
 								StzSoundList[ESoundName.SE_BLOCK_SWITCH].play();
 								var length = machedBlocks.length;
 								for(var i=0;i<length;i++){
-									//machedBlocks[i].isMoveAndMatch = true;	
 									machedBlocks[i].isTwoMatched = true;
-									
+									machedBlocks[i].touchId = pointer.id;
 								}
-								
-								this.dropBlocksTempCheck();	
-								
-								if (machedBlocks.indexOf(_moveBlocks[pointer.id].fromBlock) < 0) {
-									this.viewContext.createComboText(_moveBlocks[pointer.id].fromBlock);	
-								} else {
-									this.viewContext.createComboText(_moveBlocks[pointer.id].toBlock);
-								}
+
 								delete _moveBlocks[pointer.id];
 							}
 
@@ -1381,8 +1499,7 @@ var InGameController = function(inViewContext) {
 										&& _moveBlocks[pointer.id].toBlock.isBlockSpicial() === false){
 										_moveBlocks[pointer.id].fromBlock.returnFlag = true;
 										_moveBlocks[pointer.id].toBlock.returnFlag = true;
-										//_moveBlocks[pointer.id].fromBlock.isMoveAndMatch = true;
-										//_moveBlocks[pointer.id].toBlock.isMoveAndMatch = true;
+										self.hintTimerStart();
 								}
 
 								delete _moveBlocks[pointer.id];
@@ -1392,18 +1509,10 @@ var InGameController = function(inViewContext) {
 								StzSoundList[ESoundName.SE_BLOCK_SWITCH].play();
 								var length = machedBlocks.length;
 								for(var i=0;i<length;i++){
-									//machedBlocks[i].isMoveAndMatch = true;	
-									machedBlocks[i].isTwoMatched = true;			
+									machedBlocks[i].isTwoMatched = true;	
+									machedBlocks[i].touchId = pointer.id;
 								}
-								
-								this.dropBlocksTempCheck();	
-								
-								if (machedBlocks.indexOf(_moveBlocks[pointer.id].fromBlock) < 0) {
-									this.viewContext.createComboText(_moveBlocks[pointer.id].fromBlock);	
-								} else {
-									this.viewContext.createComboText(_moveBlocks[pointer.id].toBlock);
-								}
-								
+
 								delete _moveBlocks[pointer.id];
 							}
 				            return;
@@ -1444,7 +1553,7 @@ var InGameController = function(inViewContext) {
 						
 						var targetInterruptList = this.interruptedIce.getInterruptedBlocks(block.index);
 						this.interruptedIce.setInterrupted(targetInterruptList, true, function(inRemainCount) {
-							console.log('[InGameController] IceInterrupted Remain: ' + inRemainCount);
+							//console.log('[InGameController] IceInterrupted Remain: ' + inRemainCount);
 						}, this);
 						
 //						if (targetInterruptList.length === 4) {
@@ -1516,6 +1625,7 @@ var InGameController = function(inViewContext) {
 			
 			if(_moveBlocks[pointer.id].toBlock !== undefined && _moveBlocks[pointer.id].toBlock !== null){
 				this.initBlockFrame(_moveBlocks[pointer.id].toBlock);
+				return;
 			}
 
 			delete _moveBlocks[pointer.id];
@@ -1529,7 +1639,18 @@ var InGameController = function(inViewContext) {
 
 			if(block !== undefined && block !== null && block.view !== undefined && block.view !== null && block.state === EBlockState.NORMAL){
 				if(Phaser.Rectangle.intersects(hitPoint, block.view.getBounds())){
+					if (block.isInterrupted === true) {
+						delete _moveBlocks[pointer.id];
+						return;
+					}
+					
+					if (block.isExternalFactors() === false) {
+						delete _moveBlocks[pointer.id];
+						return;
+					}
+					
 					if(block.isBlockSpicial() === true){
+						_soundMatchedCount = 1;
 						self.hintTimerStart();
 						InGameSpecialBlock.specialBlockOperate(_blocks, i , block.type, this.speicalBlockScoreCallBack);
 					}
@@ -1578,153 +1699,5 @@ var InGameController = function(inViewContext) {
 
 	};
 	
-    // 얼음 방해 모듈
-	self.interruptedIce = (function(inController) {
-	    var iceModule = {};
-            
-	    iceModule.interruptedList = {};
-	    iceModule.interruptedTimer = {};
-	    
-	    iceModule.IS_BREAKABLE = false;
-
-	    iceModule.init = function () {
-	    	Object.keys(iceModule.interruptedList).forEach(function(key) { delete iceModule.interruptedList[key]; });
-	    	Object.keys(iceModule.interruptedTimer).forEach(function(key) { delete iceModule.interruptedTimer[key]; });
-	    };
-
-	    iceModule.findKey = function(inIndex) {
-	    	var keyList = Object.keys(iceModule.interruptedList);
-	    	for (var index = 0; index < keyList.length; index++) {
-	    		var currentKey = keyList[index];
-	    		if (iceModule.interruptedList[currentKey].hasOwnProperty('list') === false
-	    				|| iceModule.interruptedList[currentKey].hasOwnProperty('count') === false) {
-	    			continue;
-	    		}
-	    		
-	    		if (iceModule.interruptedList[currentKey].list.indexOf(inIndex) >= 0) {
-	    			return currentKey;
-	    		}
-	    	}
-	    	return null;
-	    };
-	    
-	    iceModule.removeInterruptedByKey = function(inKey) {
-	    	if (iceModule.interruptedTimer.hasOwnProperty(inKey)) {
-	    		var thisTimer = iceModule.interruptedTimer[inKey];
-	    		inController.viewContext.time.events.remove(thisTimer);
-	    		delete iceModule.interruptedTimer[inKey];
-	    	}
-	    	
-	    	if (iceModule.interruptedList.hasOwnProperty(inKey)) {
-	    		var thisList = iceModule.interruptedList[inKey];
-	    		if (thisList.hasOwnProperty('list') && thisList.hasOwnProperty('count')) {
-	    			for (var index = thisList.list.length - 1; index >= 0; index--) {
-	    				var currentBlock = inController.getBlockByIndex(thisList.list[index]);
-	    				if (currentBlock) {
-	    					currentBlock.isInterrupted = false;
-	    				}
-	    			}
-	    		}
-	    		delete iceModule.interruptedList[inKey];
-	    	}
-	    };
-	    
-	    iceModule.setInterrupted = function(inIndexList, inValue, inTimerCallback, inTimerCallbackContext) {
-	    	
-	    	for (var targetIndex = inIndexList.length - 1; targetIndex >= 0; targetIndex--) {
-	            var currentTargetBlock = inController.getBlockByIndex(inIndexList[targetIndex]);
-	            if (currentTargetBlock) {
-	                currentTargetBlock.isInterrupted = inValue;
-	            }
-	        }
-	    	
-	    	if (inValue === true) {
-	    		var currentDate = (new Date()).getTime();
-		        iceModule.interruptedList[currentDate] = {'list': inIndexList, 'count': InGameInterruptedConfig.ICE_TIME};
-		        iceModule.interruptedTimer[currentDate] = inController.viewContext.time.events.loop(Phaser.Timer.SECOND, function(inKey) {
-		        	
-		        	// 타이머 세팅 
-		        	this.interruptedList[inKey].count = this.interruptedList[inKey].count - 1;
-		        	
-		        	if (inTimerCallback) {
-		        		if (inTimerCallbackContext) {
-		        			inTimerCallback.call(inTimerCallbackContext, this.interruptedList[inKey].count);	
-		        		} else {
-		        			inTimerCallback(this.interruptedList[inKey].count);
-		        		}
-		        	}
-		        	
-		        	if (this.interruptedList[inKey].count <= 0) {
-		        		this.removeInterruptedByKey(inKey);
-		        	}
-		        }, iceModule, currentDate);
-	    	}
-	    };
-	    
-	    // 방해 대상 블럭 랜덤 선택
-	    iceModule.getInterruptedBlocks = function (inIndex) {
-	    	
-	    	var standardIndex = inIndex || -1;
-	    	
-	        var result = [];
-
-	        if (standardIndex === -1) {
-	        	do {
-		            if (result.length > 0) {
-		                result.splice(0, result.length);
-		            }
-
-		            var topLeftIndex = StzUtil.createRandomInteger(0, InGameBoardConfig.ROW_COUNT * (InGameBoardConfig.COL_COUNT - 1) - 2);
-		            
-		            if (indexChecker.checkRightBoundary(topLeftIndex)
-		            	|| indexChecker.checkBottomBoundary(topLeftIndex)) {
-		            	continue;
-	            	}
-		            
-		            var topRightIndex = topLeftIndex + indexChecker.indexMap.MIDDLE_RIGHT;
-		            var bottomLeftIndex = topLeftIndex + indexChecker.indexMap.BOTTOM_CENTER;
-		            var bottomRightIndex = topLeftIndex + indexChecker.indexMap.BOTTOM_RIGHT;
-		            
-		            if (inController.getBlockByIndex(topLeftIndex).isInterrupted === true
-		            		|| inController.getBlockByIndex(topRightIndex).isInterrupted === true
-		            		|| inController.getBlockByIndex(bottomLeftIndex).isInterrupted === true
-		            		|| inController.getBlockByIndex(bottomRightIndex).isInterrupted === true) {
-		            	continue;
-		            }
-		            
-		            if (inController.getBlockByIndex(topLeftIndex).isPureBlock() === false
-		            		|| inController.getBlockByIndex(topRightIndex).isPureBlock() === false
-		            		|| inController.getBlockByIndex(bottomLeftIndex).isPureBlock() === false
-		            		|| inController.getBlockByIndex(bottomRightIndex).isPureBlock() === false) {
-		            	continue;
-		            }
-		            
-		            result.push(topLeftIndex);
-		            result.push(topRightIndex);
-		            result.push(bottomLeftIndex);
-		            result.push(bottomRightIndex);
-		            break;
-		        } while (true);
-	        } else {
-	        	if (indexChecker.checkRightBoundary(standardIndex)) {
-	        		return [];
-	        	}
-	        	
-	        	if (indexChecker.checkBottomBoundary(standardIndex)) {
-	        		return [];
-	        	}
-	        	
-	        	result.push(standardIndex);
-	        	result.push(standardIndex + indexChecker.indexMap.MIDDLE_RIGHT);
-	            result.push(standardIndex + indexChecker.indexMap.BOTTOM_CENTER);
-	            result.push(standardIndex + indexChecker.indexMap.BOTTOM_RIGHT);
-	        }
-	        
-	        return result;
-        };
-
-	    return iceModule;
-	})(self);
-
 	return self;
 };

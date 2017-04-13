@@ -3,7 +3,7 @@
     "sceneWidth": 720,
     "sceneHeight": 1280,
     "generateOnSave": true,
-    "enableStepping": false
+    "enableStepping": true
   },
   "world": {
     "type": "group",
@@ -28,44 +28,166 @@
             "editorPublic": true,
             "children": [
               {
-                "type": "image",
-                "id": "2c433552-f74e-4c40-b459-764c1352c322",
+                "type": "atlas-sprite",
+                "id": "c6799266-80fa-4b6f-98c8-4c048e87d914",
                 "asset": "1",
-                "info": {
-                  "editorName": "timeGageBody",
-                  "editorPublic": true,
-                  "x": 151,
-                  "y": 1021
-                }
-              },
-              {
-                "type": "image",
-                "id": "672b43ba-5296-48a8-8a50-a404ebad6060",
-                "asset": "2",
-                "info": {
-                  "editorName": "timer_start",
-                  "x": 136,
-                  "y": 1021
-                }
-              },
-              {
-                "type": "image",
-                "id": "8a6c0c16-e7f7-42d2-9412-0b7967dfd923",
-                "asset": "3",
                 "info": {
                   "editorName": "timerEnd",
                   "editorPublic": true,
                   "x": 668,
-                  "y": 1021
+                  "y": 1031
+                }
+              },
+              {
+                "type": "atlas-sprite",
+                "id": "249aa3d1-d88d-48f7-a84e-5a5820a83925",
+                "asset": "2",
+                "info": {
+                  "editorName": "timer_start",
+                  "editorPublic": true,
+                  "x": 38,
+                  "y": 1031
+                }
+              },
+              {
+                "type": "atlas-sprite",
+                "id": "b80e5c7d-ef04-4248-8338-cf06038a5074",
+                "asset": "3",
+                "info": {
+                  "editorName": "timeGageBody",
+                  "editorPublic": true,
+                  "x": 53,
+                  "y": 1031
                 }
               }
             ]
           }
         },
         {
+          "type": "group",
+          "id": "9979f920-9cac-47fd-8b06-2d81e5a96645",
+          "info": {
+            "editorName": "bottomUIContainer",
+            "editorPublic": true,
+            "children": [
+              {
+                "type": "atlas-sprite",
+                "id": "01ffc220-04fd-429a-ac95-601088c84e72",
+                "asset": "4",
+                "info": {
+                  "editorName": "btnCloud",
+                  "editorPublic": true,
+                  "x": 296,
+                  "y": 1086
+                }
+              },
+              {
+                "type": "atlas-sprite",
+                "id": "caa3211d-2339-46ab-aecf-d7372df7bfed",
+                "asset": "5",
+                "info": {
+                  "editorName": "btnCloudEnable",
+                  "editorPublic": true,
+                  "x": 296,
+                  "y": 1086
+                }
+              },
+              {
+                "type": "atlas-sprite",
+                "id": "251f7d9e-c226-4727-bfff-cea86b8447df",
+                "asset": "6",
+                "info": {
+                  "editorName": "btnIce",
+                  "editorPublic": true,
+                  "x": 128,
+                  "y": 1086
+                }
+              },
+              {
+                "type": "atlas-sprite",
+                "id": "4b7904d6-29ac-4ead-a0cf-4f7cb29a33ff",
+                "asset": "7",
+                "info": {
+                  "editorName": "btnIceEnable",
+                  "editorPublic": true,
+                  "x": 128,
+                  "y": 1086
+                }
+              },
+              {
+                "type": "spritesheet",
+                "id": "bae36852-5822-4a81-b478-b3737b995768",
+                "asset": "8",
+                "info": {
+                  "editorName": "animUpperUI",
+                  "editorPublic": true
+                }
+              },
+              {
+                "type": "atlas-sprite",
+                "id": "bbbd59a8-0ced-431d-a07b-048cc71b4f25",
+                "asset": "9",
+                "info": {
+                  "editorName": "btnThree",
+                  "x": 457,
+                  "y": 1086
+                }
+              },
+              {
+                "type": "group",
+                "id": "10cca8af-b498-47d6-8954-a3966089036e",
+                "info": {
+                  "editorName": "animMaxEffectGroup",
+                  "editorPublic": true,
+                  "children": []
+                }
+              },
+              {
+                "type": "atlas-sprite",
+                "id": "7ff820cc-0534-42d8-9163-cbf8079abfa2",
+                "asset": "10",
+                "info": {
+                  "editorName": "cloudFire",
+                  "editorPublic": true,
+                  "x": 302,
+                  "y": 1015
+                }
+              },
+              {
+                "type": "atlas-sprite",
+                "id": "f68a69e0-940b-4a20-b69f-d77a8c37bd29",
+                "asset": "10",
+                "info": {
+                  "editorName": "iceFire",
+                  "editorPublic": true,
+                  "x": 135,
+                  "y": 1015
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "group",
+          "id": "be8782b6-7ce7-4566-969c-074bdb369d30",
+          "info": {
+            "editorName": "boardAnimLayer",
+            "children": [{
+              "type": "spritesheet",
+              "id": "0531ac6c-9efa-4654-a391-2a8bb036ce8a",
+              "asset": "11",
+              "info": {
+                "editorName": "animLoseBoard",
+                "editorPublic": true,
+                "y": 265
+              }
+            }]
+          }
+        },
+        {
           "type": "image",
           "id": "af3b554a-05b6-4612-8f93-95b2d9435dd0",
-          "asset": "4",
+          "asset": "12",
           "info": {
             "editorName": "warning",
             "editorPick": false,
@@ -79,7 +201,7 @@
           "info": {
             "editorName": "feverAnimContainer",
             "editorPublic": true,
-            "y": 120,
+            "y": 110,
             "children": []
           }
         },
@@ -89,28 +211,17 @@
           "info": {
             "editorName": "gameBoard",
             "editorPublic": true,
-            "y": 260,
+            "y": 275,
             "children": []
           }
         },
         {
           "type": "group",
-          "id": "9979f920-9cac-47fd-8b06-2d81e5a96645",
+          "id": "f501a20a-289e-48bc-8b5b-99d6434439f5",
           "info": {
-            "editorName": "bottomUIContainer",
-            "children": [{
-              "type": "spritesheet",
-              "id": "ce0507f5-b467-4684-a89a-e2c60c2964c9",
-              "asset": "5",
-              "info": {
-                "editorName": "bombGauge",
-                "editorPublic": true,
-                "x": 360,
-                "y": 1170,
-                "anchor.x": 0.5,
-                "anchor.y": 0.5
-              }
-            }]
+            "editorName": "animBoardNoticeContainer",
+            "editorPublic": true,
+            "children": []
           }
         },
         {
@@ -119,63 +230,9 @@
           "info": {
             "editorName": "rivalContainer",
             "editorPublic": true,
-            "x": 290,
-            "children": [
-              {
-                "type": "atlas-sprite",
-                "id": "163bc58a-509c-41d8-bbe7-0c6059f0d1a5",
-                "asset": "6",
-                "info": {
-                  "editorName": "bgRival",
-                  "editorPick": false
-                }
-              },
-              {
-                "type": "atlas-sprite",
-                "id": "43fd0c4a-f7f0-4c5d-aaf8-d1676f255092",
-                "asset": "7",
-                "info": {
-                  "editorName": "thumbRival",
-                  "editorPublic": true,
-                  "x": 193,
-                  "y": 73,
-                  "anchor.x": 0.5,
-                  "anchor.y": 0.5
-                }
-              },
-              {
-                "type": "atlas-sprite",
-                "id": "5e5f113d-1eeb-4197-a62c-9a289c120511",
-                "asset": "8",
-                "info": {
-                  "editorName": "rivalThumbLine_png",
-                  "x": 146,
-                  "y": 25
-                }
-              },
-              {
-                "type": "atlas-sprite",
-                "id": "0721c778-0891-4684-9b89-3d641ba5ed84",
-                "asset": "9",
-                "info": {
-                  "editorName": "rivalFaceWin",
-                  "editorPublic": true,
-                  "x": 70,
-                  "y": 3
-                }
-              },
-              {
-                "type": "atlas-sprite",
-                "id": "73c1c589-edd6-41d7-81cd-90f9caf3ae96",
-                "asset": "10",
-                "info": {
-                  "editorName": "rivalFaceLose",
-                  "editorPublic": true,
-                  "x": 70,
-                  "y": -3
-                }
-              }
-            ]
+            "x": 514,
+            "y": 54,
+            "children": []
           }
         },
         {
@@ -184,63 +241,187 @@
           "info": {
             "editorName": "meContainer",
             "editorPublic": true,
-            "x": -340,
+            "x": 90,
+            "y": 54,
+            "children": []
+          }
+        },
+        {
+          "type": "atlas-sprite",
+          "id": "291d341c-09f9-4be6-8e4a-1f3623b82ae4",
+          "asset": "13",
+          "info": {
+            "editorName": "meCrown",
+            "editorPublic": true,
+            "x": 73,
+            "y": 24
+          }
+        },
+        {
+          "type": "atlas-sprite",
+          "id": "bd910ba2-02cc-4796-a772-507bdea6292a",
+          "asset": "13",
+          "info": {
+            "editorName": "rivalCrown",
+            "editorPublic": true,
+            "x": 486,
+            "y": 24
+          }
+        },
+        {
+          "type": "group",
+          "id": "17b492a1-b389-4d34-9e4d-275022ea257a",
+          "info": {
+            "editorName": "tinkleStars",
             "children": [
               {
                 "type": "atlas-sprite",
-                "id": "5db7ca97-943f-49c2-8ab7-38b2b7f8eb99",
-                "asset": "11",
-                "info": {
-                  "editorName": "bgMe",
-                  "editorPick": false
-                }
-              },
-              {
-                "type": "atlas-sprite",
-                "id": "5f85b97f-e978-4916-a584-55495217a831",
-                "asset": "12",
-                "info": {
-                  "editorName": "thumbMe",
-                  "editorPublic": true,
-                  "x": 538,
-                  "y": 71,
-                  "anchor.x": 0.5,
-                  "anchor.y": 0.5
-                }
-              },
-              {
-                "type": "atlas-sprite",
-                "id": "9a1e7e60-bcba-4678-b0ab-be24d127c836",
-                "asset": "13",
-                "info": {
-                  "editorName": "playerThumbLine_png",
-                  "x": 488,
-                  "y": 21
-                }
-              },
-              {
-                "type": "atlas-sprite",
-                "id": "5f2a1181-7a7f-43b0-9e31-961d5118d4c4",
+                "id": "07943b49-aac0-416a-8434-a421a87ea6c8",
                 "asset": "14",
                 "info": {
-                  "editorName": "meFaceLose",
-                  "editorPick": false,
+                  "editorName": "meStar4",
                   "editorPublic": true,
-                  "x": 510,
-                  "y": -2
+                  "x": 43,
+                  "y": 45
                 }
               },
               {
                 "type": "atlas-sprite",
-                "id": "cd73db4a-e4ac-42e0-85bb-13b66c27c8ca",
+                "id": "f6cabe45-f887-4c60-a93c-4a960c41ffc8",
+                "asset": "14",
+                "info": {
+                  "editorName": "meStar3",
+                  "editorPublic": true,
+                  "x": 196,
+                  "y": 117
+                }
+              },
+              {
+                "type": "atlas-sprite",
+                "id": "d4fbb879-de33-49a7-8a26-fffede0662ba",
                 "asset": "15",
                 "info": {
-                  "editorName": "meFaceWin",
+                  "editorName": "meStar2",
                   "editorPublic": true,
-                  "x": 585
+                  "x": 167,
+                  "y": 26
+                }
+              },
+              {
+                "type": "atlas-sprite",
+                "id": "092d554d-ac0a-4382-b271-ece86a07ae79",
+                "asset": "16",
+                "info": {
+                  "editorName": "meStar1",
+                  "editorPublic": true,
+                  "x": 5,
+                  "y": 133
+                }
+              },
+              {
+                "type": "atlas-sprite",
+                "id": "c9b05957-2513-4458-a46e-584004cabc5d",
+                "asset": "16",
+                "info": {
+                  "editorName": "rivalStar1",
+                  "editorPublic": true,
+                  "x": 707,
+                  "y": 133,
+                  "scale.x": -1
+                }
+              },
+              {
+                "type": "atlas-sprite",
+                "id": "3b08fd37-d02b-4ef0-a9fe-6d68c67146e9",
+                "asset": "15",
+                "info": {
+                  "editorName": "rivalStar2",
+                  "editorPublic": true,
+                  "x": 484,
+                  "y": 26
+                }
+              },
+              {
+                "type": "atlas-sprite",
+                "id": "3c26adc8-8185-4876-a6bc-e55ec6d2fbb6",
+                "asset": "14",
+                "info": {
+                  "editorName": "rivalStar3",
+                  "editorPublic": true,
+                  "x": 465,
+                  "y": 117
+                }
+              },
+              {
+                "type": "atlas-sprite",
+                "id": "0e7dfe56-c7bc-403d-b0cf-354e04df0651",
+                "asset": "14",
+                "info": {
+                  "editorName": "rivalStar4",
+                  "editorPublic": true,
+                  "x": 617,
+                  "y": 45
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "atlas-sprite",
+          "id": "0b80113b-b478-45e2-89cf-e8802b9cbd99",
+          "asset": "17",
+          "info": {
+            "editorName": "winnerSun",
+            "editorPublic": true,
+            "x": 310
+          }
+        },
+        {
+          "type": "group",
+          "id": "3af90d83-ecb0-439c-adab-4fb10bfdf1a4",
+          "info": {
+            "editorName": "upperUIContainer",
+            "editorPublic": true,
+            "children": [
+              {
+                "type": "atlas-sprite",
+                "id": "527435f4-64c9-4c39-9154-1c1f7fc92d2f",
+                "asset": "18",
+                "info": {
+                  "editorName": "vsIcon",
+                  "editorPublic": true,
+                  "x": 310,
+                  "y": 80
+                }
+              },
+              {
+                "type": "atlas-sprite",
+                "id": "1ba36bdf-7ecd-4dd7-a3aa-d664cb27d398",
+                "asset": "19",
+                "info": {
+                  "editorName": "top_bar_png",
+                  "y": 252
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "group",
+          "id": "06be6c27-a2c9-4f10-9bf6-db5567c52b5a",
+          "info": {
+            "editorName": "interruptIce",
+            "editorPublic": true,
+            "children": []
+          }
+        },
+        {
+          "type": "group",
+          "id": "e5f38b5f-88e2-4615-a3bc-8ce4aa880122",
+          "info": {
+            "editorName": "interruptCloud",
+            "editorPublic": true,
+            "children": []
           }
         },
         {
@@ -266,88 +447,115 @@
     "1": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "ingame",
-      "asset": "middle_bar"
+      "asset": "timerGauge",
+      "sprite": "green_start.png"
     },
     "2": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "ingame",
-      "asset": "timer_start"
+      "asset": "timerGauge",
+      "sprite": "green_end.png"
     },
     "3": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "ingame",
-      "asset": "timer_end"
+      "asset": "timerGauge",
+      "sprite": "middle_bar_.png"
     },
     "4": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "ingame",
-      "asset": "warning"
+      "asset": "bottomUI",
+      "sprite": "cloud_btn_disable.png"
     },
     "5": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "ingame",
-      "asset": "bombGauge",
-      "sprite": "0"
+      "asset": "bottomUI",
+      "sprite": "cloud_btn_enable.png"
     },
     "6": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "ingame",
-      "asset": "playerInfoUI",
-      "sprite": "rival_bg.png"
+      "asset": "bottomUI",
+      "sprite": "ice_btn_disable.png"
     },
     "7": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "ingame",
-      "asset": "playerInfoUI",
-      "sprite": "rival_thumb.png"
+      "asset": "bottomUI",
+      "sprite": "ice_btn_enable.png"
     },
     "8": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "ingame",
-      "asset": "playerInfoUI",
-      "sprite": "rivalThumbLine.png"
+      "asset": "animUpperUI",
+      "sprite": "3"
     },
     "9": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "ingame",
-      "asset": "playerInfoUI",
-      "sprite": "face_rival_win.png"
+      "asset": "bottomUI",
+      "sprite": "btn_lock.png"
     },
     "10": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "ingame",
-      "asset": "playerInfoUI",
-      "sprite": "face_rival_lose.png"
+      "asset": "bottomUI",
+      "sprite": "fire.png"
     },
     "11": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "ingame",
-      "asset": "playerInfoUI",
-      "sprite": "player_bg.png"
+      "asset": "animLoseBoard",
+      "sprite": "0"
     },
     "12": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "ingame",
-      "asset": "playerInfoUI",
-      "sprite": "player_thumb.png"
+      "asset": "warning"
     },
     "13": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "ingame",
-      "asset": "playerInfoUI",
-      "sprite": "playerThumbLine.png"
+      "asset": "upperUI",
+      "sprite": "crown.png"
     },
     "14": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "ingame",
-      "asset": "playerInfoUI",
-      "sprite": "face_player_lose.png"
+      "asset": "upperUI",
+      "sprite": "star03.png"
     },
     "15": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "ingame",
-      "asset": "playerInfoUI",
-      "sprite": "face_player_win.png"
+      "asset": "upperUI",
+      "sprite": "star02.png"
+    },
+    "16": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "upperUI",
+      "sprite": "star01.png"
+    },
+    "17": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "upperUI",
+      "sprite": "winner_sun.png"
+    },
+    "18": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "upperUI",
+      "sprite": "vs.png"
+    },
+    "19": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "upperUI",
+      "sprite": "top_bar.png"
     }
   }
 }

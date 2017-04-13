@@ -1,0 +1,36 @@
+{"frames": [
+
+{
+	"filename": "cloud_charged.png",
+	"frame": {"x":0,"y":0,"w":364,"h":284},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":364,"h":284},
+	"sourceSize": {"w":364,"h":284}
+},
+{
+	"filename": "fever_time.png",
+	"frame": {"x":0,"y":331,"w":589,"h":160},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":589,"h":160},
+	"sourceSize": {"w":589,"h":160}
+},
+{
+	"filename": "ice_charged.png",
+	"frame": {"x":364,"y":0,"w":364,"h":331},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":364,"h":331},
+	"sourceSize": {"w":364,"h":331}
+}],
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "boardNotice.png",
+	"format": "RGBA8888",
+	"size": {"w":728,"h":491},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:0e9dbc26e6235c9df892451e72dc2f57:e136dec3b52949c630d252a34af73e4c:c0fb42078868bb1dbca3df5a17d87535$"
+}
+}
