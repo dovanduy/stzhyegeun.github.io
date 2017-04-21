@@ -14,7 +14,7 @@ public class LobbyConteroller : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        _meProfile.setPlayerInfo("나야나!", 1, "썸네일");
+        _meProfile.setPlayerInfo("ME!", 1, "THUMB");
         StartCoroutine(StartWaitingCount(15));
 	}
 	
@@ -34,7 +34,7 @@ public class LobbyConteroller : MonoBehaviour {
         if (_curWaitingCount <= 0)
         {
             Debug.Log("Change Scene to InGame");
-            _rivalProfile.setPlayerInfo("라이벌!", 99, "썸네일");
+            _rivalProfile.setPlayerInfo("RIVAL!", 99, "THUMB");
             //SceneManager.LoadScene("InGame");
         }
     } 
