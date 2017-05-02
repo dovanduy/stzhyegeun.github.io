@@ -18,6 +18,14 @@ public class InGameController : MonoBehaviour {
     [SerializeField]
     private GameObject _blockContainer;
 
+    [SerializeField]
+    private AnimCloudChargedController animCloudCharge;
+    [SerializeField]
+    private Animator animIceCharge;
+    [SerializeField]
+    private Animator animFeverCharge;
+
+
     private BlockController[] _blocks;
 
     public bool isCloudCharged = false;
@@ -26,15 +34,19 @@ public class InGameController : MonoBehaviour {
     
 
     // Use this for initialization
-    void Start () {
+    void Start () {      
         _blocks = new BlockController[COL_COUNT * ROW_COUNT];
         initBoard();	
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+        if (Input.GetKey(KeyCode.Space)) {
+            animCloudCharge.playCloudCharged();
+        }
 	}
+
+
 
     void initBoard()
     {
@@ -58,8 +70,6 @@ public class InGameController : MonoBehaviour {
             }
         }
     }
-
-    
 
     /// <summary>
     /// 보드에서 
@@ -109,5 +119,6 @@ public class InGameController : MonoBehaviour {
 
         return new Vector3(posX, -1 * posY);
     } 
-
 }
+
+
