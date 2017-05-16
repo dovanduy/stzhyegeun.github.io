@@ -31,6 +31,8 @@ window.isComboShow = true;
 window.isScoreShow = true;
 window.isScoreFly = true;
 
+window.currentGameState = "None";
+
 var startAnipangMulti = function()
 {
 	if (window.realjs) {
@@ -42,9 +44,19 @@ var startAnipangMulti = function()
 	}
 	
     if (window.FBInstant) {
+    	
+    	FBInstant.onPause(function() {
+    		
+    		if (window.currentGameState && window.currentGameState === "Result") {
+    			StzLog.print("[FBInstant.onPause] disable onPause");
+    		} else {
+    			FBInstant.quit();
+    		}
+    	});
+    	
         FBInstant.setLoadingProgress(10);
     }
-
+    
     /*
     // set display ratio
     var documentWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
@@ -64,7 +76,7 @@ var startAnipangMulti = function()
     var gameHeight = Math.floor(480 * screenScale * documentRatio); 
     */
 	//this.game = new Phaser.Game(gameWidth , gameHeight, Phaser.WEBGL, 'gameContainer');
-    this.game = new Phaser.Game(720 , 1280, Phaser.AUTO, 'gameContainer');
+    this.game = new Phaser.Game(720 , 1280, Phaser.CANVAS, 'gameContainer');
     
     
     if (window.FBInstant) {

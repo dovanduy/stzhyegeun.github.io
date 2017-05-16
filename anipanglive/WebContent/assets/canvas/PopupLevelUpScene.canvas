@@ -1,0 +1,226 @@
+{
+  "canvas-version": 2,
+  "settings": {
+    "className": "PopupLevelUpScene",
+    "sceneWidth": 584,
+    "sceneHeight": 884,
+    "generateOnSave": true,
+    "enableStepping": false,
+    "lang": "JAVA_SCRIPT",
+    "baseClass": "Phaser.Group",
+    "backgroundColor": [
+      180,
+      180,
+      180
+    ],
+    "gridColor": [
+      200,
+      200,
+      200
+    ],
+    "showGrid": true
+  },
+  "stateSettings": {
+    "stageBackgroundColor": [
+      0,
+      0,
+      0
+    ],
+    "preloadSpriteId": "",
+    "preloadSprite_direction": 0,
+    "load.pack": []
+  },
+  "world": {
+    "type": "group",
+    "id": "5753a153-0efa-4966-ae98-c6459cf88c87",
+    "info": {
+      "editorName": "PopupLevelUpScene",
+      "children": [{
+        "type": "group",
+        "id": "110c5510-4128-40a9-a3e2-9d7478725bc7",
+        "info": {
+          "editorName": "group",
+          "children": [
+            {
+              "type": "atlas-sprite",
+              "id": "796b8aef-3046-45f1-a8e9-79257c9ade32",
+              "asset": "0",
+              "info": {"editorName": "popup_png"}
+            },
+            {
+              "type": "atlas-sprite",
+              "id": "7bad9a49-d047-42ab-b7e3-4a8eab679830",
+              "asset": "1",
+              "info": {
+                "editorName": "lvup_title_png",
+                "x": 157,
+                "y": 33
+              }
+            },
+            {
+              "type": "atlas-sprite",
+              "id": "201280e1-771f-40d2-ae51-d9ab226da01e",
+              "asset": "2",
+              "info": {
+                "editorName": "lvup_bg_png",
+                "x": 2,
+                "y": 116
+              }
+            },
+            {
+              "type": "atlas-sprite",
+              "id": "f5dac463-c4cd-48a3-8914-564e6545a9c4",
+              "asset": "3",
+              "info": {
+                "editorName": "lvUpEffect",
+                "editorPublic": true,
+                "x": 298,
+                "y": 328,
+                "anchor.x": 0.5,
+                "anchor.y": 0.5
+              }
+            },
+            {
+              "type": "atlas-sprite",
+              "id": "d6165ad1-f058-4c89-b38e-51130ea527c0",
+              "asset": "4",
+              "info": {
+                "editorName": "btnClose",
+                "editorPublic": true,
+                "x": 490,
+                "y": 23
+              }
+            },
+            {
+              "type": "atlas-sprite",
+              "id": "e1bd2210-4a35-477b-ba44-bae24ae89148",
+              "asset": "5",
+              "info": {
+                "editorName": "btnShare",
+                "editorPublic": true,
+                "x": 294,
+                "y": 775,
+                "anchor.x": 0.5,
+                "anchor.y": 0.5
+              }
+            },
+            {
+              "type": "atlas-sprite",
+              "id": "81e1fa1f-892a-462a-a3e7-d72c56276b40",
+              "asset": "6",
+              "info": {
+                "editorName": "lvTxtContainer",
+                "editorPublic": true,
+                "x": 295,
+                "y": 580,
+                "anchor.x": 0.5,
+                "anchor.y": 0.5
+              }
+            },
+            {
+              "type": "spritesheet",
+              "id": "a51a607a-0a3b-4ab5-abea-2ebdcf25e9f7",
+              "asset": "7",
+              "info": {
+                "editorName": "bigBadge",
+                "editorPublic": true,
+                "x": 292,
+                "y": 312,
+                "anchor.x": 0.5,
+                "anchor.y": 0.5
+              }
+            },
+            {
+              "type": "spritesheet",
+              "id": "dc2f71bb-fbfe-4332-8bfe-7129b1c3ffce",
+              "asset": "8",
+              "info": {
+                "editorName": "animBadgeStar",
+                "editorPublic": true,
+                "x": 291,
+                "y": 318,
+                "anchor.x": 0.5,
+                "anchor.y": 0.5
+              }
+            },
+            {
+              "type": "atlas-sprite",
+              "id": "f7888f78-f650-4c57-bd25-0a484d328728",
+              "asset": "9",
+              "info": {
+                "editorName": "gradeChangeEffect",
+                "editorPublic": true,
+                "x": -153,
+                "y": -119
+              }
+            }
+          ]
+        }
+      }]
+    }
+  },
+  "type": "GROUP",
+  "asset-table": {
+    "0": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "result",
+      "asset": "popupLevelUI",
+      "sprite": "popup.png"
+    },
+    "1": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "result",
+      "asset": "popupLevelUI",
+      "sprite": "lvup_title.png"
+    },
+    "2": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "result",
+      "asset": "popupLevelUI",
+      "sprite": "lvup_bg.png"
+    },
+    "3": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "result",
+      "asset": "popupLevelUI",
+      "sprite": "lvup_effect.png"
+    },
+    "4": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "result",
+      "asset": "popupLevelUI",
+      "sprite": "popup_btn_x.png"
+    },
+    "5": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "result",
+      "asset": "popupLevelUI",
+      "sprite": "pop_btn_large.png"
+    },
+    "6": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "result",
+      "asset": "popupLevelUI",
+      "sprite": "lvup_txt_bg.png"
+    },
+    "7": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "result",
+      "asset": "bigBadge",
+      "sprite": "0"
+    },
+    "8": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "result",
+      "asset": "animBadgeStar",
+      "sprite": "0"
+    },
+    "9": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "result",
+      "asset": "popupLevelUI",
+      "sprite": "grade_change.png"
+    }
+  },
+  "prefab-table": {}
+}

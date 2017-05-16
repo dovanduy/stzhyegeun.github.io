@@ -1,0 +1,62 @@
+{
+  "settings": {
+    "sceneWidth": 640,
+    "sceneHeight": 360,
+    "generateOnSave": true,
+    "enableStepping": false
+  },
+  "world": {
+    "type": "group",
+    "id": "f3e5af82-4b8b-480f-8dca-97f50ccc4c16",
+    "info": {
+      "editorName": "interruptCloudScene",
+      "children": [
+        {
+          "type": "atlas-sprite",
+          "id": "27e3fc73-759e-4f82-8266-b5769a636bd5",
+          "asset": "0",
+          "info": {
+            "editorName": "bgCloudCounter",
+            "editorPublic": true
+          }
+        },
+        {
+          "type": "atlas-sprite",
+          "id": "60065936-654e-4d72-810d-3db4d7e7426a",
+          "asset": "1",
+          "info": {
+            "editorName": "countTimer",
+            "editorPublic": true,
+            "x": 174,
+            "y": 139
+          }
+        },
+        {
+          "type": "group",
+          "id": "56ef88a0-a00c-41bf-94f7-7ce60de162e9",
+          "info": {
+            "editorName": "cloudProfile",
+            "editorPublic": true,
+            "x": 96,
+            "y": 140,
+            "children": []
+          }
+        }
+      ]
+    }
+  },
+  "asset-table": {
+    "0": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "interruptCloud",
+      "sprite": "attack_cloud_bg.png"
+    },
+    "1": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "interruptCloud",
+      "sprite": "attack_cloud_05.png"
+    }
+  }
+}

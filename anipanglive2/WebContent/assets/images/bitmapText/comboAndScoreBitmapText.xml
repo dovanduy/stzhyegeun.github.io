@@ -1,0 +1,21 @@
+<font>
+  <info face="comboFont" size="50" bold="0" italic="0" charset="" unicode="" stretchH="100" smooth="1" aa="1" padding="2,2,2,2" spacing="0,0" outline="0"/>
+  <common lineHeight="62" base="47" scaleW="248" scaleH="512" pages="1" packed="0"/>
+  <pages>
+    <page id="0" file="comboAndScoreBitmapText.png"/>
+  </pages>
+  <chars count="11">
+    <char id="48" x="0" y="0" width="36" height="56" xoffset="0" yoffset="0" xadvance="36" page="0" chnl="15"/>
+    <char id="49" x="36" y="0" width="36" height="56" xoffset="0" yoffset="0" xadvance="36" page="0" chnl="15"/>
+    <char id="50" x="72" y="0" width="36" height="56" xoffset="0" yoffset="0" xadvance="36" page="0" chnl="15"/>
+    <char id="51" x="108" y="0" width="36" height="56" xoffset="0" yoffset="0" xadvance="36" page="0" chnl="15"/>
+    <char id="52" x="144" y="0" width="36" height="56" xoffset="0" yoffset="0" xadvance="36" page="0" chnl="15"/>
+    <char id="53" x="180" y="0" width="36" height="56" xoffset="0" yoffset="0" xadvance="36" page="0" chnl="15"/>
+    <char id="54" x="216" y="0" width="36" height="56" xoffset="0" yoffset="0" xadvance="36" page="0" chnl="15"/>
+    <char id="55" x="252" y="0" width="36" height="56" xoffset="0" yoffset="0" xadvance="36" page="0" chnl="15"/>
+    <char id="56" x="288" y="0" width="36" height="56" xoffset="0" yoffset="0" xadvance="36" page="0" chnl="15"/>
+    <char id="57" x="324" y="0" width="36" height="56" xoffset="0" yoffset="0" xadvance="36" page="0" chnl="15"/>
+    <char id="67" x="360" y="0" width="170" height="55" xoffset="0" yoffset="0" xadvance="180" page="0" chnl="15"/>
+  </chars>
+</font>
+
