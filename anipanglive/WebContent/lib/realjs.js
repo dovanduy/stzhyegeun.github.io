@@ -324,7 +324,7 @@ var REALJS_DEBUG = true;
 				return false;
 			}
 			
-			var reqUrl = "https://html5.stzapp.net:11001/api/user/info?user_ids=";
+			var reqUrl = "https://html5.stzapp.net:11001/api/user/info?p_ids=";
 			if (typeof inRealId === 'object') {
 				for (var index = 0; index < inRealId.length; index++) {
 					reqUrl = reqUrl + (index === 0 ? inRealId[index] : ',' + inRealId[index]);
@@ -439,7 +439,8 @@ var REALJS_DEBUG = true;
 				var type = "IO:LOGIN";
 				var data = {
 					"type": type, 
-					"user_id": inInitId, 
+					//"user_id": inInitId,
+					"p_id": inUserId,
 				};
 				this.realSocket.emit(type, data);
 				_isServerWaiting = true;

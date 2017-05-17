@@ -449,6 +449,31 @@
       "frameMax": -1,
       "margin": 0,
       "spacing": 0
+    },
+    {
+      "type": "text",
+      "key": "tipText",
+      "url": "assets/text/tipText.xml",
+      "overwrite": false
+    },
+    {
+      "type": "script",
+      "key": "PopupHelpScene",
+      "url": "assets/canvas/PopupHelpScene.js"
+    },
+    {
+      "type": "atlas",
+      "key": "popupLarge",
+      "textureURL": "assets/images/popup/popupLarge.png",
+      "atlasURL": "assets/images/popup/popupLarge.json",
+      "format": "TEXTURE_ATLAS_JSON_ARRAY"
+    },
+    {
+      "type": "atlas",
+      "key": "popupHelp",
+      "textureURL": "assets/images/popup/popupHelp.png",
+      "atlasURL": "assets/images/popup/popupHelp.json",
+      "format": "TEXTURE_ATLAS_JSON_ARRAY"
     }
   ],
   "result": [
@@ -484,8 +509,8 @@
     {
       "type": "atlas",
       "key": "popupLevelUI",
-      "textureURL": "assets/images/result/popupLevelUI.png",
-      "atlasURL": "assets/images/result/popupLevelUI.json",
+      "textureURL": "assets/images/popup/popupLevelUI.png",
+      "atlasURL": "assets/images/popup/popupLevelUI.json",
       "format": "TEXTURE_ATLAS_JSON_ARRAY"
     },
     {
@@ -512,10 +537,20 @@
       "frameMax": -1,
       "margin": 0,
       "spacing": 0
+    },
+    {
+      "type": "script",
+      "key": "PopupRankingScene",
+      "url": "assets/canvas/PopupRankingScene.js"
+    },
+    {
+      "type": "script",
+      "key": "PopupRankingItem",
+      "url": "assets/canvas/PopupRankingItem.js"
     }
   ],
   "meta": {
-    "generated": "1494829367342",
+    "generated": "1494958086815",
     "app": "Phaser Editor",
     "url": "http://phasereditor.boniatillo.com",
     "version": "1.0",

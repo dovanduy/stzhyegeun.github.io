@@ -1,0 +1,100 @@
+{
+  "canvas-version": 2,
+  "settings": {
+    "className": "PopupRankingScene",
+    "sceneWidth": 660,
+    "sceneHeight": 1190,
+    "generateOnSave": true,
+    "enableStepping": false,
+    "lang": "JAVA_SCRIPT",
+    "baseClass": "Phaser.Group",
+    "backgroundColor": [
+      180,
+      180,
+      180
+    ],
+    "gridColor": [
+      200,
+      200,
+      200
+    ],
+    "showGrid": true
+  },
+  "stateSettings": {
+    "stageBackgroundColor": [
+      0,
+      0,
+      0
+    ],
+    "preloadSpriteId": "",
+    "preloadSprite_direction": 0,
+    "load.pack": []
+  },
+  "world": {
+    "type": "group",
+    "id": "d0413532-dcb7-4a19-86b7-1a567c3a5b72",
+    "info": {
+      "editorName": "PopupRankingScene",
+      "children": [{
+        "type": "group",
+        "id": "333f7ca7-4a10-4e93-a560-5ba787fa678c",
+        "info": {
+          "editorName": "group",
+          "children": [
+            {
+              "type": "atlas-sprite",
+              "id": "f8e39374-cc92-4b88-9d69-3d01ad2d6662",
+              "asset": "0",
+              "info": {"editorName": "popup_large_png"}
+            },
+            {
+              "type": "group",
+              "id": "53b7d463-fbf4-4489-b83f-8929069d771e",
+              "info": {
+                "editorName": "maskingGroup",
+                "editorPublic": true,
+                "y": 115,
+                "children": [{
+                  "type": "group",
+                  "id": "7f4f247e-e1e0-448a-9f15-a08802738ed8",
+                  "info": {
+                    "editorName": "itemList",
+                    "editorPublic": true,
+                    "children": []
+                  }
+                }]
+              }
+            },
+            {
+              "type": "atlas-sprite",
+              "id": "62e867e6-f23d-4d7a-98a8-0ea2d206fca4",
+              "asset": "1",
+              "info": {
+                "editorName": "btnClose",
+                "editorPublic": true,
+                "x": 574,
+                "y": 25
+              }
+            }
+          ]
+        }
+      }]
+    }
+  },
+  "type": "GROUP",
+  "asset-table": {
+    "0": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "lobby",
+      "asset": "popupLarge",
+      "sprite": "popup_large.png"
+    },
+    "1": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "lobby",
+      "asset": "popupLarge",
+      "sprite": "x_btn.png"
+    }
+  },
+  "prefab-table": {}
+}

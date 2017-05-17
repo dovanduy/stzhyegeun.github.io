@@ -1,0 +1,31 @@
+<xml version="1.0">
+  <tipTexts>
+    <tipText index="1">
+      <tipCount>5</tipCount>
+      <text0-font>30px</text0-font>
+      <text0-0>MATCHING SPECIAL BLOCKS</text0-0>
+      <text0-1>INCREASES YOUR SCORE.</text0-1>
+
+      <text1-font>30px</text1-font>
+      <text1-0>A BOOSTER IS BLASTED</text1-0>
+      <text1-1>BY A TOUCH</text1-1>
+
+      <text2-font>30px</text2-font>
+      <text2-0>SWAP THE CLOSE BOOSTER!</text2-0>
+      <text2-1> </text2-1>
+
+      <text3-font>24px</text3-font>
+      <text3-0>WANNA PLAY A GAME WITH A FRIEND IN THE CHAT?</text3-0>
+      <text3-1>TAP 'KEEP WAIT' AND WAIT FOR THEM!</text3-1>
+
+      <text4-font>30px</text4-font>
+      <text4-0>TIRED WITH WAITING A FRIEND?</text4-0>
+      <text4-1>MEET THE PLAYERS WORLDWIDE BY 'SKIP'</text4-1>
+
+      <text5-font>30px</text5-font>
+      <text5-0>WATCH OUT THE LOWER RANK PLAYER,</text5-0>
+      <text5-1>YOU WILL PAY BIG COST WHEN LOSE</text5-1>
+
+    </tipText>
+  </tipTexts>
+</xml>

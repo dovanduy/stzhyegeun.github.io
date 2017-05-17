@@ -193,6 +193,11 @@ Result.prototype.create = function() {
 		this.scene.popupOpenDrawLvDown(preBadgeData, curBadgeData);
 	}
 
+	this.popupHelp = this.game.plugins.add(new PopupHelp(this.game, this, {blind:true}));
+	this.scene.fBtnHelp.inputEnabled = true;
+	this.scene.fBtnHelp.events.onInputUp.add(function(){
+		this.popupHelp.popupOpen();
+	}, this);
 };
 
 Result.prototype.initData = function(isCleanRivalData) {

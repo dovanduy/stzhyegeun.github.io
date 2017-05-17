@@ -11,7 +11,8 @@ window.MeInfo = {
 	'real_id': '0',
 	'name': 'Me',
 	'id': '2', 
-	'thumbnail': "https://scontent-hkg3-1.xx.fbcdn.net/v/t1.0-1/c50.50.621.621/s160x160/377989_142417479202959_285320574_n.jpg?oh=f3b54c94f1cd770960956418af18fd25&oe=59ADA14A"
+	'thumbnail': "https://scontent-hkg3-1.xx.fbcdn.net/v/t1.0-1/p320x320/12096103_10204089815400231_2121453525092547468_n.jpg?oh=e4e97914489731d4e6546b9cdc472f79&oe=59602C0B", 
+	'friends': []
 };
 
 var ERivalState = {
@@ -77,11 +78,6 @@ var startAnipangMulti = function()
     */
 	//this.game = new Phaser.Game(gameWidth , gameHeight, Phaser.WEBGL, 'gameContainer');
     this.game = new Phaser.Game(720 , 1280, Phaser.CANVAS, 'gameContainer');
-    
-    
-    if (window.FBInstant) {
-        FBInstant.setLoadingProgress(20);
-    }
 
 	//this.game.preserveDrawingBuffer = true;
 	this.game.state.add("Boot", Boot);	
@@ -89,6 +85,26 @@ var startAnipangMulti = function()
 	this.game.state.add("Lobby", Lobby);
 	this.game.state.add("InGame", InGame);
 	this.game.state.add("Result", Result);
-
-	this.game.state.start("Boot");  
+    
+    if (window.FBInstant) {
+        FBInstant.setLoadingProgress(20);
+        FBInstant.player.getDataAsync(["isFirst"]).then((function(data){
+    		if (data && data.hasOwnProperty("isFirst")) {
+    			// 헌 유저
+    			window.isFirstUser = false;
+    		} else {
+    			// 처음 시작하는 유저
+    			window.isFirstUser = true;
+    			FBInstant.player.setDataAsync({"isFirst": 0}).then(function(data){
+    				console.log("isFirst : 0");
+    			});
+    		}
+    		
+    		this.game.state.start("Boot");
+    	}).bind(this));
+    }
+    else{
+    	window.isFirstUser = true;
+    	this.game.state.start("Boot");
+    }
 };

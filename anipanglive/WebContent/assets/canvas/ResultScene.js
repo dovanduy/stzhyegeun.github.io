@@ -105,6 +105,8 @@ function ResultScene(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBo
 	
 	this.game.add.sprite(576, 30, 'popupLevelUI', 'lvdown_arrow.png', _lvDownGroup);
 	
+	var _btnHelp = this.game.add.sprite(621, 920, 'popupHelp', 'common_tutorial_btn.png', this);
+	
 	// public fields
 	
 	this.fBtnEmoticon = _btnEmoticon;
@@ -135,6 +137,7 @@ function ResultScene(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBo
 	this.fUpTitle = _upTitle;
 	this.fDownTitle = _downTitle;
 	this.fLvDownGroup = _lvDownGroup;
+	this.fBtnHelp = _btnHelp;
 	/* --- post-init-begin --- */
 
 	// you can insert code here

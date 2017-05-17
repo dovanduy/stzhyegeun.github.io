@@ -426,8 +426,12 @@ var InGameController = function(inViewContext) {
 			}
 			
 			if (self.viewContext.checkGameEnd()) {
-				self.viewContext.stopControllGame();
+				self.viewContext.hideWaitingFriends();
+				self.viewContext.time.events.add(Phaser.Timer.SECOND , function() {
+					self.viewContext.stopControllGame();
+				}.bind(self));
 			}
+
 		}
 		
 		//블럭 드랍과 리필 로직은 스테이트와 상관없이 동작 (라스트팡, 폭탄 상태때는 작동하지 않음)

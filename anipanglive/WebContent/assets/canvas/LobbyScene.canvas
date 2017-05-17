@@ -198,6 +198,28 @@
                 "x": 97,
                 "y": 273
               }
+            },
+            {
+              "type": "atlas-sprite",
+              "id": "1552908a-ec17-4572-9b16-7684a4a54653",
+              "asset": "10",
+              "info": {
+                "editorName": "tipBg",
+                "editorPublic": true,
+                "x": 71,
+                "y": 966
+              }
+            },
+            {
+              "type": "atlas-sprite",
+              "id": "4389edae-74e0-4435-bedc-e4c3d0e7587c",
+              "asset": "11",
+              "info": {
+                "editorName": "btnHelp",
+                "editorPublic": true,
+                "x": 615,
+                "y": 1174
+              }
             }
           ]
         }
@@ -264,6 +286,18 @@
       "section": "lobby",
       "asset": "lobbyUI",
       "sprite": "waiting.png"
+    },
+    "10": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "lobby",
+      "asset": "lobbyUI",
+      "sprite": "tip_bg.png"
+    },
+    "11": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "lobby",
+      "asset": "popupHelp",
+      "sprite": "common_tutorial_btn.png"
     }
   },
   "prefab-table": {}

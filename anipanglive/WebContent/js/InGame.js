@@ -586,10 +586,12 @@ InGame.prototype.checkGameEnd = function() {
 			this.lastRivalMessageTime = (new Date()).getTime();
 		}
 		
-		var lastRivalMessageOffset = (new Date()).getTime() - this.lastRivalMessageTime;
-		if (lastRivalMessageOffset > StzGameConfig.USER_LEAVE_CHECK_TIME) {
-			this.rivalGameEnd = true;
-		}	
+		
+		//@유영선 유저 입력 없으면 게임 종료했다고 판단하는 부분 삭제
+//		var lastRivalMessageOffset = (new Date()).getTime() - this.lastRivalMessageTime;
+//		if (lastRivalMessageOffset > StzGameConfig.USER_LEAVE_CHECK_TIME) {
+//			this.rivalGameEnd = true;
+//		}	
 	}
 	
 	if (this.meGameEnd === true && this.rivalGameEnd === true) {
@@ -805,6 +807,13 @@ InGame.prototype.showWaitingFriends = function() {
 	this.ingameWaiting = this.game.add.sprite(this.game.width / 2, this.game.height / 4, 'waiting');
 	this.ingameWaiting.anchor.setTo(0.5, 0.5);
 	this.ingameWaitingTween = this.game.add.tween(this.ingameWaiting.scale).to({'x': 1.5, 'y': 1.5}, 1000, Phaser.Easing.Linear.None, true, 0, -1, true);
+};
+
+InGame.prototype.hideWaitingFriends = function() {
+	if (this.ingameWaiting) {
+		this.ingameWaiting.kill();
+		this.ingameWaiting = null;
+	}
 };
 
 InGame.prototype.shutdown = function() {

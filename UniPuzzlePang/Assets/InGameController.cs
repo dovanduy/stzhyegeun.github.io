@@ -46,8 +46,6 @@ public class InGameController : MonoBehaviour {
         }
 	}
 
-
-
     void initBoard()
     {
         for (int i = 0; i < ROW_COUNT; i++)
@@ -65,10 +63,54 @@ public class InGameController : MonoBehaviour {
                 _blocks[indexValue].transform.parent = _blockContainer.transform;
                 _blocks[indexValue].transform.localPosition = getBlockPosition(j, i);
                 //_blocks[indexValue].transform.position = getBlockPosition(j, i) + _blockContainer.transform.position;
-                _blocks[indexValue].name = string.Format("block_{0}_{1}", j, i);
-                
+                _blocks[indexValue].name = string.Format("block_{0}_{1}", j, i);       
             }
         }
+    }
+
+
+
+    /// <summary>
+    /// 
+    /// </summary>
+    void checkMatched()
+    {
+
+    }
+
+    List<int> getMatchedBlockList(int inStartIndex, int inMoveX, int inMoveY)
+    {
+        List<int> result = new List<int>();
+
+        BlockController startBlock = _blocks[inStartIndex];
+        Vector2 coordBlock = (Vector2)getBoardCoordinateFromIndex(inStartIndex);
+        if (coordBlock == null)
+        {
+            return result;
+        }
+
+        do
+        {
+            coordBlock.x += inMoveX;
+            coordBlock.y += inMoveY;
+            int nextIndex = getBoardIndexFromCoordinate((int)coordBlock.x, (int)coordBlock.y);
+            BlockController nextBlock = _blocks[nextIndex];
+
+            if (!nextBlock)
+            {
+                break;
+            }
+
+            if (startBlock.blockType != nextBlock.blockType)
+            {
+                break;
+            }
+
+            result.Add(nextIndex);
+
+        } while ((coordBlock.x >= 0f || coordBlock.x <= GAME_WIDTH) && (coordBlock.y >= 0f || coordBlock.y <= GAME_HEIGHT));
+
+        return result;
     }
 
     /// <summary>

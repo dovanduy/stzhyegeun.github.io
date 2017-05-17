@@ -2,7 +2,7 @@
 
 {
 	"filename": "bg.png",
-	"frame": {"x":0,"y":318,"w":720,"h":743},
+	"frame": {"x":279,"y":294,"w":720,"h":743},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":720,"h":743},
@@ -18,7 +18,7 @@
 },
 {
 	"filename": "match.png",
-	"frame": {"x":380,"y":134,"w":279,"h":183},
+	"frame": {"x":0,"y":294,"w":279,"h":184},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":279,"h":184},
@@ -34,7 +34,7 @@
 },
 {
 	"filename": "skip_btn.png",
-	"frame": {"x":0,"y":134,"w":220,"h":84},
+	"frame": {"x":752,"y":50,"w":220,"h":84},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":220,"h":84},
@@ -42,11 +42,19 @@
 },
 {
 	"filename": "thumb_mask.png",
-	"frame": {"x":220,"y":134,"w":160,"h":160},
+	"frame": {"x":0,"y":134,"w":160,"h":160},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":160,"h":160},
 	"sourceSize": {"w":160,"h":160}
+},
+{
+	"filename": "tip_bg.png",
+	"frame": {"x":161,"y":134,"w":590,"h":160},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":590,"h":160},
+	"sourceSize": {"w":590,"h":160}
 },
 {
 	"filename": "wait_btn.png",
@@ -69,8 +77,8 @@
 	"version": "1.0",
 	"image": "lobbyUI.png",
 	"format": "RGBA8888",
-	"size": {"w":752,"h":1061},
+	"size": {"w":999,"h":1037},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:3330762b98f887325ccb29a3734be549:cc7b7f39ae273fd38cf93660c4c53f75:f464d3efa236ad9cb624b51c9103ad0d$"
+	"smartupdate": "$TexturePacker:SmartUpdate:cdb38b8bdd2852bd646413850fadf26f:b997fac894cef8412d9587c85c8b62ca:f464d3efa236ad9cb624b51c9103ad0d$"
 }
 }

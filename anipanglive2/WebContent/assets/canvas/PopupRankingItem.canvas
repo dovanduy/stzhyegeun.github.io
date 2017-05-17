@@ -1,0 +1,144 @@
+{
+  "canvas-version": 2,
+  "settings": {
+    "className": "PopupRankingItem",
+    "sceneWidth": 660,
+    "sceneHeight": 180,
+    "generateOnSave": true,
+    "enableStepping": false,
+    "lang": "JAVA_SCRIPT",
+    "baseClass": "Phaser.Group",
+    "backgroundColor": [
+      180,
+      180,
+      180
+    ],
+    "gridColor": [
+      200,
+      200,
+      200
+    ],
+    "showGrid": true
+  },
+  "stateSettings": {
+    "stageBackgroundColor": [
+      0,
+      0,
+      0
+    ],
+    "preloadSpriteId": "",
+    "preloadSprite_direction": 0,
+    "load.pack": []
+  },
+  "world": {
+    "type": "group",
+    "id": "732cdbfd-2da7-480d-9fce-e759642e65b5",
+    "info": {
+      "editorName": "PopupRankingItem",
+      "children": [{
+        "type": "group",
+        "id": "189fb282-2d9c-41a2-8514-22c721af129a",
+        "info": {
+          "editorName": "group",
+          "children": [{
+            "type": "group",
+            "id": "afef08bd-0690-461e-bd6b-be4d56ecdea9",
+            "info": {
+              "editorName": "rankingItem",
+              "editorPublic": true,
+              "children": [
+                {
+                  "type": "group",
+                  "id": "ce2f8e19-b06e-4e3a-8518-03d72a96251c",
+                  "info": {
+                    "editorName": "profileImage",
+                    "editorPublic": true,
+                    "x": 150,
+                    "y": 5,
+                    "children": [{
+                      "type": "spritesheet",
+                      "id": "081967a2-19b7-4aba-b208-be9ad7961746",
+                      "asset": "0",
+                      "info": {
+                        "editorName": "ProfileRolling",
+                        "editorPublic": true
+                      }
+                    }]
+                  }
+                },
+                {
+                  "type": "spritesheet",
+                  "id": "f0eb59ea-e5f8-415a-841e-e8b3dc91010b",
+                  "asset": "1",
+                  "info": {
+                    "editorName": "badge",
+                    "editorPublic": true,
+                    "x": 355,
+                    "y": 90,
+                    "scale.x": 0.7,
+                    "scale.y": 0.7
+                  }
+                },
+                {
+                  "type": "spritesheet",
+                  "id": "ab253436-727d-4942-8f3e-21efd0aa1b2c",
+                  "asset": "2",
+                  "info": {
+                    "editorName": "badgeStar",
+                    "editorPublic": true,
+                    "x": 355,
+                    "y": 90,
+                    "scale.x": 0.7,
+                    "scale.y": 0.7
+                  }
+                },
+                {
+                  "type": "group",
+                  "id": "004d27f2-0918-460f-bc70-bf6076546858",
+                  "info": {
+                    "editorName": "txtTrophy",
+                    "x": 425,
+                    "y": 90,
+                    "children": []
+                  }
+                },
+                {
+                  "type": "group",
+                  "id": "8c7552b0-5f3e-4bde-9238-59f82e60c7de",
+                  "info": {
+                    "editorName": "txtName",
+                    "x": 355,
+                    "y": 25,
+                    "children": []
+                  }
+                }
+              ]
+            }
+          }]
+        }
+      }]
+    }
+  },
+  "type": "GROUP",
+  "asset-table": {
+    "0": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "lobby",
+      "asset": "ProfileRolling",
+      "sprite": "0"
+    },
+    "1": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "badge",
+      "sprite": "0"
+    },
+    "2": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "badgeStar",
+      "sprite": "0"
+    }
+  },
+  "prefab-table": {}
+}

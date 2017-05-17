@@ -14,14 +14,14 @@ Preload.prototype.preload = function() {
 	if (window.FBInstant) {
 		FBInstant.setLoadingProgress(40);
 	}
-
+	
 	game.load.onFileComplete.add(this.fileComplete, this);
 	game.load.onLoadComplete.add(this.loadComplete, this);
 
 	game.load.pack("ingame", "assets/assets-pack.json");
 	game.load.pack("lobby", "assets/assets-pack.json");
 	game.load.pack("result", "assets/assets-pack.json");
-
+	
 	game.load.start();
 };
 
@@ -79,10 +79,11 @@ Preload.prototype.loadComplete = function () {
 	StzSoundList[ESoundName.SE_MATCHING_COMPLETE] = game.add.audio(ESoundName.SE_MATCHING_COMPLETE);
 	
 	if (window.FBInstant) {
-		FBInstant.setLoadingProgress(100);
+		FBInstant.setLoadingProgress(97);
 		window.MeInfo.id = FBInstant.player.getID();
 		window.MeInfo.name = FBInstant.player.getName();
 		window.MeInfo.thumbnail = FBInstant.player.getPhoto();
+		FBInstant.setLoadingProgress(98);
 	}
 	else{
 		window.MeInfo.badge = new Badge(this.game, StzGameConfig.ME_BADGE_SCORE_DUMY);
@@ -105,11 +106,67 @@ Preload.prototype.loadComplete = function () {
 				window.MeInfo.badge = new Badge(this.game,  securityStorage.getInt('meTrophy'));
 			}
 			
-			this.game.state.start("Lobby");
+			if (window.FBInstant) {
+				FBInstant.player.getConnectedPlayersAsync().then((function(players) {
+
+					var targetIDs = "";
+					for (var i = 0; i < players.length; i++) {
+						targetIDs += "," + players[i].id;
+					}
+
+					// NOTE @hyegeun 친구 목록 업데이트 통신 방법 최적화 필요 
+					realjs.realGetUserInfo(targetIDs, function(inRes) {
+
+						// inRes 배열에서 trophy 수치가 null | undefined 거나 0인경우 제거
+						for (var rIndex = 0; rIndex < inRes.length; rIndex++) {
+							if (inRes[rIndex].trophy && inRes[rIndex].trophy > 0) {
+								window.MeInfo.friends.push({
+									"id": inRes[rIndex].id, 
+									"name": inRes[rIndex].name, 
+									"platform_id": inRes[rIndex].platform_id,
+									"thumbnail": inRes[rIndex].thumbnail,
+									"trophy": inRes[rIndex].trophy
+								});
+							}
+						}
+
+						//StzUtil.quickSort(window.MeInfo.friends);
+
+						this.game.state.start("Lobby");
+					}, this);				
+				}).bind(this));
+			} else {
+				this.game.state.start("Lobby");
+			}
 		}, this);
 		realjs.realLogin(window.MeInfo.id, window.MeInfo.name, window.MeInfo.thumbnail);
 	} else {
-		this.game.state.start("Lobby");
+		if (window.FBInstant) {
+			FBInstant.player.getConnectedPlayersAsync().then((function(players) {
+
+				var targetIDs = "";
+				for (var i = 0; i < players.length; i++) {
+					targetIDs += "," + players[i].id;
+				}
+				realjs.realGetUserInfo(targetIDs, function(inRes) {
+					// inRes 배열에서 trophy 수치가 null | undefined 거나 0인경우 제거
+						for (var rIndex = 0; rIndex < inRes.length; rIndex++) {
+							if (inRes[rIndex].trophy && inRes[rIndex].trophy > 0) {
+								window.MeInfo.friends.push({
+									"id": inRes[rIndex].id, 
+									"name": inRes[rIndex].name, 
+									"platform_id": inRes[rIndex].platform_id,
+									"thumbnail": inRes[rIndex].thumbnail,
+									"trophy": inRes[rIndex].trophy
+								});
+							}
+						}
+					this.game.state.start("Lobby");
+				}, this);				
+			}).bind(this));
+		} else {
+			this.game.state.start("Lobby");	
+		}
 	}
 };
 

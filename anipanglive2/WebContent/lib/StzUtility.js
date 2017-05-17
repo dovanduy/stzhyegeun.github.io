@@ -162,3 +162,64 @@ StzUtil.getScreenCapture = function(inGameContext, inX, inY, inWidth, inHeight) 
 	}
 	return base64Picture;
 };
+
+// TODO @hyegeun 차후 Generic하게 변경할 것!
+// @param items 배열값
+// @param left 왼쪽 인덱스 숫자
+// @param right 오른쪽 인덱스 숫자
+StzUtil.quickSort = function(items, left, right) {
+
+    var index;
+
+    if (items.length > 1) {
+
+        left = typeof left != "number" ? 0 : left;
+        right = typeof right != "number" ? items.length - 1 : right;
+
+        index = StzUtil.qsPartition(items, left, right);
+
+        if (left < index - 1) {
+            StzUtil.quickSort(items, left, index - 1);
+        }
+
+        if (index < right) {
+            StzUtil.quickSort(items, index, right);
+        }
+
+    }
+
+    return items;
+};
+
+StzUtil.qsPartition = function(items, left, right) {
+
+    var pivot   = items[Math.floor((right + left) / 2)],
+        i       = left,
+        j       = right;
+
+
+    while (i <= j) {
+
+        while (items[i].trophy < pivot.trophy) {
+            i++;
+        }
+
+        while (items[j].trophy > pivot.trophy) {
+            j--;
+        }
+
+        if (i <= j) {
+            StzUtil.qsSwap(items, i, j);
+            i++;
+            j--;
+        }
+    }
+
+    return i;
+}
+
+StzUtil.qsSwap = function(items, firstIndex, secondIndex){
+    var temp = items[firstIndex];
+    items[firstIndex] = items[secondIndex];
+    items[secondIndex] = temp;
+}

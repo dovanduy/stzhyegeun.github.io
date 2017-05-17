@@ -12,6 +12,18 @@ public class BlockController : MonoBehaviour {
     private Animation _explodeNormalEffect;
     [SerializeField]
     private Animation _explodeFeverEffect;
+    [SerializeField]
+    private EBlockType _blockType;
+
+    public EBlockType blockType
+    {
+        get
+        {
+            return _blockType;
+        }
+    }
+
+    
 
     public bool isTouchable = true;
 

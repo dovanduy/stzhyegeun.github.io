@@ -47,6 +47,10 @@ function LobbyScene(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBod
 	
 	var _txtMatchedState = this.game.add.sprite(97, 273, 'lobbyUI', 'waiting.png', this);
 	
+	var _tipBg = this.game.add.sprite(71, 966, 'lobbyUI', 'tip_bg.png', this);
+	
+	var _btnHelp = this.game.add.sprite(615, 1174, 'popupHelp', 'common_tutorial_btn.png', this);
+	
 	// public fields
 	
 	this.fRivalProfileContainer = _rivalProfileContainer;
@@ -60,6 +64,8 @@ function LobbyScene(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBod
 	this.fBtnSkip = _btnSkip;
 	this.fBtnWait = _btnWait;
 	this.fTxtMatchedState = _txtMatchedState;
+	this.fTipBg = _tipBg;
+	this.fBtnHelp = _btnHelp;
 	/* --- post-init-begin --- */
 
 	// input enabled
@@ -130,13 +136,22 @@ function LobbyScene(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBod
 	this.initBadge();
 	
 	var btnFontStyle = {fontSize: '30px', fill: '#ffffff', boundsAlignH: 'center', boundsAlignV: 'middle'};
-	var txtWait = this.game.add.text(0, 0, 'KEEP WAIT', btnFontStyle);
+	var txtWait = this.game.add.text(0, 3, 'KEEP WAIT', btnFontStyle);
 	txtWait.setTextBounds(0, 0, this.fBtnWait.width, this.fBtnWait.height);
 	this.fBtnWait.addChild(txtWait);
 	
-	var txtSkip = this.game.add.text(0, 0, 'SKIP', btnFontStyle);
+	var txtSkip = this.game.add.text(0, 3, 'SKIP', btnFontStyle);
 	txtSkip.setTextBounds(0, 0, this.fBtnSkip.width, this.fBtnSkip.height);
 	this.fBtnSkip.addChild(txtSkip);
+	
+	var tipFontStyle = {fontSize: '30px', fill: '#bcedee', font: 'hs_bubbleregular', boundsAlignH: 'center', boundsAlignV: 'middle'};
+	this.txtTipOneLine = this.game.add.text(0, 3, 'MATCHING SPECIAL BLOCKS', tipFontStyle);
+	this.txtTipOneLine.setTextBounds(0, 65, this.fTipBg.width, this.fTipBg.height/2 - 40);
+	this.fTipBg.addChild(this.txtTipOneLine);
+	
+	this.txtTipTwoLine = this.game.add.text(0, 3, 'INCREASES YOUR SCORE.', tipFontStyle);
+	this.txtTipTwoLine.setTextBounds(0, 98, this.fTipBg.width, this.fTipBg.height/2 - 40);
+	this.fTipBg.addChild(this.txtTipTwoLine);
 	
 	this.fAnimLoading.visible = false;
 	this.fAnimLoading.animations.add('Loading', [0,1,2,3], 5, true);
@@ -195,7 +210,7 @@ LobbyScene.prototype.stopRollingProfile = function() {
 };
 
 /**
- * ?��?���????????? ?��보�?? 로비 ?��면에 출력
+ * ?��?���??????????? ?��보�?? 로비 ?��면에 출력
  */
 LobbyScene.prototype.setRivalInfo = function() {
     this.fRivalName.text = window.RivalInfo.name;

@@ -7,6 +7,7 @@ Lobby.prototype = proto;
 
 Lobby.prototype.init = function() {
 	this.waitingTimer = this.game.time.create(false);
+	this.tipTextLoop = this.game.time.create(false);
 	this.waitingTime = 0;
 	this.isBot = true;
 	this.isHost = false;
@@ -31,7 +32,13 @@ Lobby.prototype.preload = function() {
 };
 
 Lobby.prototype.create = function() {
+	this.scene = new LobbyScene(this.game);
+	
+	this.popupHelp = this.game.plugins.add(new PopupHelp(this.game, this, {blind:true}));
+	this.readyMatched();
+};
 
+Lobby.prototype.readyMatched = function() {
 	window.currentGameState = this.game.state.current;
 	
 	// 라이벌 인포 초기화
@@ -49,8 +56,7 @@ Lobby.prototype.create = function() {
 		this.game.cache.removeImage('rivalProfileImage');
 	}
 
-	this.scene = new LobbyScene(this.game);
-	
+
 	if (window.realjs) {
 		// ROOM:START - 리스너 등록
 		realjs.event.roomStartListener.removeAll();
@@ -87,14 +93,19 @@ Lobby.prototype.create = function() {
 	}
 
 	if (window.FBInstant) {
+		FBInstant.setLoadingProgress(100);
 		FBInstant.startGameAsync().then((function() {
 			
+			//처음 접속 유저 일 경우 도움말 팝업 오픈
+			if(window.isFirstUser === true){
+				this.popupHelp.popupOpen();
+			} 
 			window.fbContextId = FBInstant.context.getID();
 			StzSoundList[ESoundName.BGM_MATCHING].play('', 0, 1, true);
 			StzSoundList[ESoundName.SE_MATCHING_RATTLE].play('', 0, 1, true);
 			
 			this.scene.startRollingProfile();
-			this.waitingFriends();		
+			this.waitingFriends();	
 		}).bind(this));
 	} else {
 		StzSoundList[ESoundName.BGM_MATCHING].play('', 0, 1, true);
@@ -109,6 +120,47 @@ Lobby.prototype.create = function() {
 	
 	this.scene.fBtnWait.inputEnabled = true;
 	this.scene.fBtnWait.events.onInputUp.add(this.onClickWait, this);
+	
+	this.createTipText();
+	
+	var tipNum = StzUtil.createRandomInteger(0, this.tipCount-1);
+	this.scene.txtTipOneLine.text =  this.textOneLineArray[tipNum];
+	this.scene.txtTipTwoLine.text =  this.textTwoLineArray[tipNum];
+	this.scene.txtTipOneLine.fontSize = this.textFont[tipNum];
+	this.scene.txtTipTwoLine.fontSize = this.textFont[tipNum];
+
+	this.tipTextLoop.start();
+	this.tipTextLoop.loop(2500, function(){
+		var tipNum = StzUtil.createRandomInteger(0, this.tipCount-1);
+		this.scene.txtTipOneLine.text =  this.textOneLineArray[tipNum];
+		this.scene.txtTipTwoLine.text =  this.textTwoLineArray[tipNum];
+		this.scene.txtTipOneLine.fontSize = this.textFont[tipNum];
+		this.scene.txtTipTwoLine.fontSize = this.textFont[tipNum];
+	}.bind(this));
+	
+	this.scene.fBtnHelp.inputEnabled = true;
+	this.scene.fBtnHelp.events.onInputUp.add(function(){
+		this.popupHelp.popupOpen();
+	}, this);
+};
+
+Lobby.prototype.createTipText = function(){
+	var tipData = this.game.cache.getText('tipText');
+	parser=new DOMParser();
+	
+	var xmlDoc=parser.parseFromString(tipData, "text/xml");
+	this.textOneLineArray = [];
+	this.textTwoLineArray = [];
+	this.textFont = [];
+	 // 특정 테그를 기준으로 변수에 담는다
+	 var xml = xmlDoc.getElementsByTagName('tipTexts');
+	 
+	 this.tipCount = (xml[0].getElementsByTagName('tipText')[0].getElementsByTagName('tipCount')[0].childNodes[0].nodeValue);
+	 for(var i =0; i < this.tipCount; i++){
+		 this.textOneLineArray.push((xml[0].getElementsByTagName('tipText')[0].getElementsByTagName('text' + i + '-0')[0].childNodes[0].nodeValue));
+		 this.textTwoLineArray.push((xml[0].getElementsByTagName('tipText')[0].getElementsByTagName('text' + i + '-1')[0].childNodes[0].nodeValue));
+		 this.textFont.push((xml[0].getElementsByTagName('tipText')[0].getElementsByTagName('text' + i + '-font')[0].childNodes[0].nodeValue));
+	 }
 };
 
 Lobby.prototype.waitingFriends = function() {
@@ -173,7 +225,7 @@ Lobby.prototype.waitingFriends = function() {
 			if (window.realjs) {
 				realjs.event.joinLobbyListener.add(function(data) {
 					
-					if (data.user !== window.MeInfo.real_id) {
+					if (data.p_id !== window.MeInfo.id) {
 						return;
 					}
 					realjs.event.joinLobbyListener.removeAll();
@@ -278,14 +330,14 @@ Lobby.prototype.waitingFriends = function() {
 			if (memberIds.length === 2) {
 				
 				var rivalIndex = 0;
-				if (memberIds[0] == window.MeInfo.real_id) {
+				if (memberIds[0] == window.MeInfo.id) {
 					rivalIndex = 1;
 				} 
 				
 				realjs.realGetUserInfo(memberIds[rivalIndex], function(inRivalsData) {
 					for(var index = 0; index < inRivalsData.length; index++) {
 						var currentData = inRivalsData[index];
-						if (currentData.id == memberIds[rivalIndex]) {
+						if (currentData.platform_id == memberIds[rivalIndex]) {
 							window.RivalInfo.real_id = currentData.id;
 							window.RivalInfo.name = currentData.name;
 							window.RivalInfo.id = currentData.platform_id;
@@ -383,7 +435,9 @@ Lobby.prototype.startInGameState = function() {
 		realjs.event.joinRoomListener.removeAll();
 		realjs.event.roomStartListener.removeAll();
 	}
+	
 	this.waitingTimer.stop();
+	this.tipTextLoop.stop();
 	
 	if (window.realjs) {
 		if (this.isBot === true) {

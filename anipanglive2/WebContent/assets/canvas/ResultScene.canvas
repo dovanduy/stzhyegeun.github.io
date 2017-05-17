@@ -476,6 +476,17 @@
                   }
                 ]
               }
+            },
+            {
+              "type": "atlas-sprite",
+              "id": "f486ef09-f7a2-4275-b4f7-acf85d31219d",
+              "asset": "24",
+              "info": {
+                "editorName": "btnHelp",
+                "editorPublic": true,
+                "x": 621,
+                "y": 920
+              }
             }
           ]
         }
@@ -626,6 +637,12 @@
       "section": "result",
       "asset": "popupLevelUI",
       "sprite": "lvdown_arrow.png"
+    },
+    "24": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "lobby",
+      "asset": "popupHelp",
+      "sprite": "common_tutorial_btn.png"
     }
   },
   "prefab-table": {}

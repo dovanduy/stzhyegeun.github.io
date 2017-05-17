@@ -16,6 +16,7 @@ var StzGameConfig = {
 	, MAX_PROFILE_COUNT		: 5
 	, MAX_LOBBY_WATING_COUNT	: 5
 	, ME_BADGE_SCORE_DUMY		: 2397
+	, TUTORIAL_MAX_COUNT			: 4
 };
 StzGameConfig.PROFILE_NAME_TABLE = ['DICAPRIO','JACK','DAVID','ETHAN','JESSICA'];
 var StzRealJSConfig = {
