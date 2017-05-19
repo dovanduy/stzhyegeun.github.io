@@ -44,7 +44,7 @@ public class GameController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-
+        /*
         if (Input.touchSupported)
         {
             if (Input.touchCount > 0)
@@ -72,8 +72,9 @@ public class GameController : MonoBehaviour {
             {
                 _guideLine.ClearGuideLine();
             }
-        } else
-        {
+        }
+        else
+        {*/
             if (Input.GetMouseButtonDown(0))
             {
                 _isMouseDown = true;
@@ -97,7 +98,7 @@ public class GameController : MonoBehaviour {
             {
                 _guideLine.ClearGuideLine();
             }
-        }        
+         
 	}
 
     void OnCollisionEnter2D(Collision2D other)
