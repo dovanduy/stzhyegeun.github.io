@@ -45,28 +45,42 @@ public class GameController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.touchSupported)
         {
-            _isMouseDown = true;
-        }
-
-        if (Input.GetMouseButtonUp(0))
-        {
-            if (_isMouseDown)
+            if (Input.touchCount > 0)
             {
-                _isLanding = false;
-                //_ballPrefab.Fire(Input.mousePosition);
-
-                /*
-                for (int i = 0; i < countBall; i++)
+                if (Input.GetTouch(0).phase == TouchPhase.Ended)
                 {
-                    BallController clone = (BallController)Instantiate(_ballPrefab, _guideLine.transform.position, _guideLine.transform.rotation);
-                    clone.Fire(Input.mousePosition);
+                    if (_isMouseDown)
+                    {
+                        _isLanding = false;
+                        StartCoroutine(FireBalls(Input.GetTouch(0).position));
+                    }
+                    _isMouseDown = false;
                 }
-                */
-                StartCoroutine(FireBalls(Input.mousePosition));
+                else
+                {
+                    _isMouseDown = true;
+                }
+
+
             }
-            _isMouseDown = false;
+        } else
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                _isMouseDown = true;
+            }
+
+            if (Input.GetMouseButtonUp(0))
+            {
+                if (_isMouseDown)
+                {
+                    _isLanding = false;
+                    StartCoroutine(FireBalls(Input.mousePosition));
+                }
+                _isMouseDown = false;
+            }
         }
 
         // Draw GuideLine
