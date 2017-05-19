@@ -62,8 +62,15 @@ public class GameController : MonoBehaviour {
                 {
                     _isMouseDown = true;
                 }
-
-
+            }
+            // Draw GuideLine
+            if (_isMouseDown)
+            {
+                _guideLine.DrawGuideLine(Input.GetTouch(0).position);
+            }
+            else
+            {
+                _guideLine.ClearGuideLine();
             }
         } else
         {
@@ -81,16 +88,16 @@ public class GameController : MonoBehaviour {
                 }
                 _isMouseDown = false;
             }
-        }
-
-        // Draw GuideLine
-        if (_isMouseDown)
-        {
-            _guideLine.DrawGuideLine(Input.mousePosition);
-        } else
-        {
-            _guideLine.ClearGuideLine();
-        }
+            // Draw GuideLine
+            if (_isMouseDown)
+            {
+                _guideLine.DrawGuideLine(Input.mousePosition);
+            }
+            else
+            {
+                _guideLine.ClearGuideLine();
+            }
+        }        
 	}
 
     void OnCollisionEnter2D(Collision2D other)
