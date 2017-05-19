@@ -5,7 +5,15 @@ using UnityEngine;
 public class BallController : MonoBehaviour {
 
     private Rigidbody2D _rigidbody;
-    private bool _isShoot = false;
+
+    private bool _isStop = true;
+    public bool isStop
+    {
+        get
+        {
+            return _isStop;
+        }
+    }
 
 	void Start()
     {
@@ -23,11 +31,12 @@ public class BallController : MonoBehaviour {
         Vector3 direction = (targetWorldPosition - gameObject.transform.position).normalized;
         //_rigidbody.velocity = new Vector2(0, 0);
         _rigidbody.velocity = direction * inSpeed;
-        _isShoot = true;
+        _isStop = false;
     }
 
     public void StopBall()
     {
         _rigidbody.velocity = new Vector2(0, 0);
+        _isStop = true;
     }
 }

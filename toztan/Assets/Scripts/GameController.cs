@@ -5,22 +5,43 @@ using UnityEngine;
 public class GameController : MonoBehaviour {
 
     [SerializeField]
-    private BallController _ball;
+    private BallController _ballPrefab;
     [SerializeField]
     private GuideLine _guideLine;
 
-    // ball
-    public int countBall = 10;
+    private List<BallController> _ballList;
 
-    private bool _isShoot = false;
+    // ball
+    public int countBall = 1;
+    public float ballSpeed = 2000f;
+
+    private bool _isLanding = true;
     private bool _isMouseDown = false;
+
 
 	// Use this for initialization
 	void Start () {
         Screen.SetResolution(720, 1280, true);
         Camera.main.orthographicSize = Mathf.CeilToInt(640);
+
+        _ballList = new List<BallController>();
 	}
-	
+
+
+    IEnumerator FireBalls(Vector3 inTargetPosition)
+    {
+        for (int i = 0; i < countBall; i++)
+        {
+            BallController currentBall = (i < _ballList.Count ? _ballList[i] : (BallController)Instantiate(_ballPrefab, _guideLine.transform.position, _guideLine.transform.rotation));
+            if (i >= _ballList.Count)
+            {
+                _ballList.Add(currentBall);
+            }
+            currentBall.Fire(inTargetPosition, ballSpeed);
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+
 	// Update is called once per frame
 	void Update () {
 
@@ -33,16 +54,17 @@ public class GameController : MonoBehaviour {
         {
             if (_isMouseDown)
             {
-                // shoot!!
-                _isShoot = true;
+                _isLanding = false;
+                //_ballPrefab.Fire(Input.mousePosition);
 
-                _ball.Fire(Input.mousePosition);
                 /*
                 for (int i = 0; i < countBall; i++)
                 {
-                    BallController clone = (BallController)Instantiate(_ball, _guideLine.transform.position, _guideLine.transform.rotation);
+                    BallController clone = (BallController)Instantiate(_ballPrefab, _guideLine.transform.position, _guideLine.transform.rotation);
                     clone.Fire(Input.mousePosition);
-                }*/
+                }
+                */
+                StartCoroutine(FireBalls(Input.mousePosition));
             }
             _isMouseDown = false;
         }
@@ -56,4 +78,21 @@ public class GameController : MonoBehaviour {
             _guideLine.ClearGuideLine();
         }
 	}
+
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        BallController ball = other.gameObject.GetComponent<BallController>();
+        if (ball && !ball.isStop)
+        {
+            ball.StopBall();
+            if (_isLanding == false)
+            {
+                _isLanding = true;
+                _guideLine.transform.position = ball.transform.position;
+            } else
+            {
+                ball.transform.position = _guideLine.transform.position;
+            }
+        }
+    }
 }

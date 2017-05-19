@@ -24,13 +24,5 @@ public class GuideLine : MonoBehaviour {
         _line.positionCount = 0;
     }
 
-    void OnCollisionEnter2D(Collision2D other)
-    {
-        BallController ball = other.gameObject.GetComponent<BallController>();
-        if (ball)
-        {
-            gameObject.transform.position = ball.transform.position;           
-            ball.StopBall();
-        }
-    }
+    
 }
