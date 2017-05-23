@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+
+		<meta charset="UTF-8" />
+ 		<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+ 		<meta http-equiv="Pragma" content="no-cache">
+ 		<meta http-equiv="Expires" content="0">
+ 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui" />
+ 		<meta name="apple-mobile-web-app-capable" content="yes">
+ 		<meta name="mobile-web-app-capable" content="yes">
+ 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		
+		<title>toztan</title>
+
+ 		<style>
+ 			* {
+ 				padding: 0;
+ 				margin: 0;    
+ 			}
+
+			html, body {
+				background: #000;
+				color: #fff;
+				overflow: hidden;
+				touch-action: none;
+				-ms-touch-action: none;
+				width: 100%;
+				height: 100%;
+ 			}
+
+			canvas {
+				touch-action-delay: none;
+				touch-action: none;
+				-ms-touch-action: none;
+			}
+
+			#gameContainer {
+				width : 100%;
+				height : 100%;
+			}
+			
+			.fontPreload {
+				font-family: 'hs_bubbleregular';
+				position: absolute;
+				left: -100px;
+			}
+		</style>
+
+
+		 <!-- Library -->
+		<script src="lib/phaser-ninja-physics.js"></script>
+		
+		<!-- Game Logic -->
+		<script src="js/Main.js"></script>
+		<script src="js/Boot.js"></script>
+		<script src="js/Preload.js"></script>
+		<script src="js/InGame.js"></script>
+		<script src="js/TestLevel.js"></script>
+		<script src="js/controller/InGameController.js"></script>
+	</head>
+	
+	<body>
+		<div id="gameContainer"></div>
+	</body>
+</html>

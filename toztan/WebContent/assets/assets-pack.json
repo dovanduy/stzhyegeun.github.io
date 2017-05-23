@@ -1,0 +1,15 @@
+{
+  "inGame": [{
+    "type": "image",
+    "key": "ball",
+    "url": "assets/images/ball.png",
+    "overwrite": false
+  }],
+  "meta": {
+    "generated": "1495518459348",
+    "app": "Phaser Editor",
+    "url": "http://phasereditor.boniatillo.com",
+    "version": "1.0",
+    "copyright": "Arian Fornaris (c) 2015,2016"
+  }
+}
