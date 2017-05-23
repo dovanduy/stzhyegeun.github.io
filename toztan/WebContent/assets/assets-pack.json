@@ -1,12 +1,29 @@
 {
-  "inGame": [{
-    "type": "image",
-    "key": "ball",
-    "url": "assets/images/ball.png",
-    "overwrite": false
-  }],
+  "inGame": [
+    {
+      "type": "image",
+      "key": "ball",
+      "url": "assets/images/ball.png",
+      "overwrite": false
+    },
+    {
+      "type": "spritesheet",
+      "key": "ninja-tiles64",
+      "url": "assets/sprites/ninja-tiles64.png",
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "frameMax": -1,
+      "margin": 0,
+      "spacing": 0
+    },
+    {
+      "type": "script",
+      "key": "block",
+      "url": "assets/prefab/block.js"
+    }
+  ],
   "meta": {
-    "generated": "1495518459348",
+    "generated": "1495531899370",
     "app": "Phaser Editor",
     "url": "http://phasereditor.boniatillo.com",
     "version": "1.0",

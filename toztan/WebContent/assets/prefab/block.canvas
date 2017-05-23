@@ -1,0 +1,68 @@
+{
+  "canvas-version": 2,
+  "settings": {
+    "className": "block",
+    "sceneWidth": 64,
+    "sceneHeight": 64,
+    "generateOnSave": true,
+    "enableStepping": false,
+    "lang": "JAVA_SCRIPT",
+    "baseClass": "Phaser.Group",
+    "backgroundColor": [
+      180,
+      180,
+      180
+    ],
+    "gridColor": [
+      200,
+      200,
+      200
+    ],
+    "showGrid": true
+  },
+  "stateSettings": {
+    "stageBackgroundColor": [
+      0,
+      0,
+      0
+    ],
+    "preloadSpriteId": "",
+    "preloadSprite_direction": 0,
+    "load.pack": []
+  },
+  "world": {
+    "type": "group",
+    "id": "dcc31921-3857-4b43-962a-ca6f6b8bb56c",
+    "info": {
+      "editorName": "block",
+      "children": [{
+        "type": "group",
+        "id": "eb436a84-53c7-457f-aafb-38988e01453d",
+        "info": {
+          "editorName": "group",
+          "children": [{
+            "type": "spritesheet",
+            "id": "20385530-add9-4c0d-877b-343c1ce482f3",
+            "asset": "0",
+            "info": {
+              "editorName": "blockView",
+              "editorPublic": true,
+              "x": 32,
+              "y": 32,
+              "anchor.x": 0.5,
+              "anchor.y": 0.5
+            }
+          }]
+        }
+      }]
+    }
+  },
+  "type": "GROUP",
+  "asset-table": {"0": {
+    "file": "WebContent/assets/assets-pack.json",
+    "section": "inGame",
+    "asset": "ninja-tiles64",
+    "sprite": "1"
+  }},
+  "prefab-table": {}
+}
