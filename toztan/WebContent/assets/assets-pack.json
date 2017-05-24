@@ -7,6 +7,11 @@
       "overwrite": false
     },
     {
+      "type": "script",
+      "key": "InGameScene",
+      "url": "assets/canvas/InGameScene.js"
+    },
+    {
       "type": "spritesheet",
       "key": "ninja-tiles64",
       "url": "assets/sprites/ninja-tiles64.png",
@@ -23,7 +28,7 @@
     }
   ],
   "meta": {
-    "generated": "1495531899370",
+    "generated": "1495604900811",
     "app": "Phaser Editor",
     "url": "http://phasereditor.boniatillo.com",
     "version": "1.0",

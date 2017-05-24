@@ -1,0 +1,72 @@
+{
+  "canvas-version": 2,
+  "settings": {
+    "className": "InGameScene",
+    "sceneWidth": 720,
+    "sceneHeight": 1280,
+    "generateOnSave": true,
+    "enableStepping": false,
+    "lang": "JAVA_SCRIPT",
+    "baseClass": "Phaser.Group",
+    "backgroundColor": [
+      0,
+      0,
+      0
+    ],
+    "gridColor": [
+      200,
+      200,
+      200
+    ],
+    "showGrid": false
+  },
+  "stateSettings": {
+    "stageBackgroundColor": [
+      0,
+      0,
+      0
+    ],
+    "preloadSpriteId": "",
+    "preloadSprite_direction": 0,
+    "load.pack": []
+  },
+  "world": {
+    "type": "group",
+    "id": "d891d25f-df68-40f9-825e-7a780f5ec7b0",
+    "info": {
+      "editorName": "InGameScene",
+      "children": [{
+        "type": "group",
+        "id": "c88a539c-e21d-47ea-a7c6-e509af64e4c6",
+        "info": {
+          "editorName": "group",
+          "children": [
+            {
+              "type": "group",
+              "id": "4a29cb7d-381e-4de9-af1b-05e91cd6875c",
+              "info": {
+                "editorName": "playerContainer",
+                "editorPublic": true,
+                "x": 360,
+                "y": 1230,
+                "children": []
+              }
+            },
+            {
+              "type": "group",
+              "id": "1379acfd-56d2-4fde-b9be-d3084590e64a",
+              "info": {
+                "editorName": "ballContainer",
+                "editorPublic": true,
+                "children": []
+              }
+            }
+          ]
+        }
+      }]
+    }
+  },
+  "type": "GROUP",
+  "asset-table": {},
+  "prefab-table": {}
+}

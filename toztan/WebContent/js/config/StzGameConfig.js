@@ -6,8 +6,9 @@ var StzGameConfig = {
 };
 
 var InGameConfig = {
-	
-}
+	BLOCK_HP_OFFSET: 50
+	,MIN_MOUSE_MOVE_POINT : 5
+};
 
 var ESoundName = {
 };

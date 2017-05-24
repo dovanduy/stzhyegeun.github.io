@@ -37,7 +37,7 @@ init : function(game, start){
 	maxText.fontSize = 30;
   
 	maxText.strokeThickness = 2;
-	maxText.setShadow(5, 5, 'rgba(0,0,0,0.5)', 5);
+	jmaxText.setShadow(5, 5, 'rgba(0,0,0,0.5)', 5);
 	
 	bestScore = start.game.add.sprite(255, 180, "BESTSCORE");
 	bestScore.anchor.set(0.5);

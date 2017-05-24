@@ -108,7 +108,6 @@ TestLevel.prototype.update = function() {
 		 this.firePosition.y = this.ball.body.y;
 	 }
 	 
-	 
 	 if (this.isMouseDown && this.isBallLanding) {
 		 if (this.guideLine) {
 			 this.guideLine.setTo(this.firePosition.x, this.firePosition.y, this.game.input.x, this.game.input.y)

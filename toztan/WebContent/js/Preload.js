@@ -22,7 +22,7 @@ Preload.prototype.preload = function() {
 
 
 Preload.prototype.create = function() {
-	 this.game.stage.backgroundColor = "#000000";
+
 };
 
 Preload.prototype.fileComplete = function(progress, cacheKey, success, totalLoaded, totalFiles) {
@@ -35,7 +35,6 @@ Preload.prototype.loadComplete = function () {
 	this.game.load.onFileComplete.removeAll();
 	this.game.load.onLoadComplete.removeAll();
 	
-	//this.game.state.start("InGame");
-	this.game.state.start("TestLevel");
+	this.game.state.start("InGame", true);
 };
 
