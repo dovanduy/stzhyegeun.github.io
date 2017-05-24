@@ -11,7 +11,6 @@
  * @param {number} aPhysicsBodyType The physics body type to use when physics bodies are automatically added. See {@link #physicsBodyType} for values.
  */
 function block(inX, inY, inType, inHp, aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBodyType) {
-	
 	Phaser.Group.call(this, aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBodyType);
 	var _blockView = this.game.add.sprite(inX, inY, 'ninja-tiles64', inType, this);
 	_blockView.anchor.setTo(0.5, 0.5);
@@ -19,6 +18,9 @@ function block(inX, inY, inType, inHp, aGame, aParent, aName, aAddToStage, aEnab
 	// public fields
 	
 	this.fBlockView = _blockView;
+	this.game = aGame;
+	this.fBlockView.scale.set(1.2, 1.2);
+	this.isMove = false;
 	/* --- post-init-begin --- */
 
 	if (this.game.physics.ninja) {
@@ -50,3 +52,12 @@ block.prototype.updateHp = function() {
 	this.fBlockHpText.text = this.hp;
 };
 
+block.prototype.blockMove = function() {
+	var moveY = this.fBlockView.body.y + 100;
+	this.isMove = true;
+	this.game.add.tween(this.fBlockView.body).to({y:moveY}, 300, Phaser.Easing.Linear.None, true)
+	.onComplete.addOnce(function() {
+		this.fBlockView.body.setZeroVelocity();
+		this.isMove = false;
+	}.bind(this));
+};

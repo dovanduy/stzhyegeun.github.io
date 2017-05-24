@@ -6,7 +6,7 @@ var StzGameConfig = {
 };
 
 var InGameConfig = {
-	BLOCK_HP_OFFSET: 50
+	BLOCK_HP_OFFSET: 5
 	,MIN_MOUSE_MOVE_POINT : 5
 };
 

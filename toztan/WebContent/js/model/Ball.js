@@ -22,7 +22,7 @@ function Ball(inParentContext, contaniner, ballPos) {
 	
 	self.shoot = function(inputPos, PlayerPos, speed, delay){
 
-		var angle = Math.atan2(inputPos.y - _ballSprite.y, inputPos.x - _ballSprite.x) * (180/Math.PI);
+		var angle = StzUtil.twoPointCalcAngle(inputPos, PlayerPos);
 		console.log("ball angel: " + angle);
 		_ballSprite.visible = true;
 		//_ballSprite.body.moveUp(10000);

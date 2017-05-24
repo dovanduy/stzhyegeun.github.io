@@ -222,4 +222,8 @@ StzUtil.qsSwap = function(items, firstIndex, secondIndex){
     var temp = items[firstIndex];
     items[firstIndex] = items[secondIndex];
     items[secondIndex] = temp;
-}
+};
+
+StzUtil.twoPointCalcAngle = function(onePos, twoPos){
+   return Math.atan2(onePos.y - twoPos.y, onePos.x - twoPos.x) * (180/Math.PI);
+};
