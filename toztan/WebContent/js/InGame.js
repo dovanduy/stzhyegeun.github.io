@@ -21,6 +21,7 @@ InGame.prototype.preload = function () {
 InGame.prototype.create = function () {
 	// to change this code: Canvas editor > Configuration > Editor > userCode > Create
 	this.scene = new InGameScene(this);
+	this.game.stage.backgroundColor = "#ff8040";
 	
 	this.createPlayer();
 	
@@ -30,6 +31,7 @@ InGame.prototype.create = function () {
 
 	this.ballArray = [];
 	this.ballCount = 0;
+	this.txtBallCount = this.game.add.text(500, 1100, "공 개수 : " +this.ballCount);
 	this.createBall({x:this.scene.fPlayerContainer.x, y:this.scene.fPlayerContainer.y});
 	
 	// init UserInteraction
@@ -43,6 +45,10 @@ InGame.prototype.create = function () {
 	
 	this.createBlock();
 	
+	this.player.getSprite().inputEnabled = true;
+	this.player.getSprite().events.onInputUp.add(this.AllReturnBall, this);
+	
+	this.isAllReturn = false;
 };
 
 /* --- end generated code --- */
@@ -53,6 +59,17 @@ InGame.prototype.getBallCount = function() {
 
 InGame.prototype.upBallCount = function() {
 	this.ballCount++;
+};
+
+InGame.prototype.AllReturnBall = function() {
+	for(var i =0; i < this.ballArray.length; i++){
+		if(this.ballArray[i].isMoveBall === true){
+			console.log("떨어져");
+			this.isAllReturn = true;
+			this.ballArray[i].getSprite().body.setZeroVelocity();
+			this.ballArray[i].getSprite().body.moveTo(2000, 90);
+		}
+	}
 };
 
 InGame.prototype.createBlock = function() {
@@ -70,20 +87,23 @@ InGame.prototype.createBlock = function() {
 }
 
 InGame.prototype.update = function() {
-	for (var i = this.blocks.length - 1; i >= 0; i--) {
-		var currentBlock = this.blocks[i];
-		if (currentBlock) {
-			
-			if (currentBlock.hp > 0) {
-				for(var j =0; j < this.ballArray.length; j++){
-					this.game.physics.ninja.collide(this.ballArray[j].getSprite(), currentBlock, this.OnCollisionBlock.bind(this, currentBlock), null, this);	
+	if(this.isAllReturn === false){
+		for (var i = this.blocks.length - 1; i >= 0; i--) {
+			var currentBlock = this.blocks[i];
+			if (currentBlock) {
+				
+				if (currentBlock.hp > 0) {
+					for(var j =0; j < this.ballArray.length; j++){
+						this.game.physics.ninja.collide(this.ballArray[j].getSprite(), currentBlock, this.OnCollisionBlock.bind(this, currentBlock), null, this);	
+					}
+				} else {
+					this.blocks.splice(i, 1);
+					currentBlock.destroy();
 				}
-			} else {
-				this.blocks.splice(i, 1);
-				currentBlock.destroy();
 			}
 		}
 	}
+	
 	this.controller.updateView();
 };
 
@@ -114,6 +134,8 @@ InGame.prototype.createBall = function(ballPos) {
 	
 	this.ballArray.push(ball);
 	this.upBallCount();
+	
+	this.txtBallCount.text = "공 개수 : " +this.ballCount;
 };
 
 InGame.prototype.playerMoveTo = function(moveX) {
@@ -204,6 +226,7 @@ var InGameController = function(inViewContext) {
 		
 		else if(_state === EControllerState.MOVE_BLOCK_TUEN){
 			if(self.isAllBlockMoveCompleteCheck() === true){
+				self.viewContext.isAllReturn = false;
 				self.viewContext.createBlock();
 				self.setState(EControllerState.NONE_TURN);
 			}
