@@ -94,7 +94,7 @@ InGame.prototype.update = function() {
 				
 				if (currentBlock.hp > 0) {
 					for(var j =0; j < this.ballArray.length; j++){
-						this.game.physics.ninja.collide(this.ballArray[j].getSprite(), currentBlock, this.OnCollisionBlock.bind(this, currentBlock), null, this);	
+						this.game.physics.ninja.collide(this.ballArray[j].getSprite(), currentBlock, this.OnCollisionBlock.bind(this, [this.ballArray[j], currentBlock]), null, this);	
 					}
 				} else {
 					this.blocks.splice(i, 1);
@@ -109,10 +109,10 @@ InGame.prototype.update = function() {
 
 InGame.prototype.OnCollisionBlock = function(inParam) {
 	if (inParam) {
-		inParam.hp--;
-		inParam.updateHp();
+		inParam[1].hp = inParam[1].hp - inParam[0].attack;
+		inParam[1].updateHp();
 		
-		if (inParam.hp <= 0) {
+		if (inParam[1].hp <= 0) {
 //			var destoryBlock = this.blocks.splice(this.blocks.indexOf(inParam), 1);
 //			destoryBlock[0].destroy();
 		}
@@ -126,7 +126,7 @@ InGame.prototype.createPlayer = function() {
 };
 
 InGame.prototype.createBall = function(ballPos) {
-	var ball = new Ball(this, this.scene.fBallContainer,ballPos);
+	var ball = new Ball(this, this.scene.fBallContainer, ballPos, StzUtil.createRandomInteger(1, 5));
 	
 	this.game.physics.ninja.enableCircle(ball.getSprite(), 20);
 	ball.getSprite().body.bounce = 1;

@@ -1,4 +1,4 @@
-function Ball(inParentContext, contaniner, ballPos) {
+function Ball(inParentContext, contaniner, ballPos, inAttack) {
 	if(!(this instanceof Ball)){
 		return new Ball(inParentContext);
 	}
@@ -8,11 +8,28 @@ function Ball(inParentContext, contaniner, ballPos) {
 	var _ballSprite = _viewContext.game.add.sprite(ballPos.x, ballPos.y, 'ball');
 	var _isMoveBall = false;
 	
+	
+	switch (inAttack) {
+		case 2:
+			_ballSprite.tint = 0xff0000;
+			break;
+		case 3:
+			_ballSprite.tint = 0x00ff00;
+			break;
+		case 4:
+			_ballSprite.tint = 0x0000ff;
+		case 5:
+			_ballSprite.tint = 0xff00ff;
+			break;
+	} 
+	
+	
 	_ballSprite.anchor.set(0.5, 0.5);
 	_ballSprite.scale.set(0.5, 0.5);
 	//_ballSprite.visible = false;
 	contaniner.add(_ballSprite);
 	var self = {
+			attack: inAttack || 1,
 			isMoveBall:false
 			};
 	

@@ -49,7 +49,7 @@ block.prototype.constructor = block;
 // -- user code here --
 
 block.prototype.updateHp = function() {
-	this.fBlockHpText.text = this.hp;
+	this.fBlockHpText.text = (this.hp < 0 ? 0 : this.hp);
 };
 
 block.prototype.blockMove = function() {
