@@ -9,9 +9,9 @@
     "lang": "JAVA_SCRIPT",
     "baseClass": "Phaser.Group",
     "backgroundColor": [
-      0,
-      0,
-      0
+      255,
+      128,
+      64
     ],
     "gridColor": [
       200,

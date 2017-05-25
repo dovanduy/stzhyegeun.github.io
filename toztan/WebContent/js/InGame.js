@@ -77,9 +77,9 @@ InGame.prototype.createBlock = function() {
 		if(StzUtil.createRandomInteger(1,3) === 1){
 			continue;
 		}
-		var randomNum = StzUtil.createRandomInteger(1, 20);
+		var randomNum = StzUtil.createRandomInteger(1, 30);
 		
-		if(randomNum > 5){
+		if(randomNum > 13){
 			randomNum = 1;
 		}
 		this.blocks.push(new block(50 + i*100, 100, randomNum, StzUtil.createRandomInteger(((this.ballCount - InGameConfig.BLOCK_HP_OFFSET) <= 0 ? 1 : this.ballCount - InGameConfig.BLOCK_HP_OFFSET), this.ballCount + InGameConfig.BLOCK_HP_OFFSET), this.game));
@@ -142,6 +142,15 @@ InGame.prototype.playerMoveTo = function(moveX) {
 	this.game.add.tween(this.scene.fPlayerContainer).to({x:moveX}, 200, Phaser.Easing.Linear.None, true)
 	.onComplete.addOnce(function() {
 		this.controller.setState(EControllerState.RETURN_BALL_TURN);
+		this.createBall({x:this.scene.fPlayerContainer.x, y:this.scene.fPlayerContainer.y});
+		this.createBall({x:this.scene.fPlayerContainer.x, y:this.scene.fPlayerContainer.y});
+		this.createBall({x:this.scene.fPlayerContainer.x, y:this.scene.fPlayerContainer.y});
+		this.createBall({x:this.scene.fPlayerContainer.x, y:this.scene.fPlayerContainer.y});
+		this.createBall({x:this.scene.fPlayerContainer.x, y:this.scene.fPlayerContainer.y});
+		this.createBall({x:this.scene.fPlayerContainer.x, y:this.scene.fPlayerContainer.y});
+		this.createBall({x:this.scene.fPlayerContainer.x, y:this.scene.fPlayerContainer.y});
+		this.createBall({x:this.scene.fPlayerContainer.x, y:this.scene.fPlayerContainer.y});
+		this.createBall({x:this.scene.fPlayerContainer.x, y:this.scene.fPlayerContainer.y});
 		this.createBall({x:this.scene.fPlayerContainer.x, y:this.scene.fPlayerContainer.y});
 	}.bind(this));
 };
