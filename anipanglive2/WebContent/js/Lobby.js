@@ -14,6 +14,8 @@ Lobby.prototype.init = function() {
 	this.isStart = false;
 	this.isTaunt = false;
 	window.RivalInfo.state = ERivalState.GAME;
+
+	window.fbContextId = "1234";
 };
 
 Lobby.prototype.preload = function() {
