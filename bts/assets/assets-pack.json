@@ -1,0 +1,261 @@
+{
+  "ingame": [
+    {
+      "type": "script",
+      "key": "Level",
+      "url": "assets/canvas/Level.js"
+    },
+    {
+      "type": "script",
+      "key": "SpaceShip",
+      "url": "assets/canvas/SpaceShip.js"
+    },
+    {
+      "type": "image",
+      "key": "B_big_missile",
+      "url": "assets/images/battleship/B_big_missile.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "B_big_ship_0",
+      "url": "assets/images/battleship/B_big_ship_0.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "B_big_ship_1",
+      "url": "assets/images/battleship/B_big_ship_1.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "B_bullet",
+      "url": "assets/images/battleship/B_bullet.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "B_interceptor",
+      "url": "assets/images/battleship/B_interceptor.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "B_laser",
+      "url": "assets/images/battleship/B_laser.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "B_middle_missile",
+      "url": "assets/images/battleship/B_middle_missile.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "B_middle_ship_0",
+      "url": "assets/images/battleship/B_middle_ship_0.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "B_middle_ship_1",
+      "url": "assets/images/battleship/B_middle_ship_1.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "B_small_missile",
+      "url": "assets/images/battleship/B_small_missile.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "B_small_ship_0",
+      "url": "assets/images/battleship/B_small_ship_0.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "B_small_ship_1",
+      "url": "assets/images/battleship/B_small_ship_1.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "R_big_missile",
+      "url": "assets/images/battleship/R_big_missile.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "R_big_ship_0",
+      "url": "assets/images/battleship/R_big_ship_0.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "R_big_ship_1",
+      "url": "assets/images/battleship/R_big_ship_1.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "R_bullet",
+      "url": "assets/images/battleship/R_bullet.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "R_interceptor",
+      "url": "assets/images/battleship/R_interceptor.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "R_laser",
+      "url": "assets/images/battleship/R_laser.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "R_middle_missile",
+      "url": "assets/images/battleship/R_middle_missile.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "R_middle_ship_0",
+      "url": "assets/images/battleship/R_middle_ship_0.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "R_middle_ship_1",
+      "url": "assets/images/battleship/R_middle_ship_1.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "R_small_missile",
+      "url": "assets/images/battleship/R_small_missile.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "R_small_ship_0",
+      "url": "assets/images/battleship/R_small_ship_0.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "R_small_ship_1",
+      "url": "assets/images/battleship/R_small_ship_1.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "Y_big_missile",
+      "url": "assets/images/battleship/Y_big_missile.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "Y_big_ship_0",
+      "url": "assets/images/battleship/Y_big_ship_0.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "Y_big_ship_1",
+      "url": "assets/images/battleship/Y_big_ship_1.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "Y_bullet",
+      "url": "assets/images/battleship/Y_bullet.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "Y_interceptor",
+      "url": "assets/images/battleship/Y_interceptor.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "Y_laser",
+      "url": "assets/images/battleship/Y_laser.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "Y_middle_missile",
+      "url": "assets/images/battleship/Y_middle_missile.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "Y_middle_ship_0",
+      "url": "assets/images/battleship/Y_middle_ship_0.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "Y_middle_ship_1",
+      "url": "assets/images/battleship/Y_middle_ship_1.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "Y_small_missile",
+      "url": "assets/images/battleship/Y_small_missile.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "Y_small_ship_0",
+      "url": "assets/images/battleship/Y_small_ship_0.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "Y_small_ship_1",
+      "url": "assets/images/battleship/Y_small_ship_1.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "B_decoy",
+      "url": "assets/images/decoy/B_decoy.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "R_decoy",
+      "url": "assets/images/decoy/R_decoy.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "Y_decoy",
+      "url": "assets/images/decoy/Y_decoy.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "starfield",
+      "url": "assets/images/starfield.jpg",
+      "overwrite": false
+    }
+  ],
+  "meta": {
+    "generated": "1515660976681",
+    "app": "Phaser Editor",
+    "url": "http://phasereditor.boniatillo.com",
+    "version": "1.0",
+    "copyright": "Arian Fornaris (c) 2015,2016"
+  }
+}

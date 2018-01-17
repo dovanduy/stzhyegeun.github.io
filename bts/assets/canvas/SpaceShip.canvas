@@ -1,0 +1,53 @@
+{
+  "canvas-version": 2,
+  "settings": {
+    "className": "SpaceShip",
+    "sceneWidth": 640,
+    "sceneHeight": 360,
+    "generateOnSave": true,
+    "enableStepping": false,
+    "lang": "JAVA_SCRIPT",
+    "baseClass": "Phaser.Group",
+    "backgroundColor": [
+      180,
+      180,
+      180
+    ],
+    "gridColor": [
+      200,
+      200,
+      200
+    ],
+    "showGrid": true
+  },
+  "stateSettings": {
+    "stageBackgroundColor": [
+      0,
+      0,
+      0
+    ],
+    "autoLoad": true,
+    "preloadSprite_direction": 0,
+    "load.pack": []
+  },
+  "world": {
+    "type": "group",
+    "id": "0ff019f8-2737-47f5-acb3-78700ec2cb25",
+    "info": {
+      "editorName": "SpaceShip",
+      "setAll": [],
+      "children": [{
+        "type": "group",
+        "id": "6cc23ca6-46c1-434d-ba7a-0ca096f208a4",
+        "info": {
+          "editorName": "group",
+          "setAll": [],
+          "children": []
+        }
+      }]
+    }
+  },
+  "type": "GROUP",
+  "asset-table": {},
+  "prefab-table": {}
+}

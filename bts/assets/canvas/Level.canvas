@@ -1,0 +1,143 @@
+{
+  "canvas-version": 2,
+  "settings": {
+    "className": "Level",
+    "sceneWidth": 3840,
+    "sceneHeight": 2160,
+    "generateOnSave": true,
+    "enableStepping": false,
+    "lang": "JAVA_SCRIPT",
+    "baseClass": "Phaser.State",
+    "backgroundColor": [
+      180,
+      180,
+      180
+    ],
+    "gridColor": [
+      200,
+      200,
+      200
+    ],
+    "showGrid": true,
+    "create_after": "\r\n\r\n"
+  },
+  "stateSettings": {
+    "scaleMode": "SHOW_ALL",
+    "pageAlignHorizontally": true,
+    "pageAlignVertically": true,
+    "stageBackgroundColor": [
+      255,
+      255,
+      255
+    ],
+    "autoLoad": true,
+    "preloadSpriteId": "",
+    "preloadSprite_direction": 0,
+    "load.pack": []
+  },
+  "world": {
+    "type": "group",
+    "id": "8a0fc0bc-e3be-4656-9585-f855ac8ba0bb",
+    "info": {
+      "editorName": "Level",
+      "setAll": [],
+      "children": [
+        {
+          "type": "group",
+          "id": "6a10149f-4f6e-4687-afa3-5a3280445afd",
+          "info": {
+            "editorName": "bgContainer",
+            "setAll": [],
+            "children": [
+              {
+                "type": "image",
+                "id": "48679e85-46ce-4c0e-841f-d21457e1dc51",
+                "asset": "0",
+                "info": {
+                  "editorName": "starfield5",
+                  "scale.x": 2.5,
+                  "scale.y": 2.5
+                }
+              },
+              {
+                "type": "image",
+                "id": "c0f5ce94-36ef-445e-808a-e7f4d40e6946",
+                "asset": "0",
+                "info": {
+                  "editorName": "starfield4",
+                  "x": 1280,
+                  "scale.x": 2.5,
+                  "scale.y": 2.5
+                }
+              },
+              {
+                "type": "image",
+                "id": "75758ea8-3896-4d39-8c8c-9ee41f11c40f",
+                "asset": "0",
+                "info": {
+                  "editorName": "starfield3",
+                  "x": 2560,
+                  "y": 3,
+                  "scale.x": 2.5,
+                  "scale.y": 2.5
+                }
+              },
+              {
+                "type": "image",
+                "id": "e0999ff9-0077-43b0-83df-207ebfeb8ba8",
+                "asset": "0",
+                "info": {
+                  "editorName": "starfield2",
+                  "y": 1280,
+                  "scale.x": 2.5,
+                  "scale.y": 2.5
+                }
+              },
+              {
+                "type": "image",
+                "id": "170bbaca-bc48-4a19-9cb4-293c989fd688",
+                "asset": "0",
+                "info": {
+                  "editorName": "starfield1",
+                  "x": 1280,
+                  "y": 1280,
+                  "scale.x": 2.5,
+                  "scale.y": 2.5
+                }
+              },
+              {
+                "type": "image",
+                "id": "a7eeafcc-8519-4b3c-bdc9-7e8be4883b0b",
+                "asset": "0",
+                "info": {
+                  "editorName": "starfield",
+                  "x": 2560,
+                  "y": 1280,
+                  "scale.x": 2.5,
+                  "scale.y": 2.5
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "group",
+          "id": "e698019d-eb6d-4c64-adbf-c7242d3b64b4",
+          "info": {
+            "editorName": "gameContainer",
+            "editorPublic": true,
+            "setAll": [],
+            "children": []
+          }
+        }
+      ]
+    }
+  },
+  "type": "STATE",
+  "asset-table": {"0": {
+    "file": "WebContent/assets/assets-pack.json",
+    "section": "ingame",
+    "asset": "starfield"
+  }},
+  "prefab-table": {}
+}
