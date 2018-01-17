@@ -20,7 +20,7 @@ function GunBullet (inGame, inKey, inContainer) {
 	this.checkWorldBounds = false;
 	this.outOfBoundsKill = false;
 	
-	this.game.physics.p2.enable(this, true);
+	this.game.physics.p2.enable(this, false);
 	this.game.add.existing(this);
 	this.body.data.shapes[0].name = "bullet";
 }

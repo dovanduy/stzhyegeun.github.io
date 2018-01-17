@@ -104,7 +104,7 @@ SpaceShip.prototype.initShip = function(inShipColor, inShipSize) {
 	this.currentHp = this.MAX_HP;
 	
 	// 물리 설정 
-	this.game.physics.p2.enable(this.fShipView, true);
+	this.game.physics.p2.enable(this.fShipView, false);
 	this.getBody().data.shapes[0].name = "body_ship";
 	this.getBody().data.shapes[0].sensor = true;
 	
