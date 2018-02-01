@@ -1,0 +1,14 @@
+{
+  "Game": [{
+    "type": "script",
+    "key": "TouchPangView",
+    "url": "assets/canvas/prefab/TouchPangView.js"
+  }],
+  "meta": {
+    "generated": "1517454590404",
+    "app": "Phaser Editor",
+    "url": "http://phasereditor.boniatillo.com",
+    "version": "1.0",
+    "copyright": "Arian Fornaris (c) 2015,2016"
+  }
+}

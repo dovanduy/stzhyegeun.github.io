@@ -1,0 +1,78 @@
+{
+  "canvas-version": 2,
+  "settings": {
+    "className": "TouchPangView",
+    "sceneWidth": 640,
+    "sceneHeight": 360,
+    "generateOnSave": true,
+    "enableStepping": false,
+    "lang": "JAVA_SCRIPT",
+    "baseClass": "Phaser.Group",
+    "backgroundColor": [
+      180,
+      180,
+      180
+    ],
+    "gridColor": [
+      200,
+      200,
+      200
+    ],
+    "showGrid": true
+  },
+  "stateSettings": {
+    "stageBackgroundColor": [
+      0,
+      0,
+      0
+    ],
+    "autoLoad": true,
+    "preloadSpriteId": "",
+    "preloadSprite_direction": 0,
+    "load.pack": []
+  },
+  "world": {
+    "type": "group",
+    "id": "dd762423-45d8-4302-a5e6-09e280315c8f",
+    "info": {
+      "editorName": "TouchPangView",
+      "setAll": [],
+      "children": [{
+        "type": "group",
+        "id": "bfa2de49-a6d1-44e8-ab70-dd1b365dc9a6",
+        "info": {
+          "editorName": "group",
+          "setAll": [],
+          "children": [
+            {
+              "type": "group",
+              "id": "a7cd98b5-e9bc-42af-a87b-60c5650a4f41",
+              "info": {
+                "editorName": "pangViewGroup",
+                "editorPublic": true,
+                "setAll": [],
+                "children": []
+              }
+            },
+            {
+              "type": "text",
+              "id": "0e132d24-bb82-455f-b2be-ec7ad3cf0cfe",
+              "info": {
+                "editorName": "txtTouchCount",
+                "editorPublic": true,
+                "anchor.x": 0.5,
+                "anchor.y": 0.5,
+                "text": "3",
+                "style.stroke": "#ffffff",
+                "style.strokeThickness": 3
+              }
+            }
+          ]
+        }
+      }]
+    }
+  },
+  "type": "GROUP",
+  "asset-table": {},
+  "prefab-table": {}
+}
