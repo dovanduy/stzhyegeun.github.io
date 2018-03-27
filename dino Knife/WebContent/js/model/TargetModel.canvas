@@ -1,0 +1,559 @@
+{
+  "canvas-version": 2,
+  "settings": {
+    "className": "TargetModel",
+    "sceneWidth": 720,
+    "sceneHeight": 1280,
+    "generateOnSave": true,
+    "enableStepping": false,
+    "lang": "JAVA_SCRIPT",
+    "baseClass": "Phaser.Group",
+    "backgroundColor": [
+      180,
+      180,
+      180
+    ],
+    "gridColor": [
+      200,
+      200,
+      200
+    ],
+    "showGrid": true
+  },
+  "stateSettings": {
+    "stageBackgroundColor": [
+      0,
+      0,
+      0
+    ],
+    "autoLoad": true,
+    "preloadSpriteId": "",
+    "preloadSprite_direction": 0,
+    "load.pack": []
+  },
+  "world": {
+    "type": "group",
+    "id": "6dc2aff4-7628-40f0-b772-f9eff3534365",
+    "info": {
+      "editorName": "TargetModel",
+      "setAll": [],
+      "children": [{
+        "type": "group",
+        "id": "e3536881-0ecf-42d5-93f0-f08a2beb85fd",
+        "info": {
+          "editorName": "group",
+          "setAll": [],
+          "children": [
+            {
+              "type": "group",
+              "id": "460a00ec-3216-40f3-ae7b-a4b0adcd9949",
+              "info": {
+                "editorName": "bigTarget",
+                "editorPublic": true,
+                "x": 360,
+                "y": 372,
+                "scale.x": 0.8,
+                "scale.y": 0.8,
+                "setAll": [],
+                "children": [
+                  {
+                    "type": "group",
+                    "id": "dc928c45-7100-4f6f-9250-02bbc4deab1b",
+                    "info": {
+                      "editorName": "coinContainer",
+                      "editorPublic": true,
+                      "setAll": [],
+                      "children": []
+                    }
+                  },
+                  {
+                    "type": "group",
+                    "id": "ab660bd1-1150-40a9-a8cb-7ef1b619273c",
+                    "info": {
+                      "editorName": "obstacleContainer",
+                      "editorPublic": true,
+                      "setAll": [],
+                      "children": []
+                    }
+                  },
+                  {
+                    "type": "group",
+                    "id": "a5383bc6-ffa5-40e7-90b2-9975d70c07ba",
+                    "info": {
+                      "editorName": "colliderContainer",
+                      "editorPublic": true,
+                      "setAll": [],
+                      "children": []
+                    }
+                  },
+                  {
+                    "type": "group",
+                    "id": "aaf886b8-4ee2-4223-801e-bcce6ec2563b",
+                    "info": {
+                      "editorName": "outGameOutLine",
+                      "editorPick": false,
+                      "editorPublic": true,
+                      "editorShow": false,
+                      "setAll": [],
+                      "children": [
+                        {
+                          "type": "atlas-sprite",
+                          "id": "ced625bc-169d-42af-865c-b7a850d0a37f",
+                          "asset": "0",
+                          "info": {
+                            "editorName": "green_leaf1_png1",
+                            "x": 161,
+                            "y": 151,
+                            "rotation": 2.4607504366012196,
+                            "scale.x": 0.52,
+                            "scale.y": 0.52,
+                            "anchor.x": 0.5,
+                            "anchor.y": 0.5
+                          }
+                        },
+                        {
+                          "type": "atlas-sprite",
+                          "id": "35b1ddf8-cea1-4833-80c0-5f637589600f",
+                          "asset": "0",
+                          "info": {
+                            "editorName": "green_leaf_png1",
+                            "x": -170,
+                            "y": 137,
+                            "rotation": -2.3666629968558066,
+                            "scale.x": 0.52,
+                            "scale.y": 0.52,
+                            "anchor.x": 0.5,
+                            "anchor.y": 0.5
+                          }
+                        },
+                        {
+                          "type": "atlas-sprite",
+                          "id": "c60801ce-3d54-4715-9dd6-1add4f1f457d",
+                          "asset": "0",
+                          "info": {
+                            "editorName": "green_leaf1_png",
+                            "x": 149,
+                            "y": -163,
+                            "rotation": 0.8215987029663009,
+                            "scale.x": 0.52,
+                            "scale.y": 0.52,
+                            "anchor.x": 0.5,
+                            "anchor.y": 0.5
+                          }
+                        },
+                        {
+                          "type": "atlas-sprite",
+                          "id": "33061328-e7c0-44db-8a8a-5b2d91ad90ad",
+                          "asset": "0",
+                          "info": {
+                            "editorName": "green_leaf_png",
+                            "x": -157,
+                            "y": -152,
+                            "rotation": -0.821343615846726,
+                            "scale.x": 0.52,
+                            "scale.y": 0.52,
+                            "anchor.x": 0.5,
+                            "anchor.y": 0.5
+                          }
+                        },
+                        {
+                          "type": "atlas-sprite",
+                          "id": "baadd49b-957c-494a-98d8-a1d27b99b0f3",
+                          "asset": "1",
+                          "info": {
+                            "editorName": "green_wood_png",
+                            "x": -222,
+                            "y": 52,
+                            "rotation": -1.7097728341795333,
+                            "scale.x": 0.51,
+                            "scale.y": 0.51,
+                            "anchor.x": 0.5,
+                            "anchor.y": 0.5
+                          }
+                        },
+                        {
+                          "type": "atlas-sprite",
+                          "id": "9a696fc8-082e-41df-bf09-c9d2eeeb1fd3",
+                          "asset": "1",
+                          "info": {
+                            "editorName": "green_wood_png1",
+                            "x": 223,
+                            "y": -67,
+                            "rotation": -5.0056432177963215,
+                            "scale.x": 0.51,
+                            "scale.y": 0.51,
+                            "anchor.x": 0.5,
+                            "anchor.y": 0.5
+                          }
+                        },
+                        {
+                          "type": "group",
+                          "id": "906c3478-a18e-4bed-8d22-1204f9caee74",
+                          "info": {
+                            "editorName": "outGameCoinContainer",
+                            "editorPublic": true,
+                            "setAll": [],
+                            "children": [
+                              {
+                                "type": "atlas-sprite",
+                                "id": "d157ceeb-6f1c-4e06-951d-9fa9a505a94e",
+                                "asset": "2",
+                                "info": {
+                                  "editorName": "common_coin_png1",
+                                  "x": 208,
+                                  "y": 77,
+                                  "scale.x": 0.5,
+                                  "scale.y": 0.5
+                                }
+                              },
+                              {
+                                "type": "atlas-sprite",
+                                "id": "968a80e4-8aba-49d9-8ef5-7e4507c4fae6",
+                                "asset": "2",
+                                "info": {
+                                  "editorName": "common_coin_png",
+                                  "x": -246,
+                                  "y": -93,
+                                  "scale.x": 0.4,
+                                  "scale.y": 0.4
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "type": "atlas-sprite",
+                    "id": "2b61dd4d-30dd-4afa-9d5b-18b6ced7298c",
+                    "asset": "3",
+                    "info": {
+                      "editorName": "target",
+                      "editorPublic": true,
+                      "scale.x": 0.53,
+                      "scale.y": 0.53,
+                      "anchor.x": 0.5,
+                      "anchor.y": 0.5,
+                      "tint": "0x89ce1b"
+                    }
+                  },
+                  {
+                    "type": "group",
+                    "id": "671b312e-3ddc-4d08-8c71-46da58910721",
+                    "info": {
+                      "editorName": "inGameContainer",
+                      "editorPublic": true,
+                      "setAll": [],
+                      "children": [
+                        {
+                          "type": "atlas-sprite",
+                          "id": "b135c540-33b7-4eff-bd3a-4564ce97c38d",
+                          "asset": "4",
+                          "info": {
+                            "editorName": "bossMouth",
+                            "editorPublic": true,
+                            "x": -25,
+                            "y": 137,
+                            "scale.x": 1.2,
+                            "scale.y": 1.2
+                          }
+                        },
+                        {
+                          "type": "atlas-sprite",
+                          "id": "92386181-9c71-4f70-ae34-27aceb40f191",
+                          "asset": "5",
+                          "info": {
+                            "editorName": "bossLeftEyeOut",
+                            "editorPublic": true,
+                            "x": -57,
+                            "y": 77,
+                            "scale.x": 0.65,
+                            "scale.y": 0.65
+                          }
+                        },
+                        {
+                          "type": "atlas-sprite",
+                          "id": "130e350a-fc70-4917-b5c4-0e26c6a9c159",
+                          "asset": "5",
+                          "info": {
+                            "editorName": "bossRightEyeOut",
+                            "editorPublic": true,
+                            "x": 3,
+                            "y": 77,
+                            "scale.x": 0.65,
+                            "scale.y": 0.65
+                          }
+                        },
+                        {
+                          "type": "atlas-sprite",
+                          "id": "0f282686-5894-4b89-87ff-a00d5bd34116",
+                          "asset": "6",
+                          "info": {
+                            "editorName": "bossRightEyeIn",
+                            "editorPublic": true,
+                            "x": 19,
+                            "y": 104,
+                            "scale.x": 0.51,
+                            "scale.y": 0.51,
+                            "anchor.x": 0.5,
+                            "anchor.y": 0.5,
+                            "tint": "0x1e9fbc"
+                          }
+                        },
+                        {
+                          "type": "atlas-sprite",
+                          "id": "ddd31879-820d-4974-a558-0e5a3d52db4f",
+                          "asset": "6",
+                          "info": {
+                            "editorName": "bossLeftEyeIn",
+                            "editorPublic": true,
+                            "x": -20,
+                            "y": 104,
+                            "scale.x": 0.51,
+                            "scale.y": 0.51,
+                            "anchor.x": 0.5,
+                            "anchor.y": 0.5,
+                            "tint": "0x1e9fbc"
+                          }
+                        },
+                        {
+                          "type": "group",
+                          "id": "041e1cb7-e578-42fa-88fa-4a2027a5fd9b",
+                          "info": {
+                            "editorName": "bossEyeCoverContainer",
+                            "editorPublic": true,
+                            "setAll": [],
+                            "children": [
+                              {
+                                "type": "atlas-sprite",
+                                "id": "82658686-6376-4f1f-bf49-d118be3a57cb",
+                                "asset": "7",
+                                "info": {
+                                  "editorName": "bossEyeCoverShadow",
+                                  "editorPublic": true,
+                                  "x": -68,
+                                  "y": 73,
+                                  "scale.x": 0.8,
+                                  "scale.y": 0.8,
+                                  "alpha": 0.5
+                                }
+                              },
+                              {
+                                "type": "atlas-sprite",
+                                "id": "215263c3-e6c4-4063-967e-436a035db159",
+                                "asset": "7",
+                                "info": {
+                                  "editorName": "bossEyeCover",
+                                  "editorPublic": true,
+                                  "x": -78,
+                                  "y": 63,
+                                  "scale.x": 0.9,
+                                  "scale.y": 0.9
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "type": "group",
+                    "id": "822aff94-2912-49eb-a0d7-549d1fec107e",
+                    "info": {
+                      "editorName": "outGameContainer",
+                      "editorPick": false,
+                      "editorPublic": true,
+                      "editorShow": false,
+                      "setAll": [],
+                      "children": [
+                        {
+                          "type": "atlas-sprite",
+                          "id": "f1c8a949-c24d-4971-b122-71665f9976af",
+                          "asset": "3",
+                          "info": {
+                            "editorName": "circle",
+                            "editorPick": false,
+                            "x": 1,
+                            "y": -30,
+                            "scale.x": 0.431,
+                            "scale.y": 0.431,
+                            "anchor.x": 0.5,
+                            "anchor.y": 0.5,
+                            "tint": "0xaee80f"
+                          }
+                        },
+                        {
+                          "type": "group",
+                          "id": "2f541b4d-aeae-4bfd-b193-753a82c121cf",
+                          "info": {
+                            "editorName": "outGameBossFaceContanier",
+                            "editorPublic": true,
+                            "setAll": [],
+                            "children": [
+                              {
+                                "type": "atlas-sprite",
+                                "id": "8dabec5a-0b70-4724-9798-b824a9569182",
+                                "asset": "3",
+                                "info": {
+                                  "editorName": "rightEyeOut",
+                                  "x": 29,
+                                  "y": -54,
+                                  "scale.x": 0.07,
+                                  "scale.y": 0.07,
+                                  "anchor.x": 0.5,
+                                  "anchor.y": 0.5
+                                }
+                              },
+                              {
+                                "type": "atlas-sprite",
+                                "id": "00069aaa-4569-4443-8539-889cb4ef5937",
+                                "asset": "3",
+                                "info": {
+                                  "editorName": "leftEyeOut",
+                                  "x": -29,
+                                  "y": -53,
+                                  "scale.x": 0.07,
+                                  "scale.y": 0.07,
+                                  "anchor.x": 0.5,
+                                  "anchor.y": 0.5
+                                }
+                              },
+                              {
+                                "type": "atlas-sprite",
+                                "id": "4975570c-292e-47d0-a4a1-40e52e870a98",
+                                "asset": "6",
+                                "info": {
+                                  "editorName": "rightEyeIn",
+                                  "editorPublic": true,
+                                  "x": 19,
+                                  "y": -54,
+                                  "scale.x": 0.51,
+                                  "scale.y": 0.51,
+                                  "anchor.x": 0.5,
+                                  "anchor.y": 0.5,
+                                  "tint": "0x1e9fbc"
+                                }
+                              },
+                              {
+                                "type": "atlas-sprite",
+                                "id": "5adbb048-2f40-412c-8c01-6f87d7d891bd",
+                                "asset": "6",
+                                "info": {
+                                  "editorName": "leftEyeIn",
+                                  "editorPublic": true,
+                                  "x": -19,
+                                  "y": -54,
+                                  "scale.x": 0.51,
+                                  "scale.y": 0.51,
+                                  "anchor.x": 0.5,
+                                  "anchor.y": 0.5,
+                                  "tint": "0x1e9fbc"
+                                }
+                              },
+                              {
+                                "type": "atlas-sprite",
+                                "id": "105cb3e3-6eb6-44d8-b221-5d7b9569b893",
+                                "asset": "8",
+                                "info": {
+                                  "editorName": "green_mouth_png",
+                                  "x": -22,
+                                  "y": -21,
+                                  "scale.x": 0.5,
+                                  "scale.y": 0.5
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "type": "group",
+              "id": "14e6cf6e-fdbf-4670-abc6-7094de2cea7f",
+              "info": {
+                "editorName": "notRotateContainer",
+                "editorPublic": true,
+                "setAll": [],
+                "children": []
+              }
+            },
+            {
+              "type": "group",
+              "id": "bfdc7e13-cd1f-4743-a8d9-fc5c88cb4bd0",
+              "info": {
+                "editorName": "txtRemainContainer",
+                "editorPublic": true,
+                "setAll": [],
+                "children": []
+              }
+            }
+          ]
+        }
+      }]
+    }
+  },
+  "type": "GROUP",
+  "asset-table": {
+    "0": {
+      "file": "WebContent/assets/pack.json",
+      "section": "inGame",
+      "asset": "mainAtlas",
+      "sprite": "green_leaf.png"
+    },
+    "1": {
+      "file": "WebContent/assets/pack.json",
+      "section": "inGame",
+      "asset": "mainAtlas",
+      "sprite": "green_wood.png"
+    },
+    "2": {
+      "file": "WebContent/assets/pack.json",
+      "section": "inGame",
+      "asset": "mainAtlas",
+      "sprite": "common_coin.png"
+    },
+    "3": {
+      "file": "WebContent/assets/pack.json",
+      "section": "inGame",
+      "asset": "mainAtlas",
+      "sprite": "circle.png"
+    },
+    "4": {
+      "file": "WebContent/assets/pack.json",
+      "section": "inGame",
+      "asset": "mainAtlas",
+      "sprite": "boss_mouth.png"
+    },
+    "5": {
+      "file": "WebContent/assets/pack.json",
+      "section": "inGame",
+      "asset": "mainAtlas",
+      "sprite": "particle_star.png"
+    },
+    "6": {
+      "file": "WebContent/assets/pack.json",
+      "section": "inGame",
+      "asset": "mainAtlas",
+      "sprite": "eye.png"
+    },
+    "7": {
+      "file": "WebContent/assets/pack.json",
+      "section": "inGame",
+      "asset": "mainAtlas",
+      "sprite": "boss_eye_cover.png"
+    },
+    "8": {
+      "file": "WebContent/assets/pack.json",
+      "section": "inGame",
+      "asset": "mainAtlas",
+      "sprite": "green_mouth.png"
+    }
+  },
+  "prefab-table": {}
+}

@@ -1,0 +1,114 @@
+{
+  "canvas-version": 2,
+  "settings": {
+    "className": "ProfileInfo",
+    "sceneWidth": 640,
+    "sceneHeight": 360,
+    "generateOnSave": true,
+    "enableStepping": false,
+    "lang": "JAVA_SCRIPT",
+    "baseClass": "Phaser.Group",
+    "backgroundColor": [
+      180,
+      180,
+      180
+    ],
+    "gridColor": [
+      200,
+      200,
+      200
+    ],
+    "showGrid": true
+  },
+  "stateSettings": {
+    "stageBackgroundColor": [
+      0,
+      0,
+      0
+    ],
+    "autoLoad": true,
+    "preloadSpriteId": "",
+    "preloadSprite_direction": 0,
+    "load.pack": []
+  },
+  "world": {
+    "type": "group",
+    "id": "c6e737ab-4259-4a47-8120-eea0a2aa8173",
+    "info": {
+      "editorName": "ProfileInfo",
+      "setAll": [],
+      "children": [{
+        "type": "group",
+        "id": "b2852c5a-431f-4d7a-b027-60e61072a199",
+        "info": {
+          "editorName": "group",
+          "setAll": [],
+          "children": [
+            {
+              "type": "image",
+              "id": "3194ba62-4b7c-457b-baa5-f6f59339fd0e",
+              "asset": "0",
+              "info": {
+                "editorName": "profileMask",
+                "editorPublic": true
+              }
+            },
+            {
+              "type": "image",
+              "id": "6b37d7f7-da91-4d44-8c3b-47f85446d473",
+              "asset": "0",
+              "info": {
+                "editorName": "profileBg",
+                "editorPublic": true,
+                "anchor.x": 0.5,
+                "anchor.y": 0.5
+              }
+            },
+            {
+              "type": "text",
+              "id": "e2351111-b2e9-45c4-b9c5-2773604c27ee",
+              "info": {
+                "editorName": "txtStageValue",
+                "editorPublic": true,
+                "x": 44,
+                "y": -4,
+                "text": "1976",
+                "style.font": "Lilita One",
+                "style.fontSize": 38
+              }
+            },
+            {
+              "type": "text",
+              "id": "5417562d-8435-4cc0-b01d-3116267611d0",
+              "info": {
+                "editorName": "txtName",
+                "editorPublic": true,
+                "x": 43,
+                "y": -28,
+                "text": "Hyunwoo",
+                "style.fontSize": 22
+              }
+            },
+            {
+              "type": "group",
+              "id": "81684967-b209-4e88-bfdf-2704056fb093",
+              "info": {
+                "editorName": "profileContainer",
+                "editorPublic": true,
+                "setAll": [],
+                "children": []
+              }
+            }
+          ]
+        }
+      }]
+    }
+  },
+  "type": "GROUP",
+  "asset-table": {"0": {
+    "file": "WebContent/assets/pack.json",
+    "section": "inGame",
+    "asset": "titleMask"
+  }},
+  "prefab-table": {}
+}

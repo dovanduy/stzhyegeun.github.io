@@ -1,0 +1,129 @@
+{
+  "canvas-version": 2,
+  "settings": {
+    "className": "RankingSceneItem",
+    "sceneWidth": 720,
+    "sceneHeight": 162,
+    "generateOnSave": true,
+    "enableStepping": false,
+    "lang": "JAVA_SCRIPT",
+    "baseClass": "Phaser.Group",
+    "backgroundColor": [
+      180,
+      180,
+      180
+    ],
+    "gridColor": [
+      200,
+      200,
+      200
+    ],
+    "showGrid": true
+  },
+  "stateSettings": {
+    "stageBackgroundColor": [
+      0,
+      0,
+      0
+    ],
+    "autoLoad": true,
+    "preloadSpriteId": "",
+    "preloadSprite_direction": 0,
+    "load.pack": []
+  },
+  "world": {
+    "type": "group",
+    "id": "41227024-b131-4376-bfe0-98d54d45b615",
+    "info": {
+      "editorName": "RankingSceneItem",
+      "setAll": [],
+      "children": [{
+        "type": "group",
+        "id": "18879ad4-a417-4477-9e53-fbf2d4bf3df0",
+        "info": {
+          "editorName": "group",
+          "setAll": [],
+          "children": [
+            {
+              "type": "text",
+              "id": "cd276989-e098-41a8-8570-c3585418aa1b",
+              "info": {
+                "editorName": "txtName",
+                "editorPublic": true,
+                "x": 202,
+                "y": 45,
+                "text": "Hyunwoo",
+                "style.fontSize": 38
+              }
+            },
+            {
+              "type": "text",
+              "id": "7dc0d411-9cf4-406e-944f-23a07bf80b20",
+              "info": {
+                "editorName": "txtStage",
+                "editorPublic": true,
+                "x": 201,
+                "y": 91,
+                "text": "STAGE",
+                "style.font": "Lilita One",
+                "style.fontSize": 34
+              }
+            },
+            {
+              "type": "text",
+              "id": "c4bd5715-35d3-4e21-9a94-3aa0def6bf71",
+              "info": {
+                "editorName": "txtStageValue",
+                "editorPublic": true,
+                "x": 302,
+                "y": 91,
+                "text": "1976",
+                "style.font": "Lilita One",
+                "style.fontSize": 34
+              }
+            },
+            {
+              "type": "atlas-sprite",
+              "id": "fe3e393b-636c-48d1-8626-681760b4eb9b",
+              "asset": "0",
+              "info": {
+                "editorName": "bgRankNum",
+                "editorPublic": true,
+                "x": 43,
+                "y": 54,
+                "scale.x": 0.8,
+                "scale.y": 0.8
+              }
+            },
+            {
+              "type": "atlas-sprite",
+              "id": "2c3b5f3e-2b0b-44f3-9e46-2a87d113767d",
+              "asset": "1",
+              "info": {
+                "editorName": "boder_line_590px_png",
+                "y": 162,
+                "scale.x": 180.5
+              }
+            }
+          ]
+        }
+      }]
+    }
+  },
+  "type": "GROUP",
+  "asset-table": {
+    "0": {
+      "file": "WebContent/assets/pack.json",
+      "section": "inGame",
+      "asset": "mainAtlas",
+      "sprite": "particle_star.png"
+    },
+    "1": {
+      "file": "WebContent/assets/pack.json",
+      "section": "inGame",
+      "asset": "mainAtlas",
+      "sprite": "boder_line_590px.png"
+    }
+  },
+  "prefab-table": {}
+}

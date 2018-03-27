@@ -1,0 +1,98 @@
+{
+  "canvas-version": 2,
+  "settings": {
+    "className": "SimpleLoadingScene",
+    "sceneWidth": 720,
+    "sceneHeight": 1280,
+    "generateOnSave": true,
+    "enableStepping": false,
+    "lang": "JAVA_SCRIPT",
+    "baseClass": "Phaser.Group",
+    "backgroundColor": [
+      180,
+      180,
+      180
+    ],
+    "gridColor": [
+      200,
+      200,
+      200
+    ],
+    "showGrid": true
+  },
+  "stateSettings": {
+    "stageBackgroundColor": [
+      0,
+      0,
+      0
+    ],
+    "autoLoad": true,
+    "preloadSpriteId": "",
+    "preloadSprite_direction": 0,
+    "load.pack": []
+  },
+  "world": {
+    "type": "group",
+    "id": "8230dcd3-b406-4daf-80e5-5c32a61110d5",
+    "info": {
+      "editorName": "SimpleLoadingScene",
+      "setAll": [],
+      "children": [{
+        "type": "group",
+        "id": "f5cdacef-984b-4cd8-ab6f-f151e67af285",
+        "info": {
+          "editorName": "group",
+          "setAll": [],
+          "children": [
+            {
+              "type": "group",
+              "id": "5596bc4c-dbcc-438f-a682-b11851a229c5",
+              "info": {
+                "editorName": "blindContainer",
+                "editorPublic": true,
+                "setAll": [],
+                "children": []
+              }
+            },
+            {
+              "type": "atlas-sprite",
+              "id": "d2d92582-16b3-4872-81cf-820f5f4b284a",
+              "asset": "0",
+              "info": {
+                "editorName": "iconLoading",
+                "editorPublic": true,
+                "x": 360,
+                "y": 520,
+                "scale.x": 1.5,
+                "scale.y": 1.5,
+                "anchor.x": 0.5,
+                "anchor.y": 0.5
+              }
+            },
+            {
+              "type": "text",
+              "id": "5b45aac9-0f0a-4033-921b-89ed357b0c5e",
+              "info": {
+                "editorName": "txtProgress",
+                "editorPublic": true,
+                "x": 360,
+                "y": 520,
+                "anchor.x": 0.5,
+                "anchor.y": 0.5,
+                "text": "1/4"
+              }
+            }
+          ]
+        }
+      }]
+    }
+  },
+  "type": "GROUP",
+  "asset-table": {"0": {
+    "file": "WebContent/assets/pack.json",
+    "section": "inGame",
+    "asset": "mainAtlas",
+    "sprite": "circle_loading.png"
+  }},
+  "prefab-table": {}
+}
