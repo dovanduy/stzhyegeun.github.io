@@ -265,12 +265,14 @@ var ServerManager_proto = function() {
 	
 ///////////////////////// 로그 ///////////////////////////
 	this.setLog = function(inMsg, inVars, inDoneCallback, inFailCallback, inContext){
+		var time = Math.floor(new Date().getTime()/1000);
 		
 		var setLogParam = {
 			logs	: [{
 				game			: 29,
 				user_id			: this.serverId,
-				msg 			: inMsg
+				msg 			: inMsg,
+				t				: time
 			}]
 		};
 		if(setLogParam.logs[0]){
