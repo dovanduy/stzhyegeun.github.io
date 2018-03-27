@@ -119,10 +119,10 @@ function InGameController_proto(){
 					this.game.time.events.add(CHARACTER_SPEED, function(){
 						window.sounds.sound('sfx_nailed').play();
 					}.bind(this));
-					console.log("충돌");
+		
 					this.startFireCharacters.splice(i, 1);
-					//startFireCharacter.y =  mainTarget.world.y;
-					//startFireCharacter.pivot.y = -200*_targetScale;
+					startFireCharacter.y =  mainTarget.world.y;
+					startFireCharacter.pivot.y = -200*_targetScale;
 					this.endFirecharacters.push(startFireCharacter);
 					
 					_targetModel.fTextRemainCount.text = --_remainCount;
@@ -212,9 +212,8 @@ function InGameController_proto(){
 		var mainTarget = _targetModel.getMainTarget();
 		this.startFireCharacters.push(_character);
 		
-		var fireTween = this.game.add.tween(_character).to({y:mainTarget.world.y}, 1000, Phaser.Easing.Linear.None, true);
+		var fireTween = this.game.add.tween(_character).to({y:mainTarget.world.y}, CHARACTER_SPEED, Phaser.Easing.Linear.None, true);
 		fireTween.onComplete.addOnce(function(inParam){
-			console.log("트윈 끝");
 			if (inParam) {
 				this.game.tweens.remove(inParam);
 			}

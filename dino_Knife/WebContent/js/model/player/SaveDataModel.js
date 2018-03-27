@@ -4,7 +4,7 @@ function SaveDataModel () {
 	}
 	
 	var _obj = {
-			bestStage			: 2, 
+			bestStage			: 1, 
 			coin				: 0, 
 			characterID 		: 1,
 			freeCoinTimeStamp	: new Date().getTime(),
