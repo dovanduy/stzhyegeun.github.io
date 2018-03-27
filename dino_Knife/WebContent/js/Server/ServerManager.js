@@ -41,12 +41,12 @@ var ServerManager_proto = function() {
 	{
 		// SETTINGS
 		//var _baseUrl = (StzBuildConfig.SERVER_MODE === EServerMode.STAGE ? "https://webgame-stage.stzapp.net" : "https://webgame.stzapp.net");
-		var _baseUrl = "https://drunz.stzapp.net";
+		var _baseUrl = "https://dthornz.stzapp.net";
 		if (StzBuildConfig.SERVER_MODE === EServerMode.STAGE) {
 			//_baseUrl = "https://webgame-stage.stzapp.net";
-			_baseUrl = "https://drunz.stzapp.net";
+			_baseUrl = "https://dthornz.stzapp.net";
 		} else if (StzBuildConfig.SERVER_MODE === EServerMode.LIVE) {
-			_baseUrl = "https://drunz.stzapp.net";
+			_baseUrl = "https://dthornz.stzapp.net";
 		}
 		
 		var _baseLogUrl = "https://hyperlog.stzgame.net/logs";
