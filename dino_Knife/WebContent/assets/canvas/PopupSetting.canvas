@@ -1,0 +1,225 @@
+{
+  "canvas-version": 2,
+  "settings": {
+    "className": "PopupSetting",
+    "sceneWidth": 720,
+    "sceneHeight": 1280,
+    "generateOnSave": true,
+    "enableStepping": false,
+    "lang": "JAVA_SCRIPT",
+    "baseClass": "Phaser.Group",
+    "backgroundColor": [
+      180,
+      180,
+      180
+    ],
+    "gridColor": [
+      200,
+      200,
+      200
+    ],
+    "showGrid": true
+  },
+  "stateSettings": {
+    "stageBackgroundColor": [
+      0,
+      0,
+      0
+    ],
+    "autoLoad": true,
+    "preloadSpriteId": "",
+    "preloadSprite_direction": 0,
+    "load.pack": []
+  },
+  "world": {
+    "type": "group",
+    "id": "add6e560-39d6-478f-9da1-bae3f7cdf936",
+    "info": {
+      "editorName": "PopupSetting",
+      "setAll": [],
+      "children": [{
+        "type": "group",
+        "id": "f83b0944-dffa-4e1f-9016-7751ae075578",
+        "info": {
+          "editorName": "group",
+          "setAll": [],
+          "children": [
+            {
+              "type": "group",
+              "id": "3b695579-7fae-434a-872c-10652e1cae2a",
+              "info": {
+                "editorName": "blindContainer",
+                "editorPublic": true,
+                "setAll": [],
+                "children": []
+              }
+            },
+            {
+              "type": "prefab",
+              "prefab": "0",
+              "id": "a303fbe9-88fe-4fd4-99fb-b858f72bcea3",
+              "info": {
+                "editorName": "popupBg",
+                "editorPublic": true,
+                "x": 360,
+                "y": 651
+              }
+            },
+            {
+              "type": "group",
+              "id": "5c50fee7-84ca-4035-b99a-0ce521e9a3c8",
+              "info": {
+                "editorName": "soundContainer",
+                "setAll": [],
+                "children": [
+                  {
+                    "type": "atlas-sprite",
+                    "id": "2e5fcc70-290a-4268-84e9-1e500ce9bad9",
+                    "asset": "0",
+                    "info": {
+                      "editorName": "btnLanguage",
+                      "editorPublic": true,
+                      "x": 359,
+                      "y": 799,
+                      "anchor.x": 0.5,
+                      "anchor.y": 0.5,
+                      "tint": "0xffffff"
+                    }
+                  },
+                  {
+                    "type": "atlas-sprite",
+                    "id": "deeebc94-5a06-4800-a51f-3fdc172dd08a",
+                    "asset": "1",
+                    "info": {
+                      "editorName": "language_icon_png",
+                      "x": 168,
+                      "y": 764
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "type": "group",
+              "id": "1cc9bffc-49b8-4662-b8c7-ec560b821f37",
+              "info": {
+                "editorName": "musicContainer",
+                "setAll": [],
+                "children": [
+                  {
+                    "type": "atlas-sprite",
+                    "id": "0742829a-86b9-4fa7-9757-135c88118272",
+                    "asset": "0",
+                    "info": {
+                      "editorName": "btnMusic",
+                      "editorPublic": true,
+                      "x": 362,
+                      "y": 624,
+                      "anchor.x": 0.5,
+                      "anchor.y": 0.5,
+                      "tint": "0xffffff"
+                    }
+                  },
+                  {
+                    "type": "atlas-sprite",
+                    "id": "adfcc79f-1de5-4fff-8cba-6e31e795a1c3",
+                    "asset": "2",
+                    "info": {
+                      "editorName": "iconMusic",
+                      "editorPublic": true,
+                      "x": 166,
+                      "y": 591
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "type": "group",
+              "id": "d45e82be-5239-4bc8-b8a5-860382fdad3d",
+              "info": {
+                "editorName": "languageContainer",
+                "editorPublic": true,
+                "x": 597,
+                "y": 402,
+                "setAll": [],
+                "children": [
+                  {
+                    "type": "atlas-sprite",
+                    "id": "799471e2-82c6-4e74-b2af-271957565edd",
+                    "asset": "0",
+                    "info": {
+                      "editorName": "btnSound",
+                      "editorPublic": true,
+                      "x": -236,
+                      "y": 50,
+                      "anchor.x": 0.5,
+                      "anchor.y": 0.5,
+                      "tint": "0xffffff"
+                    }
+                  },
+                  {
+                    "type": "atlas-sprite",
+                    "id": "edfec370-bcbd-4cdc-87eb-8c6934224a29",
+                    "asset": "3",
+                    "info": {
+                      "editorName": "iconSound",
+                      "editorPublic": true,
+                      "x": -424,
+                      "y": 13
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "type": "atlas-sprite",
+              "id": "3851c07d-7c6b-4afb-9a6d-f58f98fcefb0",
+              "asset": "4",
+              "info": {
+                "editorName": "btnReset",
+                "editorPublic": true,
+                "x": 596,
+                "y": 904
+              }
+            }
+          ]
+        }
+      }]
+    }
+  },
+  "type": "GROUP",
+  "asset-table": {
+    "0": {
+      "file": "WebContent/assets/pack.json",
+      "section": "inGame",
+      "asset": "mainAtlas",
+      "sprite": "common_middle_btn.png"
+    },
+    "1": {
+      "file": "WebContent/assets/pack.json",
+      "section": "inGame",
+      "asset": "mainAtlas",
+      "sprite": "language_icon.png"
+    },
+    "2": {
+      "file": "WebContent/assets/pack.json",
+      "section": "inGame",
+      "asset": "mainAtlas",
+      "sprite": "music_on.png"
+    },
+    "3": {
+      "file": "WebContent/assets/pack.json",
+      "section": "inGame",
+      "asset": "mainAtlas",
+      "sprite": "sound.png"
+    },
+    "4": {
+      "file": "WebContent/assets/pack.json",
+      "section": "inGame",
+      "asset": "mainAtlas",
+      "sprite": "share_lock.png"
+    }
+  },
+  "prefab-table": {"0": "WebContent/assets/prefab/PopupBg.canvas"}
+}

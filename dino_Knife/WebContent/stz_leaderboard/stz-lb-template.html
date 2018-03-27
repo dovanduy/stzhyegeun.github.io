@@ -1,0 +1,60 @@
+<div id="stz-lb-container" v-if="isShow">
+    <div id="stz-lb-static-spacer">
+        <!-- <div id="stz-lb-btn-close" v-on:click="selectBtnClose" v-if="isShowBtnClose"></div> -->
+    </div>
+    
+    <div id="stz-lb-scroll-container">
+        <div id="stz-lb-scroll-top-spacer" v-bind:style="[friendListCount > 0 ? {height: '62%'} : {height: '82%'}]" >
+            <div id="stz-btnRestartArea" v-on:click="replayGameAtRestart"></div>
+            <div id="stz-btnStageArea" v-on:click="stageSelectAtRestart"></div>
+            <div id="stz-btnCharacterArea" v-on:click="characterSelectAtRestart"></div>
+
+        </div>
+        <div id="stz-lb-view">
+            <div class="stz-lb-cls-table">
+                <div v-if="board_type === 0" class="stz-lb-cls-table-row">
+                    <div class="stz-lb-cls-title stz-lb-cls-table-cell" id="stz-lb-view-title-invite" v-on:click="inviteFriend">
+                        <span>{{ txt_invite_title }}</span>
+                    </div>
+                       
+                </div>
+                <div v-else class="stz-lb-cls-table-row">
+                    <div v-if="board_type !== 0" class="stz-lb-cls-title stz-lb-cls-table-cell" 
+                        v-bind:class="[isShowTotalScore ? 'stz-lb-cls-title-selected' : 'stz-lb-cls-title-noselected']" 
+                        id="stz-lb-view-title-total" 
+                        v-on:click="openLeaderboard(2)">
+                        <span>{{ txt_total_title }}</span>
+                    </div>
+                    <div class="stz-lb-cls-title stz-lb-cls-table-cell" v-if="board_type !== 0"
+                        v-bind:class="[isShowWeeklyScore ? 'stz-lb-cls-title-selected' : 'stz-lb-cls-title-noselected']" 
+                        id="stz-lb-view-title-weekly" 
+                        v-on:click="openLeaderboard(1)">
+                        <span>{{ txt_weekly_title }}</span>
+                    </div>
+                </div>
+            </div>
+            <hr v-if="board_type===0"/>
+            
+            <div v-for="(friend, index) in getFriendList()">
+                <div class="stz-lb-cls-item" v-bind:id="'stz-lb-item-' + friend.platform_id" v-bind:ref="'stz-lb-item-' + friend.id">
+                    <div class="stz-lb-cls-item-index">{{index + 1}}</div>
+                    <div class="stz-lb-cls-item-image" v-bind:style="{'background-image':'url(' + friend.image + ')'}"></div>
+                    <div class="stz-lb-cls-item-name">{{ friend.name | truncateText(8, "...") }}</div>
+                    <div class="stz-lb-cls-item-score" v-if="isShowTotalScore">{{ friend.totalScore }}</div>
+                    <div class="stz-lb-cls-item-score" v-if="isShowWeeklyScore">{{ friend.weeklyScore }}</div>
+                    <div class="stz-lb-cls-item-button stz-lb-cls-button" v-on:click="playWithFriend(friend)" v-if="isMyItem(friend) === false">
+                        <div class="stz-lb-cls-item-button-text">{{ btnListText }}</div>
+                        <div class="stz-lb-cls-item-button-reward" v-if="isShowFriendValue">
+                            <div class="stz-lb-cls-item-button-reward-image"></div>
+                            <div class="stz-lb-cls-item-button-reward-value">500</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div id="stz-lb-scroll-bottom-spacer"></div>
+    </div>
+    
+    
+    <!-- <div id="stz-lb-button" class="stz-lb-cls-button" v-on:click="playGame">{{ btnPlayText }}</div> -->
+</div>

@@ -1,0 +1,439 @@
+{
+  "canvas-version": 2,
+  "settings": {
+    "className": "TutorialScene",
+    "sceneWidth": 720,
+    "sceneHeight": 1280,
+    "generateOnSave": true,
+    "enableStepping": false,
+    "lang": "JAVA_SCRIPT",
+    "baseClass": "Phaser.Group",
+    "backgroundColor": [
+      180,
+      180,
+      180
+    ],
+    "gridColor": [
+      200,
+      200,
+      200
+    ],
+    "showGrid": true
+  },
+  "stateSettings": {
+    "stageBackgroundColor": [
+      0,
+      0,
+      0
+    ],
+    "autoLoad": true,
+    "preloadSpriteId": "",
+    "preloadSprite_direction": 0,
+    "load.pack": []
+  },
+  "world": {
+    "type": "group",
+    "id": "f90d41c6-f7b2-4390-b1ca-88646f65df06",
+    "info": {
+      "editorName": "TutorialScene",
+      "setAll": [],
+      "children": [{
+        "type": "group",
+        "id": "1219f647-9c0d-403a-8ede-90e65cdd45f3",
+        "info": {
+          "editorName": "group",
+          "setAll": [],
+          "children": [
+            {
+              "type": "group",
+              "id": "4bb7dcb6-b0ef-401e-89c9-c4845718a603",
+              "info": {
+                "editorName": "blindContainer",
+                "editorPublic": true,
+                "setAll": [],
+                "children": []
+              }
+            },
+            {
+              "type": "text",
+              "id": "249b70eb-6fbf-4441-86f0-030c99bf9919",
+              "info": {
+                "editorName": "txtTitle",
+                "editorPublic": true,
+                "x": 363,
+                "y": 119,
+                "anchor.x": 0.5,
+                "anchor.y": 0.5,
+                "text": "HOW TO PLAY",
+                "style.font": "Lilita One",
+                "style.fontSize": 68,
+                "style.fill": "#ffffff"
+              }
+            },
+            {
+              "type": "text",
+              "id": "cb78e85c-ecdb-4a3a-9d2a-cbaf8a0ba0be",
+              "info": {
+                "editorName": "txtTouch",
+                "editorPublic": true,
+                "x": 512,
+                "y": 815,
+                "anchor.x": 0.5,
+                "anchor.y": 0.5,
+                "text": "TAP",
+                "style.font": "Lilita One",
+                "style.fontSize": 26,
+                "style.align": "CENTER"
+              }
+            },
+            {
+              "type": "text",
+              "id": "60d7b177-6d17-44e5-a987-3bf2eb8a5b2e",
+              "info": {
+                "editorName": "txtDecTitle",
+                "editorPublic": true,
+                "x": 360,
+                "y": 915,
+                "anchor.x": 0.5,
+                "anchor.y": 0.5,
+                "text": "TAP TO THROW STINGER!",
+                "style.font": "Lilita One",
+                "style.fontSize": 42,
+                "style.align": "CENTER"
+              }
+            },
+            {
+              "type": "text",
+              "id": "cb8b5b32-2dfb-41a4-b371-f9994cf8d11a",
+              "info": {
+                "editorName": "txtDec",
+                "editorPublic": true,
+                "x": 360,
+                "y": 987,
+                "anchor.x": 0.5,
+                "anchor.y": 0.5,
+                "text": "AVOID OBSTRUCTIONS\r\n& OTHER STINGERS",
+                "style.font": "Lilita One",
+                "style.fontSize": 34,
+                "style.align": "CENTER"
+              }
+            },
+            {
+              "type": "atlas-sprite",
+              "id": "7e8d5698-dfc1-4f18-acfd-2cda7b6d788b",
+              "asset": "0",
+              "info": {
+                "editorName": "imageFinger",
+                "editorPublic": true,
+                "x": 509,
+                "y": 747,
+                "anchor.x": 0.5,
+                "anchor.y": 0.5
+              }
+            },
+            {
+              "type": "atlas-sprite",
+              "id": "628fb17b-2199-4092-9d43-27d0a36e039b",
+              "asset": "1",
+              "info": {
+                "editorName": "fingerClick",
+                "editorPublic": true,
+                "x": 444,
+                "y": 662
+              }
+            },
+            {
+              "type": "atlas-sprite",
+              "id": "a07a81f2-c808-4cf5-9459-a648e31cf915",
+              "asset": "2",
+              "info": {
+                "editorName": "imagePin3",
+                "editorPublic": true,
+                "x": 359,
+                "y": 779,
+                "anchor.x": 0.5,
+                "anchor.y": 0.3
+              }
+            },
+            {
+              "type": "atlas-sprite",
+              "id": "c35d9ad7-f086-40be-ab0c-31dd29a82b42",
+              "asset": "2",
+              "info": {
+                "editorName": "imagePin2",
+                "editorPublic": true,
+                "x": 359,
+                "y": 779,
+                "anchor.x": 0.5,
+                "anchor.y": 0.3
+              }
+            },
+            {
+              "type": "atlas-sprite",
+              "id": "bc252bdd-b174-49cd-8a0c-5df139af1795",
+              "asset": "2",
+              "info": {
+                "editorName": "imagePin1",
+                "editorPublic": true,
+                "x": 359,
+                "y": 779,
+                "anchor.x": 0.5,
+                "anchor.y": 0.3
+              }
+            },
+            {
+              "type": "group",
+              "id": "629428b5-c9f8-49be-968f-2a876a89fd98",
+              "info": {
+                "editorName": "bossBodyContainer",
+                "editorPublic": true,
+                "setAll": [],
+                "children": [
+                  {
+                    "type": "atlas-sprite",
+                    "id": "b2d52271-11a0-4398-aa76-42fada7af909",
+                    "asset": "3",
+                    "info": {
+                      "editorName": "obstacle",
+                      "editorPublic": true,
+                      "x": 360,
+                      "y": 577,
+                      "scale.x": 0.7,
+                      "scale.y": 0.7,
+                      "anchor.x": 0.5,
+                      "anchor.y": 0.5
+                    }
+                  },
+                  {
+                    "type": "atlas-sprite",
+                    "id": "99d1baeb-a173-4f09-b236-bf3460a6531d",
+                    "asset": "4",
+                    "info": {
+                      "editorName": "body",
+                      "editorPublic": true,
+                      "x": 361,
+                      "y": 435,
+                      "scale.x": 0.41,
+                      "scale.y": 0.41,
+                      "anchor.x": 0.5,
+                      "anchor.y": 0.5
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "type": "group",
+              "id": "dbe4d150-fa31-47d2-b9ef-a0efaf0667fd",
+              "info": {
+                "editorName": "bossFaceContainer",
+                "editorPublic": true,
+                "x": 357,
+                "y": 436,
+                "scale.x": 0.8,
+                "scale.y": 0.8,
+                "setAll": [],
+                "children": [
+                  {
+                    "type": "atlas-sprite",
+                    "id": "e67fa599-4b1a-44dc-bede-41a8079debb0",
+                    "asset": "5",
+                    "info": {
+                      "editorName": "bossMouth",
+                      "editorPublic": true,
+                      "x": -25,
+                      "y": 137,
+                      "scale.x": 1.2,
+                      "scale.y": 1.2
+                    }
+                  },
+                  {
+                    "type": "atlas-sprite",
+                    "id": "60480dd3-f21e-48bb-a718-264c2df64e1e",
+                    "asset": "6",
+                    "info": {
+                      "editorName": "bossLeftEyeOut",
+                      "editorPublic": true,
+                      "x": -57,
+                      "y": 77,
+                      "scale.x": 0.65,
+                      "scale.y": 0.65
+                    }
+                  },
+                  {
+                    "type": "atlas-sprite",
+                    "id": "83b0449d-0ac8-4884-a8f0-54e8d2440ea7",
+                    "asset": "6",
+                    "info": {
+                      "editorName": "bossRightEyeOut",
+                      "editorPublic": true,
+                      "x": 3,
+                      "y": 77,
+                      "scale.x": 0.65,
+                      "scale.y": 0.65
+                    }
+                  },
+                  {
+                    "type": "atlas-sprite",
+                    "id": "e290f38b-c350-4135-adab-186a6a225b20",
+                    "asset": "7",
+                    "info": {
+                      "editorName": "bossRightEyeIn",
+                      "editorPublic": true,
+                      "x": 19,
+                      "y": 104,
+                      "scale.x": 0.51,
+                      "scale.y": 0.51,
+                      "anchor.x": 0.5,
+                      "anchor.y": 0.5,
+                      "tint": "0x1e9fbc"
+                    }
+                  },
+                  {
+                    "type": "atlas-sprite",
+                    "id": "69efaa7e-0ceb-4412-ac1c-d455d69e9dff",
+                    "asset": "7",
+                    "info": {
+                      "editorName": "bossLeftEyeIn",
+                      "editorPublic": true,
+                      "x": -20,
+                      "y": 104,
+                      "scale.x": 0.51,
+                      "scale.y": 0.51,
+                      "anchor.x": 0.5,
+                      "anchor.y": 0.5,
+                      "tint": "0x1e9fbc"
+                    }
+                  },
+                  {
+                    "type": "atlas-sprite",
+                    "id": "d4b6b5d8-ca40-43fe-ba0c-c85f31c4b577",
+                    "asset": "8",
+                    "info": {
+                      "editorName": "bossEyeCoverShadow",
+                      "editorPublic": true,
+                      "x": -82,
+                      "y": 57,
+                      "alpha": 0.5
+                    }
+                  },
+                  {
+                    "type": "atlas-sprite",
+                    "id": "600eb9a7-ceaf-4163-9114-12663e85306c",
+                    "asset": "8",
+                    "info": {
+                      "editorName": "bossEyeCover",
+                      "editorPublic": true,
+                      "x": -83,
+                      "y": 52
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "type": "group",
+              "id": "fe809cfa-729e-4d48-ba45-2dc69a1611dd",
+              "info": {
+                "editorName": "btnOkContainer",
+                "editorPublic": true,
+                "setAll": [],
+                "children": [
+                  {
+                    "type": "atlas-sprite",
+                    "id": "e2b6013c-5e60-4c08-b5de-c9b91349b03e",
+                    "asset": "9",
+                    "info": {
+                      "editorName": "btnOK",
+                      "editorPublic": true,
+                      "x": 123,
+                      "y": 1072
+                    }
+                  },
+                  {
+                    "type": "text",
+                    "id": "1eaba56f-ebde-4c59-a29f-66b487605b5c",
+                    "info": {
+                      "editorName": "txtOK",
+                      "editorPublic": true,
+                      "x": 323,
+                      "y": 1096,
+                      "text": "OK",
+                      "style.font": "Lilita One",
+                      "style.fontSize": 58,
+                      "style.fill": "#ffffff"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }]
+    }
+  },
+  "type": "GROUP",
+  "asset-table": {
+    "0": {
+      "file": "WebContent/assets/pack.json",
+      "section": "inGame",
+      "asset": "mainAtlas",
+      "sprite": "finger.png"
+    },
+    "1": {
+      "file": "WebContent/assets/pack.json",
+      "section": "inGame",
+      "asset": "mainAtlas",
+      "sprite": "finger_cilick_fx.png"
+    },
+    "2": {
+      "file": "WebContent/assets/pack.json",
+      "section": "inGame",
+      "asset": "mainAtlas",
+      "sprite": "tutorial_pin.png"
+    },
+    "3": {
+      "file": "WebContent/assets/pack.json",
+      "section": "inGame",
+      "asset": "mainAtlas",
+      "sprite": "common_small_circle.png"
+    },
+    "4": {
+      "file": "WebContent/assets/pack.json",
+      "section": "inGame",
+      "asset": "mainAtlas",
+      "sprite": "circle.png"
+    },
+    "5": {
+      "file": "WebContent/assets/pack.json",
+      "section": "inGame",
+      "asset": "mainAtlas",
+      "sprite": "boss_mouth.png"
+    },
+    "6": {
+      "file": "WebContent/assets/pack.json",
+      "section": "inGame",
+      "asset": "mainAtlas",
+      "sprite": "particle_star.png"
+    },
+    "7": {
+      "file": "WebContent/assets/pack.json",
+      "section": "inGame",
+      "asset": "mainAtlas",
+      "sprite": "eye.png"
+    },
+    "8": {
+      "file": "WebContent/assets/pack.json",
+      "section": "inGame",
+      "asset": "mainAtlas",
+      "sprite": "boss_eye_cover.png"
+    },
+    "9": {
+      "file": "WebContent/assets/pack.json",
+      "section": "inGame",
+      "asset": "mainAtlas",
+      "sprite": "common_middle_btn.png"
+    }
+  },
+  "prefab-table": {}
+}

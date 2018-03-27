@@ -1,0 +1,164 @@
+{
+  "canvas-version": 2,
+  "settings": {
+    "className": "CharacterScene",
+    "sceneWidth": 640,
+    "sceneHeight": 360,
+    "generateOnSave": true,
+    "enableStepping": false,
+    "lang": "JAVA_SCRIPT",
+    "baseClass": "Phaser.Group",
+    "backgroundColor": [
+      180,
+      180,
+      180
+    ],
+    "gridColor": [
+      200,
+      200,
+      200
+    ],
+    "showGrid": true
+  },
+  "stateSettings": {
+    "stageBackgroundColor": [
+      0,
+      0,
+      0
+    ],
+    "autoLoad": true,
+    "preloadSpriteId": "",
+    "preloadSprite_direction": 0,
+    "load.pack": []
+  },
+  "world": {
+    "type": "group",
+    "id": "b10ac757-509d-4891-8699-f48328df932d",
+    "info": {
+      "editorName": "CharacterScene",
+      "setAll": [],
+      "children": [{
+        "type": "group",
+        "id": "0cf311ff-609e-4e6e-8021-66a66596dcec",
+        "info": {
+          "editorName": "group",
+          "setAll": [],
+          "children": [
+            {
+              "type": "atlas-sprite",
+              "id": "c04c587f-a6c7-4760-9cb0-061e3e039098",
+              "asset": "0",
+              "info": {
+                "editorName": "btnClose",
+                "editorPublic": true,
+                "x": 624,
+                "y": 78
+              }
+            },
+            {
+              "type": "group",
+              "id": "42a2169f-35e9-4a45-94a5-5cb605ba9980",
+              "info": {
+                "editorName": "btnPlayGroup",
+                "x": 360,
+                "y": 1180,
+                "setAll": [],
+                "children": [
+                  {
+                    "type": "atlas-sprite",
+                    "id": "d72aedf8-12c3-4493-b3ce-f838e2aa568f",
+                    "asset": "1",
+                    "info": {
+                      "editorName": "btnPlayStage",
+                      "editorPublic": true,
+                      "anchor.x": 0.5,
+                      "anchor.y": 0.5,
+                      "tint": "0xf4ba00"
+                    }
+                  },
+                  {
+                    "type": "text",
+                    "id": "7532bbf6-c7bf-43e5-a905-06a2bb96cc09",
+                    "info": {
+                      "editorName": "txtPlay",
+                      "y": 20,
+                      "anchor.x": 0.5,
+                      "anchor.y": 0.5,
+                      "text": "PLAY",
+                      "style.font": "Lilita One",
+                      "style.fontSize": 50,
+                      "style.fill": "#ffffff"
+                    }
+                  },
+                  {
+                    "type": "text",
+                    "id": "1bbf6f36-8ab0-4f2d-a316-98992f479b99",
+                    "info": {
+                      "editorName": "txtStage",
+                      "editorPublic": true,
+                      "y": -22,
+                      "anchor.x": 0.5,
+                      "anchor.y": 0.5,
+                      "text": "STAGE 100",
+                      "style.font": "Lilita One",
+                      "style.fontSize": 26,
+                      "style.fill": "#ffffff"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "type": "text",
+              "id": "d5922128-3975-440c-84d7-fd8e28442b14",
+              "info": {
+                "editorName": "txtShadow",
+                "editorPublic": true,
+                "x": 360,
+                "y": 111,
+                "alpha": 0.2,
+                "anchor.x": 0.5,
+                "anchor.y": 0.5,
+                "text": "CHARACTER",
+                "style.font": "Lilita One",
+                "style.fontSize": 72
+              }
+            },
+            {
+              "type": "text",
+              "id": "92c422da-5d50-487c-ab55-e7b740a1b67e",
+              "info": {
+                "editorName": "txtTitle",
+                "editorPublic": true,
+                "x": 360,
+                "y": 100,
+                "anchor.x": 0.5,
+                "anchor.y": 0.5,
+                "text": "CHARACTER",
+                "style.font": "Lilita One",
+                "style.fontSize": 72,
+                "style.fill": "#ffffff"
+              }
+            }
+          ]
+        }
+      }]
+    }
+  },
+  "type": "GROUP",
+  "asset-table": {
+    "0": {
+      "file": "WebContent/assets/pack.json",
+      "section": "inGame",
+      "asset": "mainAtlas",
+      "sprite": "x_btn.png"
+    },
+    "1": {
+      "file": "WebContent/assets/pack.json",
+      "section": "inGame",
+      "asset": "mainAtlas",
+      "sprite": "common_middle_btn.png"
+    }
+  },
+  "prefab-table": {}
+}

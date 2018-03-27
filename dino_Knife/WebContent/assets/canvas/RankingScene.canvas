@@ -1,0 +1,107 @@
+{
+  "canvas-version": 2,
+  "settings": {
+    "className": "RankingScene",
+    "sceneWidth": 720,
+    "sceneHeight": 1280,
+    "generateOnSave": true,
+    "enableStepping": false,
+    "lang": "JAVA_SCRIPT",
+    "baseClass": "Phaser.Group",
+    "backgroundColor": [
+      180,
+      180,
+      180
+    ],
+    "gridColor": [
+      200,
+      200,
+      200
+    ],
+    "showGrid": true
+  },
+  "stateSettings": {
+    "stageBackgroundColor": [
+      0,
+      0,
+      0
+    ],
+    "autoLoad": true,
+    "preloadSpriteId": "",
+    "preloadSprite_direction": 0,
+    "load.pack": []
+  },
+  "world": {
+    "type": "group",
+    "id": "1ca1c8d3-de1b-4218-b33e-e77bd1081733",
+    "info": {
+      "editorName": "RankingScene",
+      "setAll": [],
+      "children": [{
+        "type": "group",
+        "id": "088c037b-537f-4d18-8a05-166ca4df418e",
+        "info": {
+          "editorName": "group",
+          "setAll": [],
+          "children": [
+            {
+              "type": "group",
+              "id": "b966f646-3ada-47c1-8197-9c8ec8c975e0",
+              "info": {
+                "editorName": "listContainer",
+                "editorPublic": true,
+                "setAll": [],
+                "children": []
+              }
+            },
+            {
+              "type": "group",
+              "id": "3d104d20-e310-4c0f-bc10-bc85c894a3be",
+              "info": {
+                "editorName": "itemList",
+                "editorPublic": true,
+                "setAll": [],
+                "children": []
+              }
+            },
+            {
+              "type": "atlas-sprite",
+              "id": "87fe3e5c-7da9-429e-88ba-1266b466275a",
+              "asset": "0",
+              "info": {
+                "editorName": "btnClose",
+                "editorPublic": true,
+                "x": 636,
+                "y": 85,
+                "anchor.x": 0.5,
+                "anchor.y": 0.5,
+                "tint": "0xc0c0c0"
+              }
+            },
+            {
+              "type": "text",
+              "id": "54705ac0-acd8-4daf-887b-b38cbd27bb75",
+              "info": {
+                "editorName": "txtTitle",
+                "x": 202,
+                "y": 46,
+                "text": "RANKING",
+                "style.font": "Lilita One",
+                "style.fontSize": 72,
+                "style.fill": "#ffffff"
+              }
+            }
+          ]
+        }
+      }]
+    }
+  },
+  "type": "GROUP",
+  "asset-table": {"0": {
+    "file": "WebContent/assets/pack.json",
+    "section": "inGame",
+    "asset": "mainAtlas",
+    "sprite": "x_btn.png"
+  }},
+  "prefab-table": {}
+}

@@ -1,0 +1,472 @@
+{
+  "canvas-version": 2,
+  "settings": {
+    "className": "LobbyScene",
+    "sceneWidth": 720,
+    "sceneHeight": 1280,
+    "generateOnSave": true,
+    "enableStepping": false,
+    "lang": "JAVA_SCRIPT",
+    "baseClass": "Phaser.Group",
+    "backgroundColor": [
+      180,
+      180,
+      180
+    ],
+    "gridColor": [
+      200,
+      200,
+      200
+    ],
+    "showGrid": true
+  },
+  "stateSettings": {
+    "stageBackgroundColor": [
+      0,
+      0,
+      0
+    ],
+    "autoLoad": true,
+    "preloadSpriteId": "",
+    "preloadSprite_direction": 0,
+    "load.pack": []
+  },
+  "world": {
+    "type": "group",
+    "id": "72ec4faa-3bb5-49ef-9b3c-dd50f08bd033",
+    "info": {
+      "editorName": "LobbyScene",
+      "setAll": [],
+      "children": [{
+        "type": "group",
+        "id": "84650d42-eb19-4e9e-b2e7-fc732f8b2fbe",
+        "info": {
+          "editorName": "group",
+          "setAll": [],
+          "children": [
+            {
+              "type": "group",
+              "id": "e4f85596-2fc2-4eba-b8fe-dfd3dfba6dbc",
+              "info": {
+                "editorName": "targetContainer",
+                "editorPublic": true,
+                "setAll": [],
+                "children": []
+              }
+            },
+            {
+              "type": "group",
+              "id": "aea8b288-e998-4a15-8970-eaf5b1592661",
+              "info": {
+                "editorName": "bottomUIContainer",
+                "editorPublic": true,
+                "setAll": [],
+                "children": [
+                  {
+                    "type": "group",
+                    "id": "93355de8-14e6-45fb-ba2f-80136781e761",
+                    "info": {
+                      "editorName": "freeGiftContainer",
+                      "x": 602,
+                      "y": 898,
+                      "setAll": [],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "eba391a8-79f0-48b2-bb3f-89923b1e0f93",
+                          "info": {
+                            "editorName": "textFreeGift",
+                            "editorPublic": true,
+                            "x": -69,
+                            "y": 58,
+                            "text": "FREE GIFT",
+                            "style.font": "Lilita One",
+                            "style.fontSize": 32,
+                            "style.fontWeight": "NORMAL"
+                          }
+                        },
+                        {
+                          "type": "group",
+                          "id": "325e40af-6b45-47a4-91df-4b614d84b455",
+                          "info": {
+                            "editorName": "waitFreeCoinContainer",
+                            "editorPick": false,
+                            "editorPublic": true,
+                            "setAll": [],
+                            "children": [
+                              {
+                                "type": "atlas-sprite",
+                                "id": "5fad5f1b-c4b7-4245-bef3-46ec5be92d30",
+                                "asset": "0",
+                                "info": {
+                                  "editorName": "waitFreeCoin",
+                                  "editorPublic": true,
+                                  "anchor.x": 0.5,
+                                  "anchor.y": 0.5
+                                }
+                              },
+                              {
+                                "type": "atlas-sprite",
+                                "id": "0e63a53a-a029-4fe9-98e7-b1bc041de06f",
+                                "asset": "1",
+                                "info": {
+                                  "editorName": "timeLeftBg",
+                                  "editorPublic": true,
+                                  "x": -57,
+                                  "y": -114
+                                }
+                              },
+                              {
+                                "type": "text",
+                                "id": "e9651f43-9967-4668-94c7-3a45090dd1f6",
+                                "info": {
+                                  "editorName": "textRemainTime",
+                                  "editorPublic": true,
+                                  "x": 1,
+                                  "y": -88,
+                                  "anchor.x": 0.5,
+                                  "anchor.y": 0.5,
+                                  "style.font": "Lilita One",
+                                  "style.fontSize": 18,
+                                  "style.fill": "#74baba"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "type": "group",
+                          "id": "dfb2af31-1ff0-4f52-ae2c-9c8ee6f781ee",
+                          "info": {
+                            "editorName": "completeFreeCoinContainer",
+                            "editorPublic": true,
+                            "editorShow": false,
+                            "setAll": [],
+                            "children": [
+                              {
+                                "type": "atlas-sprite",
+                                "id": "37fd0a14-48c4-4622-9341-5b136f331010",
+                                "asset": "2",
+                                "info": {
+                                  "editorName": "completeFreeCoin",
+                                  "editorPublic": true,
+                                  "x": -41,
+                                  "y": -93
+                                }
+                              },
+                              {
+                                "type": "text",
+                                "id": "223e2464-2470-46aa-a5e7-7bfa0150ee45",
+                                "info": {
+                                  "editorName": "text",
+                                  "x": 1,
+                                  "y": -122,
+                                  "anchor.x": 0.5,
+                                  "anchor.y": 0.5,
+                                  "text": "TOUCH",
+                                  "style.font": "Lilita One",
+                                  "style.fontSize": 32
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "type": "group",
+                    "id": "03934731-3269-4347-bab8-01d03966f9d3",
+                    "info": {
+                      "editorName": "characterContainer",
+                      "x": 362,
+                      "y": 886,
+                      "setAll": [],
+                      "children": [
+                        {
+                          "type": "atlas-sprite",
+                          "id": "6eb60278-d45f-43c4-bcca-97300377a914",
+                          "asset": "3",
+                          "info": {
+                            "editorName": "btnCharacter",
+                            "editorPublic": true,
+                            "anchor.x": 0.5,
+                            "anchor.y": 0.5
+                          }
+                        },
+                        {
+                          "type": "atlas-sprite",
+                          "id": "68fbc022-ae8d-48f7-bba7-f0bb431023f7",
+                          "asset": "4",
+                          "info": {
+                            "editorName": "character_bg_png",
+                            "x": 5,
+                            "y": 88,
+                            "anchor.x": 0.5,
+                            "anchor.y": 0.5
+                          }
+                        },
+                        {
+                          "type": "text",
+                          "id": "2a621fa6-ee9c-4595-a213-bcf30511882d",
+                          "info": {
+                            "editorName": "textCharacter",
+                            "editorPublic": true,
+                            "x": -79,
+                            "y": 69,
+                            "text": "CHARACTER",
+                            "style.font": "Lilita One",
+                            "style.fontSize": 32,
+                            "style.fontWeight": "NORMAL"
+                          }
+                        },
+                        {
+                          "type": "atlas-sprite",
+                          "id": "b457823a-bc66-4324-941d-aef017bfa390",
+                          "asset": "5",
+                          "info": {
+                            "editorName": "iconCharacter",
+                            "editorPublic": true,
+                            "y": -36,
+                            "anchor.x": 0.5,
+                            "anchor.y": 0.5
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "type": "atlas-sprite",
+                    "id": "f23dc302-3e5b-4a04-89a6-f07e5b077a88",
+                    "asset": "6",
+                    "info": {
+                      "editorName": "btnLeft",
+                      "editorPublic": true,
+                      "x": 68,
+                      "y": 554,
+                      "scale.x": -1
+                    }
+                  },
+                  {
+                    "type": "atlas-sprite",
+                    "id": "59d5d318-d0ef-41e0-959c-0931cc14baaf",
+                    "asset": "6",
+                    "info": {
+                      "editorName": "btnRight",
+                      "editorPublic": true,
+                      "x": 639,
+                      "y": 550
+                    }
+                  },
+                  {
+                    "type": "group",
+                    "id": "14d33554-56e5-4b16-acef-fa259054d89a",
+                    "info": {
+                      "editorName": "rankContainer",
+                      "x": 117,
+                      "y": 905,
+                      "alpha": 0.3,
+                      "setAll": [],
+                      "children": [
+                        {
+                          "type": "atlas-sprite",
+                          "id": "cbb3b43e-19db-4d0b-b418-d26802a170a4",
+                          "asset": "7",
+                          "info": {
+                            "editorName": "btnRank",
+                            "editorPublic": true,
+                            "anchor.x": 0.5,
+                            "anchor.y": 0.5,
+                            "tint": "0xffffff"
+                          }
+                        },
+                        {
+                          "type": "text",
+                          "id": "dfad0369-9476-4261-b5e1-719b51cdf4ab",
+                          "info": {
+                            "editorName": "textRank",
+                            "editorPublic": true,
+                            "x": -41,
+                            "y": 50,
+                            "text": "RANK",
+                            "style.font": "Lilita One",
+                            "style.fontSize": 32,
+                            "style.fontWeight": "NORMAL"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "type": "group",
+              "id": "26d7a118-ae62-4c65-bf84-ca59f8283df4",
+              "info": {
+                "editorName": "coinContainer",
+                "editorPublic": true,
+                "x": 256,
+                "y": 45,
+                "setAll": [],
+                "children": [{
+                  "type": "atlas-sprite",
+                  "id": "d325e69a-1565-4d83-9113-fb5267b9ddab",
+                  "asset": "8",
+                  "info": {
+                    "editorName": "iconCoin",
+                    "editorPublic": true,
+                    "scale.x": 0.4,
+                    "scale.y": 0.4
+                  }
+                }]
+              }
+            },
+            {
+              "type": "group",
+              "id": "6a46a590-9c9d-42c4-87b2-47b19b71c5a8",
+              "info": {
+                "editorName": "inviteContainer",
+                "editorPublic": true,
+                "x": 357,
+                "y": 364,
+                "setAll": [],
+                "children": [
+                  {
+                    "type": "atlas-sprite",
+                    "id": "c9c083aa-8382-4c2a-8190-fa5b43932d06",
+                    "asset": "9",
+                    "info": {
+                      "editorName": "btnInvite",
+                      "editorPublic": true,
+                      "anchor.x": 0.5,
+                      "anchor.y": 0.5
+                    }
+                  },
+                  {
+                    "type": "atlas-sprite",
+                    "id": "7ddff911-2b98-4ba0-bdca-a50a04eb6404",
+                    "asset": "10",
+                    "info": {
+                      "editorName": "facebook_icon_png",
+                      "x": -218,
+                      "y": 13,
+                      "anchor.x": 0.5,
+                      "anchor.y": 0.5
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "type": "atlas-sprite",
+              "id": "ecbce0a4-fe2d-4968-8fc6-6f121f472df0",
+              "asset": "11",
+              "info": {
+                "editorName": "btnStage",
+                "editorPublic": true,
+                "x": 356,
+                "y": 586,
+                "anchor.x": 0.5,
+                "anchor.y": 0.5
+              }
+            },
+            {
+              "type": "atlas-sprite",
+              "id": "b1f68c46-919d-4e4d-a14f-3a82f0f374d4",
+              "asset": "12",
+              "info": {
+                "editorName": "btnSetting",
+                "editorPublic": true,
+                "x": 624,
+                "y": 26
+              }
+            }
+          ]
+        }
+      }]
+    }
+  },
+  "type": "GROUP",
+  "asset-table": {
+    "0": {
+      "file": "WebContent/assets/pack.json",
+      "section": "inGame",
+      "asset": "mainAtlas",
+      "sprite": "bonus_time.png"
+    },
+    "1": {
+      "file": "WebContent/assets/pack.json",
+      "section": "inGame",
+      "asset": "mainAtlas",
+      "sprite": "time_left_bg.png"
+    },
+    "2": {
+      "file": "WebContent/assets/pack.json",
+      "section": "inGame",
+      "asset": "mainAtlas",
+      "sprite": "bonus_fin.png"
+    },
+    "3": {
+      "file": "WebContent/assets/pack.json",
+      "section": "inGame",
+      "asset": "mainAtlas",
+      "sprite": "chracter_bg.png"
+    },
+    "4": {
+      "file": "WebContent/assets/pack.json",
+      "section": "inGame",
+      "asset": "mainAtlas",
+      "sprite": "character_bg.png"
+    },
+    "5": {
+      "file": "WebContent/assets/pack.json",
+      "section": "inGame",
+      "asset": "characterAtlas",
+      "sprite": "1.png"
+    },
+    "6": {
+      "file": "WebContent/assets/pack.json",
+      "section": "inGame",
+      "asset": "mainAtlas",
+      "sprite": "skip_icon.png"
+    },
+    "7": {
+      "file": "WebContent/assets/pack.json",
+      "section": "inGame",
+      "asset": "mainAtlas",
+      "sprite": "rank_icon.png"
+    },
+    "8": {
+      "file": "WebContent/assets/pack.json",
+      "section": "inGame",
+      "asset": "mainAtlas",
+      "sprite": "common_coin.png"
+    },
+    "9": {
+      "file": "WebContent/assets/pack.json",
+      "section": "inGame",
+      "asset": "mainAtlas",
+      "sprite": "invite_btn.png"
+    },
+    "10": {
+      "file": "WebContent/assets/pack.json",
+      "section": "inGame",
+      "asset": "mainAtlas",
+      "sprite": "facebook_icon.png"
+    },
+    "11": {
+      "file": "WebContent/assets/pack.json",
+      "section": "inGame",
+      "asset": "mainAtlas",
+      "sprite": "btn_large_common.png"
+    },
+    "12": {
+      "file": "WebContent/assets/pack.json",
+      "section": "inGame",
+      "asset": "mainAtlas",
+      "sprite": "setting_icon.png"
+    }
+  },
+  "prefab-table": {}
+}
