@@ -43,21 +43,122 @@
         "info": {
           "editorName": "group",
           "setAll": [],
-          "children": [{
-            "type": "image",
-            "id": "08c91379-a570-4a0c-aa04-e6ca2a63543f",
-            "asset": "0",
-            "info": {"editorName": "shareFImage_dinoThronz"}
-          }]
+          "children": [
+            {
+              "type": "group",
+              "id": "8ba316b6-f042-428c-aa2e-a57780e9f609",
+              "info": {
+                "editorName": "inviteContainer",
+                "editorPick": false,
+                "editorPublic": true,
+                "editorShow": false,
+                "setAll": [],
+                "children": [{
+                  "type": "atlas-sprite",
+                  "id": "e01db416-7650-4bcf-afb8-e4f14d76878c",
+                  "asset": "0",
+                  "info": {"editorName": "shareFImage_dinoThronz_jpg"}
+                }]
+              }
+            },
+            {
+              "type": "group",
+              "id": "91bbfd40-4faa-411a-acbc-0930a0545653",
+              "info": {
+                "editorName": "coinContainer",
+                "editorPick": false,
+                "editorPublic": true,
+                "editorShow": false,
+                "setAll": [],
+                "children": [{
+                  "type": "atlas-sprite",
+                  "id": "66661651-0f4e-48d6-a3bc-14e1d3bbec4f",
+                  "asset": "1",
+                  "info": {"editorName": "shareCoin_jpg"}
+                }]
+              }
+            },
+            {
+              "type": "group",
+              "id": "fedf96c1-19c3-4a01-b1f9-9d439a26b5c3",
+              "info": {
+                "editorName": "characterContainer",
+                "editorPick": false,
+                "editorPublic": true,
+                "editorShow": false,
+                "setAll": [],
+                "children": [
+                  {
+                    "type": "atlas-sprite",
+                    "id": "75494c21-685f-4903-866a-cc9f776219df",
+                    "asset": "2",
+                    "info": {"editorName": "shareBuy_jpg"}
+                  },
+                  {
+                    "type": "atlas-sprite",
+                    "id": "73782641-f867-4ccd-9992-c3d6f597edd7",
+                    "asset": "3",
+                    "info": {
+                      "editorName": "iconCharacter",
+                      "editorPublic": true,
+                      "x": 365,
+                      "y": 150,
+                      "scale.x": 1.6,
+                      "scale.y": 1.6,
+                      "anchor.x": 0.5,
+                      "anchor.y": 0.5
+                    }
+                  },
+                  {
+                    "type": "text",
+                    "id": "3da0488f-0712-418e-9472-bfcf70816536",
+                    "info": {
+                      "editorName": "textName",
+                      "editorPublic": true,
+                      "x": 365,
+                      "y": 349,
+                      "anchor.x": 0.5,
+                      "anchor.y": 0.5,
+                      "text": "CANDY BAR",
+                      "style.font": "Lilita One",
+                      "style.fontSize": 34,
+                      "style.fill": "#ffffff"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
         }
       }]
     }
   },
   "type": "GROUP",
-  "asset-table": {"0": {
-    "file": "WebContent/assets/pack.json",
-    "section": "inGame",
-    "asset": "shareFImage_dinoThronz"
-  }},
+  "asset-table": {
+    "0": {
+      "file": "WebContent/assets/pack.json",
+      "section": "inGame",
+      "asset": "shareAtlas",
+      "sprite": "shareFImage_dinoThronz.jpg"
+    },
+    "1": {
+      "file": "WebContent/assets/pack.json",
+      "section": "inGame",
+      "asset": "shareAtlas",
+      "sprite": "shareCoin.jpg"
+    },
+    "2": {
+      "file": "WebContent/assets/pack.json",
+      "section": "inGame",
+      "asset": "shareAtlas",
+      "sprite": "shareBuy.jpg"
+    },
+    "3": {
+      "file": "WebContent/assets/pack.json",
+      "section": "inGame",
+      "asset": "characterAtlas",
+      "sprite": "9.png"
+    }
+  },
   "prefab-table": {}
 }

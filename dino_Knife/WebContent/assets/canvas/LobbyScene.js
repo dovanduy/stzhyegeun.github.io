@@ -53,7 +53,8 @@ function LobbyScene(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBod
 	var _character_bg_png = this.game.add.sprite(5, 88, 'mainAtlas', 'character_bg.png', _characterContainer);
 	_character_bg_png.anchor.setTo(0.5, 0.5);
 	
-	var _textCharacter = this.game.add.text(-79, 69, 'CHARACTER', {"font":"32px Lilita One"}, _characterContainer);
+	var _textCharacter = this.game.add.text(6, 90, 'CHARACTER', {"font":"32px Lilita One"}, _characterContainer);
+	_textCharacter.anchor.setTo(0.5, 0.5);
 	
 	var _iconCharacter = this.game.add.sprite(0, -36, 'characterAtlas', '1.png', _characterContainer);
 	_iconCharacter.anchor.setTo(0.5, 0.5);
@@ -155,12 +156,14 @@ function LobbyScene(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBod
 		this.fTextCoin = this.game.add.text(0, 0, PlayerDataManager.saveData.getCoin(), coinFontStyle, this.fCoinContainer);
 		this.fTextCoin.setTextBounds(this.fIconCoin.width*1.4, 0, this.game.width, this.fIconCoin.height);
 		
-//		this.fIconCoin.inputEnabled = true;
-//		this.fIconCoin.events.onInputUp.add(function(){
-//			window.sounds.sound('sfx_button').play();
-//			PlayerDataManager.saveData.updateCoin(50);
-//		}.bind(this));
-		
+		if(StzGameConfig.QA_MODE === true){
+			this.fIconCoin.inputEnabled = true;
+			this.fIconCoin.events.onInputUp.add(function(){
+				window.sounds.sound('sfx_button').play();
+				PlayerDataManager.saveData.updateCoin(50);
+			}.bind(this));
+		}
+
 		this.onUpdateCoinLobbyScene = function(inCoinValue){
 			this.fTextCoin.text = inCoinValue;
 			this.updateUI();
@@ -170,6 +173,7 @@ function LobbyScene(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBod
 	
 	this.fCompleteFreeCoin.inputEnabled = true;
 	this.fCompleteFreeCoin.events.onInputUp.add(function(){
+		FbManager.updateAsyncByInviteUpdateView(EShareType.COIN);
 		var freeCoin = (StaticManager.dino_thornz_base.get('freecoin_coin'))? StaticManager.dino_thornz_base.get("freecoin_coin").value : InGameConfig.FREE_COIN_COIN;
 		window.sounds.sound('sfx_button').play();
 		PlayerDataManager.saveData.updateCoin(freeCoin);
@@ -308,7 +312,7 @@ LobbyScene.prototype.updateUI = function(){
 	var completeFreeCoinTimeStamp = freeCoinTimeStamp + freeCoinTime;
 	
 	var remainTime = completeFreeCoinTimeStamp - new Date().getTime();
-	
+
 	if(remainTime <= 0){
 		this.fWaitFreeCoinContainer.visible = false;
 		this.fCompleteFreeCoinContainer.visible = true;
@@ -316,7 +320,7 @@ LobbyScene.prototype.updateUI = function(){
 	else{
 		this.fWaitFreeCoinContainer.visible = true;
 		this.fCompleteFreeCoinContainer.visible = false;
-		this.fTextRemainTime.text = StzUtil.millysecondToHMs(remainTime, ['H', 'M']);
+		this.fTextRemainTime.text = StzUtil.millysecondToHMs(remainTime, ['H ', 'M ', 'S']);
 		if(this.freeCoinTimer){
 			this.game.time.events.remove(this.freeCoinTimer);
 			this.freeCoinTimer = null;
@@ -324,7 +328,7 @@ LobbyScene.prototype.updateUI = function(){
 		this.freeCoinTimer = this.game.time.events.loop(1000, function(){
 			remainTime = completeFreeCoinTimeStamp - new Date().getTime();
 			
-			this.fTextRemainTime.text = StzUtil.millysecondToHMs(remainTime, ['H', 'M']);
+			this.fTextRemainTime.text = StzUtil.millysecondToHMs(remainTime, ['H ', 'M ', 'S']);
 			if(remainTime <= 0){
 				if(this.freeCoinTimer){
 					this.game.time.events.remove(this.freeCoinTimer);

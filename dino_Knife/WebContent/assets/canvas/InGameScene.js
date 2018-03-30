@@ -134,7 +134,7 @@ InGameScene.prototype.constructor = InGameScene;
 
 /* --- end generated code --- */
 // -- user code here --
-InGameScene.prototype.setData = function(inGameData, inTagretModel, inIsTutorial){
+InGameScene.prototype.setData = function(inGameData, inTagretModel, inIsTutorial, inColorData){
 	this.visible = true;
 	
 	this.fTargetModel = inTagretModel;
@@ -143,7 +143,7 @@ InGameScene.prototype.setData = function(inGameData, inTagretModel, inIsTutorial
 		this.fTargetContainer.add(this.fTargetModel);
 	}
 
-	this.fTargetModel.setData(inGameData, inIsTutorial);
+	this.fTargetModel.setData(inGameData, inIsTutorial, inColorData);
 
 	InGameController.init(this.game, this.fTargetModel, inGameData.targetCount);
 	this.dinoCharacter.show();
@@ -154,7 +154,10 @@ InGameScene.prototype.playOops = function(){
 	this.fOopsContainer.visible = true;
 	this.fOopsContainer.alpha = 0;
 	this.fOopsContainer.y = 454;
-	
+	this.game.time.events.add(300, function(){
+		window.sounds.sound('voice_oops').play();
+	}.bind(this));
+
 	this.fTxtDec.text = StzTrans.translate(ELocaleFailArray[StzUtil.createRandomInteger(0, ELocaleFailArray.length-1)]);
 	this.game.add.tween(this.fOopsContainer).to({y : 404}, 250, Phaser.Easing.Linear.None, true)
 	.onUpdateCallback(function(inParam){

@@ -27,7 +27,6 @@ var StaticManager_proto = function () {
 	};
 	
 	this.evaluate = function(inEquation, inDefaultValue, inOverrideParams) {
-		
 		if (!inEquation) {
 			return 0;
 		}
@@ -36,7 +35,7 @@ var StaticManager_proto = function () {
 			return inEquation;
 		}
 //		
-//		var _stage = getParamValue("_stage");
+		var _max_knife = getParamValue("_max_knife");
 //		var _level = getParamValue("_level");
 //		var _damage = getParamValue("_damage");
 //		var _followers = getParamValue("_followers");
@@ -48,38 +47,28 @@ var StaticManager_proto = function () {
 //		var _tier = getParamValue("_tier");
 //		var _min_stage = getParamValue("_min_stage");
 //		
-//		var tempFunction = null;
-//		var tempFunctionBody = "return " + inEquation + ";";
-//		var result = inDefaultValue || 0;
-//		try {
-//			tempFunction = new Function("_stage", "_level", "_damage", "_followers", "_pocket", "_beststage", "_totalbeststage", "_warpstage", "_evolution", "_tier", "_min_stage", tempFunctionBody);
-//			result = tempFunction(_stage, _level, _damage, _followers, _pocket, _beststage, _totalbeststage, _warpstage, _evolution, _tier, _min_stage);
-//		} catch (error) {
-//			console.log('[StaticManager-(evaluate)] Error: ' + JSON.stringify(error));
-//			return result;
-//		} 
-//		return result;
+		var tempFunction = null;
+		var tempFunctionBody = "return " + inEquation + ";";
+		var result = inDefaultValue || 0;
+		try {
+			tempFunction = new Function('_max_knife', tempFunctionBody);
+			result = tempFunction(_max_knife);
+		} catch (error) {
+			console.log('[StaticManager-(evaluate)] Error: ' + JSON.stringify(error));
+			return result;
+		} 
+		return result;
 //		
-//		function getParamValue(inParamName) {
-//			return (inEquation.indexOf(inParamName) < 0 ? null : (inOverrideParams && inOverrideParams.hasOwnProperty(inParamName) ? inOverrideParams[inParamName] : getParamDefaultValue(inParamName)));
-//			
-//			function getParamDefaultValue(inParamName) {
-//				switch (inParamName) {
-//				case "_stage": return this.stage || 1;
-//				case "_level": return (LeaderBallManager.currentLeaderBall() ? LeaderBallManager.currentLeaderBall().getLevel() : 1);
-//				case "_damage": return (LeaderBallManager.currentLeaderBall() ? LeaderBallManager.currentLeaderBall().getDamage() : 1);
-//				case "_followers": return (LeaderBallManager.currentLeaderBall() ? LeaderBallManager.currentLeaderBall().getFollowers() : 0);
-//				case "_pocket": return (LeaderBallManager.currentLeaderBall() ? LeaderBallManager.currentLeaderBall().getMaxFollowers() : 1);
-//				case "_beststage": return PlayerDataManager.weeklyBestInfo.getStage();
-//				case "_totalbeststage": return PlayerDataManager.bestInfo.getStage();
-//				case "_warpstage": return InGameConfig.WARP_MIN_STAGE;
-//				case "_evolution": return (LeaderBallManager.currentLeaderBall() ? LeaderBallManager.currentLeaderBall().getEvolutionLevel() : 0);
-//				case "_tier": return (LeaderBallManager.currentLeaderBall() ? LeaderBallManager.currentLeaderBall().getTier() : 1);
-//				case "_min_stage": InGameConfig.BOSS_BLOCK_LEVEL;
-//				default: return 0;
-//				}
-//			}
-//		}
+		function getParamValue(inParamName) {
+			return (inEquation.indexOf(inParamName) < 0 ? null : (inOverrideParams && inOverrideParams.hasOwnProperty(inParamName) ? inOverrideParams[inParamName] : getParamDefaultValue(inParamName)));
+			
+			function getParamDefaultValue(inParamName) {
+				switch (inParamName) {
+				case "_max_knife": return InGameController.getMaxCount() || 1;
+				default: return 0;
+				}
+			}
+		}
 	};
 	
 	this.parseToArray= function(inValue) {

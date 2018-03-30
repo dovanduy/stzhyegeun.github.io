@@ -55,19 +55,23 @@ function GGManager_proto () {
 			return;
 		}
 		
-//		if(StzBuildConfig.SERVER_MODE === EServerMode.DEV){
-//			return;
-//		}
+		if(StzBuildConfig.SERVER_MODE === EServerMode.DEV){
+			return;
+		}
 		
 		this.isEnableByNameDic = {};
 		
-		this.isEnableByNameDic[EAdName.REWARD_GET_CHARACTER] = 1; //(StaticManager.dino_thornz_base.get('interstitial_restart_enable') ? StaticManager.dino_thornz_base.get('interstitial_restart_enable').value : 0);
+		this.isEnableByNameDic[EAdName.REWARD_GET_CHARACTER] = (StaticManager.dino_thornz_base.get('reward_get_character_enable') ? StaticManager.dino_thornz_base.get('reward_get_character_enable').value : 0);
+		this.isEnableByNameDic[EAdName.REWARD_SKIP] = (StaticManager.dino_thornz_base.get('reward_skip_enable') ? StaticManager.dino_thornz_base.get('reward_skip_enable').value : 0);
+		this.isEnableByNameDic[EAdName.REWARD_CONTINUE] = (StaticManager.dino_thornz_base.get('reward_continue_enable') ? StaticManager.dino_thornz_base.get('reward_continue_enable').value : 0);
 		this.isEnableByNameDic[EAdName.INTERSTITIAL_INGAME_RESTART] = (StaticManager.dino_thornz_base.get('interstitial_restart_enable') ? StaticManager.dino_thornz_base.get('interstitial_restart_enable').value : 0);
 
 		//보상형 광고
 		if(this._reward_ad_info === undefined || this._reward_ad_info === null){
 			this._reward_ad_info = {
-					reward_get_character : {'name' : 'reward_get_character'}
+					reward_get_character : {'name' : 'reward_get_character'},
+					reward_skip			 : {'name' : 'reward_skip'},
+					reward_continue		 : {'name' : 'reward_continue'}
 			}
 		}
 		

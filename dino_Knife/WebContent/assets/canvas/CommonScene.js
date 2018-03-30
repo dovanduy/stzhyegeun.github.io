@@ -65,6 +65,8 @@ function CommonScene(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBo
 	
 	var _tutorialScene = this.game.add.group(this);
 	
+	var _popupContainer = this.game.add.group(this);
+	
 	var _loadingContainer = this.game.add.group(this);
 	
 	var _topContainer = this.game.add.group(this);
@@ -92,6 +94,7 @@ function CommonScene(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBo
 	this.fRankScene = _rankScene;
 	this.fCharacterScene = _characterScene;
 	this.fTutorialScene = _tutorialScene;
+	this.fPopupContainer = _popupContainer;
 	this.fLoadingContainer = _loadingContainer;
 	this.fTopContainer = _topContainer;
 	/* --- post-init-begin --- */
@@ -199,7 +202,7 @@ CommonScene.prototype.tweenMotionBg = function(motionBg){
 	}.bind(this));
 };
 
-CommonScene.prototype.motionBgInGame = function(inMode){
+CommonScene.prototype.motionBgInGame = function(inColorData){
 	this.fMotionBgContainer.scale.set(1);
 	this.fMotionBgContainer.y = 250;	
 	
@@ -207,13 +210,7 @@ CommonScene.prototype.motionBgInGame = function(inMode){
 	this.isTweenBg = true;
 	
 	for(var i = 0; i < this.fMotionBgArray.length; i++){
-		if(inMode === 'N'){
-			this.fMotionBgArray[i].tint = 0x7ad6e5;
-		}
-		else if(inMode === 'H'){
-			this.fMotionBgArray[i].tint = 0xff0031;
-		}
-		
+		this.fMotionBgArray[i].tint = inColorData.motionBg;
 		this.tweenMotionBg(this.fMotionBgArray[i]);
 	}
 };

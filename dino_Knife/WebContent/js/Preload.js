@@ -33,12 +33,12 @@ Preload.prototype.loadComplete = function () {
 
 	
 	leaderboard.onInviteFriendCallback = function() {
-		FbManager.updateAsyncByInviteUpdateView();
+		FbManager.updateAsyncByInviteUpdateView(EShareType.INVITE);
 		PlayerDataManager.saveData.updateShareCount(1);
 	}.bind(this);
 	
 	leaderboard.onPlayWithFriendCallback = function(inFriend, inBoardType){
-		FbManager.updateAsyncByInviteUpdateView();
+		FbManager.updateAsyncByInviteUpdateView(EShareType.INVITE);
 		PlayerDataManager.saveData.updateShareCount(1);
 	}.bind(this);
 	

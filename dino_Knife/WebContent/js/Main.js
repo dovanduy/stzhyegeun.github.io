@@ -8,29 +8,6 @@ window.onload = function() {
 		leaderboard.onSelectBtnClose = function() {
 			leaderboard.closeLeaderboard();
 		};
-		leaderboard.onInviteFriendCallback = function() {
-			if (!window.FBInstant) {
-				 return;
-			 }
-				
-			 FBInstant.updateAsync({
-				 action: "CUSTOM", 
-				 template: "invite", 
-				 cta: "플레이하기!!",
-				 image: TITLE_IMAGE, 
-				 text: "다이노 쏜즈!!", 
-				 data: {}, 
-				 strategy: "IMMEDIATE", 
-				 notification: "PUSH"
-			 }).then(function() {
-				 StzLog.print("invite message sent.");
-			 }).catch(function(e) {
-				 StzLog.print("updateAsync error: " + JSON.stringify(e));
-			 });
-		};
-		leaderboard.onClickPlayGameButton = function() {
-			leaderboard.closeLeaderboard();
-		}
 	}
 	
 	$(document).ajaxError(function(event, xhr, options, exc) {

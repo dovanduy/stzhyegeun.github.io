@@ -75,10 +75,8 @@ function PopupError(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBod
 	this.fBtnAdFailVideo = _btnAdFailVideo;
 	this.fTextAdFailOK = _textAdFailOK;
 	/* --- post-init-begin --- */
-	this.fPopupBg.setData(StzTrans.translate('NOTICE'), function(){
-		PopupBg.destroyAlphaTween(this.game, this, function(){
-			this.destroy(true);
-		}.bind(this));
+	this.fPopupBg.setData(StzTrans.translate(ELocale.NOTICE_TITLE), function(){
+		PopupBg.destroyAlphaTween(this.game, this);
 	}.bind(this));
 	
 	this.visible = false;
@@ -110,9 +108,7 @@ PopupError.prototype.setData = function(type){
 		
 		this.fBtnAdPCFailVideo.inputEnabled = true;
 		this.fBtnAdPCFailVideo.events.onInputUp.add(function(){
-			PopupBg.destroyAlphaTween(this.game, this, function(){
-				this.destroy(true);
-			}.bind(this));
+			PopupBg.destroyAlphaTween(this.game, this);
 		}.bind(this));
 	}
 	else if(type === EErorrType.AD_LOAD_FAIL){
@@ -120,9 +116,7 @@ PopupError.prototype.setData = function(type){
 		
 		this.fBtnAdFailVideo.inputEnabled = true;
 		this.fBtnAdFailVideo.events.onInputUp.add(function(){
-			PopupBg.destroyAlphaTween(this.game, this, function(){
-				this.destroy(true);
-			}.bind(this));
+			PopupBg.destroyAlphaTween(this.game, this)
 		}.bind(this));
 	}
 	

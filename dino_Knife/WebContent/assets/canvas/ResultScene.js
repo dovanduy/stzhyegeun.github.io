@@ -86,7 +86,8 @@ function ResultScene(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBo
 	var _character_bg_png = this.game.add.sprite(5, 88, 'mainAtlas', 'character_bg.png', _characterContainer);
 	_character_bg_png.anchor.setTo(0.5, 0.5);
 	
-	var _textCharacter = this.game.add.text(-79, 69, 'CHARACTER', {"font":"32px Arial"}, _characterContainer);
+	var _textCharacter = this.game.add.text(7, 90, 'CHARACTER', {"font":"32px Lilita One"}, _characterContainer);
+	_textCharacter.anchor.setTo(0.5, 0.5);
 	
 	var _winCharacterIcon = this.game.add.sprite(0, -36, 'characterAtlas', '1.png', _characterContainer);
 	_winCharacterIcon.anchor.setTo(0.5, 0.5);
@@ -203,6 +204,8 @@ function ResultScene(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBo
 	this.fBgHome = _bgHome;
 	this.fLoseTextContainer = _loseTextContainer;
 	/* --- post-init-begin --- */
+	this.popupSkip = new PopupAd(this.game, this);
+	
 	//LoseContainer
 	{
 		var titleFontStyle = {fontSize : "142px", fill : '#ffffff', font : 'Lilita One', boundsAlignH: 'center', boundsAlignV: 'middle'};
@@ -235,7 +238,6 @@ function ResultScene(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBo
 		leaderboard.onClickReplayGame = null;
 		leaderboard.onClickReplayGame = function() {
 			window.sounds.sound('sfx_button').play();
-			this.game.state.getCurrentState().offBlindFunc();
 			this.game.state.getCurrentState().restartInGame();
 			this.visible = false;
 		}.bind(this);
@@ -253,6 +255,16 @@ function ResultScene(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBo
 			window.sounds.sound('sfx_button').play();
 			this.game.state.getCurrentState().destroyInGameScene(ESceneState.GO_LOBBY_SCENE);
 		}.bind(this);
+		
+		// BLIND 
+		{
+			this.fBlind = this.game.add.graphics(0, 0);
+			this.fBlind.beginFill(0x000000);
+			this.fBlind.drawRect(0, 0, this.game.world.width, this.game.world.height);
+			this.fBlind.alpha = 0.7;
+			this.fBlind.inputEnabled = true;
+			this.fBlindContainer.add(this.fBlind);
+		}
 	}
 	
 	//WinContainer
@@ -313,10 +325,7 @@ function ResultScene(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBo
 			this.updateUI();
 		}.bind(this));
 	}
-	
 	/* --- post-init-end --- */
-	
-	
 }
 
 /** @type Phaser.Group */
@@ -326,10 +335,10 @@ ResultScene.prototype.constructor = ResultScene;
 
 /* --- end generated code --- */
 // -- user code here --
-ResultScene.prototype.setData = function(isSuccess, inCompleteCallback){
+ResultScene.prototype.setData = function(isSuccess, inSkipCount){
 	this.fLoseContainer.visible = false;
 	this.fWinContainer.visible = false;
-	var stageNum = PlayerDataManager.saveData.getBestStage();
+	this.fBlindContainer.visible = false;
 	
 	if(isSuccess === true){
 		PlayerDataManager.saveData.updateBestStage();
@@ -353,7 +362,8 @@ ResultScene.prototype.setData = function(isSuccess, inCompleteCallback){
 		this.fTextLoseStage.text = StzUtil.strFormatObj(StzTrans.translate(ELocale.STAGE_TEXT_B), {N : PlayerDataManager.saveData.getBestStage()});
 		this.fLoseCharacterIcon.frameName = PlayerDataManager.saveData.getCharacterID() + '.png';
 	
-		this.showLose();
+		this.showLose(inSkipCount);
+		this.fBlindContainer.visible = true;
 	}
 	PlayerDataManager.saveData.save();
 };
@@ -501,9 +511,30 @@ ResultScene.prototype.showWin = function(){
 	}
 };
 
-ResultScene.prototype.showLose = function(){
-	if(leaderboard){
-		leaderboard.openLeaderboard(ELeaderboardType.FRIEND_LIST, this.game.canvas.style, "restartScene");
+ResultScene.prototype.showLose = function(inSkipCount){
+	var skipCount = StaticManager.dino_thornz_base.get('skip_count') ? StaticManager.dino_thornz_base.get('skip_count').value : 5;
+
+	if(skipCount <= inSkipCount){
+		this.game.state.getCurrentState().showBlindFunc(this.fBlindContainer);
+		this.popupSkip.setData(EpopupAdType.AD_POPUP_SKIP, function(){
+			window.sounds.sound('sfx_button').play();
+			PlayerDataManager.saveData.updateBestStage();
+			PlayerDataManager.saveData.save();
+			this.game.state.getCurrentState().restartInGame(true);
+			this.game.state.getCurrentState().skipCheckCount = 0;
+			this.visible = false;
+		}.bind(this),
+		function(){
+			this.game.state.getCurrentState().skipCheckCount = 0;
+			if(leaderboard){
+				leaderboard.openLeaderboard(ELeaderboardType.FRIEND_LIST, this.game.canvas.style, "restartScene");
+			}
+		}.bind(this));	
+	}
+	else{
+		if(leaderboard){
+			leaderboard.openLeaderboard(ELeaderboardType.FRIEND_LIST, this.game.canvas.style, "restartScene");
+		}
 	}
 	
 	this.fHomeContainer.alpha = 0;

@@ -46,10 +46,10 @@ var ServerManager_proto = function() {
 			//_baseUrl = "https://webgame-stage.stzapp.net";
 			_baseUrl = "https://dthornz.stzapp.net";
 		} else if (StzBuildConfig.SERVER_MODE === EServerMode.LIVE) {
-			_baseUrl = "https://dthornz.stzapp.net";
+			_baseUrl = "https://dthornz.stzgame.com";
 		}
 		
-		var _baseLogUrl = "https://hyperlog.stzgame.net/logs";
+		var _baseLogUrl = "https://dev-hyperlog.stzgame.net/logs";
 		if (StzBuildConfig.SERVER_MODE === EServerMode.STAGE) {
 			//_baseUrl = "https://webgame-stage.stzapp.net";
 			_baseLogUrl = "https://hyperlog.stzgame.net/logs";
@@ -270,11 +270,16 @@ var ServerManager_proto = function() {
 		var setLogParam = {
 			logs	: [{
 				game			: 29,
-				user_id			: this.serverId,
-				msg 			: inMsg,
-				t				: time
 			}]
 		};
+		
+		if(StzBuildConfig.SERVER_MODE === EServerMode.DEV){
+			setLogParam.logs[0]['env'] = 'dev';
+		}
+		setLogParam.logs[0]['user_id'] = this.serverId;
+		setLogParam.logs[0]['msg'] = inMsg;
+		setLogParam.logs[0]['t'] = inMsg;
+		
 		if(setLogParam.logs[0]){
 			for(var key in inVars){
 				setLogParam.logs[0][key] = inVars[key];

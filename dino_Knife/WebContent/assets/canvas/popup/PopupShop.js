@@ -112,7 +112,8 @@ function PopupShop(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBody
 	this.fCoinContainer = _coinContainer;
 	this.fIconMainCoin = _iconMainCoin;
 	/* --- post-init-begin --- */
-
+	this.failPopup = new PopupError(this.game, this);
+	
 	this.fPopupBg.setData(StzTrans.translate(ELocale.SHOP_TEXT_B), function(){
 		this.game.state.getCurrentState().offBlindFunc();
 		PopupBg.destroyAlphaTween(this.game, this);
@@ -122,6 +123,8 @@ function PopupShop(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBody
 	this.fBtnBuy.inputEnabled = true;
 	this.fBtnBuy.events.onInputUp.add(function(){
 		window.sounds.sound('sfx_shop').play();
+		FbManager.updateAsyncByInviteUpdateView(EShareType.CHARACTER, this.character);
+		
 		CharacterManager.buyCharacterByID(this.id);
 		this.game.state.getCurrentState().offBlindFunc();
 		PopupBg.destroyAlphaTween(this.game, this);
@@ -164,8 +167,7 @@ function PopupShop(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBody
 			this.game.state.getCurrentState().toggleLoading(true, 10, function(){
 				//광고 로딩 타임아웃 실패
 				this.game.state.getCurrentState().toggleLoading(false);
-				var failPopup = new PopupError(this.game, this);
-				failPopup.setData(EErorrType.AD_LOAD_FAIL);
+				this.failPopup.setData(EErorrType.AD_LOAD_FAIL);
 			}.bind(this));
 			GGManager.show(EAdName.REWARD_GET_CHARACTER);
 		}
@@ -183,8 +185,7 @@ function PopupShop(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBody
 			this.game.state.getCurrentState().toggleLoading(true, 1, function(){
 				//광고 로딩 타임아웃 실패
 				this.game.state.getCurrentState().toggleLoading(false);
-				var failPopup = new PopupError(this.game, this);
-				failPopup.setData(EErorrType.AD_PC_FAIL);
+				this.failPopup.setData(EErorrType.AD_PC_FAIL);
 			}.bind(this));
 		}
 	}.bind(this));
@@ -251,14 +252,15 @@ PopupShop.prototype.setData = function(type, inData){
 		this.fClaimButtonContainer.visible = true;
 		this.fTextClaim.text= StzTrans.translate(ELocale.CLAIM_TEXT_B);
 		this.fTextShare.text = StzTrans.translate(ELocale.INVITE_FRIEND_TEXT_B);
-		var textDec = inData.name + " 이거 받았어요 \n 축하해요";
+		var textDec = inData.name + StzUtil.strFormatObj(StzTrans.translate(ELocale.GET_CHARACTER_TEXT), 
+				{character_name : inData.name});
 		this.fTextDec.text = textDec;
 	}
 	else if(type === EPopupShopType.VIDEO){
 		this.adModel = GGManager.getAdModelByPlacementID(EAdType.REWARDED, EAdName.REWARD_GET_CHARACTER);
 		this.fVideoButtonContainer.visible = true;
 		
-		this.fTextAd.text = StzTrans.translate('WATCH AD');
+		this.fTextAd.text = StzTrans.translate(ELocale.CHARACTER_AD_BUTTON);
 		var textDec = StzUtil.strFormatObj(StzTrans.translate(ELocale.CHARACTER_AD_TEXT), 
 				{N : inData.unlockValue - inData.curValue, character_name : inData.name});
 		this.fTextDec.text = textDec;
@@ -283,8 +285,7 @@ PopupShop.prototype.setData = function(type, inData){
 			}.bind(this), function(){
 				//loadFail
 				this.game.state.getCurrentState().toggleLoading(false);
-				var failPopup = new PopupError(this.game, this);
-				failPopup.setData(EErorrType.AD_LOAD_FAIL);
+				this.failPopup.setData(EErorrType.AD_LOAD_FAIL);
 			}.bind(this));
 			GGManager.adLogSend(this.adModel.getType(), this.adModel.getName(), EAdUserAction.ACTION_SHOW);
 		}

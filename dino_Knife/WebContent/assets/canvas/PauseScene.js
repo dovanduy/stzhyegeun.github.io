@@ -58,17 +58,17 @@ function PauseScene(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBod
 	_btnHome.tint = 0x4dbef0;
 	_btnHome.alpha = 0.3;
 	_textBgHome.tint = 0x007793;
-	
+
 	var titleFontStyle = {fontSize : "142px", fill : '#ffffff', font : 'Lilita One', boundsAlignH: 'center', boundsAlignV: 'middle'};
-	_txtTitle = this.game.add.text(0, 0, "PAUSED", titleFontStyle, this);
+	_txtTitle = this.game.add.text(0, 0, 	StzTrans.translate(ELocale.PAUSE_TEXT_B), titleFontStyle, this);
 	_txtTitle.setTextBounds(0, this.game.world.height*0.22, this.game.world.width, 0);
 	
 	var stageFontStyle = {fontSize : "60px", fill : '#96a5aa', font : 'Lilita One', boundsAlignH: 'center', boundsAlignV: 'middle'};
-	this.fTextStage = this.game.add.text(0, 0, 'STAGE ' + PlayerDataManager.saveData.getBestStage(), stageFontStyle, this);
+	this.fTextStage = this.game.add.text(0, 0, StzUtil.strFormatObj(StzTrans.translate(ELocale.STAGE_TEXT_B), {N : PlayerDataManager.saveData.getBestStage()}), stageFontStyle, this);
 	this.fTextStage.setTextBounds(0, this.game.world.height*0.14, this.game.world.width, 0);
 	
 	var iconTitleFontStyle = {fontSize : "24px", fill : '#ffffff', font : 'Lilita One', boundsAlignH: 'center', boundsAlignV: 'middle'};
-	_homeTitle = this.game.add.text(0, 0, "HOME", iconTitleFontStyle, this);
+	_homeTitle = this.game.add.text(0, 0, StzTrans.translate(ELocale.HOME_TEXT_B), iconTitleFontStyle, this);
 	_homeTitle.setTextBounds(0, 3, this.fTextBgHome.width, this.fTextBgHome.height);
 	this.fTextBgHome.addChild(_homeTitle);
 	

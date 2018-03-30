@@ -18,9 +18,34 @@
 function InviteUpdateView(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBodyType) {
 	
 	Phaser.Group.call(this, aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBodyType);
-	this.game.add.sprite(0, 0, 'shareFImage_dinoThronz', null, this);
+	var _inviteContainer = this.game.add.group(this);
+	
+	this.game.add.sprite(0, 0, 'shareAtlas', 'shareFImage_dinoThronz.jpg', _inviteContainer);
+	
+	var _coinContainer = this.game.add.group(this);
+	
+	this.game.add.sprite(0, 0, 'shareAtlas', 'shareCoin.jpg', _coinContainer);
+	
+	var _characterContainer = this.game.add.group(this);
+	
+	this.game.add.sprite(0, 0, 'shareAtlas', 'shareBuy.jpg', _characterContainer);
+	
+	var _iconCharacter = this.game.add.sprite(365, 150, 'characterAtlas', '9.png', _characterContainer);
+	_iconCharacter.scale.setTo(1.6, 1.6);
+	_iconCharacter.anchor.setTo(0.5, 0.5);
+	
+	var _textName = this.game.add.text(365, 349, 'CANDY BAR', {"font":"bold 34px Lilita One","fill":"#ffffff"}, _characterContainer);
+	_textName.anchor.setTo(0.5, 0.5);
 	
 	
+	
+	// public fields
+	
+	this.fInviteContainer = _inviteContainer;
+	this.fCoinContainer = _coinContainer;
+	this.fCharacterContainer = _characterContainer;
+	this.fIconCharacter = _iconCharacter;
+	this.fTextName = _textName;
 	
 }
 
@@ -31,3 +56,29 @@ InviteUpdateView.prototype.constructor = InviteUpdateView;
 
 /* --- end generated code --- */
 // -- user code here --
+var EShareType = {
+		INVITE		:	'invite',
+		COIN		:	'coin',
+		CHARACTER	:	'character',
+		RESULT		:	'result'
+};
+
+InviteUpdateView.prototype.setData = function(inType, inData){
+	this.fInviteContainer.visible = false;
+	this.fCoinContainer.visible = false;
+	this.fCharacterContainer.visible = false;
+	
+	if(inType === EShareType.INVITE){
+		this.fInviteContainer.visible = true;
+	}
+	else if(inType === EShareType.COIN){
+		this.fCoinContainer.visible = true;
+	}
+	else if(inType === EShareType.CHARACTER){
+		if(inData){
+			this.fCharacterContainer.visible = true;
+			this.fTextName.text = inData.name;
+			this.fIconCharacter.frameName = inData.id + '.png';
+		}
+	}
+}

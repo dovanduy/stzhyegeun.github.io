@@ -173,6 +173,14 @@ function TargetModel(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBo
 	this.fTextRemainCount = this.game.add.text(0, 0, "", remainCountFontStyle, this.fTxtRemainContainer);
 	this.fTextRemainCount.anchor.set(0.5);
 	this.fTxtRemainContainer.visible = false;
+	
+	this.coinAnim = this.game.add.sprite(0, 0, 'coinAnim', 0, this.fCoinContainer);
+	this.coinAnim.anchor.setTo(0.5);
+	this.coinAnim.animations.add('play', [0, 1, 2, 3], 20, false);
+	this.coinAnim.animations.currentAnim.onComplete.add(function(){
+		this.coinAnim.visible = false;
+	}.bind(this));
+	this.coinAnim.visible = false;
     /* --- post-init-end --- */
 	
 	
@@ -280,7 +288,7 @@ TargetModel.prototype.targetDownAnimation = function(inCompleteCallback, isNotTw
 	if(isNotTween === true){
 		this.fBigTarget.y = 1450;
 		this.fBigTarget.scale.set(2);
-		this.fOutGameBossFaceContanier.y = -62;
+		this.fOutGameBossFaceContanier.y = -90;
 		this.fRightEyeIn.y = -62;
 		this.fLeftEyeIn.y  = -62;
 		
@@ -311,7 +319,7 @@ TargetModel.prototype.targetDownAnimation = function(inCompleteCallback, isNotTw
 };
 
 /////////////////////////// INGAME //////////////////////////////////////
-TargetModel.prototype.setData = function(inGameData, inIsTutorial){
+TargetModel.prototype.setData = function(inGameData, inIsTutorial, inColorData){
 	this.initTargetModel();
 	
 	var coinCount = inGameData.coinNum;
@@ -319,7 +327,7 @@ TargetModel.prototype.setData = function(inGameData, inIsTutorial){
 	var obstacleSize = inGameData.objectSize*0.9;
 	this.fTargetScale = inGameData.trageSize*0.9;
 	
-	this.setTargetByInGame(inGameData.mode);
+	this.setTargetByInGame(inColorData);
 	
 	this.fTarget.hitArea = new Phaser.Circle(this.fBigTarget.x, this.fBigTarget.y, 400*this.fTargetScale + 150);
 	
@@ -352,7 +360,7 @@ TargetModel.prototype.setData = function(inGameData, inIsTutorial){
 		var graphics = PoolManager.pool[PoolObjectName.COLLIDER].loadView(this.game);
 		graphics.lineStyle(2, 0x00ff00, (StzGameConfig.COLLIDER_MODE === true)? 1 : 0);
 		graphics.drawCircle(0, 0, 60*obstacleSize);
-		graphics.hitArea = new Phaser.Circle(obstacle.x, obstacle.y, 60*obstacleSize*this.fTargetScale);
+		graphics.hitArea = new Phaser.Circle(obstacle.x, obstacle.y, 65*obstacleSize*this.fTargetScale);
 		graphics.x = obstacle.x;
 		graphics.y = obstacle.y;
 		
@@ -431,7 +439,6 @@ TargetModel.prototype.setData = function(inGameData, inIsTutorial){
 					this.game.state.getCurrentState().toggleTutorialScene();
 				}
 				else{
-                    window.sounds.sound('bgm_normal').play("", 0, PlayerDataManager.saveData.getMusic(), true);
 					InGameController.setIsPlay(true);
 				}
 
@@ -452,7 +459,7 @@ TargetModel.prototype.collisonEffect = function(){
 	effectEmitter.makeParticles('mainAtlas', 'particle_square.png', 5);
 	
 	for(var i = 0; i<effectEmitter.children.length; i++){
-		effectEmitter.children[i].tint = 0x200635;
+		effectEmitter.children[i].tint = this.fTarget.tint;
 	}
 	effectEmitter.minParticleScale = 0.075;
 	effectEmitter.maxParticleScale = 0.15;
@@ -469,8 +476,14 @@ TargetModel.prototype.collisonEffect = function(){
 		effectEmitter.destroy();
 	}.bind(this, effectEmitter));
 };
+TargetModel.prototype.playCoinAnim = function(inCoin){
+	this.coinAnim.visible = true;
+	this.coinAnim.x = inCoin.image.x;
+	this.coinAnim.y = inCoin.image.y;
+	this.coinAnim.play('play');
+};
 
-TargetModel.prototype.setTargetByInGame = function(inMode){
+TargetModel.prototype.setTargetByInGame = function(inColorData){
 	this.fInGameContainer.visible = true;
 	this.fObstacleContainer.visible = true;
 	this.fCoinContainer.visible = true;
@@ -478,31 +491,17 @@ TargetModel.prototype.setTargetByInGame = function(inMode){
 	
 	this.fRightEyeIn.y = -54;
 	this.fLeftEyeIn.y = -54;
-	    
-	if(inMode === 'N'){
-		this.fTarget.tint = 0x061833;
-		this.fBossEyeCover.tint = 0x061833;
-		this.fBossEyeCoverShadow.tint = 0x000000;
-		this.fBossLeftEyeIn.tint = 0x2177b7;
-		this.fBossLeftEyeOut.tint = 0xffffff;
-		this.fBossRightEyeIn.tint = 0x2177b7;
-		this.fBossRightEyeOut.tint = 0xffffff;
-		this.fBossMouth.tint = 0x4f4f4f;
-		this.obstacleTint = 0x7000f;
-		this.fTextRemainCount.fill = '#659cb7';
-	}
-	else if(inMode === 'H'){
-		this.fTarget.tint = 0x9e0031;
-		this.fBossEyeCover.tint = 0x9e0031;
-		this.fBossEyeCoverShadow.tint = 0x000000;
-		this.fBossLeftEyeIn.tint = 0xdb0020;
-		this.fBossLeftEyeOut.tint = 0xffffff;
-		this.fBossRightEyeIn.tint = 0xdb0020;
-		this.fBossRightEyeOut.tint = 0xffffff;
-		this.fBossMouth.tint = 0x4f4f4f;
-		this.obstacleTint =  0x72001e;
-		this.fTextRemainCount.fill = '#ff8383';
-	}
+	this.fBossEyeCoverShadow.tint = 0x000000;
+	this.fBossLeftEyeOut.tint = 0xffffff;
+	this.fBossRightEyeOut.tint = 0xffffff;
+	this.fBossMouth.tint = 0x4f4f4f;
+	this.fTarget.tint = inColorData.bossMain;
+	this.fBossEyeCover.tint = this.fTarget.tint;
+	this.fBossLeftEyeIn.tint = inColorData.bossEye;
+	this.fBossRightEyeIn.tint = inColorData.bossEye;
+	
+	this.obstacleTint = inColorData.obstacle;
+	this.fTextRemainCount.fill = inColorData.remainText;
 	
 	this.fBigTarget.rotation = 0;
 	this.fBigTarget.x = 360;

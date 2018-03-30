@@ -165,17 +165,24 @@ StzUtil.millysecondToMs = function(ms){
 };
 
 StzUtil.millysecondToHMs = function(ms, spaceStringArray){
-	if(!spaceStringArray && spaceStringArray.length !== 2){
-		return;
-	}
-	
+
 	var hours = Math.floor(ms/3600000);
 	ms -= (hours*3600000);
 	var minutes = Math.floor(ms/60000);
 	ms -= (minutes*60000);
 	var second =  Math.floor(ms/1000);
+	var finalTime = "";
+
+	if(spaceStringArray){
+		var strHour = (hours !== 0)? ((hours.toString() + ((spaceStringArray[0])? spaceStringArray[0] : " "))) : "";
+		var strMinute = (minutes !== 0)? ((minutes.toString() + ((spaceStringArray[1])? spaceStringArray[1] : " "))) : "";
+		var strSecond = (second !== 0)? ((second.toString() + ((spaceStringArray[2])? spaceStringArray[2] : " "))) : "";
+		finalTime = strHour + strMinute + strSecond;
+	}
+	else{
+		finalTime = (hours.toString() + " ")+ (minutes.toString() +" ") + second.toString();
+	}
 	
-	var finalTime = hours + spaceStringArray[0]+ minutes + spaceStringArray[1] + second;
 	
 	return finalTime;
 };

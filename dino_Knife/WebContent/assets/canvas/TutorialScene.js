@@ -46,6 +46,16 @@ function TutorialScene(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysics
 	var _imagePin1 = this.game.add.sprite(359, 779, 'mainAtlas', 'tutorial_pin.png', this);
 	_imagePin1.anchor.setTo(0.5, 0.3);
 	
+	var _tutoBg_png = this.game.add.sprite(164, 758, 'mainAtlas', 'tutoBg.png', this);
+	_tutoBg_png.anchor.setTo(0.5, 0.5);
+	
+	var _textCoin = this.game.add.text(163, 809, 'COIN', {"font":"bold 26px Lilita One","align":"center"}, this);
+	_textCoin.anchor.setTo(0.5, 0.5);
+	
+	var _common_coin_png = this.game.add.sprite(162, 737, 'mainAtlas', 'common_coin.png', this);
+	_common_coin_png.scale.setTo(0.65, 0.65);
+	_common_coin_png.anchor.setTo(0.5, 0.5);
+	
 	var _bossBodyContainer = this.game.add.group(this);
 	
 	var _obstacle = this.game.add.sprite(360, 577, 'mainAtlas', 'common_small_circle.png', _bossBodyContainer);
@@ -104,6 +114,7 @@ function TutorialScene(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysics
 	this.fImagePin3 = _imagePin3;
 	this.fImagePin2 = _imagePin2;
 	this.fImagePin1 = _imagePin1;
+	this.fTextCoin = _textCoin;
 	this.fBossBodyContainer = _bossBodyContainer;
 	this.fObstacle = _obstacle;
 	this.fBody = _body;
@@ -134,6 +145,8 @@ function TutorialScene(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysics
 		_txtDec.fill = '#365070';
 		_txtDec.text = StzTrans.translate(ELocale.TUTORIAL_TEXT2);
 		_txtOK.text = StzTrans.translate(ELocale.OK_TEXT_b);
+		_textCoin.fill = '#386a9b';
+		_textCoin.text = StzTrans.translate(ELocale.COIN_TEXT_B);
 	}
 	
 	this.fBossBodyContainer.x = 361;
@@ -179,8 +192,8 @@ TutorialScene.prototype.playTutorial = function(){
 	this.fBossBodyContainer.rotation = 0;
 	var dest = this.fBossBodyContainer.y;
 	var preRotation = this.fBossBodyContainer.rotation;
-	var tweenTutorial = this.game.add.tween(this.fBossBodyContainer).to({rotation : Math.PI*3}, 4500, Phaser.Easing.Linear.None, true);
-	tweenTutorial.onUpdateCallback(function(inParam){
+	this.tweenTutorial = this.game.add.tween(this.fBossBodyContainer).to({rotation : Math.PI*3}, 4500, Phaser.Easing.Linear.None, true);
+	this.tweenTutorial.onUpdateCallback(function(inParam){
 		var gap = this.fBossBodyContainer.rotation - preRotation;
 		if(inParam.target){
 			if(Math.PI*0.5 <= inParam.target.rotation && this.fImagePin1.y === 779 - this.fBody.height/2){
@@ -237,15 +250,15 @@ TutorialScene.prototype.playTutorial = function(){
 			preRotation = this.fBossBodyContainer.rotation;	
 		}
 	}.bind(this), preRotation);
-	tweenTutorial.onComplete.addOnce(function(inParam){
+	this.tweenTutorial.onComplete.addOnce(function(inParam){
 		if(inParam){
 			this.game.tweens.remove(inParam);
 			inParam = null;
 		}
-		this.game.time.events.add(1000, function(){
+		this.repeatTime = this.game.time.events.add(1000, function(){
 			this.playTutorial();
 		}.bind(this));
-	}.bind(this, tweenTutorial));
+	}.bind(this, this.tweenTutorial));
 };
 
 TutorialScene.prototype.touchAnim = function(){
@@ -265,7 +278,14 @@ TutorialScene.prototype.touchAnim = function(){
 
 TutorialScene.prototype.superDestroy = TutorialScene.prototype.destroy;
 TutorialScene.prototype.destroy = function(destroyChildren, soft) {
-	this.game.tweens.removeAll();
-	this.game.time.events.removeAll();
+	if(this.repeatTime){
+		this.game.time.events.remove(this.repeatTime);
+		this.repeatTime = null;
+	}
+	
+	if(this.tweenTutorial){
+		this.game.tweens.remove(this.tweenTutorial);
+		this.tweenTutorial = null;
+	}
 	this.superDestroy(destroyChildren, soft);
 };

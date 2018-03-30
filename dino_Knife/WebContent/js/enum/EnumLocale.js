@@ -5,7 +5,7 @@ var ELocale = {
 	RANK_TEXT_B				:	"rank_text_b",
 	FREE_GIFT_TEXT_B		:	"free_gift_text_b",
 	CHARACTER_TEXT_B		:	"character_text_b",
-	CONTINUE_TEXT_B			:	"countinue_text_b",
+	CONTINUE_TEXT_B			:	"continue_text_b",
 	OPTION_TEXT_B			:	"option_text_b",
 	SOUND_TEXT_B			:	"sound_text_b",
 	MUSIC_TEXT_B			:	"music_text_b",
@@ -15,11 +15,15 @@ var ELocale = {
 	VERSION_TEXT_B			:	"version_text_b",
 	PID_TEXT_B				:	"pid_text_b",
 	INFO_TEXT_B				:	"info_text_b",
+	PAUSE_TEXT_B			:	"pause_text_b",
+	NOTICE_TITLE			: 	"notice_title",
 	
+	CHARACTER_AD_BUTTON		:	"character_ad_button",
 	CHARACTER_BUY_TEXT		:	"character_buy_text",
 	CHARACTER_AD_TEXT		:	"character_ad_text",
 	CHARACTER_INVITE_TEXT	:	"character_invite_text",
 	CHARACTER_GIFT_TEXT		:	"character_gift_text",
+	GET_CHARACTER_TEXT		:	"get_character_text",
 	
 	OK_TEXT_b				:	"ok_text_b",
 	SHOP_TEXT_B				:	"shop_text_b",
@@ -66,7 +70,10 @@ var ELocale = {
 	HOME_TEXT_B				:	"home_text_b",
 	NEXT_TEXT_B				:	"next_text_b",
 	INVITE_FRIEND_TEXT		:	"invite_friend_text",
-	SHARE_TEXT_B			:	"share_text_b"
+	SHARE_TEXT_B			:	"share_text_b",
 	
+	CONTINUE_DESC			:	"continue_desc",
 	
+	COIN_TEXT_B				:	"coin_text_b",
+	COIN_TEXT				:	"coin_text",	
 };

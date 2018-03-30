@@ -130,7 +130,7 @@ with open("WebContent/js/config/StzBuildConfig.js", "w") as f:
     f.write(BUILD_CONFIG)
     f.close()
 
-if inServerMode != "dev":
+if inServerMode != "live":
     shutil.make_archive(archiveName, "zip", "WebContent")
 else:
     print("Copy files...\n")

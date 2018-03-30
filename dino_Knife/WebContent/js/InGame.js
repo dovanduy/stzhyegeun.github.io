@@ -15,7 +15,7 @@ function InGame() {
 var proto = Object.create(Phaser.State);
 InGame.prototype = proto;
 
-InGame.prototype.init = function(inSceneState, inRestratAdCount, inTryCount) {
+InGame.prototype.init = function(inSceneState, inRestratAdCount, inTryCount, inColorIndex) {
 	if (inSceneState) {
 		this.sceneState = inSceneState;
 	}
@@ -31,6 +31,7 @@ InGame.prototype.init = function(inSceneState, inRestratAdCount, inTryCount) {
 	
 	this.restartAdCount = (inRestratAdCount)? inRestratAdCount : 0;
 	this.tryCount = (inTryCount)? inTryCount : 0;
+	this.colorDataIndex = (inColorIndex)? inColorIndex : StzUtil.createRandomInteger(1, 8);
 };
 
 InGame.prototype.preload = function() {
@@ -58,6 +59,10 @@ InGame.prototype.create = function () {
 	  
 	  //리스타트 카운트
 	  this.restartCount = 0;
+	  //스킵 카운트 체크
+	  this.skipCheckCount = 0;
+	  //이어하기 사용 여부
+	  this.isUseContinue = false;
 	}
 	
 	//sceneState에 따라 화면 전환
@@ -133,7 +138,7 @@ InGame.prototype.addObjectPools = function() {
 			this.y = this.game.world.height*0.82;
 			this.world.x = this.x;
 			this.world.y = this.y;
-			
+			this.isCollison = false;
 			this.anchor.set(0.5, 0.05);
 			this.hitArea = new Phaser.Circle(this.x, this.y, 10);
 			this.game.world.updateTransform();
@@ -213,7 +218,6 @@ InGame.prototype.createInGameScene = function (inStageNum, isRestart) {
 		
 		this.commonScene.fOutObjectContainer.visible = false;
 
-		this.commonScene.motionBgInGame(StageManager.getStageData(inStageNum).mode);
 		var isTutorial = false;
 		
 		if(this.targetModel.parent){
@@ -241,22 +245,30 @@ InGame.prototype.createInGameScene = function (inStageNum, isRestart) {
 			this.gameScene = new InGameScene(this.game, this.commonScene.fGameScene);
 		}
 		
-		this.gameScene.setData(StageManager.getStageData(inStageNum), this.targetModel, isTutorial);
 		this.tryCount++;
+		this.isUseContinue = false;
 		
+		var colorData = null;
+		if(inStageNum%5 === 0){
+			this.colorDataIndex = StzUtil.createRandomInteger(1, 8);
+		}
 		if(StageManager.getStageData(inStageNum).mode === 'N'){
+			colorData = EStageColorData[this.colorDataIndex];
 			this.commonScene.fBackGround.clear();
-			this.commonScene.fBackGround.beginFill(0x03b2a9);
+			this.commonScene.fBackGround.beginFill(colorData.backGround);
 			this.commonScene.fBackGround.drawRect(0, 0, this.game.world.width, this.game.world.height);
-			this.commonScene.fAlphaBg.tint = 0x1d6aa0;
+			this.commonScene.fAlphaBg.tint = colorData.backAlpha;
 		}
 		else if(StageManager.getStageData(inStageNum).mode === 'H'){
+			colorData = EStageColorData[99];
 			this.commonScene.fBackGround.clear();
-			this.commonScene.fBackGround.beginFill(0xc21b3b);
+			this.commonScene.fBackGround.beginFill(colorData.backGround);
 			this.commonScene.fBackGround.drawRect(0, 0, this.game.world.width, this.game.world.height);
-			this.commonScene.fAlphaBg.tint = 0xfdaa69;
+			this.commonScene.fAlphaBg.tint = colorData.backAlpha;
 		}
 		
+		this.commonScene.motionBgInGame(colorData);
+		this.gameScene.setData(StageManager.getStageData(inStageNum), this.targetModel, isTutorial, colorData);
 		
 		Server.setLog(EServerLogMsg.START, {'p1' : StageManager.getStageData(inStageNum).mode, 'p2' : inStageNum});
 		if(window.FBInstant){
@@ -380,20 +392,31 @@ InGame.prototype.toggleResultScene = function (isSuccess){
 	InGameController.setIsPlay(false);
 	this.commonScene.fadeInBlind(250, this.commonScene.fTopContainer, function(){
 		this.gameScene.visible = false;
-		this.resultScene.setData(isSuccess);
+		this.resultScene.setData(isSuccess,  this.skipCheckCount);
 		this.resultScene.visible = true;
 		
 		if(isSuccess === true){
 			window.sounds.sound('bgm_result').play("", 0, PlayerDataManager.saveData.getMusic(), true);
-			window.sounds.sound('sfx_clear').play();
+			this.time.events.add(500, function(){
+				window.sounds.sound('sfx_clear').play();
+			}.bind(this));
+			
+			this.time.events.add(1000, function(){
+				window.sounds.sound('voice_clear').play();
+			}.bind(this));
 			this.targetModel.targetInWinReult();
 			this.gameScene.fTargetContainer.remove(this.targetModel, false);
 			this.resultScene.fTargetContainer.add(this.targetModel);
 			this.commonScene.updateUIByWinResult();
 		}
 		else{
-			window.sounds.sound('sfx_fail').play();
-			this.commonScene.showBlind(this.resultScene.fBlindContainer);
+			this.time.events.add(500, function(){
+				window.sounds.sound('sfx_fail').play();
+			}.bind(this));
+			
+			this.time.events.add(1000, function(){
+				window.sounds.sound('voice_fail').play();
+			}.bind(this));
 		}
 		this.commonScene.fadeOutBlind(500, this.commonScene.fTopContainer);
 	}.bind(this));
@@ -568,8 +591,15 @@ InGame.prototype.setCanvasFocusState = function(checkPausable,checkWillResumable
 	}
 };
 
-InGame.prototype.restartInGame = function(){
+InGame.prototype.restartInGame = function(isUseSkip){
+	//스킵 사용시에는 간접광고 안보이게
+	if(isUseSkip === true){
+		this.destroyInGameScene(ESceneState.GO_INGAME_SCENE);
+		return;
+	}
+	
 	this.restartCount++;
+	//전면광고 관련 카운트
 	this.restartAdCount++;
 
 	this.interstitialRestartShowAd(function(){
@@ -618,11 +648,11 @@ InGame.prototype.destroyInGameScene = function (inState) {
 		this.game.onResume.removeAll();
 		
 		InGameController.setIsPlay(false);
-		InGameController.destroyObject();
+		InGameController.destroy();
 		PoolManager.init(true);
 		
 		this.commonScene.destroy(true, false);
-		this.game.state.restart(true, false, inState, this.restartAdCount, this.tryCount);
+		this.game.state.restart(true, false, inState, this.restartAdCount, this.tryCount, this.colorDataIndex);
 	}.bind(this));
 	
 };

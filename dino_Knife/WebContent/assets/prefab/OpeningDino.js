@@ -88,7 +88,7 @@ OpeningDino.prototype.show = function() {
 
 	this.position.y = 1380;
 
-	this.game.add.tween(this).to({y:1124}, 500, Phaser.Easing.Linear.None, true)
+	this.game.add.tween(this).to({y:1124}, 500, Phaser.Easing.Exponential.Out, true)
 	.onComplete.addOnce(function() {
 		this.fBomb.visible = true;
 		this.fDino.visible = false;

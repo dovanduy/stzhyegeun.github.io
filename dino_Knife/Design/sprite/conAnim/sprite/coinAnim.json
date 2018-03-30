@@ -1,0 +1,44 @@
+{"frames": [
+
+{
+	"filename": "fx_coin_01.png",
+	"frame": {"x":0,"y":0,"w":98,"h":98},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":98,"h":98},
+	"sourceSize": {"w":98,"h":98}
+},
+{
+	"filename": "fx_coin_02.png",
+	"frame": {"x":98,"y":0,"w":98,"h":98},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":98,"h":98},
+	"sourceSize": {"w":98,"h":98}
+},
+{
+	"filename": "fx_coin_03.png",
+	"frame": {"x":196,"y":0,"w":98,"h":98},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":98,"h":98},
+	"sourceSize": {"w":98,"h":98}
+},
+{
+	"filename": "fx_coin_04.png",
+	"frame": {"x":294,"y":0,"w":98,"h":98},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":98,"h":98},
+	"sourceSize": {"w":98,"h":98}
+}],
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "coinAnim.png",
+	"format": "RGBA8888",
+	"size": {"w":392,"h":98},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:c5f86775636d68532f6a74c2e61b289b:a1e396ddea1754a744d94846e2dcf6e8:cc60047d3d24fd799885d94f887bfcdb$"
+}
+}

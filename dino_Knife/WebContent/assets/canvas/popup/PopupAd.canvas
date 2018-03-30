@@ -1,0 +1,239 @@
+{
+  "canvas-version": 2,
+  "settings": {
+    "className": "PopupAd",
+    "sceneWidth": 720,
+    "sceneHeight": 1280,
+    "generateOnSave": true,
+    "enableStepping": false,
+    "lang": "JAVA_SCRIPT",
+    "baseClass": "Phaser.Group",
+    "backgroundColor": [
+      180,
+      180,
+      180
+    ],
+    "gridColor": [
+      200,
+      200,
+      200
+    ],
+    "showGrid": true
+  },
+  "stateSettings": {
+    "stageBackgroundColor": [
+      0,
+      0,
+      0
+    ],
+    "autoLoad": true,
+    "preloadSpriteId": "",
+    "preloadSprite_direction": 0,
+    "load.pack": []
+  },
+  "world": {
+    "type": "group",
+    "id": "27f050bc-0af2-4bd3-be72-521a2aba30f4",
+    "info": {
+      "editorName": "PopupAd",
+      "setAll": [],
+      "children": [{
+        "type": "group",
+        "id": "61eab318-bd4e-4f8a-b003-d8522a15733d",
+        "info": {
+          "editorName": "group",
+          "setAll": [],
+          "children": [
+            {
+              "type": "group",
+              "id": "2413c8df-f772-4818-868c-4ca23f7ab782",
+              "info": {
+                "editorName": "blindContainer",
+                "editorPublic": true,
+                "setAll": [],
+                "children": []
+              }
+            },
+            {
+              "type": "prefab",
+              "prefab": "0",
+              "id": "8c78ec02-c258-4f87-9a6d-7b48b785877d",
+              "info": {
+                "editorName": "popupBg",
+                "editorPublic": true,
+                "x": 360,
+                "y": 658
+              }
+            },
+            {
+              "type": "text",
+              "id": "3918f05d-da90-456f-b7fd-25ab4ca66cca",
+              "info": {
+                "editorName": "textDec",
+                "editorPublic": true,
+                "x": 357,
+                "y": 613,
+                "anchor.x": 0.5,
+                "anchor.y": 0.5,
+                "text": "DO YOU WANT\r\nSKIP STAGE?",
+                "style.font": "Lilita One",
+                "style.fontSize": 44,
+                "style.fill": "#a3c6d3",
+                "style.align": "CENTER"
+              }
+            },
+            {
+              "type": "atlas-sprite",
+              "id": "8b1e2770-ea2a-4799-bdfa-15bedb3e666c",
+              "asset": "0",
+              "info": {
+                "editorName": "ad_icon_large_png",
+                "x": 257,
+                "y": 356,
+                "rotation": -0.3490658503988659,
+                "tint": "0xc1d9e0"
+              }
+            },
+            {
+              "type": "group",
+              "id": "748bd24e-f853-4984-ba25-a94d7cfd2414",
+              "info": {
+                "editorName": "videoButtonContainer",
+                "editorPublic": true,
+                "setAll": [],
+                "children": [
+                  {
+                    "type": "atlas-sprite",
+                    "id": "17ed645f-11ce-47d3-99e4-f95001afa419",
+                    "asset": "1",
+                    "info": {
+                      "editorName": "btnVideo",
+                      "editorPublic": true,
+                      "x": 362,
+                      "y": 835,
+                      "scale.y": 1.1,
+                      "anchor.x": 0.5,
+                      "anchor.y": 0.5,
+                      "tint": "0x51aaee"
+                    }
+                  },
+                  {
+                    "type": "text",
+                    "id": "ceb87cd6-8067-4b2f-b583-d3c9c23b2092",
+                    "info": {
+                      "editorName": "textAd",
+                      "editorPublic": true,
+                      "x": 410,
+                      "y": 838,
+                      "anchor.x": 0.5,
+                      "anchor.y": 0.5,
+                      "text": "WATCH AD",
+                      "style.font": "Lilita One",
+                      "style.fontSize": 57,
+                      "style.fill": "#ffffff"
+                    }
+                  },
+                  {
+                    "type": "atlas-sprite",
+                    "id": "97510f71-e875-4d38-8145-4b6129bfdc36",
+                    "asset": "2",
+                    "info": {
+                      "editorName": "ad_icon_skip_btn_png",
+                      "x": 212,
+                      "y": 835,
+                      "anchor.x": 0.5,
+                      "anchor.y": 0.5
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "type": "group",
+              "id": "3a71767c-0051-4b6c-9efe-399cea05853a",
+              "info": {
+                "editorName": "buyButtonContainer",
+                "editorPublic": true,
+                "setAll": [],
+                "children": [
+                  {
+                    "type": "atlas-sprite",
+                    "id": "99adfc92-5e99-449d-b230-e90f07d13085",
+                    "asset": "1",
+                    "info": {
+                      "editorName": "btnBuy",
+                      "editorPublic": true,
+                      "x": 362,
+                      "y": 1014,
+                      "scale.y": 1.1,
+                      "anchor.x": 0.5,
+                      "anchor.y": 0.5,
+                      "tint": "0xf4ba00"
+                    }
+                  },
+                  {
+                    "type": "atlas-sprite",
+                    "id": "51c7cac8-2f76-4acb-8376-233d993f3e96",
+                    "asset": "3",
+                    "info": {
+                      "editorName": "iconCoin",
+                      "editorPublic": true,
+                      "x": 251,
+                      "y": 986,
+                      "scale.x": 0.5,
+                      "scale.y": 0.5
+                    }
+                  },
+                  {
+                    "type": "text",
+                    "id": "cb7cf176-bcce-4a1d-b10e-b8ea4c14041d",
+                    "info": {
+                      "editorName": "textBuyValue",
+                      "editorPublic": true,
+                      "x": 387,
+                      "y": 1016,
+                      "anchor.x": 0.5,
+                      "anchor.y": 0.5,
+                      "text": "50",
+                      "style.font": "Lilita One",
+                      "style.fontSize": 60,
+                      "style.fill": "#ffffff"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }]
+    }
+  },
+  "type": "GROUP",
+  "asset-table": {
+    "0": {
+      "file": "WebContent/assets/pack.json",
+      "section": "inGame",
+      "asset": "mainAtlas",
+      "sprite": "ad_icon_large.png"
+    },
+    "1": {
+      "file": "WebContent/assets/pack.json",
+      "section": "inGame",
+      "asset": "mainAtlas",
+      "sprite": "common_middle_btn.png"
+    },
+    "2": {
+      "file": "WebContent/assets/pack.json",
+      "section": "inGame",
+      "asset": "mainAtlas",
+      "sprite": "ad_icon_skip_btn.png"
+    },
+    "3": {
+      "file": "WebContent/assets/pack.json",
+      "section": "inGame",
+      "asset": "mainAtlas",
+      "sprite": "common_coin.png"
+    }
+  },
+  "prefab-table": {"0": "WebContent/assets/prefab/PopupBg.canvas"}
+}

@@ -298,9 +298,12 @@
                                 "info": {
                                   "editorName": "textCharacter",
                                   "editorPublic": true,
-                                  "x": -79,
-                                  "y": 69,
+                                  "x": 7,
+                                  "y": 90,
+                                  "anchor.x": 0.5,
+                                  "anchor.y": 0.5,
                                   "text": "CHARACTER",
+                                  "style.font": "Lilita One",
                                   "style.fontSize": 32,
                                   "style.fontWeight": "NORMAL"
                                 }

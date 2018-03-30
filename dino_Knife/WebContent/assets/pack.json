@@ -217,14 +217,45 @@
       "url": "assets/canvas/popup/PopupError.js"
     },
     {
-      "type": "image",
-      "key": "shareFImage_dinoThronz",
-      "url": "assets/image/shareFImage_dinoThronz.jpg",
-      "overwrite": false
+      "type": "script",
+      "key": "PopupAd",
+      "url": "assets/canvas/popup/PopupAd.js"
+    },
+    {
+      "type": "audio",
+      "key": "voice_clear",
+      "urls": ["assets/sounds/voice_clear.mp3"],
+      "autoDecode": true
+    },
+    {
+      "type": "audio",
+      "key": "voice_fail",
+      "urls": ["assets/sounds/voice_fail.mp3"],
+      "autoDecode": true
+    },
+    {
+      "type": "audio",
+      "key": "voice_oops",
+      "urls": ["assets/sounds/voice_oops.mp3"],
+      "autoDecode": true
+    },
+    {
+      "type": "atlas",
+      "key": "coinAnim",
+      "textureURL": "assets/sprite/coinAnim.png",
+      "atlasURL": "assets/sprite/coinAnim.json",
+      "format": "TEXTURE_ATLAS_JSON_ARRAY"
+    },
+    {
+      "type": "atlas",
+      "key": "shareAtlas",
+      "textureURL": "assets/image/shareImage/shareAtlas.png",
+      "atlasURL": "assets/image/shareImage/shareAtlas.json",
+      "format": "TEXTURE_ATLAS_JSON_ARRAY"
     }
   ],
   "meta": {
-    "generated": "1522119847853",
+    "generated": "1522313931301",
     "app": "Phaser Editor",
     "url": "http://phasereditor.boniatillo.com",
     "version": "1.0",

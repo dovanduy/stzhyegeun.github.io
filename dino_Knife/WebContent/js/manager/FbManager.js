@@ -12,7 +12,7 @@ function FbManager_proto () {
 			FBInstant.context.chooseAsync().then(function() {
 				this.game.input.enabled = false;
 				StzLog.print("Invite friends.");
-				this.updateAsyncByInviteUpdateView();
+				this.updateAsyncByInviteUpdateView(EShareType.INVITE);
 				
 				if(FBInstant.context && FBInstant.context.getID()){
 					FBInstant.getLeaderboardAsync(InGameConfig.SCORE_LEADER_BOARD_CONTEXT + FBInstant.context.getID())
@@ -78,16 +78,35 @@ function FbManager_proto () {
 		}
 	}
 	
-	this.updateAsyncByInviteUpdateView = function(){
+	this.updateAsyncByInviteUpdateView = function(inType, inData){
+		var ctrText = "";
+		var decText = "";
+		
+		if(inType === EShareType.INVITE){
+			ctrText = StzTrans.translate(ELocale.SHARE_MSG_TITLE_BUTTON);
+			decText = StzUtil.strFormatObj(StzTrans.translate(ELocale.SHARE_MSG_TITLE_TEXT), 
+					{user_name : PlayerDataManager.getPlayer().profileInfo.getName(), game_name : "Dino Thronz"});
+		}
+		else if(inType === EShareType.COIN){
+			ctrText = StzTrans.translate(ELocale.SHARE_MSG_F_COIN_BUTTON);
+			decText = StzTrans.translate(ELocale.SHARE_MSG_F_COIN_TEXT);
+		}
+		else if(inType === EShareType.CHARACTER){
+			ctrText = StzTrans.translate(ELocale.SHARE_MSG_CHALLENGE_BUTTON);
+			decText = StzUtil.strFormatObj(StzTrans.translate(ELocale.SHARE_MSG_CHARACTER_TEXT), 
+					{user_name : PlayerDataManager.getPlayer().profileInfo.getName(), character_name : inData.name});
+		}
+		
 		if (window.FBInstant) {
 			var captureCanvas = new InviteUpdateView(this.game);
+			captureCanvas.setData(inType, inData);
 			var captured = StzUtil.getScreenCapture(this.game, 0, 0, captureCanvas.width, captureCanvas.height, null, captureCanvas);
 			FBInstant.updateAsync({
 				action: "CUSTOM", 
 				template: "invite", 
-				cta: 'I want to play too',
+				cta: ctrText,
 				image: captured, 
-				text: 'I like Dino Thronz', 
+				text: decText, 
 				data: {}, 
 				strategy: "IMMEDIATE", 
 				notification: "PUSH"
@@ -97,6 +116,13 @@ function FbManager_proto () {
 				StzLog.print("updateAsync error: " + JSON.stringify(e));
 			 }.bind(this));	
 		}
+//		else{
+//			var captureCanvas = new InviteUpdateView(this.game);
+//			captureCanvas.setData(inType, inData);
+//			var captured = StzUtil.getScreenCapture(this.game, 0, 0, captureCanvas.width, captureCanvas.height, null, captureCanvas);
+//			
+//			this.game.add.image(0, 0, captured);
+//		}
 	}
 };
 var FbManager = new FbManager_proto();

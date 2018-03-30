@@ -277,6 +277,16 @@
             },
             {
               "type": "group",
+              "id": "9a6c3817-45aa-467f-bd26-98d475aec9d8",
+              "info": {
+                "editorName": "popupContainer",
+                "editorPublic": true,
+                "setAll": [],
+                "children": []
+              }
+            },
+            {
+              "type": "group",
               "id": "f210f3d8-9c4d-48e4-97e0-3e5160ad25bd",
               "info": {
                 "editorName": "loadingContainer",

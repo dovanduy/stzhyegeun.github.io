@@ -1,0 +1,36 @@
+{"frames": [
+
+{
+	"filename": "shareBuy.jpg",
+	"frame": {"x":1,"y":1,"w":720,"h":380},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":720,"h":380},
+	"sourceSize": {"w":720,"h":380}
+},
+{
+	"filename": "shareCoin.jpg",
+	"frame": {"x":1,"y":385,"w":720,"h":380},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":720,"h":380},
+	"sourceSize": {"w":720,"h":380}
+},
+{
+	"filename": "shareFImage_dinoThronz.jpg",
+	"frame": {"x":1,"y":769,"w":720,"h":380},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":720,"h":380},
+	"sourceSize": {"w":720,"h":380}
+}],
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "shareAtlas.png",
+	"format": "RGBA8888",
+	"size": {"w":722,"h":1150},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:4435eaeb58039e20258e851986fef8ae:d42601a563a655c76fc982c5f45283c4:eeff94bb6222a02271ad3a0a12365583$"
+}
+}

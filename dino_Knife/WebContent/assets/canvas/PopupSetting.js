@@ -87,7 +87,8 @@ function PopupSetting(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsB
 		_txtVersion = this.game.add.text(0, 0, StzTrans.translate(ELocale.VERSION_TEXT_B) + " " + StzBuildConfig.VERSION, gameVersionFontStyle, this);
 		_txtVersion.setTextBounds(this.fPopupBg.x - this.fPopupBg.width/2, this.fPopupBg.y + this.fPopupBg.height/2.5, this.fPopupBg.width, 0);
 		
-		_txtPID = this.game.add.text(0, 0, StzTrans.translate(ELocale.PID_TEXT_B) + " " + PlayerDataManager.getPlatformId(), gameVersionFontStyle, this);
+		_txtPID = this.game.add.text(0, 0, StzTrans.translate(ELocale.PID_TEXT_B) + " " + PlayerDataManager.getPlatformId()
+				+ '(' + Server.serverId + ')', gameVersionFontStyle, this);
 		_txtPID.setTextBounds(this.fPopupBg.x - this.fPopupBg.width/2, this.fPopupBg.y + this.fPopupBg.height/2.3, this.fPopupBg.width, 0);
 	}
 
