@@ -1,0 +1,95 @@
+{
+  "canvas-version": 2,
+  "settings": {
+    "className": "BgFrontLayer",
+    "sceneWidth": 720,
+    "sceneHeight": 1280,
+    "generateOnSave": true,
+    "enableStepping": false,
+    "lang": "JAVA_SCRIPT",
+    "baseClass": "Phaser.Group",
+    "backgroundColor": [
+      180,
+      180,
+      180
+    ],
+    "gridColor": [
+      200,
+      200,
+      200
+    ],
+    "showGrid": true
+  },
+  "stateSettings": {
+    "stageBackgroundColor": [
+      0,
+      0,
+      0
+    ],
+    "autoLoad": true,
+    "preloadSpriteId": "",
+    "preloadSprite_direction": 0,
+    "load.pack": []
+  },
+  "world": {
+    "type": "group",
+    "id": "720f519b-7498-40f4-abfe-027dcffeee81",
+    "info": {
+      "editorName": "BgFrontLayer",
+      "setAll": [],
+      "children": [{
+        "type": "group",
+        "id": "13c83ba1-810f-4e75-9457-5d34e825d6da",
+        "info": {
+          "editorName": "group",
+          "x": 360,
+          "y": 640,
+          "setAll": [],
+          "children": [
+            {
+              "type": "image",
+              "id": "1ae9dd4a-3ec0-436f-92f7-b714f347fafa",
+              "asset": "0",
+              "info": {"editorName": "frontLayer"}
+            },
+            {
+              "type": "image",
+              "id": "44faf831-cb50-4062-90d5-d33d8073828f",
+              "asset": "0",
+              "info": {
+                "editorName": "frontLayer1",
+                "y": -1280
+              }
+            },
+            {
+              "type": "image",
+              "id": "5dc29e72-c530-4569-8a9c-e9ef8b9d267e",
+              "asset": "0",
+              "info": {
+                "editorName": "frontLayer2",
+                "x": -720
+              }
+            },
+            {
+              "type": "image",
+              "id": "20c7b7ad-64eb-4745-ad6f-0beefff28e5d",
+              "asset": "0",
+              "info": {
+                "editorName": "frontLayer3",
+                "x": -720,
+                "y": -1280
+              }
+            }
+          ]
+        }
+      }]
+    }
+  },
+  "type": "GROUP",
+  "asset-table": {"0": {
+    "file": "WebContent/assets/assets-pack.json",
+    "section": "ingame",
+    "asset": "bg3"
+  }},
+  "prefab-table": {}
+}

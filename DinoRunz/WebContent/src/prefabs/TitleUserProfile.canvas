@@ -1,0 +1,135 @@
+{
+  "canvas-version": 2,
+  "settings": {
+    "className": "TitleUserProfile",
+    "sceneWidth": 640,
+    "sceneHeight": 360,
+    "generateOnSave": true,
+    "enableStepping": false,
+    "lang": "JAVA_SCRIPT",
+    "baseClass": "Phaser.Group",
+    "backgroundColor": [
+      180,
+      180,
+      180
+    ],
+    "gridColor": [
+      200,
+      200,
+      200
+    ],
+    "showGrid": true
+  },
+  "stateSettings": {
+    "stageBackgroundColor": [
+      0,
+      0,
+      0
+    ],
+    "autoLoad": true,
+    "preloadSpriteId": "",
+    "preloadSprite_direction": 0,
+    "load.pack": []
+  },
+  "world": {
+    "type": "group",
+    "id": "a376415a-25ed-4a37-a3d5-5559b89fa0b0",
+    "info": {
+      "editorName": "TitleUserProfile",
+      "setAll": [],
+      "children": [{
+        "type": "group",
+        "id": "00eef123-cbf9-460d-a39c-e16658cfe477",
+        "info": {
+          "editorName": "group",
+          "setAll": [],
+          "children": [
+            {
+              "type": "atlas-sprite",
+              "id": "39ada7e0-30bb-4248-8b3a-c39ce62a8538",
+              "asset": "0",
+              "info": {
+                "editorName": "sprUserProfile",
+                "editorPublic": true,
+                "anchor.x": 0.5,
+                "anchor.y": 0.5
+              }
+            },
+            {
+              "type": "atlas-sprite",
+              "id": "fd8ec6bd-311b-4b0b-ae8c-e6351f9b9b1c",
+              "asset": "1",
+              "info": {
+                "editorName": "img_titleFrame_png",
+                "anchor.x": 0.5,
+                "anchor.y": 0.5
+              }
+            },
+            {
+              "type": "atlas-sprite",
+              "id": "2720db0f-9143-463e-85fa-ff764d7eaab1",
+              "asset": "2",
+              "info": {
+                "editorName": "img_world001_png",
+                "x": 51,
+                "y": -1
+              }
+            },
+            {
+              "type": "text",
+              "id": "3c16ae8e-14a8-42b1-b850-d057860fe54a",
+              "info": {
+                "editorName": "userBestStage",
+                "editorPublic": true,
+                "x": 120,
+                "y": 18,
+                "anchor.x": 0.5,
+                "anchor.y": 0.5,
+                "text": "9999",
+                "style.fontSize": 24,
+                "style.fill": "#8991e4"
+              }
+            },
+            {
+              "type": "text",
+              "id": "51b1435d-5448-40bc-ba8e-eebbb00da7b8",
+              "info": {
+                "editorName": "userName",
+                "editorPublic": true,
+                "x": 113,
+                "y": -26,
+                "anchor.x": 0.5,
+                "anchor.y": 0.5,
+                "text": "userName",
+                "style.fontSize": 28,
+                "style.fill": "#ff9100"
+              }
+            }
+          ]
+        }
+      }]
+    }
+  },
+  "type": "GROUP",
+  "asset-table": {
+    "0": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "title",
+      "asset": "titleAtlas",
+      "sprite": "img_titleUserFaceArea.png"
+    },
+    "1": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "title",
+      "asset": "titleAtlas",
+      "sprite": "img_titleFrame.png"
+    },
+    "2": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "title",
+      "asset": "titleAtlas",
+      "sprite": "img_world001.png"
+    }
+  },
+  "prefab-table": {}
+}

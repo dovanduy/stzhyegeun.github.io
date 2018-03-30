@@ -1,0 +1,128 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    
+    <!-- webfont -->
+    <link rel="stylesheet" href="assets/webfonts/blogger_sans/stylesheet.css" type="text/css" charset="utf-8" />
+    <!-- leaderboard -->
+    <link rel="stylesheet" href="stz_leaderboard/stz-lb.css" type="text/css" charset="utf-8"/>
+	
+	<title>DinoRunz</title>
+	
+	<style>
+        * {
+            padding: 0;
+            margin: 0;    
+        }
+       
+        html, body {
+			position: fixed;
+			background: #000;
+			color: #fff;
+			overflow: hidden;
+			touch-action: none;
+			-ms-touch-action: none;
+			width: 100%;
+			height: 100%;
+        }
+        
+        canvas {
+            touch-action-delay: none;
+            touch-action: none;
+            -ms-touch-action: none;
+        }
+
+        #gameContainer {
+            width : 100%;
+            height : 100%;
+        }
+        
+        .fontPreload {
+			font-family: 'Blogger Sans';
+			position: absolute;
+			left: -100px;
+		}
+	</style>
+	
+	<!-- build:js -->
+
+	<script src="https://connect.facebook.net/en_US/fbinstant.6.0.js"></script>
+	
+	<script src="lib/jquery-3.1.1.min.js"></script>
+	<script src="lib/phaser.js"></script>
+	
+	<!-- config -->
+	<script src="config/StzGameConfig.js"></script>
+	<script src="config/StzBuildConfig.js"></script>
+	
+	<!-- Phaser Extends -->
+	<script src="lib/phaser_extend/Phaser_Group.js"></script>
+	<script src="lib/phaser_extend/Phaser_ArrayUtils.js"></script>
+	
+	<!-- Plugin -->
+	<script src="lib/plugin/nine-patch-phaser-plugin.js"></script>
+	<script src="lib/StzLog.js"></script>
+	<script src="lib/StzUtility.js"></script>
+	<script src="lib/Sounds.js"></script>
+	
+    <!-- Service Worker -->
+    <!-- script src="register.js"></script -->
+
+	<!-- STATE -->
+	<script src="src/states/Boot.js"></script>
+	<script src="src/states/Preloader.js"></script>
+	<script src="src/states/Title.js"></script>
+	<script src="src/states/InGame.js"></script>
+	
+	<!-- MANAGER -->
+	<script src="src/managers/PathManager.js"></script>
+	<script src="src/managers/PlayerDataManager.js"></script>
+	<script src="src/managers/ServerManager.js"></script>
+	<script src="src/managers/StaticManager.js"></script>
+	<script src="src/managers/StzTranslator.js"></script>
+	<script src="src/managers/GGManager.js"></script>
+	<script src="src/managers/FbManager.js"></script>
+	
+	<!-- models -->
+	<script src="src/models/ProfileInfoModel.js"></script>
+	
+	<!-- VIEW -->
+	<script src="src/images/TitleImage.js"></script>
+	<script src="src/prefabs/TileView.js"></script>
+	<script src="src/prefabs/DeadPositionView.js"></script>
+	<script src="src/prefabs/PlayerView.js"></script>
+	<script src="src/prefabs/BackgroundView.js"></script>
+	<script src="src/prefabs/CharSelectSlot.js"></script>
+	<script src="src/prefabs/PopupManager.js"></script>
+	<script src="src/prefabs/WorldUserProfile.js"></script>
+	<script src="src/prefabs/DinoDeath.js"></script>
+	<script src="src/prefabs/GetNewCharacterEffect.js"></script>
+	<script src="src/prefabs/TitleUserProfile.js"></script>
+	
+	<!-- SCENE -->
+	<script src="src/scenes/TitleScene.js"></script>
+	<script src="src/scenes/MenuScene.js"></script>
+	<script src="src/scenes/ButtonStage.js"></script>
+	
+	<!-- ENUM -->
+	<script src="src/enums/EnumTile.js"></script>
+	<!-- endbuild -->
+</head>
+<body>
+
+<div class='fontPreload'>.</div>
+<div id="gameContainer"></div>
+<div id="leaderboardContainer"></div>
+<script src="stz_leaderboard/stz-lb-loader.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,131 @@
+{
+  "canvas-version": 2,
+  "settings": {
+    "className": "GetNewCharacterEffect",
+    "sceneWidth": 640,
+    "sceneHeight": 360,
+    "generateOnSave": true,
+    "enableStepping": false,
+    "lang": "JAVA_SCRIPT",
+    "baseClass": "Phaser.Group",
+    "backgroundColor": [
+      180,
+      180,
+      180
+    ],
+    "gridColor": [
+      200,
+      200,
+      200
+    ],
+    "showGrid": true
+  },
+  "stateSettings": {
+    "stageBackgroundColor": [
+      0,
+      0,
+      0
+    ],
+    "autoLoad": true,
+    "preloadSpriteId": "",
+    "preloadSprite_direction": 0,
+    "load.pack": []
+  },
+  "world": {
+    "type": "group",
+    "id": "52e7fb80-d824-4ee0-80fc-0906f1839a3d",
+    "info": {
+      "editorName": "GetNewCharacterEffect",
+      "setAll": [],
+      "children": [{
+        "type": "group",
+        "id": "f732a692-3052-4594-9d69-60648dd65c07",
+        "info": {
+          "editorName": "group",
+          "setAll": [],
+          "children": [
+            {
+              "type": "atlas-sprite",
+              "id": "07029570-681e-4388-983b-25548d8dc917",
+              "asset": "0",
+              "info": {
+                "editorName": "getCharBG_png",
+                "scale.x": 2,
+                "scale.y": 2,
+                "anchor.x": 0.5,
+                "anchor.y": 0.5
+              }
+            },
+            {
+              "type": "atlas-sprite",
+              "id": "23e3dfa7-10cc-4040-b0e5-2294e25fa56d",
+              "asset": "1",
+              "info": {
+                "editorName": "sprLightning",
+                "editorPublic": true,
+                "x": -175,
+                "y": -21,
+                "scale.x": 2,
+                "scale.y": 2,
+                "anchor.x": 0.5,
+                "anchor.y": 0.5
+              }
+            },
+            {
+              "type": "spritesheet",
+              "id": "735fe67b-1eaf-4735-abd7-7774c4044791",
+              "asset": "2",
+              "info": {
+                "editorName": "sprCharacter",
+                "editorPublic": true,
+                "x": -175,
+                "y": -21,
+                "scale.x": 1.5,
+                "scale.y": 1.5,
+                "anchor.x": 0.5,
+                "anchor.y": 0.5
+              }
+            },
+            {
+              "type": "text",
+              "id": "87ceb115-e3de-4bd6-83e5-dde7499ef0f3",
+              "info": {
+                "editorName": "text",
+                "x": 54,
+                "y": -24,
+                "anchor.x": 0.5,
+                "anchor.y": 0.5,
+                "text": "GET A NEW CHARACTER!",
+                "style.font": "Blogger Sans",
+                "style.fontSize": 32,
+                "style.fill": "#1a8aa8"
+              }
+            }
+          ]
+        }
+      }]
+    }
+  },
+  "type": "GROUP",
+  "asset-table": {
+    "0": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "MenuScene",
+      "sprite": "getCharBG.png"
+    },
+    "1": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "MenuScene",
+      "sprite": "getCharlighting.png"
+    },
+    "2": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "auhaSheet1",
+      "sprite": "8"
+    }
+  },
+  "prefab-table": {}
+}

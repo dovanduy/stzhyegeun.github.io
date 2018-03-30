@@ -1,0 +1,527 @@
+{
+  "ingame": [
+    {
+      "type": "image",
+      "key": "road_tile_1",
+      "url": "assets/ingame/road_tile/road_tile_1.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "road_tile_2",
+      "url": "assets/ingame/road_tile/road_tile_2.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "road_tile_3",
+      "url": "assets/ingame/road_tile/road_tile_3.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "road_tile_4",
+      "url": "assets/ingame/road_tile/road_tile_4.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "road_tile_5",
+      "url": "assets/ingame/road_tile/road_tile_5.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "road_tile_6",
+      "url": "assets/ingame/road_tile/road_tile_6.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "road_tile_arrow",
+      "url": "assets/ingame/road_tile/road_tile_arrow.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "road_tile_arrow_gray",
+      "url": "assets/ingame/road_tile/road_tile_arrow_gray.png",
+      "overwrite": false
+    },
+    {
+      "type": "spritesheet",
+      "key": "auhaSheet1",
+      "url": "assets/ingame/auhaSheet1.png",
+      "frameWidth": 52,
+      "frameHeight": 61,
+      "frameMax": 20,
+      "margin": 0,
+      "spacing": 0
+    },
+    {
+      "type": "image",
+      "key": "roal_tile_jewel",
+      "url": "assets/ingame/road_tile/road_tile_jewel-.png",
+      "overwrite": false
+    },
+    {
+      "type": "spritesheet",
+      "key": "auhaSheet10",
+      "url": "assets/ingame/auhaSheet10.png",
+      "frameWidth": 54,
+      "frameHeight": 67,
+      "frameMax": 20,
+      "margin": 0,
+      "spacing": 0
+    },
+    {
+      "type": "spritesheet",
+      "key": "auhaSheet2",
+      "url": "assets/ingame/auhaSheet2.png",
+      "frameWidth": 53,
+      "frameHeight": 64,
+      "frameMax": 20,
+      "margin": 0,
+      "spacing": 0
+    },
+    {
+      "type": "spritesheet",
+      "key": "auhaSheet3",
+      "url": "assets/ingame/auhaSheet3.png",
+      "frameWidth": 62,
+      "frameHeight": 75,
+      "frameMax": 20,
+      "margin": 0,
+      "spacing": 0
+    },
+    {
+      "type": "spritesheet",
+      "key": "auhaSheet4",
+      "url": "assets/ingame/auhaSheet4.png",
+      "frameWidth": 61,
+      "frameHeight": 68,
+      "frameMax": 20,
+      "margin": 0,
+      "spacing": 0
+    },
+    {
+      "type": "spritesheet",
+      "key": "auhaSheet5",
+      "url": "assets/ingame/auhaSheet5.png",
+      "frameWidth": 53,
+      "frameHeight": 62,
+      "frameMax": 20,
+      "margin": 0,
+      "spacing": 0
+    },
+    {
+      "type": "spritesheet",
+      "key": "auhaSheet6",
+      "url": "assets/ingame/auhaSheet6.png",
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "frameMax": -1,
+      "margin": 0,
+      "spacing": 0
+    },
+    {
+      "type": "spritesheet",
+      "key": "auhaSheet7",
+      "url": "assets/ingame/auhaSheet7.png",
+      "frameWidth": 59,
+      "frameHeight": 63,
+      "frameMax": 20,
+      "margin": 0,
+      "spacing": 0
+    },
+    {
+      "type": "spritesheet",
+      "key": "auhaSheet8",
+      "url": "assets/ingame/auhaSheet8.png",
+      "frameWidth": 61,
+      "frameHeight": 68,
+      "frameMax": 20,
+      "margin": 0,
+      "spacing": 0
+    },
+    {
+      "type": "spritesheet",
+      "key": "auhaSheet9",
+      "url": "assets/ingame/auhaSheet9.png",
+      "frameWidth": 69,
+      "frameHeight": 67,
+      "frameMax": 20,
+      "margin": 0,
+      "spacing": 0
+    },
+    {
+      "type": "atlas",
+      "key": "MenuScene",
+      "textureURL": "assets/ingame/atlas/MenuScene.png",
+      "atlasURL": "assets/ingame/atlas/MenuScene.json",
+      "format": "TEXTURE_ATLAS_JSON_ARRAY"
+    },
+    {
+      "type": "atlas",
+      "key": "CharacterSelect",
+      "textureURL": "assets/ingame/atlas/CharacterSelect.png",
+      "atlasURL": "assets/ingame/atlas/CharacterSelect.json",
+      "format": "TEXTURE_ATLAS_JSON_ARRAY"
+    },
+    {
+      "type": "image",
+      "key": "road_tile_goal",
+      "url": "assets/ingame/road_tile/road_tile_goal.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "newJewel",
+      "url": "assets/ingame/road_tile/icon_crystal02.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "q1",
+      "url": "assets/ingame/bg/q1.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "q10",
+      "url": "assets/ingame/bg/q10.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "q2",
+      "url": "assets/ingame/bg/q2.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "q3",
+      "url": "assets/ingame/bg/q3.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "q4",
+      "url": "assets/ingame/bg/q4.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "q5",
+      "url": "assets/ingame/bg/q5.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "q6",
+      "url": "assets/ingame/bg/q6.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "q7",
+      "url": "assets/ingame/bg/q7.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "q8",
+      "url": "assets/ingame/bg/q8.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "q9",
+      "url": "assets/ingame/bg/q9.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "road_tile_skip_icon",
+      "url": "assets/ingame/road_tile/road_tile_skip_icon.png",
+      "overwrite": false
+    },
+    {
+      "type": "atlas",
+      "key": "PopupAtlas",
+      "textureURL": "assets/ingame/atlas/PopupAtlas.png",
+      "atlasURL": "assets/ingame/atlas/PopupAtlas.json",
+      "format": "TEXTURE_ATLAS_JSON_ARRAY"
+    },
+    {
+      "type": "image",
+      "key": "q11",
+      "url": "assets/ingame/bg/q11.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "q12",
+      "url": "assets/ingame/bg/q12.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "q13",
+      "url": "assets/ingame/bg/q13.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "q14",
+      "url": "assets/ingame/bg/q14.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "q15",
+      "url": "assets/ingame/bg/q15.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "q16",
+      "url": "assets/ingame/bg/q16.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "q17",
+      "url": "assets/ingame/bg/q17.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "q18",
+      "url": "assets/ingame/bg/q18.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "q19",
+      "url": "assets/ingame/bg/q19.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "q20",
+      "url": "assets/ingame/bg/q20.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "q21",
+      "url": "assets/ingame/bg/q21.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "q22",
+      "url": "assets/ingame/bg/q22.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "q23",
+      "url": "assets/ingame/bg/q23.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "q24",
+      "url": "assets/ingame/bg/q24.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "q25",
+      "url": "assets/ingame/bg/q25.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "q26",
+      "url": "assets/ingame/bg/q26.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "q27",
+      "url": "assets/ingame/bg/q27.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "q28",
+      "url": "assets/ingame/bg/q28.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "q29",
+      "url": "assets/ingame/bg/q29.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "q30",
+      "url": "assets/ingame/bg/q30.png",
+      "overwrite": false
+    },
+    {
+      "type": "spritesheet",
+      "key": "commandFail",
+      "url": "assets/ingame/commandFail.png",
+      "frameWidth": 63,
+      "frameHeight": 64,
+      "frameMax": 20,
+      "margin": 0,
+      "spacing": 0
+    },
+    {
+      "type": "spritesheet",
+      "key": "getGoldCrown",
+      "url": "assets/ingame/getGoldCrown.png",
+      "frameWidth": 67,
+      "frameHeight": 54,
+      "frameMax": 20,
+      "margin": 0,
+      "spacing": 0
+    },
+    {
+      "type": "spritesheet",
+      "key": "getSilverCrown",
+      "url": "assets/ingame/getSilverCrown.png",
+      "frameWidth": 67,
+      "frameHeight": 52,
+      "frameMax": 20,
+      "margin": 0,
+      "spacing": 0
+    },
+    {
+      "type": "spritesheet",
+      "key": "dinoDeath",
+      "url": "assets/ingame/dinoDeath.png",
+      "frameWidth": 110,
+      "frameHeight": 118,
+      "frameMax": 20,
+      "margin": 0,
+      "spacing": 0
+    },
+    {
+      "type": "audio",
+      "key": "bgm_ingame",
+      "urls": ["assets/sound/bgm_ingame.mp3"],
+      "autoDecode": true
+    },
+    {
+      "type": "audio",
+      "key": "sfx_curve",
+      "urls": ["assets/sound/curve.mp3"],
+      "autoDecode": true
+    },
+    {
+      "type": "audio",
+      "key": "sfx_get_jewelry",
+      "urls": ["assets/sound/get_jewelry.mp3"],
+      "autoDecode": true
+    },
+    {
+      "type": "audio",
+      "key": "sfx_goal_1",
+      "urls": ["assets/sound/goal_1.mp3"],
+      "autoDecode": true
+    },
+    {
+      "type": "audio",
+      "key": "sfx_goal_2",
+      "urls": ["assets/sound/goal_2.mp3"],
+      "autoDecode": true
+    },
+    {
+      "type": "audio",
+      "key": "sfx_jump_1",
+      "urls": ["assets/sound/jump_1.mp3"],
+      "autoDecode": true
+    },
+    {
+      "type": "audio",
+      "key": "sfx_jump_2",
+      "urls": ["assets/sound/jump_2.mp3"],
+      "autoDecode": true
+    }
+  ],
+  "title": [
+    {
+      "type": "image",
+      "key": "titleBG_0",
+      "url": "assets/title/img_0001elect.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "titleBG_1",
+      "url": "assets/title/img_0002city.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "titleBG_2",
+      "url": "assets/title/img_0003curtain.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "titleRoad",
+      "url": "assets/title/img_road.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "titleTitleImg",
+      "url": "assets/title/img_title.png",
+      "overwrite": false
+    },
+    {
+      "type": "audio",
+      "key": "bgm_lobby",
+      "urls": ["assets/sound/bgm_lobby.mp3"],
+      "autoDecode": true
+    },
+    {
+      "type": "audio",
+      "key": "sfx_button",
+      "urls": ["assets/sound/button.mp3"],
+      "autoDecode": true
+    },
+    {
+      "type": "atlas",
+      "key": "titleAtlas",
+      "textureURL": "assets/title/titleAtlas.png",
+      "atlasURL": "assets/title/titleAtlas.json",
+      "format": "TEXTURE_ATLAS_JSON_ARRAY"
+    },
+    {
+      "type": "spritesheet",
+      "key": "titleDinoSpriteSheet",
+      "url": "assets/title/titleDinoSpriteSheet.png",
+      "frameWidth": 337,
+      "frameHeight": 286,
+      "frameMax": -1,
+      "margin": 0,
+      "spacing": 0
+    }
+  ],
+  "meta": {
+    "generated": "1522317745974",
+    "app": "Phaser Editor",
+    "url": "http://phasereditor.boniatillo.com",
+    "version": "1.0",
+    "copyright": "Arian Fornaris (c) 2015,2016"
+  }
+}

@@ -1,0 +1,159 @@
+{
+  "canvas-version": 2,
+  "settings": {
+    "className": "PlayerView",
+    "sceneWidth": 640,
+    "sceneHeight": 360,
+    "generateOnSave": true,
+    "enableStepping": false,
+    "lang": "JAVA_SCRIPT",
+    "baseClass": "Phaser.Group",
+    "backgroundColor": [
+      180,
+      180,
+      180
+    ],
+    "gridColor": [
+      200,
+      200,
+      200
+    ],
+    "showGrid": true
+  },
+  "stateSettings": {
+    "stageBackgroundColor": [
+      0,
+      0,
+      0
+    ],
+    "autoLoad": true,
+    "preloadSpriteId": "",
+    "preloadSprite_direction": 0,
+    "load.pack": []
+  },
+  "world": {
+    "type": "group",
+    "id": "7f24086b-df6f-4448-afaa-557c0fa2aa32",
+    "info": {
+      "editorName": "PlayerView",
+      "setAll": [],
+      "children": [{
+        "type": "group",
+        "id": "8cc808ac-c516-4b27-b98c-68b456e1013e",
+        "info": {
+          "editorName": "group",
+          "setAll": [],
+          "children": [{
+            "type": "group",
+            "id": "0b3d4112-84c8-4eaa-91ec-36b98d190b13",
+            "info": {
+              "editorName": "playerContainer",
+              "editorPublic": true,
+              "setAll": [],
+              "children": [
+                {
+                  "type": "spritesheet",
+                  "id": "eb2e6175-7e0c-45d7-a68d-11d7d94c7dd7",
+                  "asset": "0",
+                  "info": {
+                    "editorName": "arrow",
+                    "editorPublic": true,
+                    "rotation": 1.5707963267948966,
+                    "scale.x": 1.8,
+                    "scale.y": 1.8,
+                    "anchor.x": 0.5,
+                    "anchor.y": 0.5,
+                    "animations": [{
+                      "name": "run",
+                      "frameRate": 30,
+                      "loop": true,
+                      "public": true,
+                      "autoPlay": true,
+                      "frames": [
+                        "0",
+                        "1",
+                        "2",
+                        "3",
+                        "4",
+                        "5",
+                        "6",
+                        "7",
+                        "8",
+                        "9",
+                        "10",
+                        "11",
+                        "12",
+                        "13",
+                        "14",
+                        "15",
+                        "16",
+                        "17",
+                        "18",
+                        "19"
+                      ]
+                    }]
+                  }
+                },
+                {
+                  "type": "spritesheet",
+                  "id": "bc848500-c1cd-4749-bf88-9c09938aa102",
+                  "asset": "1",
+                  "info": {
+                    "editorName": "getCrown",
+                    "editorPublic": true,
+                    "x": 122,
+                    "rotation": 1.5707963267948966,
+                    "scale.x": 2,
+                    "scale.y": 2,
+                    "anchor.x": 0.5,
+                    "anchor.y": 0.5,
+                    "animations": [{
+                      "name": "getCrown",
+                      "frameRate": 20,
+                      "frames": [
+                        "0",
+                        "1",
+                        "2",
+                        "3",
+                        "4",
+                        "5",
+                        "6",
+                        "7",
+                        "8",
+                        "9",
+                        "10",
+                        "11",
+                        "12",
+                        "13",
+                        "14",
+                        "15",
+                        "16",
+                        "17"
+                      ]
+                    }]
+                  }
+                }
+              ]
+            }
+          }]
+        }
+      }]
+    }
+  },
+  "type": "GROUP",
+  "asset-table": {
+    "0": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "auhaSheet1",
+      "sprite": "0"
+    },
+    "1": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "getGoldCrown",
+      "sprite": "0"
+    }
+  },
+  "prefab-table": {}
+}

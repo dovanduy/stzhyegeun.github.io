@@ -1,0 +1,156 @@
+{"frames": [
+
+{
+	"filename": "01goldCrown0002.png",
+	"frame": {"x":0,"y":0,"w":67,"h":54},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":67,"h":54},
+	"sourceSize": {"w":67,"h":54}
+},
+{
+	"filename": "01goldCrown0004.png",
+	"frame": {"x":67,"y":0,"w":67,"h":54},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":67,"h":54},
+	"sourceSize": {"w":67,"h":54}
+},
+{
+	"filename": "01goldCrown0006.png",
+	"frame": {"x":134,"y":0,"w":67,"h":54},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":67,"h":54},
+	"sourceSize": {"w":67,"h":54}
+},
+{
+	"filename": "01goldCrown0008.png",
+	"frame": {"x":201,"y":0,"w":67,"h":54},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":67,"h":54},
+	"sourceSize": {"w":67,"h":54}
+},
+{
+	"filename": "01goldCrown0011.png",
+	"frame": {"x":268,"y":0,"w":67,"h":54},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":67,"h":54},
+	"sourceSize": {"w":67,"h":54}
+},
+{
+	"filename": "01goldCrown0013.png",
+	"frame": {"x":335,"y":0,"w":67,"h":54},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":67,"h":54},
+	"sourceSize": {"w":67,"h":54}
+},
+{
+	"filename": "01goldCrown0015.png",
+	"frame": {"x":402,"y":0,"w":67,"h":54},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":67,"h":54},
+	"sourceSize": {"w":67,"h":54}
+},
+{
+	"filename": "01goldCrown0017.png",
+	"frame": {"x":469,"y":0,"w":67,"h":54},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":67,"h":54},
+	"sourceSize": {"w":67,"h":54}
+},
+{
+	"filename": "01goldCrown0020.png",
+	"frame": {"x":536,"y":0,"w":67,"h":54},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":67,"h":54},
+	"sourceSize": {"w":67,"h":54}
+},
+{
+	"filename": "01goldCrown0022.png",
+	"frame": {"x":603,"y":0,"w":67,"h":54},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":67,"h":54},
+	"sourceSize": {"w":67,"h":54}
+},
+{
+	"filename": "01goldCrown0024.png",
+	"frame": {"x":670,"y":0,"w":67,"h":54},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":67,"h":54},
+	"sourceSize": {"w":67,"h":54}
+},
+{
+	"filename": "01goldCrown0026.png",
+	"frame": {"x":737,"y":0,"w":67,"h":54},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":67,"h":54},
+	"sourceSize": {"w":67,"h":54}
+},
+{
+	"filename": "01goldCrown0029.png",
+	"frame": {"x":804,"y":0,"w":67,"h":54},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":67,"h":54},
+	"sourceSize": {"w":67,"h":54}
+},
+{
+	"filename": "01goldCrown0031.png",
+	"frame": {"x":871,"y":0,"w":67,"h":54},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":67,"h":54},
+	"sourceSize": {"w":67,"h":54}
+},
+{
+	"filename": "01goldCrown0033.png",
+	"frame": {"x":938,"y":0,"w":67,"h":54},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":67,"h":54},
+	"sourceSize": {"w":67,"h":54}
+},
+{
+	"filename": "01goldCrown0035.png",
+	"frame": {"x":1005,"y":0,"w":67,"h":54},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":67,"h":54},
+	"sourceSize": {"w":67,"h":54}
+},
+{
+	"filename": "01goldCrown0038.png",
+	"frame": {"x":1072,"y":0,"w":67,"h":54},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":67,"h":54},
+	"sourceSize": {"w":67,"h":54}
+},
+{
+	"filename": "01goldCrown0040.png",
+	"frame": {"x":1139,"y":0,"w":67,"h":54},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":67,"h":54},
+	"sourceSize": {"w":67,"h":54}
+}],
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "getGoldCrown.png",
+	"format": "RGBA8888",
+	"size": {"w":1206,"h":54},
+	"scale": "0.5",
+	"smartupdate": "$TexturePacker:SmartUpdate:090b8f63ae10f40a29640c2baa9a3a9f:24ba687d47379f960dc76223785bf308:bb33f271cf808635196dd0a26f446eba$"
+}
+}

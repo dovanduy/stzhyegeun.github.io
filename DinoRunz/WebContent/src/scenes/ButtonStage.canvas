@@ -1,0 +1,219 @@
+{
+  "canvas-version": 2,
+  "settings": {
+    "className": "ButtonStage",
+    "sceneWidth": 640,
+    "sceneHeight": 360,
+    "generateOnSave": true,
+    "enableStepping": false,
+    "lang": "JAVA_SCRIPT",
+    "baseClass": "Phaser.Group",
+    "backgroundColor": [
+      180,
+      180,
+      180
+    ],
+    "gridColor": [
+      200,
+      200,
+      200
+    ],
+    "showGrid": true
+  },
+  "stateSettings": {
+    "stageBackgroundColor": [
+      0,
+      0,
+      0
+    ],
+    "autoLoad": true,
+    "preloadSpriteId": "",
+    "preloadSprite_direction": 0,
+    "load.pack": []
+  },
+  "world": {
+    "type": "group",
+    "id": "1013664a-1fdc-4cbb-b86f-038b7102ca13",
+    "info": {
+      "editorName": "ButtonStage",
+      "setAll": [],
+      "children": [{
+        "type": "group",
+        "id": "57a9ba2a-a99a-4b9e-b000-44d68ac83012",
+        "info": {
+          "editorName": "group",
+          "setAll": [],
+          "children": [
+            {
+              "type": "group",
+              "id": "dedeb9b8-7993-415e-8b30-4b218e62ee6e",
+              "info": {
+                "editorName": "groupOpen",
+                "editorPublic": true,
+                "setAll": [],
+                "children": [
+                  {
+                    "type": "atlas-sprite",
+                    "id": "cfb99149-5c08-4a27-a23a-8cb378db5cbc",
+                    "asset": "0",
+                    "info": {
+                      "editorName": "btnStage",
+                      "editorPublic": true,
+                      "scale.x": 2,
+                      "scale.y": 2,
+                      "anchor.x": 0.5,
+                      "anchor.y": 0.5
+                    }
+                  },
+                  {
+                    "type": "atlas-sprite",
+                    "id": "249fbee7-1be6-4e7d-b6ea-0cfaa6d6e23f",
+                    "asset": "1",
+                    "info": {
+                      "editorName": "sprAllClear",
+                      "editorPublic": true,
+                      "y": -37,
+                      "scale.x": 2,
+                      "scale.y": 2,
+                      "anchor.x": 0.5,
+                      "anchor.y": 0.5
+                    }
+                  },
+                  {
+                    "type": "text",
+                    "id": "8d605c01-c6e1-4923-88ce-cc75beedf650",
+                    "info": {
+                      "editorName": "txtStage",
+                      "editorPublic": true,
+                      "y": 8,
+                      "anchor.x": 0.5,
+                      "anchor.y": 0.5,
+                      "text": "1",
+                      "style.font": "Blogger Sans",
+                      "style.fontSize": 56,
+                      "style.align": "CENTER"
+                    }
+                  },
+                  {
+                    "type": "group",
+                    "id": "440cf28b-4ee9-4486-bc93-3e1509ec6f52",
+                    "info": {
+                      "editorName": "groupUserPhoto",
+                      "editorPublic": true,
+                      "x": 2,
+                      "y": -79,
+                      "setAll": [],
+                      "children": [
+                        {
+                          "type": "atlas-sprite",
+                          "id": "d3377b91-69b2-4024-bc3b-d346dec83a14",
+                          "asset": "2",
+                          "info": {
+                            "editorName": "sprCurrentStageBG",
+                            "editorPublic": true,
+                            "scale.x": 2,
+                            "scale.y": 2,
+                            "anchor.x": 0.5,
+                            "anchor.y": 0.5
+                          }
+                        },
+                        {
+                          "type": "atlas-sprite",
+                          "id": "5724f932-3339-4627-9fae-c3112dd343f5",
+                          "asset": "3",
+                          "info": {
+                            "editorName": "sprUserPhoto",
+                            "editorPublic": true,
+                            "y": -8,
+                            "scale.x": 2,
+                            "scale.y": 2,
+                            "anchor.x": 0.5,
+                            "anchor.y": 0.5
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "type": "group",
+              "id": "3e61d307-d7f5-4914-9049-36f4afebb1e9",
+              "info": {
+                "editorName": "groupLock",
+                "editorPublic": true,
+                "editorShow": false,
+                "setAll": [],
+                "children": [
+                  {
+                    "type": "atlas-sprite",
+                    "id": "d33d387e-92a7-405f-96a8-fa1bcfcc2546",
+                    "asset": "4",
+                    "info": {
+                      "editorName": "btnLockStage",
+                      "editorPublic": true,
+                      "y": -5,
+                      "scale.x": 2,
+                      "scale.y": 2,
+                      "anchor.x": 0.5,
+                      "anchor.y": 0.5
+                    }
+                  },
+                  {
+                    "type": "text",
+                    "id": "79f77ba9-f4bc-409b-b684-2e4545e29370",
+                    "info": {
+                      "editorName": "txtLockStage",
+                      "editorPublic": true,
+                      "y": 7,
+                      "anchor.x": 0.5,
+                      "anchor.y": 0.5,
+                      "text": "99",
+                      "style.font": "Blogger Sans",
+                      "style.fontSize": 36
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }]
+    }
+  },
+  "type": "GROUP",
+  "asset-table": {
+    "0": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "MenuScene",
+      "sprite": "img_stage_01Stage.png"
+    },
+    "1": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "MenuScene",
+      "sprite": "img_crown01Disable.png"
+    },
+    "2": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "MenuScene",
+      "sprite": "img_userCurrentStageBG.png"
+    },
+    "3": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "MenuScene",
+      "sprite": "default_thumb.png"
+    },
+    "4": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "MenuScene",
+      "sprite": "img_stage_03.png"
+    }
+  },
+  "prefab-table": {}
+}

@@ -1,0 +1,68 @@
+{"frames": [
+
+{
+	"filename": "footHoldEffect050001.png",
+	"frame": {"x":0,"y":0,"w":63,"h":64},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":63,"h":64},
+	"sourceSize": {"w":63,"h":64}
+},
+{
+	"filename": "footHoldEffect050003.png",
+	"frame": {"x":63,"y":0,"w":63,"h":64},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":63,"h":64},
+	"sourceSize": {"w":63,"h":64}
+},
+{
+	"filename": "footHoldEffect050005.png",
+	"frame": {"x":126,"y":0,"w":63,"h":64},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":63,"h":64},
+	"sourceSize": {"w":63,"h":64}
+},
+{
+	"filename": "footHoldEffect050006.png",
+	"frame": {"x":189,"y":0,"w":63,"h":64},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":63,"h":64},
+	"sourceSize": {"w":63,"h":64}
+},
+{
+	"filename": "footHoldEffect050008.png",
+	"frame": {"x":252,"y":0,"w":63,"h":64},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":63,"h":64},
+	"sourceSize": {"w":63,"h":64}
+},
+{
+	"filename": "footHoldEffect050009.png",
+	"frame": {"x":315,"y":0,"w":63,"h":64},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":63,"h":64},
+	"sourceSize": {"w":63,"h":64}
+},
+{
+	"filename": "footHoldEffect050010.png",
+	"frame": {"x":378,"y":0,"w":63,"h":64},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":63,"h":64},
+	"sourceSize": {"w":63,"h":64}
+}],
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "commandFail.png",
+	"format": "RGBA8888",
+	"size": {"w":441,"h":64},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:8e13d40b39afa5c1c4abe88d625c7b4b:c15e359b500a6f44090964be9d880443:04bf4e2f5131e9576da4aa3ea9286922$"
+}
+}

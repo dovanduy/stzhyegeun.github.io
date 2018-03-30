@@ -1,0 +1,100 @@
+{"frames": [
+
+{
+	"filename": "btn_play.png",
+	"frame": {"x":1,"y":1,"w":219,"h":234},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":219,"h":234},
+	"sourceSize": {"w":219,"h":234}
+},
+{
+	"filename": "icon_titleinviteFreinds.png",
+	"frame": {"x":84,"y":322,"w":40,"h":39},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":40,"h":39},
+	"sourceSize": {"w":40,"h":39}
+},
+{
+	"filename": "img_gem01.png",
+	"frame": {"x":62,"y":237,"w":83,"h":83},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":83,"h":83},
+	"sourceSize": {"w":83,"h":83}
+},
+{
+	"filename": "img_titleArrowToInvite.png",
+	"frame": {"x":126,"y":322,"w":16,"h":29},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":29},
+	"sourceSize": {"w":16,"h":29}
+},
+{
+	"filename": "img_titleBlueSkybtn.png",
+	"frame": {"x":1,"y":237,"w":59,"h":84},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":59,"h":84},
+	"sourceSize": {"w":59,"h":84}
+},
+{
+	"filename": "img_titleFrame.png",
+	"frame": {"x":147,"y":237,"w":82,"h":82},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":82,"h":82},
+	"sourceSize": {"w":82,"h":82}
+},
+{
+	"filename": "img_titleSmallBtn.png",
+	"frame": {"x":1,"y":323,"w":47,"h":56},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":47,"h":56},
+	"sourceSize": {"w":47,"h":56}
+},
+{
+	"filename": "img_titleUserFaceArea.png",
+	"frame": {"x":154,"y":321,"w":75,"h":75},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":75,"h":75},
+	"sourceSize": {"w":75,"h":75}
+},
+{
+	"filename": "img_titleUserInfoAreaLine.png",
+	"frame": {"x":222,"y":1,"w":6,"h":57},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":6,"h":57},
+	"sourceSize": {"w":6,"h":57}
+},
+{
+	"filename": "img_titleUserStageInfoBG.png",
+	"frame": {"x":50,"y":366,"w":102,"h":29},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":102,"h":29},
+	"sourceSize": {"w":102,"h":29}
+},
+{
+	"filename": "img_world001.png",
+	"frame": {"x":50,"y":323,"w":32,"h":41},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":41},
+	"sourceSize": {"w":32,"h":41}
+}],
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "titleAtlas.png",
+	"format": "RGBA8888",
+	"size": {"w":230,"h":397},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:6a23d3417963d8305b820ecad8fb5cd8:1902c70c77d8b4b25b926e34e006ab04:b8156db124eab786f846f1e54b0ee74d$"
+}
+}
