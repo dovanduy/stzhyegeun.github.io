@@ -69,9 +69,11 @@ function DinoInfoPopup(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysics
 	this.btnOK.addChild(this.txtOK);
 	this.btnOK.addChild(this.sprIcon);
 
-	this.btnClose = this.game.add.sprite(210, -250, "PopupAtlas", "btn_close.png", this);
+	this.btnClose = this.game.add.sprite(140, -285, "PopupAtlas", "btn_close.png", this);
 	this.btnClose.inputEnabled = true;
 	this.btnClose.events.onInputUp.add(this.closePopup, this);
+
+	this.BG.addChild(this.btnClose);
 
 	this.charId = null;
 	this.lockType = null;
@@ -107,6 +109,7 @@ DinoInfoPopup.prototype.showPopup = function(charId, lockType) {
     	
 		this.sprIcon.visible = false;
 		this.btnClose.visible = false;
+		this.btnClose.visible = (lockType===ESlotLockType.share);
     }
 };
 
