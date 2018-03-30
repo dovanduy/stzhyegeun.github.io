@@ -1,0 +1,95 @@
+{
+  "canvas-version": 2,
+  "settings": {
+    "className": "BgBackLayer",
+    "sceneWidth": 720,
+    "sceneHeight": 1280,
+    "generateOnSave": true,
+    "enableStepping": false,
+    "lang": "JAVA_SCRIPT",
+    "baseClass": "Phaser.Group",
+    "backgroundColor": [
+      180,
+      180,
+      180
+    ],
+    "gridColor": [
+      200,
+      200,
+      200
+    ],
+    "showGrid": true
+  },
+  "stateSettings": {
+    "stageBackgroundColor": [
+      0,
+      0,
+      0
+    ],
+    "autoLoad": true,
+    "preloadSpriteId": "",
+    "preloadSprite_direction": 0,
+    "load.pack": []
+  },
+  "world": {
+    "type": "group",
+    "id": "82e43665-aac0-4040-a10e-e7b5a4206c90",
+    "info": {
+      "editorName": "BgBackLayer",
+      "setAll": [],
+      "children": [{
+        "type": "group",
+        "id": "819dce9e-8aa0-45a7-9f4c-6208f0060053",
+        "info": {
+          "editorName": "group",
+          "x": 360,
+          "y": 640,
+          "setAll": [],
+          "children": [
+            {
+              "type": "image",
+              "id": "2951ef98-dd03-4677-adb5-ea7b8cacd6c1",
+              "asset": "0",
+              "info": {"editorName": "backLayer_cm"}
+            },
+            {
+              "type": "image",
+              "id": "365ff72d-c541-444a-854d-ad7daad19e3f",
+              "asset": "0",
+              "info": {
+                "editorName": "backLayer_cm1",
+                "x": -720
+              }
+            },
+            {
+              "type": "image",
+              "id": "ca39dede-1f01-4974-9580-e6ac8da3e66c",
+              "asset": "0",
+              "info": {
+                "editorName": "backLayer_cm2",
+                "y": -1280
+              }
+            },
+            {
+              "type": "image",
+              "id": "78755ee2-7085-4025-824e-74b6bd2b6f76",
+              "asset": "0",
+              "info": {
+                "editorName": "backLayer_cm3",
+                "x": -720,
+                "y": -1280
+              }
+            }
+          ]
+        }
+      }]
+    }
+  },
+  "type": "GROUP",
+  "asset-table": {"0": {
+    "file": "WebContent/assets/assets-pack.json",
+    "section": "ingame",
+    "asset": "bg2"
+  }},
+  "prefab-table": {}
+}

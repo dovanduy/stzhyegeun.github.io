@@ -1,0 +1,93 @@
+{
+  "canvas-version": 2,
+  "settings": {
+    "className": "WorldUserProfile",
+    "sceneWidth": 640,
+    "sceneHeight": 360,
+    "generateOnSave": true,
+    "enableStepping": false,
+    "lang": "JAVA_SCRIPT",
+    "baseClass": "Phaser.Group",
+    "backgroundColor": [
+      180,
+      180,
+      180
+    ],
+    "gridColor": [
+      200,
+      200,
+      200
+    ],
+    "showGrid": true
+  },
+  "stateSettings": {
+    "stageBackgroundColor": [
+      0,
+      0,
+      0
+    ],
+    "autoLoad": true,
+    "preloadSpriteId": "",
+    "preloadSprite_direction": 0,
+    "load.pack": []
+  },
+  "world": {
+    "type": "group",
+    "id": "b24b7fda-7905-4c57-8ad3-d288e6b231d3",
+    "info": {
+      "editorName": "WorldUserProfile",
+      "setAll": [],
+      "children": [{
+        "type": "group",
+        "id": "c5a90ac4-3a20-470e-9529-52743194fbb8",
+        "info": {
+          "editorName": "group",
+          "setAll": [],
+          "children": [
+            {
+              "type": "atlas-sprite",
+              "id": "9a6c161a-48cb-4a36-8249-907a7055f9cb",
+              "asset": "0",
+              "info": {
+                "editorName": "sprUserFrame",
+                "editorPublic": true,
+                "scale.x": 2,
+                "scale.y": 2,
+                "anchor.x": 0.5,
+                "anchor.y": 0.5
+              }
+            },
+            {
+              "type": "atlas-sprite",
+              "id": "c1abdd85-fac0-4ab6-9fee-6e356a6d6fde",
+              "asset": "1",
+              "info": {
+                "editorName": "sprFrameStroke",
+                "scale.x": 2,
+                "scale.y": 2,
+                "anchor.x": 0.5,
+                "anchor.y": 0.5
+              }
+            }
+          ]
+        }
+      }]
+    }
+  },
+  "type": "GROUP",
+  "asset-table": {
+    "0": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "MenuScene",
+      "sprite": "default_thumb.png"
+    },
+    "1": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "MenuScene",
+      "sprite": "img_userFrameStroke.png"
+    }
+  },
+  "prefab-table": {}
+}

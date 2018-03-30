@@ -1,0 +1,117 @@
+{
+  "canvas-version": 2,
+  "settings": {
+    "className": "BackgroundView",
+    "sceneWidth": 720,
+    "sceneHeight": 1280,
+    "generateOnSave": true,
+    "enableStepping": false,
+    "lang": "JAVA_SCRIPT",
+    "baseClass": "Phaser.Group",
+    "backgroundColor": [
+      180,
+      180,
+      180
+    ],
+    "gridColor": [
+      200,
+      200,
+      200
+    ],
+    "showGrid": true
+  },
+  "stateSettings": {
+    "stageBackgroundColor": [
+      0,
+      0,
+      0
+    ],
+    "autoLoad": true,
+    "preloadSpriteId": "",
+    "preloadSprite_direction": 0,
+    "load.pack": []
+  },
+  "world": {
+    "type": "group",
+    "id": "be17b464-d0b4-44d6-b4c7-6dd87c269284",
+    "info": {
+      "editorName": "BackgroundView",
+      "setAll": [],
+      "children": [{
+        "type": "group",
+        "id": "fc1aba81-ddca-4fb6-a808-8d11c3cdd8a0",
+        "info": {
+          "editorName": "group",
+          "setAll": [],
+          "children": [
+            {
+              "type": "group",
+              "id": "c1c5d5c1-061b-428b-bdaf-6de68980cf6d",
+              "info": {
+                "editorName": "blindLayer",
+                "editorPublic": true,
+                "setAll": [],
+                "children": []
+              }
+            },
+            {
+              "type": "group",
+              "id": "f25aada7-574c-41e6-abfd-5aa20f57ffa2",
+              "info": {
+                "editorName": "baseLayer",
+                "editorPublic": true,
+                "setAll": [],
+                "children": [
+                  {
+                    "type": "image",
+                    "id": "e565ebb6-720f-4214-b55b-633a402079ff",
+                    "asset": "0",
+                    "info": {
+                      "editorName": "backgroundTile2",
+                      "editorPublic": true,
+                      "x": 360,
+                      "y": 640,
+                      "scale.x": 4,
+                      "scale.y": 4,
+                      "anchor.x": 0.5,
+                      "anchor.y": 0.5
+                    }
+                  },
+                  {
+                    "type": "image",
+                    "id": "73fdd321-1da9-41a4-8dab-902160257bca",
+                    "asset": "1",
+                    "info": {
+                      "editorName": "backgroundTile1",
+                      "editorPublic": true,
+                      "x": 360,
+                      "y": 640,
+                      "scale.x": 4,
+                      "scale.y": 4,
+                      "anchor.x": 0.5,
+                      "anchor.y": 0.5
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }]
+    }
+  },
+  "type": "GROUP",
+  "asset-table": {
+    "0": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "q2"
+    },
+    "1": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "q1"
+    }
+  },
+  "prefab-table": {}
+}

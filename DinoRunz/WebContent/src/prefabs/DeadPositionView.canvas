@@ -1,0 +1,136 @@
+{
+  "canvas-version": 2,
+  "settings": {
+    "className": "DeadPositionView",
+    "sceneWidth": 640,
+    "sceneHeight": 360,
+    "generateOnSave": true,
+    "enableStepping": false,
+    "lang": "JAVA_SCRIPT",
+    "baseClass": "Phaser.Group",
+    "backgroundColor": [
+      180,
+      180,
+      180
+    ],
+    "gridColor": [
+      200,
+      200,
+      200
+    ],
+    "showGrid": true
+  },
+  "stateSettings": {
+    "stageBackgroundColor": [
+      0,
+      0,
+      0
+    ],
+    "autoLoad": true,
+    "preloadSpriteId": "",
+    "preloadSprite_direction": 0,
+    "load.pack": []
+  },
+  "world": {
+    "type": "group",
+    "id": "78f6ce2e-8797-47a6-be3b-e274488b5a21",
+    "info": {
+      "editorName": "DeadPositionView",
+      "setAll": [],
+      "children": [{
+        "type": "group",
+        "id": "c0c7255d-8be7-48d1-8f4d-d2eb8e30a8d7",
+        "info": {
+          "editorName": "group",
+          "setAll": [],
+          "children": [
+            {
+              "type": "atlas-sprite",
+              "id": "79961d82-59b1-49bb-b136-fdbaf11a2dc4",
+              "asset": "0",
+              "info": {
+                "editorName": "img_userDeadPoint_png",
+                "x": 89,
+                "y": -88,
+                "scale.x": 1.5,
+                "scale.y": 1.5,
+                "anchor.x": 0.5,
+                "anchor.y": 0.5
+              }
+            },
+            {
+              "type": "atlas-sprite",
+              "id": "840fb2cd-23d2-4ffa-9572-ce4b82cb1fd3",
+              "asset": "1",
+              "info": {
+                "editorName": "img_yellowArrow_png",
+                "rotation": 0.7853981633974483,
+                "scale.x": 1.5,
+                "scale.y": 1.5,
+                "anchor.x": 0.5,
+                "anchor.y": 1
+              }
+            },
+            {
+              "type": "atlas-sprite",
+              "id": "4e5873bb-4900-42b8-b8cf-b2b65accacff",
+              "asset": "2",
+              "info": {
+                "editorName": "imgProfile",
+                "editorPublic": true,
+                "x": 89,
+                "y": -88,
+                "scale.x": 2.5,
+                "scale.y": 2.5,
+                "anchor.x": 0.5,
+                "anchor.y": 0.5
+              }
+            },
+            {
+              "type": "atlas-sprite",
+              "id": "abebeaf1-9bc6-4f94-a129-9656a56b8170",
+              "asset": "3",
+              "info": {
+                "editorName": "img_ingameFaceFrame_png",
+                "x": 89,
+                "y": -88,
+                "scale.x": 1.5,
+                "scale.y": 1.5,
+                "anchor.x": 0.5,
+                "anchor.y": 0.5
+              }
+            }
+          ]
+        }
+      }]
+    }
+  },
+  "type": "GROUP",
+  "asset-table": {
+    "0": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "MenuScene",
+      "sprite": "img_userDeadPoint.png"
+    },
+    "1": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "MenuScene",
+      "sprite": "img_yellowArrow.png"
+    },
+    "2": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "MenuScene",
+      "sprite": "default_thumb.png"
+    },
+    "3": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "MenuScene",
+      "sprite": "img_ingameFaceFrame.png"
+    }
+  },
+  "prefab-table": {}
+}

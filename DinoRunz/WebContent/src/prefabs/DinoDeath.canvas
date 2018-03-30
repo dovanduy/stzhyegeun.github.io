@@ -1,0 +1,121 @@
+{
+  "canvas-version": 2,
+  "settings": {
+    "className": "dinoDeath",
+    "sceneWidth": 640,
+    "sceneHeight": 360,
+    "generateOnSave": true,
+    "enableStepping": false,
+    "lang": "JAVA_SCRIPT",
+    "baseClass": "Phaser.Group",
+    "backgroundColor": [
+      180,
+      180,
+      180
+    ],
+    "gridColor": [
+      200,
+      200,
+      200
+    ],
+    "showGrid": true
+  },
+  "stateSettings": {
+    "stageBackgroundColor": [
+      0,
+      0,
+      0
+    ],
+    "autoLoad": true,
+    "preloadSpriteId": "",
+    "preloadSprite_direction": 0,
+    "load.pack": []
+  },
+  "world": {
+    "type": "group",
+    "id": "1fd6bcd0-b172-4181-9b56-3ad4e08c73fd",
+    "info": {
+      "editorName": "dinoDeath",
+      "setAll": [],
+      "children": [{
+        "type": "group",
+        "id": "3bb10828-72ff-471c-9218-bf9ee485bd8f",
+        "info": {
+          "editorName": "group",
+          "setAll": [],
+          "children": [
+            {
+              "type": "spritesheet",
+              "id": "8f3dd9c3-90f0-4e5b-a558-fbddf6c81188",
+              "asset": "0",
+              "info": {
+                "editorName": "x_icon",
+                "editorPublic": true,
+                "anchor.x": 0.5,
+                "anchor.y": 0.5,
+                "animations": [{
+                  "name": "death",
+                  "frameRate": 20,
+                  "frames": [
+                    "0",
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                    "6"
+                  ]
+                }]
+              }
+            },
+            {
+              "type": "spritesheet",
+              "id": "3ab63f4d-d354-4be9-bb5c-e8b0331e0af3",
+              "asset": "1",
+              "info": {
+                "editorName": "ghost",
+                "editorPublic": true,
+                "x": 22,
+                "y": -80,
+                "anchor.x": 0.5,
+                "anchor.y": 0.5,
+                "animations": [{
+                  "name": "ghost",
+                  "frameRate": 20,
+                  "frames": [
+                    "0",
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                    "6",
+                    "7",
+                    "8",
+                    "9"
+                  ]
+                }]
+              }
+            }
+          ]
+        }
+      }]
+    }
+  },
+  "type": "GROUP",
+  "asset-table": {
+    "0": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "commandFail",
+      "sprite": "0"
+    },
+    "1": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "dinoDeath",
+      "sprite": "0"
+    }
+  },
+  "prefab-table": {}
+}

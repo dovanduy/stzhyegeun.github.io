@@ -1,0 +1,92 @@
+{"frames": [
+
+{
+	"filename": "death_fx_0001.png",
+	"frame": {"x":0,"y":0,"w":110,"h":118},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":110,"h":118},
+	"sourceSize": {"w":110,"h":118}
+},
+{
+	"filename": "death_fx_0004.png",
+	"frame": {"x":110,"y":0,"w":110,"h":118},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":110,"h":118},
+	"sourceSize": {"w":110,"h":118}
+},
+{
+	"filename": "death_fx_0007.png",
+	"frame": {"x":220,"y":0,"w":110,"h":118},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":110,"h":118},
+	"sourceSize": {"w":110,"h":118}
+},
+{
+	"filename": "death_fx_0010.png",
+	"frame": {"x":330,"y":0,"w":110,"h":118},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":110,"h":118},
+	"sourceSize": {"w":110,"h":118}
+},
+{
+	"filename": "death_fx_0013.png",
+	"frame": {"x":440,"y":0,"w":110,"h":118},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":110,"h":118},
+	"sourceSize": {"w":110,"h":118}
+},
+{
+	"filename": "death_fx_0016.png",
+	"frame": {"x":550,"y":0,"w":110,"h":118},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":110,"h":118},
+	"sourceSize": {"w":110,"h":118}
+},
+{
+	"filename": "death_fx_0019.png",
+	"frame": {"x":660,"y":0,"w":110,"h":118},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":110,"h":118},
+	"sourceSize": {"w":110,"h":118}
+},
+{
+	"filename": "death_fx_0022.png",
+	"frame": {"x":770,"y":0,"w":110,"h":118},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":110,"h":118},
+	"sourceSize": {"w":110,"h":118}
+},
+{
+	"filename": "death_fx_0025.png",
+	"frame": {"x":880,"y":0,"w":110,"h":118},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":110,"h":118},
+	"sourceSize": {"w":110,"h":118}
+},
+{
+	"filename": "death_fx_0028.png",
+	"frame": {"x":990,"y":0,"w":110,"h":118},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":110,"h":118},
+	"sourceSize": {"w":110,"h":118}
+}],
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "dinoDeath.png",
+	"format": "RGBA8888",
+	"size": {"w":1100,"h":118},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:149c1a43cc375cdafbfe8e646139dac4:4f1cfefbd60ec86ee7071acbcf32f9a6:a795d5e9c9e89b1f5138927be14f8c84$"
+}
+}

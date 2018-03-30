@@ -1,0 +1,164 @@
+{"frames": [
+
+{
+	"filename": "02normalCrown0004.png",
+	"frame": {"x":0,"y":0,"w":67,"h":52},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":67,"h":52},
+	"sourceSize": {"w":67,"h":52}
+},
+{
+	"filename": "02normalCrown0006.png",
+	"frame": {"x":67,"y":0,"w":67,"h":52},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":67,"h":52},
+	"sourceSize": {"w":67,"h":52}
+},
+{
+	"filename": "02normalCrown0008.png",
+	"frame": {"x":134,"y":0,"w":67,"h":52},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":67,"h":52},
+	"sourceSize": {"w":67,"h":52}
+},
+{
+	"filename": "02normalCrown0010.png",
+	"frame": {"x":201,"y":0,"w":67,"h":52},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":67,"h":52},
+	"sourceSize": {"w":67,"h":52}
+},
+{
+	"filename": "02normalCrown0012.png",
+	"frame": {"x":268,"y":0,"w":67,"h":52},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":67,"h":52},
+	"sourceSize": {"w":67,"h":52}
+},
+{
+	"filename": "02normalCrown0014.png",
+	"frame": {"x":335,"y":0,"w":67,"h":52},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":67,"h":52},
+	"sourceSize": {"w":67,"h":52}
+},
+{
+	"filename": "02normalCrown0016.png",
+	"frame": {"x":402,"y":0,"w":67,"h":52},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":67,"h":52},
+	"sourceSize": {"w":67,"h":52}
+},
+{
+	"filename": "02normalCrown0018.png",
+	"frame": {"x":469,"y":0,"w":67,"h":52},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":67,"h":52},
+	"sourceSize": {"w":67,"h":52}
+},
+{
+	"filename": "02normalCrown0020.png",
+	"frame": {"x":536,"y":0,"w":67,"h":52},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":67,"h":52},
+	"sourceSize": {"w":67,"h":52}
+},
+{
+	"filename": "02normalCrown0022.png",
+	"frame": {"x":603,"y":0,"w":67,"h":52},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":67,"h":52},
+	"sourceSize": {"w":67,"h":52}
+},
+{
+	"filename": "02normalCrown0024.png",
+	"frame": {"x":670,"y":0,"w":67,"h":52},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":67,"h":52},
+	"sourceSize": {"w":67,"h":52}
+},
+{
+	"filename": "02normalCrown0026.png",
+	"frame": {"x":737,"y":0,"w":67,"h":52},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":67,"h":52},
+	"sourceSize": {"w":67,"h":52}
+},
+{
+	"filename": "02normalCrown0028.png",
+	"frame": {"x":804,"y":0,"w":67,"h":52},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":67,"h":52},
+	"sourceSize": {"w":67,"h":52}
+},
+{
+	"filename": "02normalCrown0030.png",
+	"frame": {"x":871,"y":0,"w":67,"h":52},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":67,"h":52},
+	"sourceSize": {"w":67,"h":52}
+},
+{
+	"filename": "02normalCrown0032.png",
+	"frame": {"x":938,"y":0,"w":67,"h":52},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":67,"h":52},
+	"sourceSize": {"w":67,"h":52}
+},
+{
+	"filename": "02normalCrown0034.png",
+	"frame": {"x":1005,"y":0,"w":67,"h":52},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":67,"h":52},
+	"sourceSize": {"w":67,"h":52}
+},
+{
+	"filename": "02normalCrown0036.png",
+	"frame": {"x":1072,"y":0,"w":67,"h":52},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":67,"h":52},
+	"sourceSize": {"w":67,"h":52}
+},
+{
+	"filename": "02normalCrown0038.png",
+	"frame": {"x":1139,"y":0,"w":67,"h":52},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":67,"h":52},
+	"sourceSize": {"w":67,"h":52}
+},
+{
+	"filename": "02normalCrown0040.png",
+	"frame": {"x":1206,"y":0,"w":67,"h":52},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":67,"h":52},
+	"sourceSize": {"w":67,"h":52}
+}],
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "getSilverCrown.png",
+	"format": "RGBA8888",
+	"size": {"w":1273,"h":52},
+	"scale": "0.5",
+	"smartupdate": "$TexturePacker:SmartUpdate:61779b10069d1e56c0ce63a079ccc1f0:c8c1d45b3981a4d56abde8bf1d823393:ab7b5cf9655389ba72a148d461030e14$"
+}
+}
