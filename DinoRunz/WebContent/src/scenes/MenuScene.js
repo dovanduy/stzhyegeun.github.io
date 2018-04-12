@@ -9,7 +9,8 @@
 /**
  * MenuScene.
  * @param {Phaser.Game} aGame A reference to the currently running game.
- * @param {Phaser.Group} aParent The parent Group (or other {@link DisplayObject}) that this group will be added to.    If undefined/unspecified the Group will be added to the {@link Phaser.Game#world Game World}; if null the Group will not be added to any parent.
+ * @param {Phaser.Group} aParent The parent Group (or other {@link DisplayObject}) that this group will be added to.
+    If undefined/unspecified the Group will be added to the {@link Phaser.Game#world Game World}; if null the Group will not be added to any parent.
  * @param {string} aName A name for this group. Not used internally but useful for debugging.
  * @param {boolean} aAddToStage If true this group will be added directly to the Game.Stage instead of Game.World.
  * @param {boolean} aEnableBody If true all Sprites created with {@link #create} or {@link #createMulitple} will have a physics body created on them. Change the body type with {@link #physicsBodyType}.
@@ -21,80 +22,71 @@ function MenuScene(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBody
 	var _blindGroup = this.game.add.group(this);
 	
 	var _restartGroup = this.game.add.group(this);
+	_restartGroup.position.setTo(0, -50);
 	
-	var _txtTitle = this.game.add.text(360, 170, 'STAGE FAILED', {"font":"bold 74px Blogger Sans","fill":"#eaeff8"}, _restartGroup);
+	var _txtTitle = this.game.add.text(360, 158, 'STAGE FAILED', {"font":"bold 74px Blogger Sans","fill":"#eaeff8"}, _restartGroup);
 	_txtTitle.anchor.setTo(0.5, 0.5);
 	
-	var _btnRestart = this.game.add.sprite(360, 403, 'MenuScene', 'btn_yellow.png', _restartGroup);
-	_btnRestart.scale.setTo(2.0, 2.0);
+	var _btnRestart = this.game.add.sprite(360, 388, 'MenuScene', 'btn_yellow.png', _restartGroup);
 	_btnRestart.anchor.setTo(0.5, 0.5);
 	
 	var _btnShareAtRestart = this.game.add.group(_restartGroup);
-	_btnShareAtRestart.position.setTo(95, 436);
+	_btnShareAtRestart.position.setTo(95, 426);
 	
 	var _txtRestartStage1 = this.game.add.text(0, 54, 'SHARE', {"font":"bold 32px Blogger Sans","fill":"#eaeff8"}, _btnShareAtRestart);
 	_txtRestartStage1.anchor.setTo(0.5, 0.5);
 	
 	var _sprShare = this.game.add.sprite(0, 0, 'MenuScene', 'icon_share.png', _btnShareAtRestart);
-	_sprShare.scale.setTo(2.0, 2.0);
 	_sprShare.anchor.setTo(0.5, 0.5);
 	
 	var _btnStageAtRestart = this.game.add.group(_restartGroup);
-	_btnStageAtRestart.position.setTo(625, 436);
+	_btnStageAtRestart.position.setTo(625, 426);
 	
 	var _sprStage = this.game.add.sprite(0, 0, 'MenuScene', 'icon_stage.png', _btnStageAtRestart);
-	_sprStage.scale.setTo(2.0, 2.0);
 	_sprStage.anchor.setTo(0.5, 0.5);
 	
 	var _txtRestartStage = this.game.add.text(0, 54, 'STAGE', {"font":"bold 32px Blogger Sans","fill":"#eaeff8"}, _btnStageAtRestart);
 	_txtRestartStage.anchor.setTo(0.5, 0.5);
 	
 	var _btnSlowAtRestart = this.game.add.group(_restartGroup);
-	_btnSlowAtRestart.position.setTo(360, 657);
+	_btnSlowAtRestart.position.setTo(360, 635);
 	
 	var _sprSlowAtRestart = this.game.add.sprite(0, 0, 'MenuScene', 'btn_skyblue.png', _btnSlowAtRestart);
-	_sprSlowAtRestart.scale.setTo(2.0, 2.0);
 	_sprSlowAtRestart.anchor.setTo(0.5, 0.5);
 	
 	var _txtSlow = this.game.add.text(0, 90, 'SLOW', {"font":"bold 30px Blogger Sans","fill":"#eaeff8"}, _btnSlowAtRestart);
 	_txtSlow.anchor.setTo(0.5, 0.5);
 	
 	var _sprSlowIcon = this.game.add.sprite(0, 0, 'MenuScene', 'icon_slow.png', _btnSlowAtRestart);
-	_sprSlowIcon.scale.setTo(2.0, 2.0);
 	_sprSlowIcon.anchor.setTo(0.5, 0.5);
 	
 	var _btnSkipAtRestart = this.game.add.group(_restartGroup);
-	_btnSkipAtRestart.position.setTo(565, 659);
+	_btnSkipAtRestart.position.setTo(565, 635);
 	
 	var _sprSkipAtRestart = this.game.add.sprite(0, 0, 'MenuScene', 'btn_skyblue.png', _btnSkipAtRestart);
-	_sprSkipAtRestart.scale.setTo(2.0, 2.0);
 	_sprSkipAtRestart.anchor.setTo(0.5, 0.5);
 	
 	var _sprSkip = this.game.add.sprite(0, 0, 'MenuScene', 'icon_nextLevel.png', _btnSkipAtRestart);
-	_sprSkip.scale.setTo(2.0, 2.0);
 	_sprSkip.anchor.setTo(0.5, 0.5);
 	
 	var _txtSkip = this.game.add.text(0, 90, 'SKIP', {"font":"bold 30px Blogger Sans","fill":"#eaeff8"}, _btnSkipAtRestart);
 	_txtSkip.anchor.setTo(0.5, 0.5);
 	
 	var _btnCharacterAtRestart = this.game.add.group(_restartGroup);
-	_btnCharacterAtRestart.position.setTo(155, 652);
+	_btnCharacterAtRestart.position.setTo(155, 635);
 	
 	var _sprCharacterAtRestart = this.game.add.sprite(0, 5, 'MenuScene', 'btn_skyblue.png', _btnCharacterAtRestart);
-	_sprCharacterAtRestart.scale.setTo(2.0, 2.0);
 	_sprCharacterAtRestart.anchor.setTo(0.5, 0.5);
 	
 	var _txtCharacterAtRestart = this.game.add.text(0, 95, 'CHARACTER', {"font":"bold 30px Blogger Sans","fill":"#eaeff8"}, _btnCharacterAtRestart);
 	_txtCharacterAtRestart.anchor.setTo(0.5, 0.5);
 	
 	var _sprCharacterAtRestart = this.game.add.sprite(0, 0, 'auhaSheet1', 8, _btnCharacterAtRestart);
-	_sprCharacterAtRestart.scale.setTo(1.7, 1.7);
 	_sprCharacterAtRestart.anchor.setTo(0.5, 0.5);
 	
 	var _menuGroup = this.game.add.group(this);
 	
 	var _btnRestartAtMenu = this.game.add.sprite(360, 1122, 'MenuScene', 'btn_mainYellow.png', _menuGroup);
-	_btnRestartAtMenu.scale.setTo(2.0, 2.0);
 	_btnRestartAtMenu.anchor.setTo(0.5, 0.5);
 	
 	var _txtRestartAtMenu = this.game.add.text(360, 1149, 'This is a text', {"font":"bold 40px Blogger Sans","fill":"#ff9100"}, _menuGroup);
@@ -104,25 +96,20 @@ function MenuScene(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBody
 	_txtRestartAtMenuTitle.anchor.setTo(0.5, 0.5);
 	
 	var _btnInvite = this.game.add.sprite(126, 1133, 'MenuScene', 'btn_subBlue.png', _menuGroup);
-	_btnInvite.scale.setTo(2.0, 2.0);
 	_btnInvite.anchor.setTo(0.5, 0.5);
 	
 	var _btnSelect = this.game.add.sprite(593, 1133, 'MenuScene', 'btn_subBlue.png', _menuGroup);
-	_btnSelect.scale.setTo(2.0, 2.0);
 	_btnSelect.anchor.setTo(0.5, 0.5);
 	
 	var _icon_invite_png = this.game.add.sprite(128, 1130, 'MenuScene', 'icon_invite.png', _menuGroup);
-	_icon_invite_png.scale.setTo(1.9, 1.9);
 	_icon_invite_png.anchor.setTo(0.5, 0.5);
 	
 	var _sprCharacter = this.game.add.sprite(593, 1133, 'auhaSheet1', 5, _menuGroup);
-	_sprCharacter.scale.setTo(1.5, 1.5);
 	_sprCharacter.anchor.setTo(0.5, 0.5);
 	var _sprCharacter_idle = _sprCharacter.animations.add('idle', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19], 20, true);
 	_sprCharacter_idle.play();
 	
 	var _sprGoToStage = this.game.add.sprite(597, 1132, 'CharacterSelect', 'icon_goToStageSelect.png', _menuGroup);
-	_sprGoToStage.scale.setTo(2.0, 2.0);
 	_sprGoToStage.anchor.setTo(0.5, 0.5);
 	
 	var _txtInvite = this.game.add.text(128, 1210, 'INVITE', {"font":"bold 25px Blogger Sans","fill":"#9badcd"}, _menuGroup);
@@ -132,95 +119,75 @@ function MenuScene(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBody
 	_txtCharacter.anchor.setTo(0.5, 0.5);
 	
 	var _sprNaviBG = this.game.add.sprite(360, 54, 'MenuScene', 'img_bgNavi.png', _menuGroup);
-	_sprNaviBG.scale.setTo(360.0, 2.0);
+	_sprNaviBG.scale.setTo(360.0, 1.0);
 	_sprNaviBG.anchor.setTo(0.5, 0.5);
 	
 	var _stageSelectGroup = this.game.add.group(_menuGroup);
 	
 	var _btnNextPage = this.game.add.sprite(680, 602, 'MenuScene', 'btn_rightScrolling.png', _stageSelectGroup);
-	_btnNextPage.scale.setTo(2.0, 2.0);
 	_btnNextPage.anchor.setTo(0.5, 0.5);
 	
 	var _btnPrevPage = this.game.add.sprite(40, 602, 'MenuScene', 'btn_leftScrolling.png', _stageSelectGroup);
-	_btnPrevPage.scale.setTo(2.0, 2.0);
 	_btnPrevPage.anchor.setTo(0.5, 0.5);
 	
 	var _txtWorld = this.game.add.text(135, 92, 'World1', {"font":"bold 22px Blogger Sans","fill":"#8b9dca"}, _stageSelectGroup);
 	_txtWorld.anchor.setTo(0.5, 0.5);
 	
 	var _btnOption = this.game.add.sprite(619, 59, 'MenuScene', 'icon_option.png', _stageSelectGroup);
-	_btnOption.scale.setTo(2.0, 2.0);
 	_btnOption.anchor.setTo(0.5, 0.5);
 	
 	var _icon_world01_png = this.game.add.sprite(135, 46, 'MenuScene', 'icon_world01.png', _stageSelectGroup);
-	_icon_world01_png.scale.setTo(2.0, 2.0);
 	_icon_world01_png.anchor.setTo(0.5, 0.5);
 	
 	var _dotLineGroup = this.game.add.group(_stageSelectGroup);
 	_dotLineGroup.position.setTo(182, 47);
 	
 	var _dot = this.game.add.sprite(0, 0, 'MenuScene', 'img_dotBlue.png', _dotLineGroup);
-	_dot.scale.setTo(2.0, 2.0);
 	_dot.anchor.setTo(0.5, 0.5);
 	
 	var _dot1 = this.game.add.sprite(20, 0, 'MenuScene', 'img_dotBlue.png', _dotLineGroup);
-	_dot1.scale.setTo(2.0, 2.0);
 	_dot1.anchor.setTo(0.5, 0.5);
 	
 	var _dot2 = this.game.add.sprite(40, 0, 'MenuScene', 'img_dotBlue.png', _dotLineGroup);
-	_dot2.scale.setTo(2.0, 2.0);
 	_dot2.anchor.setTo(0.5, 0.5);
 	
 	var _dot3 = this.game.add.sprite(60, 0, 'MenuScene', 'img_dotBlue.png', _dotLineGroup);
-	_dot3.scale.setTo(2.0, 2.0);
 	_dot3.anchor.setTo(0.5, 0.5);
 	
 	var _dot4 = this.game.add.sprite(80, 0, 'MenuScene', 'img_dotBlue.png', _dotLineGroup);
-	_dot4.scale.setTo(2.0, 2.0);
 	_dot4.anchor.setTo(0.5, 0.5);
 	
 	var _dot5 = this.game.add.sprite(100, 0, 'MenuScene', 'img_dotBlue.png', _dotLineGroup);
-	_dot5.scale.setTo(2.0, 2.0);
 	_dot5.anchor.setTo(0.5, 0.5);
 	
 	var _dot6 = this.game.add.sprite(120, 0, 'MenuScene', 'img_dotBlue.png', _dotLineGroup);
-	_dot6.scale.setTo(2.0, 2.0);
 	_dot6.anchor.setTo(0.5, 0.5);
 	
 	var _dot7 = this.game.add.sprite(140, 0, 'MenuScene', 'img_dotBlue.png', _dotLineGroup);
-	_dot7.scale.setTo(2.0, 2.0);
 	_dot7.anchor.setTo(0.5, 0.5);
 	
 	var _dot8 = this.game.add.sprite(160, 0, 'MenuScene', 'img_dotBlue.png', _dotLineGroup);
-	_dot8.scale.setTo(2.0, 2.0);
 	_dot8.anchor.setTo(0.5, 0.5);
 	
 	var _dot9 = this.game.add.sprite(180, 0, 'MenuScene', 'img_dotBlue.png', _dotLineGroup);
-	_dot9.scale.setTo(2.0, 2.0);
 	_dot9.anchor.setTo(0.5, 0.5);
 	
 	var _dot10 = this.game.add.sprite(200, 0, 'MenuScene', 'img_dotBlue.png', _dotLineGroup);
-	_dot10.scale.setTo(2.0, 2.0);
 	_dot10.anchor.setTo(0.5, 0.5);
 	
 	var _dot11 = this.game.add.sprite(220, 0, 'MenuScene', 'img_dotBlue.png', _dotLineGroup);
-	_dot11.scale.setTo(2.0, 2.0);
 	_dot11.anchor.setTo(0.5, 0.5);
 	
 	var _dot12 = this.game.add.sprite(240, 0, 'MenuScene', 'img_dotBlue.png', _dotLineGroup);
-	_dot12.scale.setTo(2.0, 2.0);
 	_dot12.anchor.setTo(0.5, 0.5);
 	
 	var _dot13 = this.game.add.sprite(260, 0, 'MenuScene', 'img_dotBlue.png', _dotLineGroup);
-	_dot13.scale.setTo(2.0, 2.0);
 	_dot13.anchor.setTo(0.5, 0.5);
 	
 	var _dot14 = this.game.add.sprite(280, 0, 'MenuScene', 'img_dotBlue.png', _dotLineGroup);
-	_dot14.scale.setTo(2.0, 2.0);
 	_dot14.anchor.setTo(0.5, 0.5);
 	
 	var _dot15 = this.game.add.sprite(300, 0, 'MenuScene', 'img_dotBlue.png', _dotLineGroup);
-	_dot15.scale.setTo(2.0, 2.0);
 	_dot15.anchor.setTo(0.5, 0.5);
 	
 	var _worldProfile2 = new WorldUserProfile(this.game, _stageSelectGroup);
@@ -314,10 +281,10 @@ function MenuScene(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBody
 	if(FBInstant) {
 		function setButtonProfile() {
 			for (index = 0; index < this.maxSlotNum; index++) {
-				this.buttonList[index].setUserPhoto("playerProfile");
+                this.buttonList[index].setUserPhoto(PlayerDataManager.profileInfo.getImageKey());
 			}
 		}
-		StzUtil.loadImageFromURL(this.game, "playerProfile", PlayerDataManager.profileInfo.getPhotoUrl(), setButtonProfile, this);
+        PlayerDataManager.profileInfo.loadProfileImage(this.game, setButtonProfile, this);
 	}
 	
 	// 캐릭터 선택 슬롯 생성
@@ -571,8 +538,9 @@ MenuScene.prototype.showRestart = function() {
 };
 
 MenuScene.prototype.openMenu = function(inCurrentStage, inMenuType) {
-	window.sounds.sound('bgm_lobby').play("", 0, DinoRunz.InGame.isMusic, true);
-	window.sounds.sound('bgm_ingame').pause();
+	// window.sounds.allStop();
+	var lobbySound = window.sounds.sound("bgm_lobby");
+	if(!lobbySound.isPlaying) lobbySound.play("", 0, DinoRunz.InGame.isMusic, true);
 	
 	var currentIndex = inCurrentStage || 1;
 	
@@ -652,7 +620,7 @@ MenuScene.prototype.closeMenu = function() {
 };
 
 MenuScene.prototype.setWorldProfiles = function() {
-	var i, contextFriendsList = PlayerDataManager.getFriends();
+	var i, contextFriendsList = PlayerDataManager.getContextFriends();
 	var length = contextFriendsList.length;
 	var myStage = DinoRunz.Storage.UserData.lastClearedStage;
 	var frinedProfile = null;
@@ -674,7 +642,7 @@ MenuScene.prototype.setWorldProfiles = function() {
 		this.fWorldProfile1.visible = false;
 		this.fWorldProfile2.visible = false;
 
-		this.fWorldProfile0.setProfile(myStage, "playerProfile"); 
+		this.fWorldProfile0.setProfile(myStage, PlayerDataManager.profileInfo); 
 		
 		for (i = 3 ; i < dots.length ; ++i) {
 			dots[i].visible = false;
@@ -683,35 +651,35 @@ MenuScene.prototype.setWorldProfiles = function() {
 		this.fRecomandJoinMsg.visible = true;
 		break;
 	default:
-		if(DinoRunz.Storage.UserData.lastClearedStage >= contextFriendsList[0].bestStage) {
+		if(myStage >= contextFriendsList[0].bestStage) {
 			this.fWorldProfile0.visible = true;
 			this.fWorldProfile1.visible = false;
 			this.fWorldProfile2.visible = true;
 			
 			for(i = 0 ; i < length ; ++i){
-				if(DinoRunz.Storage.UserData.lastClearedStage > contextFriendsList[i].bestStage){
+				if(myStage > contextFriendsList[i].bestStage){
 					lower = contextFriendsList[i];
 					break;
 				}
 			}
 			
-			this.fWorldProfile0.setProfile(lower.bestStage, lower.profileInfo.getImageKey());
-			this.fWorldProfile2.setProfile(DinoRunz.Storage.UserData.lastClearedStage, "playerProfile");
+			this.fWorldProfile0.setProfile(lower.bestStage, lower.profileInfo);
+			this.fWorldProfile2.setProfile(myStage, PlayerDataManager.profileInfo);
 		} 
-		else if(DinoRunz.Storage.UserData.lastClearedStage <= contextFriendsList[length-1].bestStage) {
+		else if(myStage <= contextFriendsList[length-1].bestStage) {
 			this.fWorldProfile0.visible = true;
 			this.fWorldProfile1.visible = false;
 			this.fWorldProfile2.visible = true;
 			
 			for(i = length-1 ; i >= 0 ; --i) {
-				if(DinoRunz.Storage.UserData.lastClearedStage < contextFriendsList[i].bestStage){
+				if(myStage < contextFriendsList[i].bestStage){
 					upper = contextFriendsList[i];
 					break;
 				}
 			}
 			
-			this.fWorldProfile0.setProfile(DinoRunz.Storage.UserData.lastClearedStage, "playerProfile");
-			this.fWorldProfile2.setProfile(upper.bestStage, upper.profileInfo.getImageKey());
+			this.fWorldProfile0.setProfile(myStage, PlayerDataManager.profileInfo);
+			this.fWorldProfile2.setProfile(upper.bestStage, upper.profileInfo);
 		} 
 		else {
 			this.fWorldProfile0.visible = true;
@@ -719,22 +687,22 @@ MenuScene.prototype.setWorldProfiles = function() {
 			this.fWorldProfile2.visible = true;
 			
 			for(i = 0 ; i < length ; ++i){
-				if(DinoRunz.Storage.UserData.lastClearedStage > contextFriendsList[i].bestStage){
+				if(myStage > contextFriendsList[i].bestStage){
 					lower = contextFriendsList[i];
 					break;
 				}
 			}
 			
 			for(i = length-1 ; i >= 0 ; --i) {
-				if(DinoRunz.Storage.UserData.lastClearedStage < contextFriendsList[i].bestStage){
+				if(myStage < contextFriendsList[i].bestStage){
 					upper = contextFriendsList[i];
 					break;
 				}
 			}
 			
-			this.fWorldProfile0.setProfile(lower.bestStage, lower.profileInfo.getImageKey());
-			this.fWorldProfile1.setProfile(DinoRunz.Storage.UserData.lastClearedStage, "playerProfile");
-			this.fWorldProfile2.setProfile(upper.bestStage, upper.profileInfo.getImageKey());
+			this.fWorldProfile0.setProfile(lower.bestStage, lower.profileInfo);
+			this.fWorldProfile1.setProfile(myStage, PlayerDataManager.profileInfo);
+			this.fWorldProfile2.setProfile(upper.bestStage, upper.profileInfo);
 		}
 		break;
 	}

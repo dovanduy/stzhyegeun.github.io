@@ -20,11 +20,9 @@ function WorldUserProfile(aGame, aParent, aName, aAddToStage, aEnableBody, aPhys
 	
 	Phaser.Group.call(this, aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBodyType);
 	var _sprUserFrame = this.game.add.sprite(0, 0, 'MenuScene', 'default_thumb.png', this);
-	_sprUserFrame.scale.setTo(2.0, 2.0);
 	_sprUserFrame.anchor.setTo(0.5, 0.5);
 	
 	var _sprFrameStroke = this.game.add.sprite(0, 0, 'MenuScene', 'img_userFrameStroke.png', this);
-	_sprFrameStroke.scale.setTo(2.0, 2.0);
 	_sprFrameStroke.anchor.setTo(0.5, 0.5);
 	
 	
@@ -40,15 +38,21 @@ function WorldUserProfile(aGame, aParent, aName, aAddToStage, aEnableBody, aPhys
 	
 	this.fSprUserFrame.mask = maskProfile;
 	
-	this.game.cache.addNinePatch("nineStageBG", "MenuScene", "img_userStageBG.png", 5, 5, 5, 5);
+	this.game.cache.addNinePatch("nineStageBG", "MenuScene", "img_userStageBG.png", 15, 15, 13, 13);
 	var _ninepatch_stageBG = new Phaser.NinePatchImage(this.game, 0, 0, "nineStageBG");
-	_ninepatch_stageBG.targetWidth = _sprUserFrame.width;
-	_ninepatch_stageBG.targetHeight = 20;
+	_ninepatch_stageBG.targetWidth = parseInt(_sprFrameStroke.width) - 10;
+	_ninepatch_stageBG.targetHeight = 25;
 	_ninepatch_stageBG.position.setTo(-_sprUserFrame.width*0.5, 30);
-	this.add(_ninepatch_stageBG);
+	_ninepatch_stageBG.anchor.setTo(0.5);
+	_ninepatch_stageBG.UpdateImageSizes();
 	
-	this.txtStageNum = this.game.add.text(0, 43.5, "999", {font:"bold 22px Blogger Sans", fill:"#ffffff"}, this);
+	this.addChild(_ninepatch_stageBG);
+	_ninepatch_stageBG.position.setTo(0, 42);
+	
+	this.txtStageNum = this.game.add.text(0, 2.5, "999", {font:"bold 22px Blogger Sans", fill:"#ffffff"}, this);
 	this.txtStageNum.anchor.setTo(0.5);
+	
+	_ninepatch_stageBG.addChild(this.txtStageNum);
 	/* --- post-init-end --- */
 	
 	
@@ -62,18 +66,15 @@ WorldUserProfile.prototype.constructor = WorldUserProfile;
 /* --- end generated code --- */
 // -- user code here --
 
-WorldUserProfile.prototype.setProfile = function(inStage, userProfileKey) {
+WorldUserProfile.prototype.setProfile = function(inStage, userProfileInfo) {
 	this.txtStageNum.text = inStage + "";
-	
-	if(this.game.cache.checkImageKey(userProfileKey)){
-		this.fSprUserFrame.loadTexture(userProfileKey);
-	}
-	else {
-		this.fSprUserFrame.loadTexture("MenuScene", "default_thumb.png");
-	}
-	
-	if(this.fSprUserFrame.width>66){
-		this.fSprUserFrame.width = 66;
-		this.fSprUserFrame.height = 66;
-	}
+
+	userProfileInfo.loadProfileImage(this.game, function() {
+		this.fSprUserFrame.loadTexture(userProfileInfo.getImageKey());
+
+		if(this.fSprUserFrame !== 65) {
+			this.fSprUserFrame.width = 65;
+			this.fSprUserFrame.height = 65;
+		}
+	}, this);
 };

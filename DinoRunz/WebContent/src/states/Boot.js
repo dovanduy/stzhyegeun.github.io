@@ -58,6 +58,13 @@ DinoRunz.Boot.prototype = {
 };
 
 window.onload = function() {
+    window.FbManager = new FbManager_proto();
+    window.GGManager = new GGManager_proto();
+    window.PlayerDataManager = new PlayerDataManager_proto();
+    window.Server = new ServerManager_proto();
+    window.StaticManager = new StaticManager_proto();
+    window.StzTrans = new StzTranslator_proto();
+    
 	var game = new Phaser.Game(720, 1280, Phaser.CANVAS, 'gameContainer');
 
 	game.state.add('Boot', DinoRunz.Boot);

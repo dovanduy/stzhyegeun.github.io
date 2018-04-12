@@ -45,20 +45,19 @@
           "setAll": [],
           "children": [
             {
-              "type": "image",
-              "id": "cae654c7-70cd-4b20-b0cf-3421795ea6e5",
+              "type": "atlas-sprite",
+              "id": "0770001e-b01d-499a-8e7d-4df07a916164",
               "asset": "0",
               "info": {
                 "editorName": "tile",
                 "editorPublic": true,
                 "anchor.x": 0.5,
-                "anchor.y": 0.5,
-                "tint": "0xffffff"
+                "anchor.y": 0.5
               }
             },
             {
-              "type": "image",
-              "id": "9560d9b2-8faf-47ac-aa5e-627d59b9bbe4",
+              "type": "atlas-sprite",
+              "id": "c1f31408-3d6d-4771-a517-00fa4b7a8fef",
               "asset": "1",
               "info": {
                 "editorName": "goalStart",
@@ -69,8 +68,8 @@
               }
             },
             {
-              "type": "image",
-              "id": "1f2c5dbf-03be-4726-8ca2-e2a6043ff826",
+              "type": "atlas-sprite",
+              "id": "56d4e056-feb5-4cbe-b016-1c22f5bdaabb",
               "asset": "1",
               "info": {
                 "editorName": "goalEnd",
@@ -81,8 +80,8 @@
               }
             },
             {
-              "type": "image",
-              "id": "c188c88e-930d-4556-9412-1ba2c1821289",
+              "type": "atlas-sprite",
+              "id": "ee568913-f79b-45ea-8068-04c9b770c5ae",
               "asset": "2",
               "info": {
                 "editorName": "arrow",
@@ -108,8 +107,8 @@
               }
             },
             {
-              "type": "image",
-              "id": "6293d749-37c4-447d-bdcd-7b7018d6e6d8",
+              "type": "atlas-sprite",
+              "id": "957e87f1-bb79-48bd-b8d6-978fcfc3fbc2",
               "asset": "3",
               "info": {
                 "editorName": "jewel",
@@ -156,22 +155,26 @@
     "0": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "ingame",
-      "asset": "road_tile_1"
+      "asset": "resAtlas",
+      "sprite": "road_tile_1.png"
     },
     "1": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "ingame",
-      "asset": "road_tile_goal"
+      "asset": "resAtlas",
+      "sprite": "road_tile_goal.png"
     },
     "2": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "ingame",
-      "asset": "road_tile_arrow_gray"
+      "asset": "resAtlas",
+      "sprite": "road_tile_arrow_gray.png"
     },
     "3": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "ingame",
-      "asset": "newJewel"
+      "asset": "resAtlas",
+      "sprite": "icon_crystal02.png"
     },
     "4": {
       "file": "WebContent/assets/assets-pack.json",

@@ -59,8 +59,6 @@
                     "info": {
                       "editorName": "btnStage",
                       "editorPublic": true,
-                      "scale.x": 2,
-                      "scale.y": 2,
                       "anchor.x": 0.5,
                       "anchor.y": 0.5
                     }
@@ -73,8 +71,6 @@
                       "editorName": "sprAllClear",
                       "editorPublic": true,
                       "y": -37,
-                      "scale.x": 2,
-                      "scale.y": 2,
                       "anchor.x": 0.5,
                       "anchor.y": 0.5
                     }
@@ -111,8 +107,6 @@
                           "info": {
                             "editorName": "sprCurrentStageBG",
                             "editorPublic": true,
-                            "scale.x": 2,
-                            "scale.y": 2,
                             "anchor.x": 0.5,
                             "anchor.y": 0.5
                           }
@@ -125,8 +119,6 @@
                             "editorName": "sprUserPhoto",
                             "editorPublic": true,
                             "y": -8,
-                            "scale.x": 2,
-                            "scale.y": 2,
                             "anchor.x": 0.5,
                             "anchor.y": 0.5
                           }
@@ -154,8 +146,6 @@
                       "editorName": "btnLockStage",
                       "editorPublic": true,
                       "y": -5,
-                      "scale.x": 2,
-                      "scale.y": 2,
                       "anchor.x": 0.5,
                       "anchor.y": 0.5
                     }

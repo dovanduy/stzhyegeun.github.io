@@ -1,18 +1,14 @@
-var ESlotLockType = {
-	none: 1,
-	level: 2,
-	video: 3,
-	share: 4,
-	gift: 99
-};
+DinoRunz.isLoadNeedData = false;
 
 DinoRunz.Storage = {
 	UserData : {
 		lastClearedStage: 1, 
 		lastCharacterId: 1,//마지막으로 선택된 캐릭터 인덱스.
 		lastFallenBlockId: 0,//떨어진 블록 인덱스.
+		shareCount: 0,//공유카운트.
 		isAllClearList: [],
 		isCurGetValueList: [],//공룡을 얻기 위해 조건을 수행한 카운트 저장.
+		
 		isGetDinoList: [],//서버 저장 안함.
 		lockDinoData: []//서버 저장 안함.
 	}
@@ -52,8 +48,9 @@ DinoRunz.Storage = {
 			var lastStageItem = 1;
 			var lastCharacterId = 1;
 			var lastFallenBlockId = 0;
+			var shareCount = 0;
 			var isAllClearListItem = [];
-			
+			var isCurGetValueList = [];
 			if (typeof(Storage) !== "undefined") {
 				lastStageItem = Number(localStorage.getItem("lastClearedStage"));
 				lastStageItem = (isNaN(lastStageItem) === true ? 1 : lastStageItem);
@@ -63,6 +60,8 @@ DinoRunz.Storage = {
 				isCurGetValueList = JSON.parse(localStorage.getItem("isCurGetValueList"));
 				lastFallenBlockId = parseInt(localStorage.getItem("lastFallenBlockId"));
 				lastFallenBlockId = (isNaN(lastFallenBlockId) === true ? 1 : lastFallenBlockId);
+				shareCount = parseInt(localStorage.getItem("shareCount"));
+				shareCount = (isNaN(shareCount) === true ? 1 : shareCount);
 
 				if (isAllClearListItem === null) {
 					isAllClearListItem = [];
@@ -85,6 +84,7 @@ DinoRunz.Storage = {
 				lastClearedStage: lastStageItem, 
 				isAllClearList: isAllClearListItem,
 				lastCharacterId: lastCharacterId,
+				shareCount: shareCount,
 				isCurGetValueList: isCurGetValueList,
 				lastFallenBlockId: lastFallenBlockId
 			};
@@ -126,18 +126,19 @@ DinoRunz.Storage = {
 					return inItem;
 				});
 
-				DinoRunz.Storage.UserData.isCurGetValueList 
 				
 				localStorage.setItem("isAllClearList", JSON.stringify(DinoRunz.Storage.UserData.isAllClearList));
 				localStorage.setItem("lastCharacterId", DinoRunz.Storage.UserData.lastCharacterId);
 				localStorage.setItem("lastFallenBlockId", DinoRunz.Storage.UserData.lastFallenBlockId);
 				localStorage.setItem("isCurGetValueList",  JSON.stringify(DinoRunz.Storage.UserData.isCurGetValueList));
+				localStorage.setItem("shareCount",  JSON.stringify(DinoRunz.Storage.UserData.shareCount));
 			}
 			
 			var result = {
 				lastClearedStage: DinoRunz.Storage.UserData.lastClearedStage, 
 				isAllClearList: JSON.stringify(DinoRunz.Storage.UserData.isAllClearList),
-				lastCharacterId: DinoRunz.Storage.UserData.lastCharacterId, 
+				lastCharacterId: DinoRunz.Storage.UserData.lastCharacterId,
+				shareCount: DinoRunz.Storage.UserData.shareCount,
 				lastFallenBlockId: DinoRunz.Storage.UserData.lastFallenBlockId,
 				isCurGetValueList: JSON.stringify(DinoRunz.Storage.UserData.isCurGetValueList)
 			};
@@ -156,8 +157,13 @@ DinoRunz.Storage = {
 			}
 		});
 	}
+	, updateShareCount: function(inValue) {
+		this.userData.shareCount += inValue;
+	}
+	, resetUserData: function() {
+		
+	}
 };
-
 
 DinoRunz.Preloader = function (game) {};
 var Preloader_proto = Object.create(Phaser.State);
@@ -183,6 +189,8 @@ DinoRunz.Preloader.prototype.create = function() {
 	this.game.load.onFileComplete.removeAll();
 
 	window.sounds.createSound(this.game);
+
+	this.game.state.start("Title", true, false, DinoRunz.InGame.EGameMode.RUN, DinoRunz.Storage.UserData.lastClearedStage);
 	
 	if(FBInstant){
 		FBInstant.startGameAsync().then(function() {
@@ -277,10 +285,25 @@ DinoRunz.Preloader.prototype.create = function() {
 				var playerName = (window.FBInstant ? FBInstant.player.getName() : "GUEST");
 				var playerPhoto = (window.FBInstant ? FBInstant.player.getPhoto() : "default_thumb"); 
 				
+				PlayerDataManager.saveData = DinoRunz.Storage;
 				PlayerDataManager.profileInfo = new ProfileInfoModel(0, FBInstant.player.getID(), playerName, 
 						playerPhoto, 0);//set player profile info
+				
+				// this.game.state.start("Title", true, false, DinoRunz.InGame.EGameMode.RUN, DinoRunz.Storage.UserData.lastClearedStage);
+				var contextFriends = PlayerDataManager.getContextFriends();
+				var worldFriends = PlayerDataManager.getFriends();
 
-				this.game.state.start("Title", true, false, DinoRunz.InGame.EGameMode.RUN, DinoRunz.Storage.UserData.lastClearedStage);
+				if(contextFriends.length === 1 || contextFriends.length === 2) {
+					//add dummyFriends
+					PlayerDataManager.initContextFriendsLocal();
+				}
+
+				if(worldFriends.length === 1 || worldFriends.length === 2) {
+					//add dummyFriends
+					PlayerDataManager.initFriendsLocal();
+				}
+
+				DinoRunz.isLoadNeedData = true;
 			}.bind(this));
 		}.bind(this));
 	} 
@@ -303,7 +326,7 @@ DinoRunz.Preloader.prototype.create = function() {
 			if (false) {
 				$.get("/maps", function(data) {
 					if (!data) {
-						this.game.state.start("Title", true, false, DinoRunz.InGame.EGameMode.EDIT, DinoRunz.Storage.UserData.lastClearedStage);
+						// this.game.state.start("Title", true, false, DinoRunz.InGame.EGameMode.EDIT, DinoRunz.Storage.UserData.lastClearedStage);
 					} else {
 						DinoRunz.InGame.MAPS = {};
 						var maxStage = 0;
@@ -320,17 +343,21 @@ DinoRunz.Preloader.prototype.create = function() {
 						DinoRunz.InGame.MAPS["length"] = maxStage;
 					}
 					
-					this.game.state.start("Title", true, false, DinoRunz.InGame.EGameMode.EDIT, DinoRunz.Storage.UserData.lastClearedStage);
+					// this.game.state.start("Title", true, false, DinoRunz.InGame.EGameMode.EDIT, DinoRunz.Storage.UserData.lastClearedStage);
 				}.bind(this));
 			} else {
 				var playerId = (window.FBInstant ? FBInstant.player.getID() : "103112311");
 				var playerName = (window.FBInstant ? FBInstant.player.getName() : "GUEST");
 				var playerPhoto = (window.FBInstant ? FBInstant.player.getPhoto() : "default_thumb"); 
 				
+				PlayerDataManager.saveData = DinoRunz.Storage;
 				PlayerDataManager.profileInfo = new ProfileInfoModel(0, playerId, playerName, 
 						playerPhoto, 0);//set player profile info
+
+				PlayerDataManager.initFriendsLocal();
+				PlayerDataManager.initContextFriendsLocal();
 				
-				this.game.state.start("Title", true, false, DinoRunz.InGame.EGameMode.RUN, DinoRunz.Storage.UserData.lastClearedStage);	
+				DinoRunz.isLoadNeedData = true;
 			}
 		}.bind(this));
 	}

@@ -28,30 +28,24 @@ function CharSelectSlot(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysic
 	
 	Phaser.Group.call(this, aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBodyType);
 	var _slotBG = this.game.add.sprite(0, 0, 'CharacterSelect', 'img_whiteSpace.png', this);
-	_slotBG.scale.setTo(2.0, 2.0);
 	_slotBG.anchor.setTo(0.5, 0.5);
 	
 	var _btnDisable = this.game.add.sprite(0, 60, 'CharacterSelect', 'btn_disableBtnGray.png', this);
-	_btnDisable.scale.setTo(2.0, 2.0);
 	_btnDisable.anchor.setTo(0.5, 0.5);
 	
 	var _sprCharacter = this.game.add.sprite(0, -35, 'auhaSheet1', 5, this);
-	_sprCharacter.scale.setTo(1.8, 1.8);
 	_sprCharacter.anchor.setTo(0.5, 0.5);
 	
 	var _txtCondition = this.game.add.text(0, 59, 'txtDisable', {"font":"bold 20px Blogger Sans","fill":"#345d76"}, this);
 	_txtCondition.anchor.setTo(0.5, 0.5);
 	
 	var _sprIcon = this.game.add.sprite(-35, 55, 'CharacterSelect', 'icon_adLock.png', this);
-	_sprIcon.scale.setTo(2.0, 2.0);
 	_sprIcon.anchor.setTo(0.5, 0.5);
 	
 	var _sprSelected = this.game.add.sprite(0, 0, 'CharacterSelect', 'img_select.png', this);
-	_sprSelected.scale.setTo(2.0, 2.0);
 	_sprSelected.anchor.setTo(0.5, 0.5);
 	
 	var _sprUnselected = this.game.add.sprite(0, 49, 'CharacterSelect', 'img_nonSelect.png', this);
-	_sprUnselected.scale.setTo(2.0, 2.0);
 	_sprUnselected.anchor.setTo(0.5, 0.5);
 	
 	
@@ -120,11 +114,14 @@ CharSelectSlot.prototype.checkState = function() {
 			curData = DinoRunz.Storage.UserData.lockDinoData[i];
 			if(this.charId===curData.charId){
 				this.curValue = curData.curValue;
+				break;
 			}
 		}
 		break;
 	}
-	
+
+	this.setSlot();
+
 	this.isLock = (this.curValue<this.lockValue);
 	
 	if(!this.isLock){
@@ -134,8 +131,7 @@ CharSelectSlot.prototype.checkState = function() {
 		this.fSprIcon.visible = false;
 		this.fBtnDisable.visible = false;
 		this.fTxtCondition.visible = false;
-		
-		
+		this.fSprUnselected.visible = (this.charId !== DinoRunz.Storage.UserData.lastCharacterId);
 	}
 	else {
 		this.fSlotBG.alpha = 0.7;
@@ -145,21 +141,24 @@ CharSelectSlot.prototype.checkState = function() {
 		this.fBtnDisable.visible = true;
 		this.fTxtCondition.visible = true;
 	}
-	
-	this.setSlot();
 };
 
 CharSelectSlot.prototype.selectSlots = function() {
 	if(this.isLock) return;
 	
-	this.setSelected((this.charId===DinoRunz.Storage.UserData.lastCharacterId));
+	this.setSelected((this.charId === DinoRunz.Storage.UserData.lastCharacterId));
 };
 
 CharSelectSlot.prototype.btnDisableCallback = function() {
 	window.sounds.sound('sfx_button').play();
-	DinoRunz.InGame.menuScene.popupManager.dinoInfoPopup.showPopup(this.charId, this.lockType);
-	//todo: 초대 팝업 띄우기 적용.
-	//todo: 초대, 광고 보면 유저 데이터 업데이트 기능.
+	if(this.lockType !== ESlotLockType.share) DinoRunz.InGame.menuScene.popupManager.dinoInfoPopup.showPopup(this.charId, this.lockType);
+	else {
+		FBManager.InviteFriend(function() {
+			PlayerDataManager.saveData.setUserData();
+			this.curValue = PlayerDataManager.UserData.shareCount;
+			this.game.state.getCurrentState.menuScene.updateCharacterSlots();
+		}.bind(this));
+	}
 };
 
 CharSelectSlot.prototype.init = function(index) {

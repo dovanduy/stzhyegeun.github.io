@@ -235,9 +235,7 @@ function GGManager_proto () {
 	};
 }
 	
-var GGManager = new GGManager_proto();
-
-ELoadState = {
+var ELoadState = {
 		AD_LOADING 			: "AD_LOADING",
 		AD_LOAD_SUCCESS 	: "AD_LOAD_SUCCESS",
 		AD_LOAD_FAIL		: "AD_LOAD_FAIL",

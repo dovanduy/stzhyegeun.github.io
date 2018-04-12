@@ -200,6 +200,7 @@ DinoRunz.PathManager.prototype.checkPlayerOnPath = function(inPlayer) {
 				}
 				
 				inPlayer.currentIndex = currentPath.getIndex();
+				inPlayer.currentTile = currentPath;
 				
 				this.commandList = this.commandList.filter(function(item, index, origin) {
 					var index = Number(item.index);
@@ -263,6 +264,33 @@ DinoRunz.PathManager.prototype.drawPath = function(inStartIndex, inEndIndex, inC
 	var endIndex = inEndIndex || this.pathList.length - 1;
 	var isCreateIfNull = inCreateIfNull || false;
 	
+	// 친구의 DeadPosition 체크
+	if (inTargetStage !== undefined) {
+	    var friendsInStage = PlayerDataManager.getContextFriends().filter(function(item, index, origin){
+	        if (StzUtil.hasOwnProperties(item, ["bestStage", "fallenBlockId"]) === false) {
+	            return false;
+	        }
+	        if (item.bestStage !== inTargetStage) {
+	            return false;
+	        } 
+	        if (item.fallenBlockId <= 0) {
+	            return false;
+			}
+			if (item.profileInfo.getPlatformId() === PlayerDataManager.profileInfo.getPlatformId()) {
+				//leaderboard의 정보 중 플레이어의 데이터는 제외.
+				return false;
+			}
+	        return true;
+	    });
+	    
+	    if (friendsInStage.length > 0) {
+	        friendsInStage = friendsInStage.reduce(function(acc, cur, i) {
+	            acc[cur.fallenBlockId] = cur.profileInfo;
+	            return acc;
+	        }, {});
+	    }
+	}
+    
 	for (var i = startIndex; i <= endIndex /*&& this.tiles.getAll("exists", false).length > 0*/ ; i++) {
 		
 		var currentPath = this.pathList[i];
@@ -295,13 +323,24 @@ DinoRunz.PathManager.prototype.drawPath = function(inStartIndex, inEndIndex, inC
 		this.lastDrawnPath = currentTile;
 		this.lastDrawnIndex = i;
 		
+		// 친구의 FallPosition 체크
+		if (friendsInStage && friendsInStage[currentTile.indexInStage]) {
+		    var friendFallenView = this.deadViews.getFirstDead(true);
+		    if (friendFallenView) {
+		        friendFallenView.reset();
+		        friendFallenView.setProfileInfo(friendsInStage[currentTile.indexInStage]);
+		        friendFallenView.position.setTo(currentTile.position.x, currentTile.position.y);
+		        currentTile.setDeadView(friendFallenView)
+		    }
+		}
+		
 		// 플레이어의 DeadPosition 체크
         if (inTargetStage === DinoRunz.Storage.UserData.lastClearedStage) {
             if (DinoRunz.Storage.UserData.lastFallenBlockId > 0 && DinoRunz.Storage.UserData.lastFallenBlockId === currentTile.indexInStage) {
                 var playerDeadView = this.deadViews.getFirstDead(true);
                 if (playerDeadView) {
                     playerDeadView.reset();
-                    playerDeadView.setPlatformId(PlayerDataManager.getPlatformId());
+                    playerDeadView.setProfileInfo(PlayerDataManager.profileInfo);
                     playerDeadView.position.setTo(currentTile.position.x, currentTile.position.y);
                     currentTile.setDeadView(playerDeadView);    
                 }

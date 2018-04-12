@@ -1,0 +1,44 @@
+{"frames": [
+
+{
+	"filename": "img_hands.png",
+	"frame": {"x":513,"y":1,"w":178,"h":198},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":178,"h":198},
+	"sourceSize": {"w":178,"h":198}
+},
+{
+	"filename": "img_tutoCrown.png",
+	"frame": {"x":1,"y":1,"w":510,"h":244},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":510,"h":244},
+	"sourceSize": {"w":510,"h":244}
+},
+{
+	"filename": "img_tutoInfo.png",
+	"frame": {"x":693,"y":1,"w":88,"h":121},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":88,"h":121},
+	"sourceSize": {"w":88,"h":121}
+},
+{
+	"filename": "img_wave.png",
+	"frame": {"x":693,"y":124,"w":102,"h":102},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":102,"h":102},
+	"sourceSize": {"w":102,"h":102}
+}],
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "TutorialAtlas.png",
+	"format": "RGBA8888",
+	"size": {"w":796,"h":246},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:d0e6fcc4d51544913ff8388f91f1199f:6f15fa3c2176b3e7f8769f1bb512494e:2b1d6e4836a0c2f0572e566e4050bd8c$"
+}
+}

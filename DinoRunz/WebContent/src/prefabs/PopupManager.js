@@ -15,6 +15,7 @@ function PopupManager(aGame, aParent) {
 	this.adPopup = new AdPopup(aGame, aParent);
 	this.optionPopup = new OptionPopup(aGame, aParent);
 	this.getDinoPopup = new GetDinoPopup(aGame, aParent);
+	this.loadFailPopup = new LoadFailPop(aGame, aParent);
 }
 
 function DinoInfoPopup(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBodyType) {
@@ -45,7 +46,7 @@ function DinoInfoPopup(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysics
 
 	this.sprCharacter = this.game.add.sprite(0, -80, "auhaSheet1", 8);
 	this.sprCharacter.anchor.setTo(0.5);
-	this.sprCharacter.scale.setTo(2.5);
+	this.sprCharacter.scale.setTo(1.5);
 
 	this.btnOK = this.game.add.sprite(0, 200, "PopupAtlas", "btn_popupSkyblue.png");
 	this.btnOK.anchor.setTo(0.5);
@@ -167,17 +168,16 @@ DinoInfoPopup.prototype.btnCallback = function() {
 		var adModel = GGManager.getAdModelByPlacementID(EAdType.REWARDED, EAdName.REWARD_GET_CHARACTER);
 		if(adModel) {
 			GGManager.setCallbackByPlacementID(EAdName.REWARD_GET_CHARACTER, callback.bind(this), function() {
-				console.log("ad_load_successe");
+				//load success
 			}.bind(this), function() {
-				//todo : 광고 로드 실패 팝업 띄우기?
-				// throw new Error("ad_load_fail");
-				console.log("ad_load_fail");
+				//load fail
+				var inGameState = this.game.state.getCurrentState();
+				inGameState.menuScene.popupManager.loadFailPopup.showPopup();
 			}.bind(this));
 			GGManager.show(EAdName.REWARD_SKIP);
 		}
 		else {
-			// throw new Error("adModel : "+adModel);
-			console.log("adModel: "+adModel);
+
 		}
 	}	
 	else {
@@ -221,11 +221,8 @@ function AdPopup(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBodyTy
 
 	this.btnFree.inputEnabled = true;
 	this.btnFree.events.onInputUp.add(function() {
-		console.log("click_adPopup_button");
 		window.sounds.sound('sfx_button').play();
-		console.log("click_adPopup: 2");
 		var inGameState = this.game.state.getCurrentState();
-		console.log("click_adPopup_playSound&&getCurrentState");
 		switch(this.type){
 			case EAdPopupType.skip:
 				inGameState.setSkip();
@@ -234,9 +231,6 @@ function AdPopup(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBodyTy
 				inGameState.setSlow();
 				break;
 		}
-		
-//		this.visible = false;
-//		leaderboard.closeLeaderboard();
     }, this);
 
     var sprAdIcon = this.game.add.sprite(-50, 195, "PopupAtlas", "icon_purplePlay.png");
@@ -383,10 +377,6 @@ function OptionPopup(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBo
 
 	this.txtDesc = this.game.add.text(0, 310, "INFORMATION", {"font":"bold 20px Blogger Sans", "fill":"#8cccd4", "align":"center"});
 	this.txtDesc.anchor.setTo(0.5);
-	
-	this.version = "0.0.37";
-	this.PID = "123123123123";
-	this.lastUpdateDate = "MAR.15.2018";
 
 	this.add(this.blackLayer);
 	this.add(this.BG);
@@ -408,9 +398,9 @@ OptionPopup.prototype.constructor = OptionPopup;
 OptionPopup.prototype.showPopup = function() {
 	this.visible = true;
 
-	this.txtDesc.text = "LAST UPDATE "+this.lastUpdateDate+"\n"
-		+ "VERSION " + this.version + "\n"
-		+ "PID " + this.PID;
+	this.txtDesc.text = "LAST UPDATE "+StzBuildConfig.LAST_UPDATE+"\n"
+		+ "VERSION " + StzBuildConfig.VERSION + "\n"
+		+ "PID " + PlayerDataManager.getPlatformId();
 };
 
 OptionPopup.prototype.closePopup = function() {
@@ -480,7 +470,7 @@ function GetDinoPopup(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsB
 }
 
 GetDinoPopup.prototype = Object.create(Phaser.Group.prototype);
-GetDinoPopup.prototype.constructor = AdPopup;
+GetDinoPopup.prototype.constructor = GetDinoPopup;
 
 GetDinoPopup.prototype.showPopup = function(charId) {
 	if(DinoRunz.InGame.getNewCharacterList.length==0) return;
@@ -496,4 +486,68 @@ GetDinoPopup.prototype.closePopup = function(charId) {
 	window.sounds.sound('sfx_button').play();
 	if(DinoRunz.InGame.getNewCharacterList.length!==0) this.showPopup();
 	else this.visible = false;
+};
+
+function LoadFailPop(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBodyType){
+	Phaser.Group.call(this, aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBodyType);
+
+	this.blackLayer = this.game.add.graphics();
+    this.blackLayer.beginFill(0x000000, 0.7);
+    this.blackLayer.drawRect(0, 0, 720, 1280);
+	this.blackLayer.endFill();
+	this.blackLayer.inputEnabled = true;
+
+	this.BG = new Phaser.NinePatchImage(this.game, 720*0.5, 1280*0.5, "popupBG");
+	this.BG.targetWidth = 456;
+	this.BG.targetHeight = 594;
+	this.BG.anchor.setTo(0.5, 0.5);
+	this.BG.UpdateImageSizes();
+
+	var titleLine = new Phaser.NinePatchImage(this.game, 0, -210, "popupTitleLine");
+	titleLine.targetWidth = 380;
+	titleLine.targetHeight = 6;
+	titleLine.anchor.setTo(0.5, 0.5);
+	titleLine.UpdateImageSizes();
+
+	this.txtTitle = this.game.add.text(0, -240, "INFORMATION", {"font":"bold 42px Blogger Sans","fill":"#1a8aa8"});
+	this.txtTitle.anchor.setTo(0.5);
+	this.txtDesc = this.game.add.text(0, 60, "An error occured.\nPlease try again.", {"font":"bold 34px Blogger Sans","fill":"#4bacc6", "align":"center"});
+	this.txtDesc.anchor.setTo(0.5);
+
+	this.btnOK = this.game.add.sprite(0, 200, "PopupAtlas", "btn_popupSkyblue.png");
+	this.btnOK.anchor.setTo(0.5);
+
+	this.btnOK.inputEnabled = true;
+	this.btnOK.events.onInputUp.add(this.closePopup, this);
+
+	this.txtOK = this.game.add.text(0, 0, "OK", {"font":"bold 55px Blogger Sans","fill":"#1a8aa8"});
+	this.txtOK.anchor.setTo(0.5);
+
+	this.sprIcon = this.game.add.sprite(0, -90, "PopupAtlas", "img_error.png");
+	this.sprIcon.anchor.setTo(0.5);
+
+	this.add(this.blackLayer);
+	this.add(this.BG);
+	this.BG.addChild(titleLine);
+	this.BG.addChild(this.txtTitle);
+	this.BG.addChild(this.txtDesc);
+	this.BG.addChild(this.btnOK);
+	this.BG.addChild(this.sprIcon);
+	this.btnOK.addChild(this.txtOK);
+
+	this.btnOK.inputEnabled = true;
+	this.btnOK.events.onInputUp.add(this.closePopup, this);
+
+	this.visible = false;
+}
+
+LoadFailPop.prototype = Object.create(Phaser.Group.prototype);
+LoadFailPop.prototype.constructor = LoadFailPop;
+
+LoadFailPop.prototype.showPopup = function () {
+	this.visible = true;
+};
+
+LoadFailPop.prototype.closePopup = function() {
+	this.visible = false;
 };

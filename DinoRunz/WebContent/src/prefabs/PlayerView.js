@@ -22,7 +22,6 @@ function PlayerView(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBod
 	
 	var _arrow = this.game.add.sprite(0, 0, 'auhaSheet1', 0, _playerContainer);
 	_arrow.angle = 90.0;
-	_arrow.scale.setTo(1.8, 1.8);
 	_arrow.anchor.setTo(0.5, 0.5);
 	var _arrow_run = _arrow.animations.add('run', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19], 30, true);
 	_arrow_run.play();
@@ -33,6 +32,14 @@ function PlayerView(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBod
 	_getCrown.anchor.setTo(0.5, 0.5);
 	_getCrown.animations.add('getCrown', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], 20, false);
 	
+	var _slowEffectAnim = this.game.add.sprite(0, 0, 'slowEffectAnim', 0, _playerContainer);
+	_slowEffectAnim.angle = 90.0;
+	_slowEffectAnim.anchor.setTo(0.5, 0.5);
+	_slowEffectAnim.animations.add('slow', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29], 15, true);
+	
+	var _sprSlowCircle = this.game.add.sprite(0, 0, 'resAtlas', 'img_purplecircle.png', this);
+	_sprSlowCircle.anchor.setTo(0.5, 0.5);
+	
 	
 	
 	// public fields
@@ -41,6 +48,8 @@ function PlayerView(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBod
 	this.fArrow = _arrow;
 	this.fArrow_run = _arrow_run;
 	this.fGetCrown = _getCrown;
+	this.fSlowEffectAnim = _slowEffectAnim;
+	this.fSprSlowCircle = _sprSlowCircle;
 	/* --- post-init-begin --- */
 	
 	this.fGetCrown.visible = false;
@@ -51,12 +60,21 @@ function PlayerView(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBod
 	// attribute
 	this.jumpState = 0;
 	this.currentIndex = 0;
+	
+	this.currentTileType = -1;
+	this.currentTile = null;
+	
 	this.jumpRemainDistance = 0;
 	this.speed = DinoRunz.GameConfig.min_speed;
+
+	this.fSlowEffectAnim.visible = false;
+	this.fSprSlowCircle.visible = false;
+
+	this.circleTween = null;
+	this.circleAlphaTween = null;
 	
 	// setting logic
 	this.setDirection(EDirection.UP);
-	
 	/* --- post-init-end --- */
 	
 	
@@ -92,7 +110,7 @@ PlayerView.prototype.getView = function() {
 
 PlayerView.prototype.applyCommand = function(inDirection, inIsJump) {
 	if (inIsJump) {
-		var jumpSoundId = this.game.rnd.integerInRange(1, 2);
+		var jumpSoundId = 1;//this.game.rnd.integerInRange(1, 2);//jump_2와 curve가 비슷해서 구분이 잘안되어 1만 재생하도록 함.
 		window.sounds.sound('sfx_jump_'+jumpSoundId).play();
 		
 		this.jumpState = 1;
@@ -166,9 +184,6 @@ PlayerView.prototype.setDirection = function(inDirection) {
 };
 
 PlayerView.prototype.changeCharacter = function(inId) {
-	/**
-	 * todo : 달팽이 캐릭터 해제
-	 */
 	var charId = inId;
 	if (charId === undefined || charId === null) {
 		charId = this.game.rnd.integerInRange(1, 10);
@@ -212,4 +227,30 @@ PlayerView.prototype.showGetCrownEffect = function(crownNum) {
 	this.fGetCrown.loadTexture(crownKey, null, false);
 	this.fGetCrown.visible = true;
 	this.fGetCrown.animations.play("getCrown", 10, false);
-}
+};
+
+PlayerView.prototype.animStop = function() {
+	this.fArrow_run.stop();
+};
+
+PlayerView.prototype.animPlay = function() {
+	this.fArrow_run.play();
+};
+
+PlayerView.prototype.showSlowEffect = function() {
+	this.fSprSlowCircle.visible = true;
+	this.fSlowEffectAnim.visible = true;
+	this.fSlowEffectAnim.animations.play("slow", 10);
+	this.fSprSlowCircle.alpha = 1;
+	this.fSprSlowCircle.scale.setTo(0.8);
+	this.circleTween = this.game.add.tween(this.fSprSlowCircle.scale).to({x:1.5, y:1.5}, 1500, Phaser.Easing.Linear.None, true, 0, -1);
+	this.circleAlphaTween = this.game.add.tween(this.fSprSlowCircle).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true, 0, -1);
+};
+
+PlayerView.prototype.hideSlowEffect = function() {
+	this.fSprSlowCircle.visible = false;
+	this.fSlowEffectAnim.animations.stop();
+	this.fSlowEffectAnim.visible = false;
+
+	this.game.tweens.remove(this.circleTween);
+};

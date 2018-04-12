@@ -1,75 +1,21 @@
 {
   "ingame": [
     {
-      "type": "image",
-      "key": "road_tile_1",
-      "url": "assets/ingame/road_tile/road_tile_1.png",
-      "overwrite": false
-    },
-    {
-      "type": "image",
-      "key": "road_tile_2",
-      "url": "assets/ingame/road_tile/road_tile_2.png",
-      "overwrite": false
-    },
-    {
-      "type": "image",
-      "key": "road_tile_3",
-      "url": "assets/ingame/road_tile/road_tile_3.png",
-      "overwrite": false
-    },
-    {
-      "type": "image",
-      "key": "road_tile_4",
-      "url": "assets/ingame/road_tile/road_tile_4.png",
-      "overwrite": false
-    },
-    {
-      "type": "image",
-      "key": "road_tile_5",
-      "url": "assets/ingame/road_tile/road_tile_5.png",
-      "overwrite": false
-    },
-    {
-      "type": "image",
-      "key": "road_tile_6",
-      "url": "assets/ingame/road_tile/road_tile_6.png",
-      "overwrite": false
-    },
-    {
-      "type": "image",
-      "key": "road_tile_arrow",
-      "url": "assets/ingame/road_tile/road_tile_arrow.png",
-      "overwrite": false
-    },
-    {
-      "type": "image",
-      "key": "road_tile_arrow_gray",
-      "url": "assets/ingame/road_tile/road_tile_arrow_gray.png",
-      "overwrite": false
-    },
-    {
       "type": "spritesheet",
       "key": "auhaSheet1",
       "url": "assets/ingame/auhaSheet1.png",
-      "frameWidth": 52,
-      "frameHeight": 61,
+      "frameWidth": 73,
+      "frameHeight": 88,
       "frameMax": 20,
       "margin": 0,
       "spacing": 0
     },
     {
-      "type": "image",
-      "key": "roal_tile_jewel",
-      "url": "assets/ingame/road_tile/road_tile_jewel-.png",
-      "overwrite": false
-    },
-    {
       "type": "spritesheet",
       "key": "auhaSheet10",
       "url": "assets/ingame/auhaSheet10.png",
-      "frameWidth": 54,
-      "frameHeight": 67,
+      "frameWidth": 85,
+      "frameHeight": 98,
       "frameMax": 20,
       "margin": 0,
       "spacing": 0
@@ -78,8 +24,8 @@
       "type": "spritesheet",
       "key": "auhaSheet2",
       "url": "assets/ingame/auhaSheet2.png",
-      "frameWidth": 53,
-      "frameHeight": 64,
+      "frameWidth": 75,
+      "frameHeight": 93,
       "frameMax": 20,
       "margin": 0,
       "spacing": 0
@@ -88,8 +34,8 @@
       "type": "spritesheet",
       "key": "auhaSheet3",
       "url": "assets/ingame/auhaSheet3.png",
-      "frameWidth": 62,
-      "frameHeight": 75,
+      "frameWidth": 88,
+      "frameHeight": 110,
       "frameMax": 20,
       "margin": 0,
       "spacing": 0
@@ -98,8 +44,8 @@
       "type": "spritesheet",
       "key": "auhaSheet4",
       "url": "assets/ingame/auhaSheet4.png",
-      "frameWidth": 61,
-      "frameHeight": 68,
+      "frameWidth": 88,
+      "frameHeight": 100,
       "frameMax": 20,
       "margin": 0,
       "spacing": 0
@@ -108,8 +54,8 @@
       "type": "spritesheet",
       "key": "auhaSheet5",
       "url": "assets/ingame/auhaSheet5.png",
-      "frameWidth": 53,
-      "frameHeight": 62,
+      "frameWidth": 81,
+      "frameHeight": 89,
       "frameMax": 20,
       "margin": 0,
       "spacing": 0
@@ -118,8 +64,8 @@
       "type": "spritesheet",
       "key": "auhaSheet6",
       "url": "assets/ingame/auhaSheet6.png",
-      "frameWidth": 64,
-      "frameHeight": 64,
+      "frameWidth": 96,
+      "frameHeight": 92,
       "frameMax": -1,
       "margin": 0,
       "spacing": 0
@@ -128,8 +74,8 @@
       "type": "spritesheet",
       "key": "auhaSheet7",
       "url": "assets/ingame/auhaSheet7.png",
-      "frameWidth": 59,
-      "frameHeight": 63,
+      "frameWidth": 84,
+      "frameHeight": 92,
       "frameMax": 20,
       "margin": 0,
       "spacing": 0
@@ -138,8 +84,8 @@
       "type": "spritesheet",
       "key": "auhaSheet8",
       "url": "assets/ingame/auhaSheet8.png",
-      "frameWidth": 61,
-      "frameHeight": 68,
+      "frameWidth": 89,
+      "frameHeight": 99,
       "frameMax": 20,
       "margin": 0,
       "spacing": 0
@@ -148,8 +94,8 @@
       "type": "spritesheet",
       "key": "auhaSheet9",
       "url": "assets/ingame/auhaSheet9.png",
-      "frameWidth": 69,
-      "frameHeight": 67,
+      "frameWidth": 102,
+      "frameHeight": 103,
       "frameMax": 20,
       "margin": 0,
       "spacing": 0
@@ -170,80 +116,62 @@
     },
     {
       "type": "image",
-      "key": "road_tile_goal",
-      "url": "assets/ingame/road_tile/road_tile_goal.png",
-      "overwrite": false
-    },
-    {
-      "type": "image",
-      "key": "newJewel",
-      "url": "assets/ingame/road_tile/icon_crystal02.png",
-      "overwrite": false
-    },
-    {
-      "type": "image",
       "key": "q1",
-      "url": "assets/ingame/bg/q1.png",
+      "url": "assets/ingame/bg/q1.jpg",
       "overwrite": false
     },
     {
       "type": "image",
       "key": "q10",
-      "url": "assets/ingame/bg/q10.png",
+      "url": "assets/ingame/bg/q10.jpg",
       "overwrite": false
     },
     {
       "type": "image",
       "key": "q2",
-      "url": "assets/ingame/bg/q2.png",
+      "url": "assets/ingame/bg/q2.jpg",
       "overwrite": false
     },
     {
       "type": "image",
       "key": "q3",
-      "url": "assets/ingame/bg/q3.png",
+      "url": "assets/ingame/bg/q3.jpg",
       "overwrite": false
     },
     {
       "type": "image",
       "key": "q4",
-      "url": "assets/ingame/bg/q4.png",
+      "url": "assets/ingame/bg/q4.jpg",
       "overwrite": false
     },
     {
       "type": "image",
       "key": "q5",
-      "url": "assets/ingame/bg/q5.png",
+      "url": "assets/ingame/bg/q5.jpg",
       "overwrite": false
     },
     {
       "type": "image",
       "key": "q6",
-      "url": "assets/ingame/bg/q6.png",
+      "url": "assets/ingame/bg/q6.jpg",
       "overwrite": false
     },
     {
       "type": "image",
       "key": "q7",
-      "url": "assets/ingame/bg/q7.png",
+      "url": "assets/ingame/bg/q7.jpg",
       "overwrite": false
     },
     {
       "type": "image",
       "key": "q8",
-      "url": "assets/ingame/bg/q8.png",
+      "url": "assets/ingame/bg/q8.jpg",
       "overwrite": false
     },
     {
       "type": "image",
       "key": "q9",
-      "url": "assets/ingame/bg/q9.png",
-      "overwrite": false
-    },
-    {
-      "type": "image",
-      "key": "road_tile_skip_icon",
-      "url": "assets/ingame/road_tile/road_tile_skip_icon.png",
+      "url": "assets/ingame/bg/q9.jpg",
       "overwrite": false
     },
     {
@@ -256,121 +184,121 @@
     {
       "type": "image",
       "key": "q11",
-      "url": "assets/ingame/bg/q11.png",
+      "url": "assets/ingame/bg/q11.jpg",
       "overwrite": false
     },
     {
       "type": "image",
       "key": "q12",
-      "url": "assets/ingame/bg/q12.png",
+      "url": "assets/ingame/bg/q12.jpg",
       "overwrite": false
     },
     {
       "type": "image",
       "key": "q13",
-      "url": "assets/ingame/bg/q13.png",
+      "url": "assets/ingame/bg/q13.jpg",
       "overwrite": false
     },
     {
       "type": "image",
       "key": "q14",
-      "url": "assets/ingame/bg/q14.png",
+      "url": "assets/ingame/bg/q14.jpg",
       "overwrite": false
     },
     {
       "type": "image",
       "key": "q15",
-      "url": "assets/ingame/bg/q15.png",
+      "url": "assets/ingame/bg/q15.jpg",
       "overwrite": false
     },
     {
       "type": "image",
       "key": "q16",
-      "url": "assets/ingame/bg/q16.png",
+      "url": "assets/ingame/bg/q16.jpg",
       "overwrite": false
     },
     {
       "type": "image",
       "key": "q17",
-      "url": "assets/ingame/bg/q17.png",
+      "url": "assets/ingame/bg/q17.jpg",
       "overwrite": false
     },
     {
       "type": "image",
       "key": "q18",
-      "url": "assets/ingame/bg/q18.png",
+      "url": "assets/ingame/bg/q18.jpg",
       "overwrite": false
     },
     {
       "type": "image",
       "key": "q19",
-      "url": "assets/ingame/bg/q19.png",
+      "url": "assets/ingame/bg/q19.jpg",
       "overwrite": false
     },
     {
       "type": "image",
       "key": "q20",
-      "url": "assets/ingame/bg/q20.png",
+      "url": "assets/ingame/bg/q20.jpg",
       "overwrite": false
     },
     {
       "type": "image",
       "key": "q21",
-      "url": "assets/ingame/bg/q21.png",
+      "url": "assets/ingame/bg/q21.jpg",
       "overwrite": false
     },
     {
       "type": "image",
       "key": "q22",
-      "url": "assets/ingame/bg/q22.png",
+      "url": "assets/ingame/bg/q22.jpg",
       "overwrite": false
     },
     {
       "type": "image",
       "key": "q23",
-      "url": "assets/ingame/bg/q23.png",
+      "url": "assets/ingame/bg/q23.jpg",
       "overwrite": false
     },
     {
       "type": "image",
       "key": "q24",
-      "url": "assets/ingame/bg/q24.png",
+      "url": "assets/ingame/bg/q24.jpg",
       "overwrite": false
     },
     {
       "type": "image",
       "key": "q25",
-      "url": "assets/ingame/bg/q25.png",
+      "url": "assets/ingame/bg/q25.jpg",
       "overwrite": false
     },
     {
       "type": "image",
       "key": "q26",
-      "url": "assets/ingame/bg/q26.png",
+      "url": "assets/ingame/bg/q26.jpg",
       "overwrite": false
     },
     {
       "type": "image",
       "key": "q27",
-      "url": "assets/ingame/bg/q27.png",
+      "url": "assets/ingame/bg/q27.jpg",
       "overwrite": false
     },
     {
       "type": "image",
       "key": "q28",
-      "url": "assets/ingame/bg/q28.png",
+      "url": "assets/ingame/bg/q28.jpg",
       "overwrite": false
     },
     {
       "type": "image",
       "key": "q29",
-      "url": "assets/ingame/bg/q29.png",
+      "url": "assets/ingame/bg/q29.jpg",
       "overwrite": false
     },
     {
       "type": "image",
       "key": "q30",
-      "url": "assets/ingame/bg/q30.png",
+      "url": "assets/ingame/bg/q30.jpg",
       "overwrite": false
     },
     {
@@ -454,6 +382,40 @@
       "key": "sfx_jump_2",
       "urls": ["assets/sound/jump_2.mp3"],
       "autoDecode": true
+    },
+    {
+      "type": "atlas",
+      "key": "TutorialAtlas",
+      "textureURL": "assets/ingame/atlas/TutorialAtlas.png",
+      "atlasURL": "assets/ingame/atlas/TutorialAtlas.json",
+      "format": "TEXTURE_ATLAS_JSON_ARRAY"
+    },
+    {
+      "type": "spritesheet",
+      "key": "slowEffectAnim",
+      "url": "assets/ingame/slowEffectAnim.png",
+      "frameWidth": 93,
+      "frameHeight": 140,
+      "frameMax": -1,
+      "margin": 0,
+      "spacing": 0
+    },
+    {
+      "type": "spritesheet",
+      "key": "slowIconAnim",
+      "url": "assets/ingame/slowIconAnim.png",
+      "frameWidth": 255,
+      "frameHeight": 192,
+      "frameMax": -1,
+      "margin": 0,
+      "spacing": 0
+    },
+    {
+      "type": "atlas",
+      "key": "resAtlas",
+      "textureURL": "assets/ingame/atlas/resAtlas.png",
+      "atlasURL": "assets/ingame/atlas/resAtlas.json",
+      "format": "TEXTURE_ATLAS_JSON_ARRAY"
     }
   ],
   "title": [
@@ -515,10 +477,22 @@
       "frameMax": -1,
       "margin": 0,
       "spacing": 0
+    },
+    {
+      "type": "image",
+      "key": "loading",
+      "url": "assets/title/loading.png",
+      "overwrite": false
+    },
+    {
+      "type": "image",
+      "key": "default_thumb",
+      "url": "assets/title/default_thumb.png",
+      "overwrite": false
     }
   ],
   "meta": {
-    "generated": "1522317745974",
+    "generated": "1523344169998",
     "app": "Phaser Editor",
     "url": "http://phasereditor.boniatillo.com",
     "version": "1.0",

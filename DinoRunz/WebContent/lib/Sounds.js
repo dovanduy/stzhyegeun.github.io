@@ -42,6 +42,9 @@ Sounds.prototype.createSound = function(game){
 	this.game = game;
 	
 	for(var i =0; i < this.soundNameList.length; i++){
+		if(!game.cache.checkSoundKey(this.soundNameList[i])) continue;
+		if(this.soundList[this.soundNameList[i]] !== undefined) continue;
+
 		this.soundList[this.soundNameList[i]] =  this.game.add.audio(this.soundNameList[i]);
 		var temp = this.soundNameList[i].split('_');
 		if(temp[0] && temp[0] === 'bgm'){

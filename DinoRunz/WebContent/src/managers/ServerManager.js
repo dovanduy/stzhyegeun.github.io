@@ -277,5 +277,3 @@ var ServerManager_proto = function() {
 	};
 };
 
-var Server = new ServerManager_proto();
-

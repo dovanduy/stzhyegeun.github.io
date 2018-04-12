@@ -9,7 +9,8 @@
 /**
  * TitleScene.
  * @param {Phaser.Game} aGame A reference to the currently running game.
- * @param {Phaser.Group} aParent The parent Group (or other {@link DisplayObject}) that this group will be added to.    If undefined/unspecified the Group will be added to the {@link Phaser.Game#world Game World}; if null the Group will not be added to any parent.
+ * @param {Phaser.Group} aParent The parent Group (or other {@link DisplayObject}) that this group will be added to.
+    If undefined/unspecified the Group will be added to the {@link Phaser.Game#world Game World}; if null the Group will not be added to any parent.
  * @param {string} aName A name for this group. Not used internally but useful for debugging.
  * @param {boolean} aAddToStage If true this group will be added directly to the Game.Stage instead of Game.World.
  * @param {boolean} aEnableBody If true all Sprites created with {@link #create} or {@link #createMulitple} will have a physics body created on them. Change the body type with {@link #physicsBodyType}.
@@ -20,8 +21,8 @@ function TitleScene(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBod
 	Phaser.Group.call(this, aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBodyType);
 	this.game.add.sprite(0, 0, 'titleBG_0', null, this);
 	
-	var _titleBG_1 = this.game.add.sprite(363, 279, 'titleBG_1', null, this);
-	_titleBG_1.anchor.setTo(0.5, 0.5);
+	var _moveTitleBG = this.game.add.sprite(360, 280, 'titleBG_1', null, this);
+	_moveTitleBG.anchor.setTo(0.5, 0.5);
 	
 	this.game.add.sprite(0, 0, 'titleBG_2', null, this);
 	
@@ -71,16 +72,20 @@ function TitleScene(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBod
 	var _titleDinoSpriteSheet_walk = _titleDinoSpriteSheet.animations.add('walk', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34], 15, true);
 	_titleDinoSpriteSheet_walk.play();
 	
-	
-	
+	var _loading = this.game.add.sprite(0, 0, 'loading', null, this);
+
 	// public fields
 	
+	this.fMoveTitleBG = _moveTitleBG;
 	this.fSprTitle = _sprTitle;
 	this.fBtnPlay = _btnPlay;
 	this.fUserProfileGroup = _userProfileGroup;
 	this.fProfilesGroup = _profilesGroup;
 	this.fGemGroup = _gemGroup;
+	this.fLoading = _loading;
 	/* --- post-init-begin --- */
+	this.isLoadResComplete = false;
+
 	this.game.add.tween(this.fSprTitle.position).to({y:-57}, 1000, Phaser.Easing.Linear.None, true, 0, -1, true);
 	this.game.add.tween(this.fBtnPlay.position).to({y:870}, 1500, Phaser.Easing.Linear.None, true, 0, -1, true);
 	
@@ -92,10 +97,13 @@ function TitleScene(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBod
 		this.game.load.pack("ingame", "assets/assets-pack.json");
 		this.game.load.start();
 		this.game.load.onLoadComplete.addOnce(function() {
-			this.game.state.start("InGame", true, false, DinoRunz.InGame.EGameMode.RUN, DinoRunz.Storage.UserData.lastClearedStage);
-			window.sounds.createSound(this.game);
-			this.destroy();
+			// this.game.state.start("InGame", true, false, DinoRunz.InGame.EGameMode.RUN, DinoRunz.Storage.UserData.lastClearedStage);
+			// window.sounds.createSound(this.game);
+			// this.destroy();
+			this.isLoadResComplete = true;
 		}, this);
+		
+		this.fLoading.visible = true;
 	}, this);
 	
 	this.game.add.tween(this.fGemGroup.position).to({x:223, y:556}, 500, Phaser.Easing.Linear.None, true, 0, -1, false);
@@ -109,10 +117,8 @@ function TitleScene(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBod
 	this.fBtnLongInvite.inputEnabled = true;
 	this.fBtnLongInvite.events.onInputUp.add(function() {
 		window.sounds.sound('sfx_button').play();
-		/**
-		 * todo: 초대 기능 추가.
-		 * */
-	});
+		changeContext.call(this);
+	}, this);
 	
 	this.fTxtLongBtn = this.game.add.text(-150, 0, "Join the chat room\nand play with your friend!", {"font":"bold 24px Blogger Sans","fill":"#1a8aa8", "align":"center"});
 	this.fTxtLongBtn.anchor.setTo(0.5);
@@ -130,8 +136,6 @@ function TitleScene(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBod
 	this.fBtnLongInvite.addChild(sprIconInvite);
 	this.fBtnLongInvite.addChild(this.fTxtLongBtnTitle);
 	
-	this.fBtnLongInvite.visible = false;
-	
 	this.game.cache.addNinePatch("titleshortBtn", "titleAtlas", "img_titleSmallBtn.png", 20, 20, 0, 0);
 	this.fBtnShortInvite = new Phaser.NinePatchImage(this.game, 570, 1110, "titleshortBtn");
 	this.fBtnShortInvite.targetWidth = 262;
@@ -141,11 +145,16 @@ function TitleScene(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBod
 	this.fBtnShortInvite.inputEnabled = true;
 	this.fBtnShortInvite.events.onInputUp.add(function() {
 		window.sounds.sound('sfx_button').play();
-		/**
-		 * todo: 초대 기능 추가.
-		 * */
-	});
+		changeContext.call(this);
+	}, this);
 	this.fUserProfileGroup.add(this.fBtnShortInvite);
+
+	function changeContext() {
+		FbManager.inviteFriend(function(){
+			this.game.state.restart(true, false);
+			PlayerData.saveData.setUserData();
+		}.bind(this), null, this);
+	}
 	
 	var sprIconInviteShort = this.game.add.sprite(-95, -5, "titleAtlas", "icon_titleinviteFreinds.png");
 	sprIconInviteShort.anchor.setTo(0.5);
@@ -153,10 +162,24 @@ function TitleScene(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBod
 	
 	this.fTxtInviteShort = this.game.add.text(25, 0, "INVITE FRIENDS", {"font":"bold 28px Blogger Sans","fill":"#1a8aa8"});
 	this.fTxtInviteShort.anchor.setTo(0.5);
-	
-	
+
 	this.fBtnShortInvite.addChild(sprIconInviteShort);
 	this.fBtnShortInvite.addChild(this.fTxtInviteShort);
+	
+	this.fLoading.visible = false;
+	this.fBtnLongInvite.visible = false;
+	this.fBtnShortInvite.visible = false;
+	this.fUserProfileGroup.visible = false;
+	this.fBtnPlay.visible = false;
+	
+	this.isSetProfiles = false;
+
+	this.prevAngle = 0;
+	this.moveBGTween = null;
+	this.moveBG();
+
+	this.addChildAt(this.fLoading, this.children.length - 1);//depth 정리.
+	this.fLoading.inputEnabled = true;
 	/* --- post-init-end --- */
 	
 	
@@ -169,10 +192,84 @@ TitleScene.prototype.constructor = TitleScene;
 
 /* --- end generated code --- */
 // -- user code here --
-TitleScene.setUserProfiles = function() {
-	
-}
+
+TitleScene.prototype.setUserProfiles = function(friendsList) {
+	this.isSetProfiles = true;
+
+	if(friendsList.length === 0) {
+		this.fBtnPlay.visible = true;
+		this.fBtnLongInvite.visible = true;
+		return;
+	}
+
+	var titleProfiles = this.fProfilesGroup.getAll("exists", true);
+
+	var i, length = (friendsList.length>3) ? 3 : friendsList.length; 
+	var profileData = [];
+
+	for(i = 0 ;  i < length ; ++i) {
+		profileData.push({key:friendsList[i].profileInfo.getImageKey(), url:friendsList[i].profileInfo.getPhotoUrl()})
+	}
+
+	StzUtil.loadImagesFromURL(this.game, profileData, function() {
+		this.fBtnPlay.visible = true;
+		this.fUserProfileGroup.visible = true;
+		this.fBtnShortInvite.visible = true;
+
+		for(i = 0 ; i < length ; ++i) {
+			titleProfiles[i].visible = true;
+			titleProfiles[i].setProfile(friendsList[i].profileInfo.getImageKey(), friendsList[i].profileInfo.getName(), friendsList[i].bestStage);
+		}
+	}, this);
+};
 
 TitleScene.prototype.update = function () {
+	if(!DinoRunz.isLoadNeedData) return;
 	
+	if(!this.isSetProfiles) this.setUserProfiles(PlayerDataManager.getContextFriends());
+
+	if(!this.isLoadResComplete) return;
+
+	this.game.state.start("InGame", true, false, DinoRunz.InGame.EGameMode.RUN, DinoRunz.Storage.UserData.lastClearedStage);
+	window.sounds.createSound(this.game);
+	this.destroy();
+};
+
+TitleScene.prototype.moveBG = function() {
+	var isAgain = true;
+	var degree = 0;
+	while(isAgain) {
+		degree = this.game.rnd.integerInRange(0, 360);
+		if(this.prevAngle !== 0) {
+			var minus = (this.prevAngle - degree) * (this.prevAngle - degree); 
+			isAgain = (minus < 90 * 90);
+
+			if(!isAgain) {
+				this.prevAngle = degree;
+			}
+		}
+		else {
+			this.prevAngle = degree;
+			isAgain = false;
+		}
+	}
+	var radians = degree * Math.PI / 180;
+
+	var dist = 50;
+
+	var posX = dist * Math.cos(radians) + this.fMoveTitleBG.position.x;
+	var posY = dist * Math.sin(radians) + this.fMoveTitleBG.position.y;
+
+	if (posX < 360 - 128) posX = 360 - 128;
+	else if (posX > 360 + 128) posX = 360 + 128;
+
+	if (posY < 280 - 128) posY = 280 - 128;
+	else if (posY > 280 + 128) posY = 280 + 128;
+
+
+	this.moveBGTween = this.game.add.tween(this.fMoveTitleBG).to({x:posX, y:posY}, 2500, Phaser.Easing.Linear.None, true);
+	this.moveBGTween.onComplete.addOnce(function() {
+		this.game.tweens.remove(this.moveBGTween)
+		this.moveBG();
+	}, this);
 };

@@ -51,8 +51,6 @@
               "info": {
                 "editorName": "slotBG",
                 "editorPublic": true,
-                "scale.x": 2,
-                "scale.y": 2,
                 "anchor.x": 0.5,
                 "anchor.y": 0.5
               }
@@ -65,8 +63,6 @@
                 "editorName": "btnDisable",
                 "editorPublic": true,
                 "y": 60,
-                "scale.x": 2,
-                "scale.y": 2,
                 "anchor.x": 0.5,
                 "anchor.y": 0.5
               }
@@ -79,8 +75,6 @@
                 "editorName": "sprCharacter",
                 "editorPublic": true,
                 "y": -35,
-                "scale.x": 1.8,
-                "scale.y": 1.8,
                 "anchor.x": 0.5,
                 "anchor.y": 0.5
               }
@@ -108,8 +102,6 @@
                 "editorPublic": true,
                 "x": -35,
                 "y": 55,
-                "scale.x": 2,
-                "scale.y": 2,
                 "anchor.x": 0.5,
                 "anchor.y": 0.5
               }
@@ -121,8 +113,6 @@
               "info": {
                 "editorName": "sprSelected",
                 "editorPublic": true,
-                "scale.x": 2,
-                "scale.y": 2,
                 "anchor.x": 0.5,
                 "anchor.y": 0.5
               }
@@ -135,8 +125,6 @@
                 "editorName": "sprUnselected",
                 "editorPublic": true,
                 "y": 49,
-                "scale.x": 2,
-                "scale.y": 2,
                 "anchor.x": 0.5,
                 "anchor.y": 0.5
               }

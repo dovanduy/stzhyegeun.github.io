@@ -51,8 +51,6 @@
               "info": {
                 "editorName": "sprUserFrame",
                 "editorPublic": true,
-                "scale.x": 2,
-                "scale.y": 2,
                 "anchor.x": 0.5,
                 "anchor.y": 0.5
               }
@@ -63,8 +61,6 @@
               "asset": "1",
               "info": {
                 "editorName": "sprFrameStroke",
-                "scale.x": 2,
-                "scale.y": 2,
                 "anchor.x": 0.5,
                 "anchor.y": 0.5
               }

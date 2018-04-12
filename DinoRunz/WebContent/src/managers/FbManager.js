@@ -97,6 +97,5 @@ function FbManager_proto () {
 				StzLog.print("updateAsync error: " + JSON.stringify(e));
 			 }.bind(this));	
 		}
-	}
+	};
 };
-var FbManager = new FbManager_proto();

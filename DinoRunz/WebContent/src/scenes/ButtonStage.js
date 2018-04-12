@@ -9,8 +9,7 @@
 /**
  * ButtonStage.
  * @param {Phaser.Game} aGame A reference to the currently running game.
- * @param {Phaser.Group} aParent The parent Group (or other {@link DisplayObject}) that this group will be added to.
-    If undefined/unspecified the Group will be added to the {@link Phaser.Game#world Game World}; if null the Group will not be added to any parent.
+ * @param {Phaser.Group} aParent The parent Group (or other {@link DisplayObject}) that this group will be added to.    If undefined/unspecified the Group will be added to the {@link Phaser.Game#world Game World}; if null the Group will not be added to any parent.
  * @param {string} aName A name for this group. Not used internally but useful for debugging.
  * @param {boolean} aAddToStage If true this group will be added directly to the Game.Stage instead of Game.World.
  * @param {boolean} aEnableBody If true all Sprites created with {@link #create} or {@link #createMulitple} will have a physics body created on them. Change the body type with {@link #physicsBodyType}.
@@ -22,11 +21,9 @@ function ButtonStage(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBo
 	var _groupOpen = this.game.add.group(this);
 	
 	var _btnStage = this.game.add.sprite(0, 0, 'MenuScene', 'img_stage_01Stage.png', _groupOpen);
-	_btnStage.scale.setTo(2.0, 2.0);
 	_btnStage.anchor.setTo(0.5, 0.5);
 	
 	var _sprAllClear = this.game.add.sprite(0, -37, 'MenuScene', 'img_crown01Disable.png', _groupOpen);
-	_sprAllClear.scale.setTo(2.0, 2.0);
 	_sprAllClear.anchor.setTo(0.5, 0.5);
 	
 	var _txtStage = this.game.add.text(0, 8, '1', {"font":"bold 56px Blogger Sans","align":"center"}, _groupOpen);
@@ -36,17 +33,14 @@ function ButtonStage(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBo
 	_groupUserPhoto.position.setTo(2, -79);
 	
 	var _sprCurrentStageBG = this.game.add.sprite(0, 0, 'MenuScene', 'img_userCurrentStageBG.png', _groupUserPhoto);
-	_sprCurrentStageBG.scale.setTo(2.0, 2.0);
 	_sprCurrentStageBG.anchor.setTo(0.5, 0.5);
 	
 	var _sprUserPhoto = this.game.add.sprite(0, -8, 'MenuScene', 'default_thumb.png', _groupUserPhoto);
-	_sprUserPhoto.scale.setTo(2.0, 2.0);
 	_sprUserPhoto.anchor.setTo(0.5, 0.5);
 	
 	var _groupLock = this.game.add.group(this);
 	
 	var _btnLockStage = this.game.add.sprite(0, -5, 'MenuScene', 'img_stage_03.png', _groupLock);
-	_btnLockStage.scale.setTo(2.0, 2.0);
 	_btnLockStage.anchor.setTo(0.5, 0.5);
 	
 	var _txtLockStage = this.game.add.text(0, 7, '99', {"font":"bold 36px Blogger Sans"}, _groupLock);

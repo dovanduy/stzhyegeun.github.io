@@ -115,4 +115,3 @@ var StzTranslator_proto = function() {
     }  
 };
 
-var StzTrans = new StzTranslator_proto();

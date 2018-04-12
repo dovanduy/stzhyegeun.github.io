@@ -89,4 +89,12 @@ function ProfileInfoModel (inUserId, inPlatformId, inName, inPhotoUrl, inTzOffse
 		return _obj.etc;
 	};
 	
+	this.loadProfileImage = function(inGame, inCallback, inContext) {
+	    
+	    if (!_obj.img_url) {
+	        return;
+	    }
+	    
+	    StzUtil.loadImageFromURL(inGame, this.getImageKey(), this.getPhotoUrl(), inCallback, inContext);
+	};
 }

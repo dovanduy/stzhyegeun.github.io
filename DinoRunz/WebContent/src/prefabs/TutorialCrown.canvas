@@ -1,0 +1,115 @@
+{
+  "canvas-version": 2,
+  "settings": {
+    "className": "TutorialCrown",
+    "sceneWidth": 640,
+    "sceneHeight": 360,
+    "generateOnSave": true,
+    "enableStepping": false,
+    "lang": "JAVA_SCRIPT",
+    "baseClass": "Phaser.Group",
+    "backgroundColor": [
+      180,
+      180,
+      180
+    ],
+    "gridColor": [
+      200,
+      200,
+      200
+    ],
+    "showGrid": true
+  },
+  "stateSettings": {
+    "stageBackgroundColor": [
+      0,
+      0,
+      0
+    ],
+    "autoLoad": true,
+    "preloadSpriteId": "",
+    "preloadSprite_direction": 0,
+    "load.pack": []
+  },
+  "world": {
+    "type": "group",
+    "id": "23d602cf-c707-4b7d-966b-4287467efd81",
+    "info": {
+      "editorName": "TutorialCrown",
+      "setAll": [],
+      "children": [{
+        "type": "group",
+        "id": "fb7e3c3e-b2b5-4ddd-aa62-41d3017a52d8",
+        "info": {
+          "editorName": "group",
+          "setAll": [],
+          "children": [
+            {
+              "type": "atlas-sprite",
+              "id": "4eb5467b-620e-4ad5-b1f8-b17d0d516d3c",
+              "asset": "0",
+              "info": {
+                "editorName": "img_tutoCrown_png",
+                "anchor.x": 0.5,
+                "anchor.y": 0.5
+              }
+            },
+            {
+              "type": "text",
+              "id": "f211cf25-0016-4819-b5e9-54131087708c",
+              "info": {
+                "editorName": "txtGray",
+                "editorPublic": true,
+                "x": -82,
+                "y": -86,
+                "anchor.y": 0.5,
+                "text": "Stage clear!",
+                "style.font": "Blogger Sans",
+                "style.fontSize": 35,
+                "style.fill": "#1a8aa8"
+              }
+            },
+            {
+              "type": "text",
+              "id": "04835b4b-20c1-4362-9a3f-cce6205f0a10",
+              "info": {
+                "editorName": "txtSilver",
+                "editorPublic": true,
+                "x": -82,
+                "y": -25,
+                "anchor.y": 0.5,
+                "text": "Get all the jewels!",
+                "style.font": "Blogger Sans",
+                "style.fontSize": 35,
+                "style.fill": "#1a8aa8"
+              }
+            },
+            {
+              "type": "text",
+              "id": "0cd698fc-dcbf-4422-a37e-fbde4f9be06c",
+              "info": {
+                "editorName": "txtGold",
+                "editorPublic": true,
+                "x": -82,
+                "y": 28,
+                "anchor.y": 0.5,
+                "text": "Use all markers!",
+                "style.font": "Blogger Sans",
+                "style.fontSize": 35,
+                "style.fill": "#1a8aa8"
+              }
+            }
+          ]
+        }
+      }]
+    }
+  },
+  "type": "GROUP",
+  "asset-table": {"0": {
+    "file": "WebContent/assets/assets-pack.json",
+    "section": "ingame",
+    "asset": "TutorialAtlas",
+    "sprite": "img_tutoCrown.png"
+  }},
+  "prefab-table": {}
+}

@@ -111,8 +111,6 @@ var StaticManager_proto = function () {
 };
 
 
-var StaticManager = new StaticManager_proto();
-
 var StaticModel = function(staticName, staticVersion, staticData) {
 	if (!(this instanceof StaticModel)) {
 		return new StaticModel(staticName, staticVersion, staticData);

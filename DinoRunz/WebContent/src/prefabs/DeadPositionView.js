@@ -19,20 +19,17 @@ function DeadPositionView(aGame, aParent, aName, aAddToStage, aEnableBody, aPhys
 	
 	Phaser.Group.call(this, aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBodyType);
 	var _img_userDeadPoint_png = this.game.add.sprite(89, -88, 'MenuScene', 'img_userDeadPoint.png', this);
-	_img_userDeadPoint_png.scale.setTo(1.5, 1.5);
 	_img_userDeadPoint_png.anchor.setTo(0.5, 0.5);
 	
 	var _img_yellowArrow_png = this.game.add.sprite(0, 0, 'MenuScene', 'img_yellowArrow.png', this);
 	_img_yellowArrow_png.angle = 45.0;
-	_img_yellowArrow_png.scale.setTo(1.5, 1.5);
 	_img_yellowArrow_png.anchor.setTo(0.5, 1.0);
 	
 	var _imgProfile = this.game.add.sprite(89, -88, 'MenuScene', 'default_thumb.png', this);
-	_imgProfile.scale.setTo(2.5, 2.5);
+	_imgProfile.scale.setTo(1.6, 1.6);
 	_imgProfile.anchor.setTo(0.5, 0.5);
 	
 	var _img_ingameFaceFrame_png = this.game.add.sprite(89, -88, 'MenuScene', 'img_ingameFaceFrame.png', this);
-	_img_ingameFaceFrame_png.scale.setTo(1.5, 1.5);
 	_img_ingameFaceFrame_png.anchor.setTo(0.5, 0.5);
 	
 	
@@ -40,9 +37,8 @@ function DeadPositionView(aGame, aParent, aName, aAddToStage, aEnableBody, aPhys
 	// public fields
 	
 	this.fImgProfile = _imgProfile;
-	
 	/* --- post-init-begin --- */
-	
+	this.maskWidth = _img_ingameFaceFrame_png.width;
 	var maskProfile = this.game.add.graphics(_img_ingameFaceFrame_png.x, _img_ingameFaceFrame_png.y, this);
 	maskProfile.beginFill(0x000000);
     maskProfile.drawCircle(0, 0, _img_ingameFaceFrame_png.width);
@@ -50,9 +46,11 @@ function DeadPositionView(aGame, aParent, aName, aAddToStage, aEnableBody, aPhys
     
     this.fImgProfile.mask = maskProfile;
 	
-	this.platformId = null;
+	this.targetProfileInfo = null;
 	
 	/* --- post-init-end --- */
+	
+	
 }
 
 /** @type Phaser.Group */
@@ -63,12 +61,22 @@ DeadPositionView.prototype.constructor = DeadPositionView;
 /* --- end generated code --- */
 // -- user code here --
 
-DeadPositionView.prototype.setPlatformId = function(inValue) {
-    this.platformId = parseInt(inValue);
+DeadPositionView.prototype.setProfileInfo = function(inValue) {
+    if (!inValue) {
+        return;
+    }
+    this.targetProfileInfo = inValue;
+    
+    this.targetProfileInfo.loadProfileImage(this.game, function(inImageKey) {
+        this.fImgProfile.loadTexture(inImageKey);
+        
+        var scaleRatio = this.maskWidth / this.fImgProfile.width;
+        this.fImgProfile.scale.set(scaleRatio * this.fImgProfile.scale.x);
+    }, this);
 };
 
-DeadPositionView.prototype.getPlatformId = function() {
-    return this.platformId;
+DeadPositionView.prototype.getProfileInfo = function() {
+    return this.targetProfileInfo;
 };
 
 DeadPositionView.prototype.kill = function() {
@@ -82,6 +90,10 @@ DeadPositionView.prototype.reset = function() {
     this.exists = true;
     this.visible = true;
     
+    this.fImgProfile.loadTexture("MenuScene", "default_thumb.png");
+    this.fImgProfile.scale.set(2.5);
+    
     this.rotation = 0;
     this.scale.set(1);
 };
+

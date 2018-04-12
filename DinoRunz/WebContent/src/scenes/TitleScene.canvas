@@ -55,9 +55,10 @@
               "id": "58803f77-9d32-415c-8196-a96110fbd159",
               "asset": "1",
               "info": {
-                "editorName": "titleBG_1",
-                "x": 363,
-                "y": 279,
+                "editorName": "moveTitleBG",
+                "editorPublic": true,
+                "x": 360,
+                "y": 280,
                 "anchor.x": 0.5,
                 "anchor.y": 0.5
               }
@@ -285,6 +286,15 @@
                   ]
                 }]
               }
+            },
+            {
+              "type": "image",
+              "id": "4e2e8e2d-3bef-400e-99a8-f10e8c24215f",
+              "asset": "9",
+              "info": {
+                "editorName": "loading",
+                "editorPublic": true
+              }
             }
           ]
         }
@@ -341,6 +351,11 @@
       "section": "title",
       "asset": "titleDinoSpriteSheet",
       "sprite": "0"
+    },
+    "9": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "title",
+      "asset": "loading"
     }
   },
   "prefab-table": {"0": "WebContent/src/prefabs/TitleUserProfile.canvas"}

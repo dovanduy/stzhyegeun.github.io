@@ -52,8 +52,6 @@
                 "editorName": "img_userDeadPoint_png",
                 "x": 89,
                 "y": -88,
-                "scale.x": 1.5,
-                "scale.y": 1.5,
                 "anchor.x": 0.5,
                 "anchor.y": 0.5
               }
@@ -65,8 +63,6 @@
               "info": {
                 "editorName": "img_yellowArrow_png",
                 "rotation": 0.7853981633974483,
-                "scale.x": 1.5,
-                "scale.y": 1.5,
                 "anchor.x": 0.5,
                 "anchor.y": 1
               }
@@ -80,8 +76,8 @@
                 "editorPublic": true,
                 "x": 89,
                 "y": -88,
-                "scale.x": 2.5,
-                "scale.y": 2.5,
+                "scale.x": 1.6,
+                "scale.y": 1.6,
                 "anchor.x": 0.5,
                 "anchor.y": 0.5
               }
@@ -94,8 +90,6 @@
                 "editorName": "img_ingameFaceFrame_png",
                 "x": 89,
                 "y": -88,
-                "scale.x": 1.5,
-                "scale.y": 1.5,
                 "anchor.x": 0.5,
                 "anchor.y": 0.5
               }

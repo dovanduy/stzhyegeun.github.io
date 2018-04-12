@@ -177,5 +177,3 @@ var PlayerDataManager_proto  = function() {
 		return JSON.parse(extraData);
 	};
 };
-
-var PlayerDataManager = new PlayerDataManager_proto();

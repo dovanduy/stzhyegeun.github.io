@@ -70,7 +70,7 @@ GetNewCharacterEffect.prototype.showGetNewCharacter = function(charId) {
 
 	this.visible = true;
 
-	setTimeout(this.hideEffect.bind(this), 1000);
+	setTimeout(this.hideEffect.bind(this), 1800);
 }
 
 GetNewCharacterEffect.prototype.hideEffect = function() {
