@@ -1,0 +1,293 @@
+{
+  "canvas-version": 2,
+  "settings": {
+    "className": "InviteUpdateView",
+    "sceneWidth": 640,
+    "sceneHeight": 360,
+    "generateOnSave": true,
+    "enableStepping": false,
+    "lang": "JAVA_SCRIPT",
+    "baseClass": "Phaser.Group",
+    "backgroundColor": [
+      180,
+      180,
+      180
+    ],
+    "gridColor": [
+      200,
+      200,
+      200
+    ],
+    "showGrid": true
+  },
+  "stateSettings": {
+    "stageBackgroundColor": [
+      0,
+      0,
+      0
+    ],
+    "autoLoad": true,
+    "preloadSpriteId": "",
+    "preloadSprite_direction": 0,
+    "load.pack": []
+  },
+  "world": {
+    "type": "group",
+    "id": "a1b4278d-c1b8-4675-9508-84a1c3713639",
+    "info": {
+      "editorName": "InviteUpdateView",
+      "setAll": [],
+      "children": [{
+        "type": "group",
+        "id": "fb1fcdac-dc0c-45e6-9d4e-24d2acaac58b",
+        "info": {
+          "editorName": "group",
+          "setAll": [],
+          "children": [
+            {
+              "type": "group",
+              "id": "a2c0b304-9701-4a7e-ba15-201c9c0e8652",
+              "info": {
+                "editorName": "characterContainer",
+                "editorPick": false,
+                "editorPublic": true,
+                "editorShow": false,
+                "setAll": [],
+                "children": [
+                  {
+                    "type": "atlas-sprite",
+                    "id": "d3b659a3-d7cb-4094-8708-1a5ea019249e",
+                    "asset": "0",
+                    "info": {"editorName": "GET_png"}
+                  },
+                  {
+                    "type": "atlas-sprite",
+                    "id": "ee166c1b-bfa0-4347-8f5c-52af8122a591",
+                    "asset": "1",
+                    "info": {
+                      "editorName": "sprCharacter",
+                      "editorPublic": true,
+                      "x": 492,
+                      "y": 184,
+                      "rotation": 4.1887902047863905,
+                      "anchor.x": 0.5,
+                      "anchor.y": 0.5
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "type": "group",
+              "id": "e6e77671-eb18-40d0-b2b5-29d840b35066",
+              "info": {
+                "editorName": "inviteContainer",
+                "editorPick": false,
+                "editorPublic": true,
+                "editorShow": false,
+                "setAll": [],
+                "children": [{
+                  "type": "atlas-sprite",
+                  "id": "5fc0726d-c675-4607-9779-9ad5793c9b76",
+                  "asset": "2",
+                  "info": {"editorName": "CHATBOT_invite_png"}
+                }]
+              }
+            },
+            {
+              "type": "group",
+              "id": "b24794d3-b8f2-4786-976a-f6b118f16829",
+              "info": {
+                "editorName": "crownContainer",
+                "editorPick": false,
+                "editorPublic": true,
+                "editorShow": false,
+                "setAll": [],
+                "children": [
+                  {
+                    "type": "atlas-sprite",
+                    "id": "a3b27fc3-25c5-4d0b-a8fa-9be8b6509706",
+                    "asset": "3",
+                    "info": {"editorName": "STAGEGOLECROWN_png"}
+                  },
+                  {
+                    "type": "text",
+                    "id": "15c6a385-8dc7-4978-b488-d7f53778967a",
+                    "info": {
+                      "editorName": "txtCrown",
+                      "editorPublic": true,
+                      "x": 360,
+                      "y": 325,
+                      "anchor.x": 0.5,
+                      "anchor.y": 0.5,
+                      "text": "STAGE 999 GOLD CROWN",
+                      "style.font": "Blogger Sans",
+                      "style.fontSize": 50,
+                      "style.fill": "#ffffff"
+                    }
+                  },
+                  {
+                    "type": "atlas-sprite",
+                    "id": "80a541a8-98b1-4db0-9ca7-e825950424e7",
+                    "asset": "4",
+                    "info": {
+                      "editorName": "sprCrown",
+                      "editorPublic": true,
+                      "x": 371,
+                      "y": 169,
+                      "anchor.x": 0.5,
+                      "anchor.y": 0.5
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "type": "group",
+              "id": "94e67351-3c79-4325-8c1a-453a4b06b75e",
+              "info": {
+                "editorName": "clearContainer",
+                "editorPick": false,
+                "editorPublic": true,
+                "editorShow": false,
+                "setAll": [],
+                "children": [
+                  {
+                    "type": "atlas-sprite",
+                    "id": "435620b6-e6bc-4627-9c0d-bbb406c19ad1",
+                    "asset": "5",
+                    "info": {"editorName": "STAGECLEAR_png"}
+                  },
+                  {
+                    "type": "atlas-sprite",
+                    "id": "7bed92ed-8912-45b7-a52b-69b3d84b11b3",
+                    "asset": "1",
+                    "info": {
+                      "editorName": "sprClearCharacter",
+                      "editorPublic": true,
+                      "x": 517,
+                      "y": 152,
+                      "rotation": 4.153883619746504,
+                      "anchor.x": 0.5,
+                      "anchor.y": 0.5
+                    }
+                  },
+                  {
+                    "type": "text",
+                    "id": "9cf67efd-b800-4211-8626-7e0ea32a8fba",
+                    "info": {
+                      "editorName": "txtClear",
+                      "editorPublic": true,
+                      "x": 360,
+                      "y": 325,
+                      "anchor.x": 0.5,
+                      "anchor.y": 0.5,
+                      "text": "STAGE 999 CLEAR",
+                      "style.font": "Blogger Sans",
+                      "style.fontSize": 50,
+                      "style.fill": "#ffffff"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "type": "group",
+              "id": "f8a02c07-2ac0-4615-81eb-18b2dd3808d1",
+              "info": {
+                "editorName": "resultContainer",
+                "editorPick": false,
+                "editorPublic": true,
+                "setAll": [],
+                "children": [
+                  {
+                    "type": "atlas-sprite",
+                    "id": "2b12b3e9-7712-42fc-9025-2aa6ee85f0a9",
+                    "asset": "6",
+                    "info": {"editorName": "IMONSTAGE_png"}
+                  },
+                  {
+                    "type": "text",
+                    "id": "a465ac3d-00c4-4605-8308-9d7795e74487",
+                    "info": {
+                      "editorName": "txtResult",
+                      "editorPublic": true,
+                      "x": 360,
+                      "y": 325,
+                      "anchor.x": 0.5,
+                      "anchor.y": 0.5,
+                      "text": "I\\'M ON STAGE 999",
+                      "style.font": "Blogger Sans",
+                      "style.fontSize": 50,
+                      "style.fill": "#ffffff"
+                    }
+                  },
+                  {
+                    "type": "atlas-sprite",
+                    "id": "d51a3cfd-a4b3-45b3-a1bc-6d8c2ea2cfe3",
+                    "asset": "1",
+                    "info": {
+                      "editorName": "sprResultCharacter",
+                      "editorPublic": true,
+                      "x": 521,
+                      "y": 155,
+                      "rotation": 4.171336912266447,
+                      "anchor.x": 0.5,
+                      "anchor.y": 0.5
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }]
+    }
+  },
+  "type": "GROUP",
+  "asset-table": {
+    "0": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "title",
+      "asset": "shareAtlas",
+      "sprite": "GET.png"
+    },
+    "1": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "title",
+      "asset": "titleAtlas",
+      "sprite": "01.png"
+    },
+    "2": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "title",
+      "asset": "shareAtlas",
+      "sprite": "CHATBOT_invite.png"
+    },
+    "3": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "title",
+      "asset": "shareAtlas",
+      "sprite": "STAGEGOLECROWN.png"
+    },
+    "4": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "title",
+      "asset": "titleAtlas",
+      "sprite": "img_crown_02.png"
+    },
+    "5": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "title",
+      "asset": "shareAtlas",
+      "sprite": "STAGECLEAR.png"
+    },
+    "6": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "title",
+      "asset": "shareAtlas",
+      "sprite": "IMONSTAGE.png"
+    }
+  },
+  "prefab-table": {}
+}

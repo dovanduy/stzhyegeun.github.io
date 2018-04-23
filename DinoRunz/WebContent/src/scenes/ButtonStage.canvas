@@ -70,7 +70,7 @@
                     "info": {
                       "editorName": "sprAllClear",
                       "editorPublic": true,
-                      "y": -37,
+                      "y": -42,
                       "anchor.x": 0.5,
                       "anchor.y": 0.5
                     }
@@ -96,6 +96,7 @@
                     "info": {
                       "editorName": "groupUserPhoto",
                       "editorPublic": true,
+                      "editorShow": false,
                       "x": 2,
                       "y": -79,
                       "setAll": [],

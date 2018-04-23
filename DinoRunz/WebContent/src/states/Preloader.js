@@ -11,8 +11,9 @@ DinoRunz.Storage = {
 		
 		isGetDinoList: [],//서버 저장 안함.
 		lockDinoData: []//서버 저장 안함.
-	}
-	, updateIsAllClear: function(inStage, isAllJewelClear, isAllPathClear) {
+	}, 
+	
+	updateIsAllClear: function(inStage, isAllJewelClear, isAllPathClear) {
 		if (!DinoRunz.Storage.UserData.isAllClearList) {
 			DinoRunz.Storage.UserData.isAllClearList = [];
 		}
@@ -30,20 +31,23 @@ DinoRunz.Storage = {
 		}
 		
 		DinoRunz.Storage.UserData.isAllClearList[inStage - 1] = clearValue;
-	}
-	, isAllClear: function(inStage) {
+	}, 
+	
+	isAllClear: function(inStage) {
 		if (!DinoRunz.Storage.UserData.isAllClearList[inStage - 1]) {
 			return false;
 		} 
 		return (DinoRunz.Storage.UserData.isAllClearList[inStage - 1] === 1 ? true : false);
-	}
-	, getAllClearValue: function(inStage) {
+	}, 
+	
+	getAllClearValue: function(inStage) {
 	    if (!DinoRunz.Storage.UserData.isAllClearList[inStage - 1]) {
             return 0;
         } 
         return DinoRunz.Storage.UserData.isAllClearList[inStage - 1];
-	} 
-	, getUserData: function() {
+	}, 
+	
+	getUserData: function() {
 		return new Promise(function(resolve, reject) {
 			var lastStageItem = 1;
 			var lastCharacterId = 1;
@@ -61,7 +65,7 @@ DinoRunz.Storage = {
 				lastFallenBlockId = parseInt(localStorage.getItem("lastFallenBlockId"));
 				lastFallenBlockId = (isNaN(lastFallenBlockId) === true ? 1 : lastFallenBlockId);
 				shareCount = parseInt(localStorage.getItem("shareCount"));
-				shareCount = (isNaN(shareCount) === true ? 1 : shareCount);
+				shareCount = (isNaN(shareCount) === true ? 0 : shareCount);
 
 				if (isAllClearListItem === null) {
 					isAllClearListItem = [];
@@ -90,7 +94,7 @@ DinoRunz.Storage = {
 			};
 			
 			if (window.FBInstant) {
-				FBInstant.player.getDataAsync(["lastClearedStage", "isAllClearList"]).then(function(data) {
+				FBInstant.player.getDataAsync(["lastClearedStage", "isAllClearList", "lastFallenBlockId", "shareCount", "isCurGetValueList"]).then(function(data) {
 					var fbLastStage = Number(data["lastClearedStage"]);
 					fbLastStage = (isNaN(fbLastStage) === true ? 1 : fbLastStage);
 					if (fbLastStage > result.lastClearedStage) {
@@ -111,8 +115,9 @@ DinoRunz.Storage = {
 				resolve(result);
 			}
 		});
-	}
-	, setUserData: function() {
+	}, 
+	
+	setUserData: function() {
 		return new Promise(function(resolve, reject) {
 			if (typeof(Storage) !== "undefined") {
 				localStorage.setItem("lastClearedStage", DinoRunz.Storage.UserData.lastClearedStage);
@@ -131,7 +136,7 @@ DinoRunz.Storage = {
 				localStorage.setItem("lastCharacterId", DinoRunz.Storage.UserData.lastCharacterId);
 				localStorage.setItem("lastFallenBlockId", DinoRunz.Storage.UserData.lastFallenBlockId);
 				localStorage.setItem("isCurGetValueList",  JSON.stringify(DinoRunz.Storage.UserData.isCurGetValueList));
-				localStorage.setItem("shareCount",  JSON.stringify(DinoRunz.Storage.UserData.shareCount));
+				localStorage.setItem("shareCount",  DinoRunz.Storage.UserData.shareCount);
 			}
 			
 			var result = {
@@ -156,12 +161,48 @@ DinoRunz.Storage = {
 				resolve(result);
 			}
 		});
-	}
-	, updateShareCount: function(inValue) {
-		this.userData.shareCount += inValue;
-	}
-	, resetUserData: function() {
+	}, 
+	
+	updateShareCount: function(inValue) {
+		this.UserData.shareCount += inValue;
+	}, 
+	
+	resetUserData: function() {
+		this.UserData.lastClearedStage = 1, 
+		this.UserData.lastCharacterId = 1,//마지막으로 선택된 캐릭터 인덱스.
+		this.UserData.lastFallenBlockId = 0,//떨어진 블록 인덱스.
+		this.UserData.shareCount = 0,//공유카운트.
+		this.UserData.isAllClearList = [],
+		this.UserData.isCurGetValueList = [],//공룡을 얻기 위해 조건을 수행한 카운트 저장.
 		
+		this.UserData.isGetDinoList = [],//서버 저장 안함.
+		this.UserData.lockDinoData = []//서버 저장 안함.
+					
+		var i, length = StaticManager.dino_runz_character.length;
+		var curData = null;
+		for(i=0;i<length;++i){
+			curData = StaticManager.dino_runz_character.get(i+1);
+			if(curData.unlock_condition===3||curData.unlock_condition===4){
+				this.UserData.isCurGetValueList.push((i+1)+"|"+0);
+			}
+		}
+		
+		length = this.UserData.isCurGetValueList.length;
+		for(i=0;i<length;++i){
+			curData = this.UserData.isCurGetValueList[i];
+			curData = curData.split("|");
+			DinoRunz.Storage.UserData.lockDinoData[i] = {charId:parseInt(curData[0]), curValue:parseInt(curData[1])};
+		}
+
+		this.setUserData();
+	},
+	
+	getBestStage: function () {
+		return this.UserData.lastClearedStage;
+	},
+
+	setGetDinoList : function (charId, isGetDino) {
+		this.UserData.isGetDinoList[charId - 1] = isGetDino;
 	}
 };
 
@@ -171,6 +212,7 @@ DinoRunz.Preloader.prototype = Preloader_proto;
 
 DinoRunz.Preloader.prototype.init = function() {	
 	DinoRunz.Storage.UserData.lastClearedStage = 0;
+	Server.setLog(EServerLogMsg.INIT_STEP, {'p1' : EInitStep.INSTANT});
 };
 
 DinoRunz.Preloader.prototype.preload = function() {
@@ -188,12 +230,46 @@ DinoRunz.Preloader.prototype.fileComplete = function(progress, cacheKey, success
 DinoRunz.Preloader.prototype.create = function() {
 	this.game.load.onFileComplete.removeAll();
 
+	leaderboard.onPlayWithFriendCallback = function (inFriend, inBoardType) {
+		FbManager.updateAsyncByInviteUpdateView(EShareType.INVITE);
+		DinoRunz.Storage.updateShareCount(1);
+		DinoRunz.Storage.setUserData();
+	};
+
+	leaderboard.onInviteFriendCallback = function() {
+		FbManager.updateAsyncByInviteUpdateView(EShareType.INVITE);
+		DinoRunz.Storage.updateShareCount(1);
+		DinoRunz.Storage.setUserData();
+	};
+
 	window.sounds.createSound(this.game);
 
 	this.game.state.start("Title", true, false, DinoRunz.InGame.EGameMode.RUN, DinoRunz.Storage.UserData.lastClearedStage);
 	
 	if(FBInstant){
 		FBInstant.startGameAsync().then(function() {
+			var fbEntryPointData = FBInstant.getEntryPointData();
+		     if (fbEntryPointData) {
+		         // 게임 진입 경로 체크 
+		         if (fbEntryPointData.hasOwnProperty("logEventName") && typeof fbEntryPointData.logEventName === "string") {
+		             if (fbEntryPointData.logEventName.indexOf(ELogEvent.SEND_MESSAGE_SHARE_RANKING) >= 0) {
+		            	 Server.setLog(EServerLogMsg.GAME_INIT, {'p1' : 'user_share', 'p2' : 'rank'});
+		             }
+		             if (fbEntryPointData.logEventName.indexOf(ELogEvent.SEND_MESSAGE_SHARE_RESULT) >= 0) {
+		            	 Server.setLog(EServerLogMsg.GAME_INIT, {'p1' : 'update_share', 'p2' : 'result'});
+		             }
+		             if (fbEntryPointData.logEventName.indexOf(ELogEvent.SEND_MESSAGE_SHARE_TITLE) >= 0) {
+		            	 Server.setLog(EServerLogMsg.GAME_INIT, {'p1' : 'update_share', 'p2' : 'title'});
+		             }
+		             if (fbEntryPointData.logEventName.indexOf(ELogEvent.SEND_MESSAGE_SHARE_CHARACTER) >= 0) {
+		            	 Server.setLog(EServerLogMsg.GAME_INIT, {'p1' : 'update_share', 'p2' : 'character'});
+		             }
+		             if (fbEntryPointData.logEventName.indexOf(ELogEvent.SEND_MESSAGE_SHARE_FREECOIN) >= 0) {
+		            	 Server.setLog(EServerLogMsg.GAME_INIT, {'p1' : 'update_share', 'p2' : 'freecoin'});
+		             }
+		       }
+			}
+			
 			var getUserData = DinoRunz.Storage.getUserData();
 			getUserData.then(function(inUserData) {
 				DinoRunz.Storage.UserData.lastClearedStage = inUserData.lastClearedStage;
@@ -201,18 +277,19 @@ DinoRunz.Preloader.prototype.create = function() {
 				DinoRunz.Storage.UserData.isAllClearList = (inUserData.isAllClearList === null ? [] : inUserData.isAllClearList);
 				DinoRunz.Storage.UserData.isCurGetValueList = inUserData.isCurGetValueList;
 				DinoRunz.Storage.UserData.lastFallenBlockId = inUserData.lastFallenBlockId;
+				DinoRunz.Storage.UserData.shareCount = inUserData.shareCount;
 
 				var i, j, length = inUserData.isCurGetValueList.length, curData, compareData;
 				
 				for(i=0;i<length;++i){
 					curData = inUserData.isCurGetValueList[i];
 					curData = curData.split("|");
-					DinoRunz.Storage.UserData.lockDinoData[i] = {charId:curData[0], unlock_value:curData[1]};
+					DinoRunz.Storage.UserData.lockDinoData[i] = {charId:parseInt(curData[0]), curValue:parseInt(curData[1])};
 				}
 			}.bind(this));
 			
 			var getInitLeaderboard = new Promise(function (resolve, reject) {
-				FBInstant.getLeaderboardAsync(InGameConfig.SCORE_LEADER_BOARD)
+				FBInstant.getLeaderboardAsync(InGameConfig.SCORE_LEADER_BOARD_NORMAL)
 				.then(function(leaderboard){
 					PlayerDataManager.lederBoardData = leaderboard;
 					StzLog.print('leaderboard is loaded');
@@ -235,9 +312,11 @@ DinoRunz.Preloader.prototype.create = function() {
 			});
 			
 			var getInitContextLeaderboard = new Promise(function (resolve, reject) {
+				var contextID = FBInstant.context.getID();
 				if(FBInstant.context && FBInstant.context.getID()){
 					//리더보드 불러오는 부분
-					FBInstant.getLeaderboardAsync(InGameConfig.CONTEXT_BOARD + FBInstant.context.getID())
+					var leaderboardName = InGameConfig.SCORE_LEADER_BOARD_CONTEXT + FBInstant.context.getID();
+					FBInstant.getLeaderboardAsync(leaderboardName)
 					.then(function(leaderboard){
 						PlayerDataManager.contextLederBoardData = leaderboard;
 						StzLog.print('contextLeaderboard is loaded');
@@ -257,6 +336,7 @@ DinoRunz.Preloader.prototype.create = function() {
 							reject(err);
 						});
 					}).catch(function(err){
+						StzLog.print(err);
 						reject(err);
 					});
 				}
@@ -303,6 +383,9 @@ DinoRunz.Preloader.prototype.create = function() {
 					PlayerDataManager.initFriendsLocal();
 				}
 
+				PlayerDataManager.sortFriends("bestStage", PlayerDataManager.ESortOrder.DESCEND);
+				PlayerDataManager.sortContextFriends("bestStage", PlayerDataManager.ESortOrder.DESCEND);				
+
 				DinoRunz.isLoadNeedData = true;
 			}.bind(this));
 		}.bind(this));
@@ -314,6 +397,7 @@ DinoRunz.Preloader.prototype.create = function() {
 			DinoRunz.Storage.UserData.isAllClearList = (inUserData.isAllClearList === null ? [] : inUserData.isAllClearList);
 			DinoRunz.Storage.UserData.isCurGetValueList = inUserData.isCurGetValueList;
 			DinoRunz.Storage.UserData.lastFallenBlockId = inUserData.lastFallenBlockId;
+			DinoRunz.Storage.UserData.shareCount = inUserData.shareCount;
 
 			var i, j, length = inUserData.isCurGetValueList.length, curData, compareData;
 				
@@ -340,12 +424,13 @@ DinoRunz.Preloader.prototype.create = function() {
 								maxStage = currentData.stage;
 							}
 						}
-						DinoRunz.InGame.MAPS["length"] = maxStage;
+						DinoRunz.InGame.MAPS.length = maxStage;
 					}
 					
 					// this.game.state.start("Title", true, false, DinoRunz.InGame.EGameMode.EDIT, DinoRunz.Storage.UserData.lastClearedStage);
 				}.bind(this));
 			} else {
+				
 				var playerId = (window.FBInstant ? FBInstant.player.getID() : "103112311");
 				var playerName = (window.FBInstant ? FBInstant.player.getName() : "GUEST");
 				var playerPhoto = (window.FBInstant ? FBInstant.player.getPhoto() : "default_thumb"); 
@@ -354,9 +439,11 @@ DinoRunz.Preloader.prototype.create = function() {
 				PlayerDataManager.profileInfo = new ProfileInfoModel(0, playerId, playerName, 
 						playerPhoto, 0);//set player profile info
 
-				PlayerDataManager.initFriendsLocal();
-				PlayerDataManager.initContextFriendsLocal();
-				
+				// PlayerDataManager.initFriendsLocal();
+				// PlayerDataManager.sortFriends("bestStage", PlayerDataManager.ESortOrder.DESCEND);
+
+				// PlayerDataManager.initContextFriendsLocal();
+				// PlayerDataManager.sortContextFriends("bestStage", PlayerDataManager.ESortOrder.DESCEND);
 				DinoRunz.isLoadNeedData = true;
 			}
 		}.bind(this));

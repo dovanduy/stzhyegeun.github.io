@@ -144,6 +144,70 @@
                   ]
                 }]
               }
+            },
+            {
+              "type": "group",
+              "id": "f4b87534-1cfd-4b4a-a11c-164fb461e8c7",
+              "info": {
+                "editorName": "groupHardEffect",
+                "editorPublic": true,
+                "setAll": [],
+                "children": [
+                  {
+                    "type": "spritesheet",
+                    "id": "397d5d23-d777-4513-b44e-69265700cdb0",
+                    "asset": "5",
+                    "info": {
+                      "editorName": "hardStageEffect",
+                      "editorPublic": true,
+                      "rotation": 1.5707963267948966,
+                      "scale.x": 1.2,
+                      "scale.y": 1.2,
+                      "anchor.x": 0.5,
+                      "anchor.y": 0.5,
+                      "animations": [{
+                        "name": "hard",
+                        "frameRate": 30,
+                        "frames": [
+                          "0",
+                          "1",
+                          "2",
+                          "3",
+                          "4",
+                          "5",
+                          "6",
+                          "7",
+                          "8",
+                          "9",
+                          "10",
+                          "11",
+                          "12",
+                          "13",
+                          "14",
+                          "15",
+                          "16",
+                          "17"
+                        ]
+                      }]
+                    }
+                  },
+                  {
+                    "type": "text",
+                    "id": "1724b155-e34c-49d3-9920-f9a541fef644",
+                    "info": {
+                      "editorName": "txtHardStage",
+                      "editorPublic": true,
+                      "rotation": 1.5707963267948966,
+                      "anchor.x": 0.5,
+                      "anchor.y": 0.5,
+                      "text": "999",
+                      "style.font": "Blogger Sans",
+                      "style.fontSize": 52,
+                      "style.fill": "#ffffff"
+                    }
+                  }
+                ]
+              }
             }
           ]
         }
@@ -180,6 +244,12 @@
       "file": "WebContent/assets/assets-pack.json",
       "section": "ingame",
       "asset": "commandFail",
+      "sprite": "0"
+    },
+    "5": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "hardstageEffect",
       "sprite": "0"
     }
   },

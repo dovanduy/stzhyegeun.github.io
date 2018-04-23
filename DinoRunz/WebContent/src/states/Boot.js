@@ -27,12 +27,19 @@ DinoRunz.Boot.prototype = {
     	this.game.scale.refresh();
 
 		this.game.time.advancedTiming = true;
-		
-		PlayerDataManager.setPlatformId((window.FBInstant ? FBInstant.player.getID() : "103112311"));
+
+		var localPlatformId = localStorage.getItem("localPlatformId");
+		if(!localPlatformId) {
+			localPlatformId = Date.now().toString();
+			localStorage.setItem("localPlatformId", localPlatformId);
+		}
+
+		PlayerDataManager.setPlatformId((window.FBInstant ? FBInstant.player.getID() : localPlatformId));
 		var playerOsType = (window.FBInstant ? FBInstant.getPlatform() : "DEV");
 		var playerLocale = (window.FBInstant ? FBInstant.getLocale() : "en_US");
 		StzTrans.setLocale('en_US');
 		
+		var test = PlayerDataManager.getPlatformId();
 		Server.userInit(PlayerDataManager.getPlatformId(), playerOsType, playerLocale, function(res) {
 			StaticManager.initWithData(res.data.statics, function() {
 				window.StaticManager = StaticManager;
@@ -63,7 +70,8 @@ window.onload = function() {
     window.PlayerDataManager = new PlayerDataManager_proto();
     window.Server = new ServerManager_proto();
     window.StaticManager = new StaticManager_proto();
-    window.StzTrans = new StzTranslator_proto();
+	window.StzTrans = new StzTranslator_proto();
+	window.ChatbotManager = new ChatbotManager_proto();
     
 	var game = new Phaser.Game(720, 1280, Phaser.CANVAS, 'gameContainer');
 
@@ -104,7 +112,7 @@ window.onload = function() {
 		};
 		leaderboard.onClickPlayGameButton = function() {
 			leaderboard.closeLeaderboard();
-		}
+		};
 	}
 	
 	$.getJSON('assets/assets-pack.json', function(inJson) {

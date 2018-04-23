@@ -65,7 +65,7 @@
                 "anchor.y": 0.5,
                 "text": "Stage clear!",
                 "style.font": "Blogger Sans",
-                "style.fontSize": 35,
+                "style.fontSize": 30,
                 "style.fill": "#1a8aa8"
               }
             },
@@ -80,7 +80,7 @@
                 "anchor.y": 0.5,
                 "text": "Get all the jewels!",
                 "style.font": "Blogger Sans",
-                "style.fontSize": 35,
+                "style.fontSize": 30,
                 "style.fill": "#1a8aa8"
               }
             },
@@ -95,7 +95,7 @@
                 "anchor.y": 0.5,
                 "text": "Use all markers!",
                 "style.font": "Blogger Sans",
-                "style.fontSize": 35,
+                "style.fontSize": 30,
                 "style.fill": "#1a8aa8"
               }
             }

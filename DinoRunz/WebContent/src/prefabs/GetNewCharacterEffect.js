@@ -20,18 +20,15 @@ function GetNewCharacterEffect(aGame, aParent, aName, aAddToStage, aEnableBody, 
 	
 	Phaser.Group.call(this, aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBodyType);
 	var _getCharBG_png = this.game.add.sprite(0, 0, 'MenuScene', 'getCharBG.png', this);
-	_getCharBG_png.scale.setTo(2.0, 2.0);
 	_getCharBG_png.anchor.setTo(0.5, 0.5);
 	
 	var _sprLightning = this.game.add.sprite(-175, -21, 'MenuScene', 'getCharlighting.png', this);
-	_sprLightning.scale.setTo(2.0, 2.0);
 	_sprLightning.anchor.setTo(0.5, 0.5);
 	
 	var _sprCharacter = this.game.add.sprite(-175, -21, 'auhaSheet1', 8, this);
-	_sprCharacter.scale.setTo(1.5, 1.5);
 	_sprCharacter.anchor.setTo(0.5, 0.5);
 	
-	var _text = this.game.add.text(54, -24, 'GET A NEW CHARACTER!', {"font":"bold 32px Blogger Sans","fill":"#1a8aa8"}, this);
+	var _text = this.game.add.text(54, -24, 'GET A NEW CHARACTER!', {"font":"bold 28px Blogger Sans","fill":"#1a8aa8"}, this);
 	_text.anchor.setTo(0.5, 0.5);
 	
 	
@@ -64,7 +61,6 @@ GetNewCharacterEffect.prototype.showGetNewCharacter = function(charId) {
 	this.tween = this.game.add.tween(this.position);
 	this.tween.to({y:71}, 300, Phaser.Easing.Linear.None, true);
 	this.tween.onComplete.addOnce(function() {
-		console.log("hi");
 		this.game.tweens.remove(this.tween);
 	}, this);
 

@@ -67,7 +67,8 @@
                     "type": "text",
                     "id": "fc12ef92-43d5-4d53-8eab-834c36160daa",
                     "info": {
-                      "editorName": "txtTitle",
+                      "editorName": "txtTitleAtRestart",
+                      "editorPublic": true,
                       "x": 360,
                       "y": 158,
                       "anchor.x": 0.5,
@@ -105,7 +106,8 @@
                           "type": "text",
                           "id": "94029083-fe23-441d-ac4f-0df85ca6711b",
                           "info": {
-                            "editorName": "txtRestartStage1",
+                            "editorName": "txtShareAtRestart",
+                            "editorPublic": true,
                             "y": 54,
                             "anchor.x": 0.5,
                             "anchor.y": 0.5,
@@ -152,7 +154,8 @@
                           "type": "text",
                           "id": "b02e9623-52f4-40f8-837b-193d5412232d",
                           "info": {
-                            "editorName": "txtRestartStage",
+                            "editorName": "txtStageAtRestart",
+                            "editorPublic": true,
                             "y": 54,
                             "anchor.x": 0.5,
                             "anchor.y": 0.5,
@@ -189,7 +192,7 @@
                           "type": "text",
                           "id": "9a0ac67c-0d10-41b1-af76-a8cc09729844",
                           "info": {
-                            "editorName": "txtSlow",
+                            "editorName": "txtSlowAtRestart",
                             "editorPublic": true,
                             "y": 90,
                             "anchor.x": 0.5,
@@ -248,7 +251,8 @@
                           "type": "text",
                           "id": "a7b1ff9d-c4bc-4ca3-b9bc-6ad9139a8c13",
                           "info": {
-                            "editorName": "txtSkip",
+                            "editorName": "txtSkipAtRestart",
+                            "editorPublic": true,
                             "y": 90,
                             "anchor.x": 0.5,
                             "anchor.y": 0.5,
@@ -276,7 +280,7 @@
                           "id": "41fb12ee-2fde-4b06-b88a-746b945614af",
                           "asset": "3",
                           "info": {
-                            "editorName": "sprCharacterAtRestart",
+                            "editorName": "sprBtnCharacterAtRestart",
                             "y": 5,
                             "anchor.x": 0.5,
                             "anchor.y": 0.5
@@ -287,6 +291,7 @@
                           "id": "5adbfcac-be73-400e-acb1-27443b2b8bea",
                           "info": {
                             "editorName": "txtCharacterAtRestart",
+                            "editorPublic": true,
                             "y": 95,
                             "anchor.x": 0.5,
                             "anchor.y": 0.5,
@@ -297,12 +302,14 @@
                           }
                         },
                         {
-                          "type": "spritesheet",
-                          "id": "90f3311d-224e-4194-a145-93dede4b430f",
+                          "type": "atlas-sprite",
+                          "id": "899ae036-9c4a-44fb-932d-4db82d997e00",
                           "asset": "6",
                           "info": {
                             "editorName": "sprCharacterAtRestart",
                             "editorPublic": true,
+                            "scale.x": 0.45,
+                            "scale.y": 0.45,
                             "anchor.x": 0.5,
                             "anchor.y": 0.5
                           }
@@ -324,175 +331,8 @@
                 "children": [
                   {
                     "type": "atlas-sprite",
-                    "id": "e348fc7f-e391-48c7-b4c1-f326593d545e",
-                    "asset": "7",
-                    "info": {
-                      "editorName": "btnRestartAtMenu",
-                      "editorPublic": true,
-                      "x": 360,
-                      "y": 1122,
-                      "anchor.x": 0.5,
-                      "anchor.y": 0.5
-                    }
-                  },
-                  {
-                    "type": "text",
-                    "id": "db462c29-31f1-4cfa-aab6-9628a2d9e184",
-                    "info": {
-                      "editorName": "txtRestartAtMenu",
-                      "editorPublic": true,
-                      "x": 360,
-                      "y": 1149,
-                      "anchor.x": 0.5,
-                      "anchor.y": 0.5,
-                      "text": "This is a text",
-                      "style.font": "Blogger Sans",
-                      "style.fontSize": 40,
-                      "style.fill": "#ff9100"
-                    }
-                  },
-                  {
-                    "type": "text",
-                    "id": "135ebf56-28fc-41c7-ae07-3a3bbc4e50d0",
-                    "info": {
-                      "editorName": "txtRestartAtMenuTitle",
-                      "x": 360,
-                      "y": 1090,
-                      "anchor.x": 0.5,
-                      "anchor.y": 0.5,
-                      "text": "PLAY",
-                      "style.font": "Blogger Sans",
-                      "style.fontSize": 55,
-                      "style.fill": "#ff9100"
-                    }
-                  },
-                  {
-                    "type": "atlas-sprite",
-                    "id": "8e4ad5fc-af0a-469d-8811-7ed2b2cd9908",
-                    "asset": "8",
-                    "info": {
-                      "editorName": "btnInvite",
-                      "editorPublic": true,
-                      "x": 126,
-                      "y": 1133,
-                      "anchor.x": 0.5,
-                      "anchor.y": 0.5
-                    }
-                  },
-                  {
-                    "type": "atlas-sprite",
-                    "id": "79b4950b-2752-4778-964c-3d1ee67ab933",
-                    "asset": "8",
-                    "info": {
-                      "editorName": "btnSelect",
-                      "editorPublic": true,
-                      "x": 593,
-                      "y": 1133,
-                      "anchor.x": 0.5,
-                      "anchor.y": 0.5
-                    }
-                  },
-                  {
-                    "type": "atlas-sprite",
-                    "id": "4093982d-622b-4a35-8fb3-c1c60bd15432",
-                    "asset": "9",
-                    "info": {
-                      "editorName": "icon_invite_png",
-                      "x": 128,
-                      "y": 1130,
-                      "anchor.x": 0.5,
-                      "anchor.y": 0.5
-                    }
-                  },
-                  {
-                    "type": "spritesheet",
-                    "id": "955454c5-d2c6-40ff-8ce8-6f05dd256dac",
-                    "asset": "10",
-                    "info": {
-                      "editorName": "sprCharacter",
-                      "editorPublic": true,
-                      "x": 593,
-                      "y": 1133,
-                      "anchor.x": 0.5,
-                      "anchor.y": 0.5,
-                      "animations": [{
-                        "name": "idle",
-                        "frameRate": 20,
-                        "loop": true,
-                        "autoPlay": true,
-                        "frames": [
-                          "0",
-                          "1",
-                          "2",
-                          "3",
-                          "4",
-                          "5",
-                          "6",
-                          "7",
-                          "8",
-                          "9",
-                          "10",
-                          "11",
-                          "12",
-                          "13",
-                          "14",
-                          "15",
-                          "16",
-                          "17",
-                          "18",
-                          "19"
-                        ]
-                      }]
-                    }
-                  },
-                  {
-                    "type": "atlas-sprite",
-                    "id": "53421a85-5d92-4adf-bf0d-e5e44f147592",
-                    "asset": "11",
-                    "info": {
-                      "editorName": "sprGoToStage",
-                      "editorPublic": true,
-                      "x": 597,
-                      "y": 1132,
-                      "anchor.x": 0.5,
-                      "anchor.y": 0.5
-                    }
-                  },
-                  {
-                    "type": "text",
-                    "id": "6bc67be8-80e2-4637-b76b-a39be74eae1d",
-                    "info": {
-                      "editorName": "txtInvite",
-                      "x": 128,
-                      "y": 1210,
-                      "anchor.x": 0.5,
-                      "anchor.y": 0.5,
-                      "text": "INVITE",
-                      "style.font": "Blogger Sans",
-                      "style.fontSize": 25,
-                      "style.fill": "#9badcd"
-                    }
-                  },
-                  {
-                    "type": "text",
-                    "id": "520310b0-1a9f-4884-a391-72303eed9715",
-                    "info": {
-                      "editorName": "txtCharacter",
-                      "editorPublic": true,
-                      "x": 593,
-                      "y": 1210,
-                      "anchor.x": 0.5,
-                      "anchor.y": 0.5,
-                      "text": "CHARACTER",
-                      "style.font": "Blogger Sans",
-                      "style.fontSize": 25,
-                      "style.fill": "#9badcd"
-                    }
-                  },
-                  {
-                    "type": "atlas-sprite",
                     "id": "dc584add-f946-41b8-96ed-f5e7f048244e",
-                    "asset": "12",
+                    "asset": "7",
                     "info": {
                       "editorName": "sprNaviBG",
                       "x": 360,
@@ -508,13 +348,12 @@
                     "info": {
                       "editorName": "stageSelectGroup",
                       "editorPublic": true,
-                      "editorShow": false,
                       "setAll": [],
                       "children": [
                         {
                           "type": "atlas-sprite",
                           "id": "146b5b29-ffcf-475a-8009-8f73caf57277",
-                          "asset": "13",
+                          "asset": "8",
                           "info": {
                             "editorName": "btnNextPage",
                             "editorPublic": true,
@@ -527,7 +366,7 @@
                         {
                           "type": "atlas-sprite",
                           "id": "e210d726-6995-4c32-9442-d8e6ba9e1478",
-                          "asset": "14",
+                          "asset": "9",
                           "info": {
                             "editorName": "btnPrevPage",
                             "editorPublic": true,
@@ -556,7 +395,7 @@
                         {
                           "type": "atlas-sprite",
                           "id": "df198530-9f9d-4156-9838-fa8f75b0dce6",
-                          "asset": "15",
+                          "asset": "10",
                           "info": {
                             "editorName": "btnOption",
                             "editorPublic": true,
@@ -569,9 +408,9 @@
                         {
                           "type": "atlas-sprite",
                           "id": "2c395049-e0a8-43e9-b594-0858f6ab0b45",
-                          "asset": "16",
+                          "asset": "11",
                           "info": {
-                            "editorName": "icon_world01_png",
+                            "editorName": "sprWorldIcon",
                             "editorPublic": true,
                             "x": 135,
                             "y": 46,
@@ -592,7 +431,7 @@
                               {
                                 "type": "atlas-sprite",
                                 "id": "f4afb9f6-84f7-4063-87a1-ae4bb269ad2a",
-                                "asset": "17",
+                                "asset": "12",
                                 "info": {
                                   "editorName": "dot",
                                   "anchor.x": 0.5,
@@ -602,7 +441,7 @@
                               {
                                 "type": "atlas-sprite",
                                 "id": "e914a44a-63c4-4e55-a2fc-673526c99f50",
-                                "asset": "17",
+                                "asset": "12",
                                 "info": {
                                   "editorName": "dot1",
                                   "x": 20,
@@ -613,7 +452,7 @@
                               {
                                 "type": "atlas-sprite",
                                 "id": "8184e7f6-23ad-4298-8396-f7ea03f41d53",
-                                "asset": "17",
+                                "asset": "12",
                                 "info": {
                                   "editorName": "dot2",
                                   "x": 40,
@@ -624,7 +463,7 @@
                               {
                                 "type": "atlas-sprite",
                                 "id": "d0553911-491f-4ac2-a8e5-5cebc09ab479",
-                                "asset": "17",
+                                "asset": "12",
                                 "info": {
                                   "editorName": "dot3",
                                   "x": 60,
@@ -635,7 +474,7 @@
                               {
                                 "type": "atlas-sprite",
                                 "id": "540f35a2-12e4-4fba-88f7-54a0e184f4f0",
-                                "asset": "17",
+                                "asset": "12",
                                 "info": {
                                   "editorName": "dot4",
                                   "x": 80,
@@ -646,7 +485,7 @@
                               {
                                 "type": "atlas-sprite",
                                 "id": "f1ddd0fb-5dad-4245-8212-84b1fd558d43",
-                                "asset": "17",
+                                "asset": "12",
                                 "info": {
                                   "editorName": "dot5",
                                   "x": 100,
@@ -657,7 +496,7 @@
                               {
                                 "type": "atlas-sprite",
                                 "id": "fc6c3313-1d10-4356-9f47-a75ef63fe4e3",
-                                "asset": "17",
+                                "asset": "12",
                                 "info": {
                                   "editorName": "dot6",
                                   "x": 120,
@@ -668,7 +507,7 @@
                               {
                                 "type": "atlas-sprite",
                                 "id": "d740e018-cdbc-4b30-8260-13a8f77763cc",
-                                "asset": "17",
+                                "asset": "12",
                                 "info": {
                                   "editorName": "dot7",
                                   "x": 140,
@@ -679,7 +518,7 @@
                               {
                                 "type": "atlas-sprite",
                                 "id": "472164a6-8a76-4d4b-b7fa-66201aceab1e",
-                                "asset": "17",
+                                "asset": "12",
                                 "info": {
                                   "editorName": "dot8",
                                   "x": 160,
@@ -690,7 +529,7 @@
                               {
                                 "type": "atlas-sprite",
                                 "id": "9e40b5ab-8ff8-4155-9d42-a84660339ae1",
-                                "asset": "17",
+                                "asset": "12",
                                 "info": {
                                   "editorName": "dot9",
                                   "x": 180,
@@ -701,7 +540,7 @@
                               {
                                 "type": "atlas-sprite",
                                 "id": "30d7585b-c680-42fc-bb19-08d78b9a6b84",
-                                "asset": "17",
+                                "asset": "12",
                                 "info": {
                                   "editorName": "dot10",
                                   "x": 200,
@@ -712,7 +551,7 @@
                               {
                                 "type": "atlas-sprite",
                                 "id": "4fc7c060-f395-4b6b-8445-1216d48a4e5d",
-                                "asset": "17",
+                                "asset": "12",
                                 "info": {
                                   "editorName": "dot11",
                                   "x": 220,
@@ -723,7 +562,7 @@
                               {
                                 "type": "atlas-sprite",
                                 "id": "ead9dab5-b6c8-4eaa-8a53-a3aeb566e8e9",
-                                "asset": "17",
+                                "asset": "12",
                                 "info": {
                                   "editorName": "dot12",
                                   "x": 240,
@@ -734,7 +573,7 @@
                               {
                                 "type": "atlas-sprite",
                                 "id": "8c6f0091-a8cd-4b3c-8e97-aa85c0ef8250",
-                                "asset": "17",
+                                "asset": "12",
                                 "info": {
                                   "editorName": "dot13",
                                   "x": 260,
@@ -745,7 +584,7 @@
                               {
                                 "type": "atlas-sprite",
                                 "id": "3de59e0f-d2bc-49ae-ab28-db096421dd68",
-                                "asset": "17",
+                                "asset": "12",
                                 "info": {
                                   "editorName": "dot14",
                                   "x": 280,
@@ -756,7 +595,7 @@
                               {
                                 "type": "atlas-sprite",
                                 "id": "08b58cd4-eb0d-4d0b-83eb-5fbd520f682c",
-                                "asset": "17",
+                                "asset": "12",
                                 "info": {
                                   "editorName": "dot15",
                                   "x": 300,
@@ -801,16 +640,26 @@
                           }
                         },
                         {
+                          "type": "group",
+                          "id": "214e5c55-518c-4e68-9341-4944455c21af",
+                          "info": {
+                            "editorName": "groupStageButtons",
+                            "editorPublic": true,
+                            "setAll": [],
+                            "children": []
+                          }
+                        },
+                        {
                           "type": "text",
                           "id": "cc0912d1-bb3b-433c-991f-200f2ed154e7",
                           "info": {
                             "editorName": "recomandJoinMsg",
                             "editorPublic": true,
-                            "x": 304,
-                            "y": 20,
+                            "x": 309,
+                            "y": 28,
                             "text": "Join the chat room.\r\nPlay with friends!",
                             "style.font": "Blogger Sans",
-                            "style.fontSize": 25,
+                            "style.fontSize": 22,
                             "style.fill": "#8b9dca"
                           }
                         }
@@ -825,30 +674,214 @@
                       "editorPublic": true,
                       "editorShow": false,
                       "setAll": [],
-                      "children": [{
-                        "type": "text",
-                        "id": "ddba0909-b42d-43dd-b192-efdb84ab9716",
-                        "info": {
-                          "editorName": "txtCharTitle",
-                          "x": 360,
-                          "y": 60,
-                          "anchor.x": 0.5,
-                          "anchor.y": 0.5,
-                          "text": "CHARACTER",
-                          "style.font": "Blogger Sans",
-                          "style.fontSize": 74,
-                          "style.fill": "#ffffff"
+                      "children": [
+                        {
+                          "type": "group",
+                          "id": "8aae780e-33f6-4b33-9f1d-094603de1690",
+                          "info": {
+                            "editorName": "groupCharacterSlots",
+                            "editorPublic": true,
+                            "setAll": [],
+                            "children": []
+                          }
+                        },
+                        {
+                          "type": "text",
+                          "id": "ddba0909-b42d-43dd-b192-efdb84ab9716",
+                          "info": {
+                            "editorName": "txtCharTitle",
+                            "editorPublic": true,
+                            "x": 360,
+                            "y": 60,
+                            "anchor.x": 0.5,
+                            "anchor.y": 0.5,
+                            "text": "CHARACTER",
+                            "style.font": "Blogger Sans",
+                            "style.fontSize": 74,
+                            "style.fill": "#ffffff"
+                          }
                         }
-                      }]
+                      ]
                     }
                   },
                   {
                     "type": "group",
-                    "id": "b2e6e25a-ec4b-464a-b255-ba34ab02a18c",
+                    "id": "0dc6b27c-4ba7-43f0-aa70-c264de3a8118",
                     "info": {
-                      "editorName": "group1",
+                      "editorName": "threeButtons",
+                      "editorPublic": true,
                       "setAll": [],
-                      "children": []
+                      "children": [
+                        {
+                          "type": "atlas-sprite",
+                          "id": "79b4950b-2752-4778-964c-3d1ee67ab933",
+                          "asset": "13",
+                          "info": {
+                            "editorName": "btnSelect",
+                            "editorPublic": true,
+                            "x": 593,
+                            "y": 1133,
+                            "anchor.x": 0.5,
+                            "anchor.y": 0.5
+                          }
+                        },
+                        {
+                          "type": "atlas-sprite",
+                          "id": "8e4ad5fc-af0a-469d-8811-7ed2b2cd9908",
+                          "asset": "13",
+                          "info": {
+                            "editorName": "btnInvite",
+                            "editorPublic": true,
+                            "x": 126,
+                            "y": 1133,
+                            "anchor.x": 0.5,
+                            "anchor.y": 0.5
+                          }
+                        },
+                        {
+                          "type": "text",
+                          "id": "520310b0-1a9f-4884-a391-72303eed9715",
+                          "info": {
+                            "editorName": "txtCharacter",
+                            "editorPublic": true,
+                            "x": 593,
+                            "y": 1210,
+                            "anchor.x": 0.5,
+                            "anchor.y": 0.5,
+                            "text": "CHARACTER",
+                            "style.font": "Blogger Sans",
+                            "style.fontSize": 25,
+                            "style.fill": "#9badcd"
+                          }
+                        },
+                        {
+                          "type": "text",
+                          "id": "6bc67be8-80e2-4637-b76b-a39be74eae1d",
+                          "info": {
+                            "editorName": "txtInvite",
+                            "editorPublic": true,
+                            "x": 128,
+                            "y": 1210,
+                            "anchor.x": 0.5,
+                            "anchor.y": 0.5,
+                            "text": "INVITE",
+                            "style.font": "Blogger Sans",
+                            "style.fontSize": 25,
+                            "style.fill": "#9badcd"
+                          }
+                        },
+                        {
+                          "type": "atlas-sprite",
+                          "id": "53421a85-5d92-4adf-bf0d-e5e44f147592",
+                          "asset": "14",
+                          "info": {
+                            "editorName": "sprGoToStage",
+                            "editorPublic": true,
+                            "x": 597,
+                            "y": 1132,
+                            "anchor.x": 0.5,
+                            "anchor.y": 0.5
+                          }
+                        },
+                        {
+                          "type": "spritesheet",
+                          "id": "955454c5-d2c6-40ff-8ce8-6f05dd256dac",
+                          "asset": "15",
+                          "info": {
+                            "editorName": "sprCharacter",
+                            "editorPublic": true,
+                            "x": 593,
+                            "y": 1133,
+                            "anchor.x": 0.5,
+                            "anchor.y": 0.5,
+                            "animations": [{
+                              "name": "idle",
+                              "frameRate": 20,
+                              "loop": true,
+                              "autoPlay": true,
+                              "frames": [
+                                "0",
+                                "1",
+                                "2",
+                                "3",
+                                "4",
+                                "5",
+                                "6",
+                                "7",
+                                "8",
+                                "9",
+                                "10",
+                                "11",
+                                "12",
+                                "13",
+                                "14",
+                                "15",
+                                "16",
+                                "17",
+                                "18",
+                                "19"
+                              ]
+                            }]
+                          }
+                        },
+                        {
+                          "type": "atlas-sprite",
+                          "id": "4093982d-622b-4a35-8fb3-c1c60bd15432",
+                          "asset": "16",
+                          "info": {
+                            "editorName": "icon_invite_png",
+                            "x": 128,
+                            "y": 1130,
+                            "anchor.x": 0.5,
+                            "anchor.y": 0.5
+                          }
+                        },
+                        {
+                          "type": "atlas-sprite",
+                          "id": "e348fc7f-e391-48c7-b4c1-f326593d545e",
+                          "asset": "17",
+                          "info": {
+                            "editorName": "btnRestartAtMenu",
+                            "editorPublic": true,
+                            "x": 360,
+                            "y": 1122,
+                            "anchor.x": 0.5,
+                            "anchor.y": 0.5
+                          }
+                        },
+                        {
+                          "type": "text",
+                          "id": "135ebf56-28fc-41c7-ae07-3a3bbc4e50d0",
+                          "info": {
+                            "editorName": "txtRestartAtMenuTitle",
+                            "editorPublic": true,
+                            "x": 360,
+                            "y": 1090,
+                            "anchor.x": 0.5,
+                            "anchor.y": 0.5,
+                            "text": "PLAY",
+                            "style.font": "Blogger Sans",
+                            "style.fontSize": 55,
+                            "style.fill": "#ff9100"
+                          }
+                        },
+                        {
+                          "type": "text",
+                          "id": "db462c29-31f1-4cfa-aab6-9628a2d9e184",
+                          "info": {
+                            "editorName": "txtRestartAtMenu",
+                            "editorPublic": true,
+                            "x": 360,
+                            "y": 1149,
+                            "anchor.x": 0.5,
+                            "anchor.y": 0.5,
+                            "text": "This is a text",
+                            "style.font": "Blogger Sans",
+                            "style.fontSize": 40,
+                            "style.fill": "#ff9100"
+                          }
+                        }
+                      ]
                     }
                   }
                 ]
@@ -899,75 +932,75 @@
     },
     "6": {
       "file": "WebContent/assets/assets-pack.json",
-      "section": "ingame",
-      "asset": "auhaSheet1",
-      "sprite": "8"
+      "section": "title",
+      "asset": "titleAtlas",
+      "sprite": "01.png"
     },
     "7": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "ingame",
       "asset": "MenuScene",
-      "sprite": "btn_mainYellow.png"
+      "sprite": "img_bgNavi.png"
     },
     "8": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "ingame",
       "asset": "MenuScene",
-      "sprite": "btn_subBlue.png"
+      "sprite": "btn_rightScrolling.png"
     },
     "9": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "ingame",
       "asset": "MenuScene",
-      "sprite": "icon_invite.png"
-    },
-    "10": {
-      "file": "WebContent/assets/assets-pack.json",
-      "section": "ingame",
-      "asset": "auhaSheet1",
-      "sprite": "5"
-    },
-    "11": {
-      "file": "WebContent/assets/assets-pack.json",
-      "section": "ingame",
-      "asset": "CharacterSelect",
-      "sprite": "icon_goToStageSelect.png"
-    },
-    "12": {
-      "file": "WebContent/assets/assets-pack.json",
-      "section": "ingame",
-      "asset": "MenuScene",
-      "sprite": "img_bgNavi.png"
-    },
-    "13": {
-      "file": "WebContent/assets/assets-pack.json",
-      "section": "ingame",
-      "asset": "MenuScene",
-      "sprite": "btn_rightScrolling.png"
-    },
-    "14": {
-      "file": "WebContent/assets/assets-pack.json",
-      "section": "ingame",
-      "asset": "MenuScene",
       "sprite": "btn_leftScrolling.png"
     },
-    "15": {
+    "10": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "ingame",
       "asset": "MenuScene",
       "sprite": "icon_option.png"
     },
-    "16": {
+    "11": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "ingame",
       "asset": "MenuScene",
       "sprite": "icon_world01.png"
     },
-    "17": {
+    "12": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "ingame",
       "asset": "MenuScene",
       "sprite": "img_dotBlue.png"
+    },
+    "13": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "MenuScene",
+      "sprite": "btn_subBlue.png"
+    },
+    "14": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "CharacterSelect",
+      "sprite": "icon_goToStageSelect.png"
+    },
+    "15": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "auhaSheet1",
+      "sprite": "5"
+    },
+    "16": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "MenuScene",
+      "sprite": "icon_invite.png"
+    },
+    "17": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "MenuScene",
+      "sprite": "btn_mainYellow.png"
     }
   },
   "prefab-table": {"0": "WebContent/src/prefabs/WorldUserProfile.canvas"}

@@ -189,7 +189,6 @@ function strPadLeft(string,pad,length) {
     return (new Array(length+1).join(pad)+string).slice(-length);
 }
 
-
 StzUtil.getScreenCapture = function(inGameContext, inX, inY, inWidth, inHeight, inScale, inTargetCanvas) {
 	var base64Picture = null;
 	if (inGameContext.renderType === Phaser.CANVAS) {
@@ -199,7 +198,7 @@ StzUtil.getScreenCapture = function(inGameContext, inX, inY, inWidth, inHeight, 
 		var captureHeight = inHeight || inGameContext.height;
 		var captureScale = inScale || 1;
 		var captureXOffset = (captureHeight * 1.9 - captureWidth);
-		captureXOffset = (captureXOffset < 0 ? 0 : captureXOffset);
+		captureXOffset = 0;//(captureXOffset < 0 ? 0 : captureXOffset);
 		var captureYOffset = (captureHeight - 380);
 		captureYOffset = (captureYOffset < 0 ? 0 : captureYOffset);
 		
@@ -215,7 +214,7 @@ StzUtil.getScreenCapture = function(inGameContext, inX, inY, inWidth, inHeight, 
 			inGameContext.stage.updateTransform();
 			bmd.drawGroup(inTargetCanvas);
 			//captureBMD.copy(bmd, captureX, captureY, captureWidth, captureHeight,  captureXOffset / 2,0, captureWidth, captureHeight, null, null, null, captureScale, captureScale);
-			captureBMD.draw(bmd, captureX, captureY, captureWidth, captureHeight, captureXOffset / 2, captureYOffset / 2, captureWidth, captureHeight, null, null, null, captureScale, captureScale);			
+			captureBMD.draw(bmd, captureX, captureY, captureWidth, captureHeight, captureXOffset / 2, captureYOffset / 2, captureWidth, captureHeight, null, null, null, captureScale, captureScale);
 			inTargetCanvas.destroy();
 		}
 		else{
@@ -549,4 +548,24 @@ StzUtil.alphaScaleTween = function(inGame, inTarget, inCurAlpha, inCurScale, inT
     .onComplete.addOnce(function(){
         inGame.add.tween(inTarget.scale).to({x : 1, y: 1}, 100, Phaser.Easing.Linear.None, true)
     }.bind(this));
+};
+
+StzUtil.setLimitTextWidth = function (inTextObj, inLimitWidth, inTextMsg) {
+	if (inTextMsg !== undefined) inTextObj.text = inTextMsg;
+
+	if (inLimitWidth === undefined) inLimitWidth = inTextObj.width;
+
+	if (inTextObj.width > inLimitWidth) {
+		inTextObj.scale.setTo(inLimitWidth / inTextObj.width);
+	}
+};
+
+StzUtil.setLimitTextHeight = function (inTextObj, inLimitHeight, inTextMsg) {
+	if (inTextMsg !== undefined) inTextObj.text = inTextMsg;
+
+	if (inLimitHeight === undefined) inLimitHeight = inTextObj.height;
+
+	if (inTextObj.height > inLimitHeight) {
+		inTextObj.scale.setTo(inLimitHeight / inTextObj.height);
+	}
 };

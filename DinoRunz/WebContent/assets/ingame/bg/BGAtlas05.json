@@ -1,0 +1,44 @@
+{"frames": [
+
+{
+	"filename": "q21.jpg",
+	"frame": {"x":1,"y":1,"w":800,"h":800},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":800,"h":800},
+	"sourceSize": {"w":800,"h":800}
+},
+{
+	"filename": "q22.jpg",
+	"frame": {"x":1,"y":803,"w":800,"h":800},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":800,"h":800},
+	"sourceSize": {"w":800,"h":800}
+},
+{
+	"filename": "q23.jpg",
+	"frame": {"x":803,"y":1,"w":800,"h":800},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":800,"h":800},
+	"sourceSize": {"w":800,"h":800}
+},
+{
+	"filename": "q24.jpg",
+	"frame": {"x":803,"y":803,"w":800,"h":800},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":800,"h":800},
+	"sourceSize": {"w":800,"h":800}
+}],
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "BGAtlas05.jpg",
+	"format": "RGB888",
+	"size": {"w":1604,"h":1604},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:d7c0f28969efb3216b58c32ddaa8166a:efd2c1b4137ae1f89a8c5377e5ef4cd5:b4ad8c3170d1ce11bff5786e00d7c50e$"
+}
+}

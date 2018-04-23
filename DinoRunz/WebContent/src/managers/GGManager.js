@@ -62,13 +62,15 @@ function GGManager_proto () {
 		this.isEnableByNameDic = {};
 		
 		this.isEnableByNameDic[EAdName.REWARD_GET_CHARACTER] = 1; //(StaticManager.dino_thornz_base.get('interstitial_restart_enable') ? StaticManager.dino_thornz_base.get('interstitial_restart_enable').value : 0);
-		this.isEnableByNameDic[EAdName.INTERSTITIAL_INGAME_RESTART] = 3//(StaticManager.dino_thornz_base.get('interstitial_restart_enable') ? StaticManager.dino_thornz_base.get('interstitial_restart_enable').value : 0);
+		this.isEnableByNameDic[EAdName.REWARD_SKIP] = 2;
+		this.isEnableByNameDic[EAdName.REWARD_SLOW] = 3;
+		this.isEnableByNameDic[EAdName.INTERSTITIAL_INGAME_RESTART] = 4;//(StaticManager.dino_thornz_base.get('interstitial_restart_enable') ? StaticManager.dino_thornz_base.get('interstitial_restart_enable').value : 0);
 
 		//보상형 광고
 		if(this._reward_ad_info === undefined || this._reward_ad_info === null){
 			this._reward_ad_info = {
 					reward_get_character : {'name' : 'reward_get_character'}
-			}
+			};
 		}
 		
 		for (var index = 0; index < AdConfig.REWARDED_NAME_LIST.length; index++) {
@@ -96,7 +98,7 @@ function GGManager_proto () {
 		if(this._interstitial_ad_info === undefined || this._interstitial_ad_info === null){
 			this._interstitial_ad_info = {
 					"interstitial_ingame_restart": {"name" : "interstitial_ingame_restart"}
-			}
+			};
 		}
 		for (var index = 0; index < AdConfig.INTERSTITIAL_NAME_LIST.length; index++) {
 			var interAdName = AdConfig.INTERSTITIAL_NAME_LIST[index];
@@ -164,9 +166,9 @@ function GGManager_proto () {
 		}
 		
 		//로컬테스트
-//		this._rewarded[EAdName.REWARDED_UPGRADE_NAME] =  new AdModel(EAdType.REWARDED, this._reward_ad_info[EAdName.REWARDED_UPGRADE_NAME].time, 
-//				this._reward_ad_info[EAdName.REWARDED_UPGRADE_NAME].count, this.game);
-//		return this._rewarded[EAdName.REWARDED_UPGRADE_NAME];
+		// this._rewarded[EAdName.REWARDED_UPGRADE_NAME] =  new AdModel(EAdType.REWARDED, this._reward_ad_info[EAdName.REWARDED_UPGRADE_NAME].time, 
+		// 		this._reward_ad_info[EAdName.REWARDED_UPGRADE_NAME].count, this.game);
+		// return this._rewarded[EAdName.REWARDED_UPGRADE_NAME];
 	};
 	
 	this.show = function(inAdName) {
@@ -248,7 +250,7 @@ function adVideoModel(inAdType, inPlacementId) {
 			state : null,
 			adInstance:null,
 			placementID : inPlacementId
-	}
+	};
 	
 	this.setAdInstancee = function(inAdInstance) {
 		_obj.adInstance = inAdInstance;
@@ -286,8 +288,9 @@ function adVideoModel(inAdType, inPlacementId) {
 		}
 		
 		StzLog.print("[GGManager] _obj.placementID : " +  _obj.placementID);
-		FBInstant.getInterstitialAdAsync(_obj.placementID).then(function(rewardedVideo) {
-			_obj.adInstance = rewardedVideo;
+		FBInstant.getInterstitialAdAsync(_obj.placementID).then(function(interstitial) {
+			StzLog.print("[GGManager] getInterstitialAdAsync : " +   interstitial.getPlacementID());
+			_obj.adInstance = interstitial;
 			_obj.state = ELoadState.AD_LOADING;
 			this._loadAsync();
 		}.bind(this))
@@ -342,7 +345,7 @@ function adVideoModel(inAdType, inPlacementId) {
 			}.bind(this));
 		}
 	};
-};
+}
 
 function AdModel(inAdType, inName, inGame) {
 	var _obj = {

@@ -9,8 +9,7 @@
 /**
  * WorldUserProfile.
  * @param {Phaser.Game} aGame A reference to the currently running game.
- * @param {Phaser.Group} aParent The parent Group (or other {@link DisplayObject}) that this group will be added to.
-    If undefined/unspecified the Group will be added to the {@link Phaser.Game#world Game World}; if null the Group will not be added to any parent.
+ * @param {Phaser.Group} aParent The parent Group (or other {@link DisplayObject}) that this group will be added to.    If undefined/unspecified the Group will be added to the {@link Phaser.Game#world Game World}; if null the Group will not be added to any parent.
  * @param {string} aName A name for this group. Not used internally but useful for debugging.
  * @param {boolean} aAddToStage If true this group will be added directly to the Game.Stage instead of Game.World.
  * @param {boolean} aEnableBody If true all Sprites created with {@link #create} or {@link #createMulitple} will have a physics body created on them. Change the body type with {@link #physicsBodyType}.
@@ -25,11 +24,15 @@ function WorldUserProfile(aGame, aParent, aName, aAddToStage, aEnableBody, aPhys
 	var _sprFrameStroke = this.game.add.sprite(0, 0, 'MenuScene', 'img_userFrameStroke.png', this);
 	_sprFrameStroke.anchor.setTo(0.5, 0.5);
 	
+	var _sprStageNumBG = this.game.add.sprite(0, 45, 'MenuScene', 'img_orange.png', this);
+	_sprStageNumBG.anchor.setTo(0.5, 0.5);
+	
 	
 	
 	// public fields
 	
 	this.fSprUserFrame = _sprUserFrame;
+	this.fSprStageNumBG = _sprStageNumBG;
 	/* --- post-init-begin --- */
 	var maskProfile = this.game.add.graphics(0, 0, this);
 	maskProfile.beginFill(0x000000);
@@ -38,21 +41,10 @@ function WorldUserProfile(aGame, aParent, aName, aAddToStage, aEnableBody, aPhys
 	
 	this.fSprUserFrame.mask = maskProfile;
 	
-	this.game.cache.addNinePatch("nineStageBG", "MenuScene", "img_userStageBG.png", 15, 15, 13, 13);
-	var _ninepatch_stageBG = new Phaser.NinePatchImage(this.game, 0, 0, "nineStageBG");
-	_ninepatch_stageBG.targetWidth = parseInt(_sprFrameStroke.width) - 10;
-	_ninepatch_stageBG.targetHeight = 25;
-	_ninepatch_stageBG.position.setTo(-_sprUserFrame.width*0.5, 30);
-	_ninepatch_stageBG.anchor.setTo(0.5);
-	_ninepatch_stageBG.UpdateImageSizes();
-	
-	this.addChild(_ninepatch_stageBG);
-	_ninepatch_stageBG.position.setTo(0, 42);
-	
 	this.txtStageNum = this.game.add.text(0, 2.5, "999", {font:"bold 22px Blogger Sans", fill:"#ffffff"}, this);
 	this.txtStageNum.anchor.setTo(0.5);
 	
-	_ninepatch_stageBG.addChild(this.txtStageNum);
+	this.fSprStageNumBG.addChild(this.txtStageNum);
 	/* --- post-init-end --- */
 	
 	

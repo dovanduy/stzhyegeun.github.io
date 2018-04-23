@@ -20,6 +20,11 @@ var PlayerDataManager_proto  = function() {
 		this.friendCount = 0;
 		this.contextLederBoardData = null;
 		this.contextFriendCount = 0;
+
+		this.ESortOrder = {
+			DESCEND	: "Descend",
+			ASCEND	: "Ascend"
+		};
 	}
 	
 	var _friends = [];
@@ -49,8 +54,8 @@ var PlayerDataManager_proto  = function() {
 					fallenBlockId = this.extraDataParse(entries[i].getExtraData()).fallenBlockId;
 				}
 
-				_friends.push({'profileInfo' : new ProfileInfoModel(0, entries[i].getPlayer().getID(), playerName, playerPhoto, 0)
-				, bestStage : entries[i].getScore(), fallenBlockId: fallenBlockId});
+				_friends.push({'profileInfo' : new ProfileInfoModel(0, entries[i].getPlayer().getID(), playerName, playerPhoto, 0), 
+					bestStage : entries[i].getScore(), fallenBlockId: fallenBlockId});
 			}
 			
 			if(inCompleteCallback){
@@ -61,7 +66,7 @@ var PlayerDataManager_proto  = function() {
 			if(inFailCallback){
 				inFailCallback(err);
 			}
-		})
+		});
 	};
 	
 	this.initFriendsLocal = function(){
@@ -71,6 +76,19 @@ var PlayerDataManager_proto  = function() {
 		_friends.push({'profileInfo' : new ProfileInfoModel(0, '4', 'AHURA', 'default_thumb', 0), bestStage : 55, fallenBlockId: 16});
 		_friends.push({'profileInfo' : new ProfileInfoModel(0, '5', 'SUN', 'default_thumb', 0), bestStage : 27, fallenBlockId: 3});
 	};
+
+	this.sortFriends = function (inSortKey, inStrSortOrder) {
+		if (inStrSortOrder === this.ESortOrder.ASCEND) {
+			_friends.sort(function (a, b) {
+				return a[inSortKey] - b[inSortKey];
+			});
+		}
+		else if (inStrSortOrder === this.ESortOrder.DESCEND) {
+			_friends.sort(function (a, b) {
+				return b[inSortKey] - a[inSortKey];
+			});
+		}
+	};
 	
 	this.getFriends = function(){
 		return _friends;
@@ -78,7 +96,7 @@ var PlayerDataManager_proto  = function() {
 	
 	this.setFriedsCount = function(inValue){
 		this.friendCount = inValue;
-	}
+	};
 	
 	this.initContextFriends = function(inCompleteCallback, inFailCallback){
 		var count = (MAX_LOAD_FRIENDS_COUNT < this.contextFriendCount)? MAX_LOAD_FRIENDS_COUNT:this.contextFriendCount;
@@ -108,7 +126,7 @@ var PlayerDataManager_proto  = function() {
 			if(inFailCallback){
 				inFailCallback(err);
 			}
-		})
+		});
 	};
 	
 	this.initContextFriendsLocal = function(){
@@ -118,6 +136,19 @@ var PlayerDataManager_proto  = function() {
 		_contextFriends.push({'profileInfo' : new ProfileInfoModel(0, '4', 'AHURA', 'default_thumb', 0), bestStage : 55, fallenBlockId : 16});
 		_contextFriends.push({'profileInfo' : new ProfileInfoModel(0, '5', 'SUN', 'default_thumb', 0), bestStage : 27, fallenBlockId : 3});
 	};
+
+	this.sortContextFriends = function (inSortKey, inStrSortOrder) {
+		if (inStrSortOrder === this.ESortOrder.ASCEND) {
+			_contextFriends.sort(function (a, b) {
+				return a[inSortKey] - b[inSortKey];
+			});
+		}
+		else if (inStrSortOrder === this.ESortOrder.DESCEND) {
+			_contextFriends.sort(function (a, b) {
+				return b[inSortKey] - a[inSortKey];
+			});
+		}
+	};
 	
 	this.getContextFriends = function(){
 		return _contextFriends;
@@ -125,15 +156,16 @@ var PlayerDataManager_proto  = function() {
 	
 	this.setContextFriedsCount = function(inValue){
 		this.contextFriendCount = inValue;
-	}
+	};
 	
 	this.saveLederBoardData = function(extraData, resolve){
 		if(window.FBInstant){
-			var leaderBoardSetData = this.lederBoardData.setScoreAsync(DinoRunz.Storage.UserData.lastClearedStage, extraData)
-			lederBoardData
+			var leaderBoardSetData = this.lederBoardData.setScoreAsync(DinoRunz.Storage.UserData.lastClearedStage, extraData);
+			
+			leaderBoardSetData
 			.then(function(entry){
-				StzLog.print(entry.getScore());
-				StzLog.print(entry.getExtraData());
+				StzLog.print("score: " + entry.getScore());
+				StzLog.print("extraData: " + entry.getExtraData());
 			})
 			.catch(function(err){
 				//리더보드 세이브 실패
@@ -145,8 +177,8 @@ var PlayerDataManager_proto  = function() {
 
 				contextLeaderBoardSetData
 				.then(function(entry){
-					StzLog.print(entry.getScore());
-					StzLog.print(entry.getExtraData());
+					StzLog.print("score: " + entry.getScore());
+					StzLog.print("extraData: " + entry.getExtraData());
 				})
 				.catch(function(err){
 					//리더보드 세이브 실패
@@ -154,18 +186,18 @@ var PlayerDataManager_proto  = function() {
 				});
 			}
 
-			if(resolve){
-				if(this.contextLederBoardData) {
-					Promise.all([leaderBoardSetData, contextLeaderBoardSetData]).then(function() {
-						resolve();
-					});
-				}
-				else {
-					Promise.all([leaderBoardSetData]).then(function() {
-						resolve();
-					});
-				}
-			}
+			// if(resolve){
+			// 	if(this.contextLederBoardData) {
+			// 		Promise.all([leaderBoardSetData, contextLeaderBoardSetData]).then(function() {
+			// 			resolve();
+			// 		});
+			// 	}
+			// 	else {
+			// 		Promise.all([leaderBoardSetData]).then(function() {
+			// 			resolve();
+			// 		});
+			// 	}
+			// }
 		}
 	};
 

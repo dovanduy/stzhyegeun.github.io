@@ -23,7 +23,7 @@ function ButtonStage(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBo
 	var _btnStage = this.game.add.sprite(0, 0, 'MenuScene', 'img_stage_01Stage.png', _groupOpen);
 	_btnStage.anchor.setTo(0.5, 0.5);
 	
-	var _sprAllClear = this.game.add.sprite(0, -37, 'MenuScene', 'img_crown01Disable.png', _groupOpen);
+	var _sprAllClear = this.game.add.sprite(0, -42, 'MenuScene', 'img_crown01Disable.png', _groupOpen);
 	_sprAllClear.anchor.setTo(0.5, 0.5);
 	
 	var _txtStage = this.game.add.text(0, 8, '1', {"font":"bold 56px Blogger Sans","align":"center"}, _groupOpen);

@@ -64,6 +64,18 @@
                 "anchor.x": 0.5,
                 "anchor.y": 0.5
               }
+            },
+            {
+              "type": "atlas-sprite",
+              "id": "82a536b9-fefe-421c-9f67-f958bc07984d",
+              "asset": "2",
+              "info": {
+                "editorName": "sprStageNumBG",
+                "editorPublic": true,
+                "y": 45,
+                "anchor.x": 0.5,
+                "anchor.y": 0.5
+              }
             }
           ]
         }
@@ -83,6 +95,12 @@
       "section": "ingame",
       "asset": "MenuScene",
       "sprite": "img_userFrameStroke.png"
+    },
+    "2": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "MenuScene",
+      "sprite": "img_orange.png"
     }
   },
   "prefab-table": {}

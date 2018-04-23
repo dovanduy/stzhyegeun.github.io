@@ -9,7 +9,8 @@
 /**
  * PlayerView.
  * @param {Phaser.Game} aGame A reference to the currently running game.
- * @param {Phaser.Group} aParent The parent Group (or other {@link DisplayObject}) that this group will be added to.    If undefined/unspecified the Group will be added to the {@link Phaser.Game#world Game World}; if null the Group will not be added to any parent.
+ * @param {Phaser.Group} aParent The parent Group (or other {@link DisplayObject}) that this group will be added to.
+    If undefined/unspecified the Group will be added to the {@link Phaser.Game#world Game World}; if null the Group will not be added to any parent.
  * @param {string} aName A name for this group. Not used internally but useful for debugging.
  * @param {boolean} aAddToStage If true this group will be added directly to the Game.Stage instead of Game.World.
  * @param {boolean} aEnableBody If true all Sprites created with {@link #create} or {@link #createMulitple} will have a physics body created on them. Change the body type with {@link #physicsBodyType}.
@@ -126,11 +127,13 @@ PlayerView.prototype.updateJump = function(inPositionOffset) {
 	if (this.jumpState === 0) {
 		return;
 	}
+
+	var targetScale = null;
 	
 	if (this.jumpState === 1) {
 		if (this.jumpRemainDistance > 0) {
 			this.jumpRemainDistance = (this.jumpRemainDistance < inPositionOffset ? 0 : this.jumpRemainDistance - inPositionOffset);
-			var targetScale = this.game.math.mapLinear(this.jumpRemainDistance, 0, 80, PlayerView.JUMP_SCALE, 1);
+			targetScale = this.game.math.mapLinear(this.jumpRemainDistance, 0, 80, PlayerView.JUMP_SCALE, 1);
 			this.scale.set(targetScale);
 		} else {
 			this.jumpRemainDistance = 90;
@@ -140,7 +143,7 @@ PlayerView.prototype.updateJump = function(inPositionOffset) {
 	} else if (this.jumpState === 2) {
 		if (this.jumpRemainDistance > 0) {
 			this.jumpRemainDistance = (this.jumpRemainDistance < inPositionOffset ? 0 : this.jumpRemainDistance - inPositionOffset);
-			var targetScale = this.game.math.mapLinear(this.jumpRemainDistance, 0, 80, 1, PlayerView.JUMP_SCALE);
+			targetScale = this.game.math.mapLinear(this.jumpRemainDistance, 0, 80, 1, PlayerView.JUMP_SCALE);
 			this.scale.set(targetScale);
 		} else {
 			this.jumpRemainDistance = 0;
@@ -203,6 +206,9 @@ PlayerView.prototype.reset = function() {
 };
 
 PlayerView.prototype.kill = function(inCallback, inContext) {
+	var rnd = this.game.rnd.integerInRange(1, 2);
+	window.sounds.sound('sfx_game_over_'+rnd).play();
+
     this.killTween = this.game.add.tween(this.fPlayerContainer.scale).to({x: 0, y: 0}, 500, Phaser.Easing.Quartic.In, true);
     this.killTween.onUpdateCallback(function(inParam){
         this.fPlayerContainer.rotation += 0.2;

@@ -9,8 +9,7 @@
 /**
  * TutorialCrown.
  * @param {Phaser.Game} aGame A reference to the currently running game.
- * @param {Phaser.Group} aParent The parent Group (or other {@link DisplayObject}) that this group will be added to.
-    If undefined/unspecified the Group will be added to the {@link Phaser.Game#world Game World}; if null the Group will not be added to any parent.
+ * @param {Phaser.Group} aParent The parent Group (or other {@link DisplayObject}) that this group will be added to.    If undefined/unspecified the Group will be added to the {@link Phaser.Game#world Game World}; if null the Group will not be added to any parent.
  * @param {string} aName A name for this group. Not used internally but useful for debugging.
  * @param {boolean} aAddToStage If true this group will be added directly to the Game.Stage instead of Game.World.
  * @param {boolean} aEnableBody If true all Sprites created with {@link #create} or {@link #createMulitple} will have a physics body created on them. Change the body type with {@link #physicsBodyType}.
@@ -22,13 +21,13 @@ function TutorialCrown(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysics
 	var _img_tutoCrown_png = this.game.add.sprite(0, 0, 'TutorialAtlas', 'img_tutoCrown.png', this);
 	_img_tutoCrown_png.anchor.setTo(0.5, 0.5);
 	
-	var _txtGray = this.game.add.text(-82, -86, 'Stage clear!', {"font":"bold 35px Blogger Sans","fill":"#1a8aa8"}, this);
+	var _txtGray = this.game.add.text(-82, -86, 'Stage clear!', {"font":"bold 30px Blogger Sans","fill":"#1a8aa8"}, this);
 	_txtGray.anchor.setTo(0.0, 0.5);
 	
-	var _txtSilver = this.game.add.text(-82, -25, 'Get all the jewels!', {"font":"bold 35px Blogger Sans","fill":"#1a8aa8"}, this);
+	var _txtSilver = this.game.add.text(-82, -25, 'Get all the jewels!', {"font":"bold 30px Blogger Sans","fill":"#1a8aa8"}, this);
 	_txtSilver.anchor.setTo(0.0, 0.5);
 	
-	var _txtGold = this.game.add.text(-82, 28, 'Use all markers!', {"font":"bold 35px Blogger Sans","fill":"#1a8aa8"}, this);
+	var _txtGold = this.game.add.text(-82, 28, 'Use all markers!', {"font":"bold 30px Blogger Sans","fill":"#1a8aa8"}, this);
 	_txtGold.anchor.setTo(0.0, 0.5);
 	
 	
@@ -38,11 +37,12 @@ function TutorialCrown(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysics
 	this.fTxtGray = _txtGray;
 	this.fTxtSilver = _txtSilver;
 	this.fTxtGold = _txtGold;
-	
 	/* --- post-init-begin --- */
 	this.visible = false;
 	this.tween = null;
 	/* --- post-init-end --- */
+	
+	
 }
 
 /** @type Phaser.Group */

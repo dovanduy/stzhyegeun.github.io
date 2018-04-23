@@ -18,7 +18,7 @@ DinoRunz.Title.prototype.preload = function () {
 };
 
 DinoRunz.Title.prototype.create = function () {
-	this.titleScene = new TitleScene(this.game, this.stage);
+	DinoRunz.titleScene = new TitleScene(this.game, this.stage);
 };
 
 DinoRunz.Title.prototype.update = function () {

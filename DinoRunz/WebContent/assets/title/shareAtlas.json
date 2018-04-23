@@ -1,0 +1,52 @@
+{"frames": [
+
+{
+	"filename": "CHATBOT_invite.png",
+	"frame": {"x":1,"y":1,"w":720,"h":380},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":720,"h":380},
+	"sourceSize": {"w":720,"h":380}
+},
+{
+	"filename": "GET.png",
+	"frame": {"x":1,"y":383,"w":720,"h":380},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":720,"h":380},
+	"sourceSize": {"w":720,"h":380}
+},
+{
+	"filename": "IMONSTAGE.png",
+	"frame": {"x":1,"y":765,"w":720,"h":380},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":720,"h":380},
+	"sourceSize": {"w":720,"h":380}
+},
+{
+	"filename": "STAGECLEAR.png",
+	"frame": {"x":1,"y":1147,"w":720,"h":380},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":720,"h":380},
+	"sourceSize": {"w":720,"h":380}
+},
+{
+	"filename": "STAGEGOLECROWN.png",
+	"frame": {"x":1,"y":1529,"w":720,"h":380},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":720,"h":380},
+	"sourceSize": {"w":720,"h":380}
+}],
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "shareAtlas.png",
+	"format": "RGBA8888",
+	"size": {"w":722,"h":1910},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:ee1771c68224210b4db628e0d831dfea:a8bf68b5ec9f9d345829bd2668cfb577:eeff94bb6222a02271ad3a0a12365583$"
+}
+}

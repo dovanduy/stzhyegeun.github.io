@@ -63,8 +63,8 @@
                 "setAll": [],
                 "children": [
                   {
-                    "type": "image",
-                    "id": "e565ebb6-720f-4214-b55b-633a402079ff",
+                    "type": "atlas-sprite",
+                    "id": "5a8e52ea-d85c-4085-87ba-d3d6be3e1fd8",
                     "asset": "0",
                     "info": {
                       "editorName": "backgroundTile2",
@@ -78,8 +78,8 @@
                     }
                   },
                   {
-                    "type": "image",
-                    "id": "73fdd321-1da9-41a4-8dab-902160257bca",
+                    "type": "atlas-sprite",
+                    "id": "04dada5f-8149-4260-8b8e-a457e3e8fbc5",
                     "asset": "1",
                     "info": {
                       "editorName": "backgroundTile1",
@@ -105,12 +105,14 @@
     "0": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "ingame",
-      "asset": "q2"
+      "asset": "BGAtlas00",
+      "sprite": "q2.jpg"
     },
     "1": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "ingame",
-      "asset": "q1"
+      "asset": "BGAtlas00",
+      "sprite": "q1.jpg"
     }
   },
   "prefab-table": {}

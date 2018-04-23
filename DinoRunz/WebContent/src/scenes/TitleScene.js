@@ -21,6 +21,24 @@ function TitleScene(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBod
 	Phaser.Group.call(this, aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBodyType);
 	this.game.add.sprite(0, 0, 'titleBG_0', null, this);
 	
+	this.game.add.sprite(35, 57, 'titleAtlas', 'img_lightingElectric.png', this);
+	
+	this.game.add.sprite(93, 755, 'titleAtlas', 'img_lightingElectric.png', this);
+	
+	this.game.add.sprite(461, 681, 'titleAtlas', 'img_lightingElectric.png', this);
+	
+	this.game.add.sprite(637, 156, 'titleAtlas', 'img_lightingElectric.png', this);
+	
+	this.game.add.sprite(90, 392, 'titleAtlas', 'img_lightingElectric.png', this);
+	
+	this.game.add.sprite(122, 168, 'titleAtlas', 'img_lightingElectric.png', this);
+	
+	this.game.add.sprite(630, 520, 'titleAtlas', 'img_lightingElectric.png', this);
+	
+	this.game.add.sprite(429, 432, 'titleAtlas', 'img_lightingElectric.png', this);
+	
+	this.game.add.sprite(625, 812, 'titleAtlas', 'img_lightingElectric.png', this);
+	
 	var _moveTitleBG = this.game.add.sprite(360, 280, 'titleBG_1', null, this);
 	_moveTitleBG.anchor.setTo(0.5, 0.5);
 	
@@ -30,21 +48,21 @@ function TitleScene(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBod
 	
 	var _sprTitle = this.game.add.sprite(0, -47, 'titleTitleImg', null, this);
 	
-	var _btnPlay = this.game.add.sprite(360, 880, 'titleAtlas', 'btn_play.png', this);
+	var _btnPlay = this.game.add.sprite(360, 1300, 'titleAtlas', 'btn_play.png', this);
 	_btnPlay.anchor.setTo(0.5, 0.5);
 	
 	var _userProfileGroup = this.game.add.group(this);
 	
 	var _profilesGroup = this.game.add.group(_userProfileGroup);
 	
-	var _group3 = new TitleUserProfile(this.game, _profilesGroup);
-	_group3.position.setTo(535, 1210);
+	var _group1 = new TitleUserProfile(this.game, _profilesGroup);
+	_group1.position.setTo(63, 1210);
 	
 	var _group2 = new TitleUserProfile(this.game, _profilesGroup);
 	_group2.position.setTo(302, 1210);
 	
-	var _group1 = new TitleUserProfile(this.game, _profilesGroup);
-	_group1.position.setTo(63, 1210);
+	var _group3 = new TitleUserProfile(this.game, _profilesGroup);
+	_group3.position.setTo(535, 1210);
 	
 	var _img_titleUserInfoAreaLine_png = this.game.add.sprite(472, 1210, 'titleAtlas', 'img_titleUserInfoAreaLine.png', _userProfileGroup);
 	_img_titleUserInfoAreaLine_png.anchor.setTo(0.5, 0.5);
@@ -68,12 +86,14 @@ function TitleScene(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBod
 	var _img_gem01_png3 = this.game.add.sprite(510, 0, 'titleAtlas', 'img_gem01.png', _gemGroup);
 	_img_gem01_png3.anchor.setTo(0.5, 0.5);
 	
-	var _titleDinoSpriteSheet = this.game.add.sprite(28, 429, 'titleDinoSpriteSheet', 0, this);
-	var _titleDinoSpriteSheet_walk = _titleDinoSpriteSheet.animations.add('walk', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34], 15, true);
-	_titleDinoSpriteSheet_walk.play();
+	var _dinoFullFrame = this.game.add.sprite(196, 573, 'dinoFullFrame', 0, this);
+	_dinoFullFrame.scale.setTo(2.0, 2.0);
+	_dinoFullFrame.anchor.setTo(0.5, 0.5);
+	var _dinoFullFrame_walk = _dinoFullFrame.animations.add('walk', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46], 35, true);
+	_dinoFullFrame_walk.play();
 	
-	var _loading = this.game.add.sprite(0, 0, 'loading', null, this);
-
+	
+	
 	// public fields
 	
 	this.fMoveTitleBG = _moveTitleBG;
@@ -82,31 +102,31 @@ function TitleScene(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBod
 	this.fUserProfileGroup = _userProfileGroup;
 	this.fProfilesGroup = _profilesGroup;
 	this.fGemGroup = _gemGroup;
-	this.fLoading = _loading;
+	this.fDinoFullFrame = _dinoFullFrame;
 	/* --- post-init-begin --- */
 	this.isLoadResComplete = false;
 
 	this.game.add.tween(this.fSprTitle.position).to({y:-57}, 1000, Phaser.Easing.Linear.None, true, 0, -1, true);
-	this.game.add.tween(this.fBtnPlay.position).to({y:870}, 1500, Phaser.Easing.Linear.None, true, 0, -1, true);
+	// this.game.add.tween(this.fBtnPlay.position).to({y:870}, 1500, Phaser.Easing.Linear.None, true, 0, -1, true);
 	
 	window.sounds.sound('bgm_lobby').play("", 0, DinoRunz.InGame.isMusic, true);
 	
 	this.fBtnPlay.inputEnabled = true;
 	this.fBtnPlay.events.onInputUp.addOnce(function () {
 		window.sounds.sound('sfx_button').play();
+		
+		this.sLoadingScene.startLoading();
+
 		this.game.load.pack("ingame", "assets/assets-pack.json");
 		this.game.load.start();
 		this.game.load.onLoadComplete.addOnce(function() {
-			// this.game.state.start("InGame", true, false, DinoRunz.InGame.EGameMode.RUN, DinoRunz.Storage.UserData.lastClearedStage);
-			// window.sounds.createSound(this.game);
-			// this.destroy();
 			this.isLoadResComplete = true;
 		}, this);
 		
-		this.fLoading.visible = true;
+		// this.fLoading.visible = true;
 	}, this);
 	
-	this.game.add.tween(this.fGemGroup.position).to({x:223, y:556}, 500, Phaser.Easing.Linear.None, true, 0, -1, false);
+	this.game.add.tween(this.fGemGroup.position).to({x:223, y:556}, 350, Phaser.Easing.Linear.None, true, 0, -1, false);
 	
 	this.game.cache.addNinePatch("titleLongBtn", "titleAtlas", "img_titleBlueSkybtn.png", 25, 25, 0, 0);
 	this.fBtnLongInvite = new Phaser.NinePatchImage(this.game, 360, 1210, "titleLongBtn");
@@ -120,14 +140,15 @@ function TitleScene(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBod
 		changeContext.call(this);
 	}, this);
 	
-	this.fTxtLongBtn = this.game.add.text(-150, 0, "Join the chat room\nand play with your friend!", {"font":"bold 24px Blogger Sans","fill":"#1a8aa8", "align":"center"});
+	this.fTxtLongBtn = this.game.add.text(-150, 0, StzTrans.translate(StaticManager.ELocale.chat_room), {"font":"bold 24px Blogger Sans","fill":"#1a8aa8", "align":"center"});
 	this.fTxtLongBtn.anchor.setTo(0.5);
+
 	var sprArrow = this.game.add.sprite(10, 0, "titleAtlas", "img_titleArrowToInvite.png");
 	sprArrow.anchor.setTo(0.5);
 	var sprIconInvite = this.game.add.sprite(50, 0, "titleAtlas", "icon_titleinviteFreinds.png");
 	sprIconInvite.anchor.setTo(0.5);
 	
-	this.fTxtLongBtnTitle = this.game.add.text(180, 0, "INVITE FRIENDS", {"font":"bold 28px Blogger Sans","fill":"#1a8aa8"})
+	this.fTxtLongBtnTitle = this.game.add.text(180, 0, "INVITE FRIENDS", {"font":"bold 28px Blogger Sans","fill":"#1a8aa8"});
 	this.fTxtLongBtnTitle.anchor.setTo(0.5);
 	
 	this.add(this.fBtnLongInvite);
@@ -151,8 +172,13 @@ function TitleScene(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBod
 
 	function changeContext() {
 		FbManager.inviteFriend(function(){
-			this.game.state.restart(true, false);
-			PlayerData.saveData.setUserData();
+			if(PlayerDataManager.getContextFriends().length < 3) {
+				PlayerDataManager.initContextFriendsLocal();
+				PlayerDataManager.sortContextFriends("bestStage", PlayerDataManager.ESortOrder.DESCEND);				
+			}
+			
+			this.setTitleShowingObject(PlayerDataManager.getContextFriends(), false);
+			PlayerDataManager.saveData.setUserData();
 		}.bind(this), null, this);
 	}
 	
@@ -160,13 +186,17 @@ function TitleScene(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBod
 	sprIconInviteShort.anchor.setTo(0.5);
 	sprIconInviteShort.scale.setTo(0.8);
 	
-	this.fTxtInviteShort = this.game.add.text(25, 0, "INVITE FRIENDS", {"font":"bold 28px Blogger Sans","fill":"#1a8aa8"});
+	this.fTxtInviteShort = this.game.add.text(25, 0, StzTrans.translate(StaticManager.ELocale.invite_friend_text_b), {"font":"bold 28px Blogger Sans","fill":"#1a8aa8"});
 	this.fTxtInviteShort.anchor.setTo(0.5);
 
 	this.fBtnShortInvite.addChild(sprIconInviteShort);
 	this.fBtnShortInvite.addChild(this.fTxtInviteShort);
 	
-	this.fLoading.visible = false;
+	StzUtil.setLimitTextWidth (this.fTxtLongBtn, 282);
+	StzUtil.setLimitTextWidth (this.fTxtLongBtnTitle, 190);	
+	StzUtil.setLimitTextWidth (this.fTxtInviteShort, 175);
+	
+	// this.fLoading.visible = false;
 	this.fBtnLongInvite.visible = false;
 	this.fBtnShortInvite.visible = false;
 	this.fUserProfileGroup.visible = false;
@@ -178,11 +208,21 @@ function TitleScene(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBod
 	this.moveBGTween = null;
 	this.moveBG();
 
-	this.addChildAt(this.fLoading, this.children.length - 1);//depth 정리.
-	this.fLoading.inputEnabled = true;
+	// this.addChildAt(this.fLoading, this.children.length - 1);//depth 정리.
+	// this.fLoading.inputEnabled = true;
+
+	this.fFader = this.game.add.graphics(0, 0, this);
+	this.fFader.beginFill(0x000000);
+	this.fFader.drawRect(0, 0, DinoRunz.GameConfig.width, DinoRunz.GameConfig.height);
+	this.fFader.visible = false;
+
+	this.isStartingGame = false;
+
+	Server.setLog(EServerLogMsg.INIT);
+	Server.setLog(EServerLogMsg.INIT_STEP, {'p1' : EInitStep.TITLE});
+
+	this.sLoadingScene = new RunzLoading(this.game, this);
 	/* --- post-init-end --- */
-	
-	
 }
 
 /** @type Phaser.Group */
@@ -193,12 +233,17 @@ TitleScene.prototype.constructor = TitleScene;
 /* --- end generated code --- */
 // -- user code here --
 
-TitleScene.prototype.setUserProfiles = function(friendsList) {
+TitleScene.prototype.setTitleShowingObject = function(friendsList, isTween) {
+	this.fBtnLongInvite.visible = false;
+	this.fBtnShortInvite.visible = false;
+	this.fUserProfileGroup.visible = false;
+	this.fBtnPlay.visible = false;
+
+	if(isTween === undefined) isTween = false;
 	this.isSetProfiles = true;
 
 	if(friendsList.length === 0) {
-		this.fBtnPlay.visible = true;
-		this.fBtnLongInvite.visible = true;
+		if(isTween) this.tweenTitle(friendsList);
 		return;
 	}
 
@@ -208,7 +253,7 @@ TitleScene.prototype.setUserProfiles = function(friendsList) {
 	var profileData = [];
 
 	for(i = 0 ;  i < length ; ++i) {
-		profileData.push({key:friendsList[i].profileInfo.getImageKey(), url:friendsList[i].profileInfo.getPhotoUrl()})
+		profileData.push({key:friendsList[i].profileInfo.getImageKey(), url:friendsList[i].profileInfo.getPhotoUrl()});
 	}
 
 	StzUtil.loadImagesFromURL(this.game, profileData, function() {
@@ -220,19 +265,23 @@ TitleScene.prototype.setUserProfiles = function(friendsList) {
 			titleProfiles[i].visible = true;
 			titleProfiles[i].setProfile(friendsList[i].profileInfo.getImageKey(), friendsList[i].profileInfo.getName(), friendsList[i].bestStage);
 		}
+
+		if(isTween) this.tweenTitle(friendsList);
 	}, this);
 };
 
 TitleScene.prototype.update = function () {
 	if(!DinoRunz.isLoadNeedData) return;
 	
-	if(!this.isSetProfiles) this.setUserProfiles(PlayerDataManager.getContextFriends());
+	if(!this.isSetProfiles) {
+		this.fBtnPlay.visible = true;
+		this.setTitleShowingObject(PlayerDataManager.getContextFriends(), true);
+	}
 
 	if(!this.isLoadResComplete) return;
+	if(this.isStartingGame) return;
 
-	this.game.state.start("InGame", true, false, DinoRunz.InGame.EGameMode.RUN, DinoRunz.Storage.UserData.lastClearedStage);
-	window.sounds.createSound(this.game);
-	this.destroy();
+	this.startGame();
 };
 
 TitleScene.prototype.moveBG = function() {
@@ -269,7 +318,54 @@ TitleScene.prototype.moveBG = function() {
 
 	this.moveBGTween = this.game.add.tween(this.fMoveTitleBG).to({x:posX, y:posY}, 2500, Phaser.Easing.Linear.None, true);
 	this.moveBGTween.onComplete.addOnce(function() {
-		this.game.tweens.remove(this.moveBGTween)
+		this.game.tweens.remove(this.moveBGTween);
 		this.moveBG();
+	}, this);
+};
+
+TitleScene.prototype.startGame = function (inCompleteCallback) {
+	this.sLoadingScene.stopLoading();
+
+	this.isStartingGame = true;
+	this.fFader.visible = true;
+	this.fFader.alpha = 0;
+	var fadeTween = this.game.add.tween(this.fFader).to({alpha: 1}, 1000, Phaser.Easing.Linear.None, true);
+	fadeTween.onComplete.add(function() {
+		this.game.tweens.remove(fadeTween);
+		window.sounds.createSound(this.game);
+		this.game.state.start("InGame", true, false, DinoRunz.InGame.EGameMode.RUN, DinoRunz.Storage.UserData.lastClearedStage);
+		// this.destroy();
+	}, this);
+	
+};
+
+TitleScene.prototype.tweenTitle = function (friendsList) {
+	this.fBtnPlay.visible = true;
+	this.fBtnPlay.position.setTo(360, 1300);
+	var btnPlayTween = this.game.add.tween(this.fBtnPlay.position).to({y: 880}, 200, Phaser.Easing.Linear.None, true);
+	btnPlayTween.onComplete.add(function () {
+		this.game.add.tween(this.fBtnPlay.position).to({y:870}, 1500, Phaser.Easing.Linear.None, true, 0, -1, true);
+		this.game.tweens.remove(btnPlayTween);
+	}, this);
+
+
+	var tweenTarget = null;
+	var destX = 0;
+	if(friendsList.length !== 0) {
+		tweenTarget = this.fUserProfileGroup;
+		destX = 0;
+		tweenTarget.position.x = 800;
+	}
+	else {
+		tweenTarget = this.fBtnLongInvite;
+		this.fBtnLongInvite.visible = true;
+		destX = 360;
+		tweenTarget.position.x = 1200;
+	}
+	
+	
+	var tweenTargetTween = this.game.add.tween(tweenTarget.position).to({x: destX}, 200,  Phaser.Easing.Linear.None, true, 200);
+	tweenTargetTween.onComplete.add(function () {
+		this.game.tweens.remove(tweenTargetTween);
 	}, this);
 };

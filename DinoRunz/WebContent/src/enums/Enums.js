@@ -15,6 +15,7 @@ var ETileType = {
 	SLIM: 6, 
 	START: 7, 
 	GOAL: 8, 
+	END: 9,
 	EDITMODE_JUMP: 101,
 };
 
@@ -28,7 +29,23 @@ var ESlotLockType = {
 
 var EShareType = {
 	INVITE		:	'invite',
-	COIN		:	'coin',
 	CHARACTER	:	'character',
-	RESULT		:	'result'
+	RESULT		:	'result',
+	CROWN		:	"crown",
+	CLEAR		:	"clear"
+};
+
+var EStageMode = {
+	NORMAL 	: "N",
+	HARD 	: "H"
+};
+
+var EStageResult = {
+	FAIL	: "F",
+	CLEAR	: "C"
+};
+
+var EChatbotType = {
+	REPEAT 	: 	"repeat",
+	STAGE	:	"stage"
 };

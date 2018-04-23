@@ -1,0 +1,145 @@
+{
+  "canvas-version": 2,
+  "settings": {
+    "className": "RunzLoading",
+    "sceneWidth": 640,
+    "sceneHeight": 360,
+    "generateOnSave": true,
+    "enableStepping": false,
+    "lang": "JAVA_SCRIPT",
+    "baseClass": "Phaser.Group",
+    "backgroundColor": [
+      180,
+      180,
+      180
+    ],
+    "gridColor": [
+      200,
+      200,
+      200
+    ],
+    "showGrid": true
+  },
+  "stateSettings": {
+    "stageBackgroundColor": [
+      0,
+      0,
+      0
+    ],
+    "autoLoad": true,
+    "preloadSpriteId": "",
+    "preloadSprite_direction": 0,
+    "load.pack": []
+  },
+  "world": {
+    "type": "group",
+    "id": "54213096-7278-45dd-a19e-3139aa7f7119",
+    "info": {
+      "editorName": "RunzLoading",
+      "setAll": [],
+      "children": [{
+        "type": "group",
+        "id": "f2f1c1b0-a759-4366-b0e3-3942641ab30f",
+        "info": {
+          "editorName": "group",
+          "setAll": [],
+          "children": [
+            {
+              "type": "group",
+              "id": "efd526a4-3d3a-47d2-8ba4-c9a7db54e060",
+              "info": {
+                "editorName": "blindContainer",
+                "editorPublic": true,
+                "setAll": [],
+                "children": []
+              }
+            },
+            {
+              "type": "spritesheet",
+              "id": "8cf04123-7614-415b-96b9-1e847ccc95c7",
+              "asset": "0",
+              "info": {
+                "editorName": "sprLoading",
+                "editorPublic": true,
+                "x": 360,
+                "y": 520,
+                "anchor.x": 0.5,
+                "anchor.y": 0.5,
+                "animations": [{
+                  "name": "loading",
+                  "frameRate": 13,
+                  "loop": true,
+                  "frames": [
+                    "0",
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                    "6",
+                    "7",
+                    "8",
+                    "9",
+                    "10",
+                    "11",
+                    "12",
+                    "13",
+                    "14",
+                    "15",
+                    "16",
+                    "17",
+                    "18",
+                    "19",
+                    "20",
+                    "21",
+                    "22",
+                    "23",
+                    "24",
+                    "25",
+                    "26",
+                    "27",
+                    "28",
+                    "29",
+                    "30",
+                    "31",
+                    "32",
+                    "33",
+                    "34",
+                    "35",
+                    "36",
+                    "37",
+                    "38",
+                    "39",
+                    "40",
+                    "41"
+                  ]
+                }]
+              }
+            },
+            {
+              "type": "text",
+              "id": "01818f3f-db93-4cc3-9606-b0677584b35e",
+              "info": {
+                "editorName": "txtProgress",
+                "editorPublic": true,
+                "x": 360,
+                "y": 600,
+                "anchor.x": 0.5,
+                "anchor.y": 0.5,
+                "text": "progress"
+              }
+            }
+          ]
+        }
+      }]
+    }
+  },
+  "type": "GROUP",
+  "asset-table": {"0": {
+    "file": "WebContent/assets/assets-pack.json",
+    "section": "title",
+    "asset": "loadingSpriteSheet",
+    "sprite": "0"
+  }},
+  "prefab-table": {}
+}

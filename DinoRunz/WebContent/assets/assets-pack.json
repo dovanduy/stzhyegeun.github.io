@@ -115,191 +115,11 @@
       "format": "TEXTURE_ATLAS_JSON_ARRAY"
     },
     {
-      "type": "image",
-      "key": "q1",
-      "url": "assets/ingame/bg/q1.jpg",
-      "overwrite": false
-    },
-    {
-      "type": "image",
-      "key": "q10",
-      "url": "assets/ingame/bg/q10.jpg",
-      "overwrite": false
-    },
-    {
-      "type": "image",
-      "key": "q2",
-      "url": "assets/ingame/bg/q2.jpg",
-      "overwrite": false
-    },
-    {
-      "type": "image",
-      "key": "q3",
-      "url": "assets/ingame/bg/q3.jpg",
-      "overwrite": false
-    },
-    {
-      "type": "image",
-      "key": "q4",
-      "url": "assets/ingame/bg/q4.jpg",
-      "overwrite": false
-    },
-    {
-      "type": "image",
-      "key": "q5",
-      "url": "assets/ingame/bg/q5.jpg",
-      "overwrite": false
-    },
-    {
-      "type": "image",
-      "key": "q6",
-      "url": "assets/ingame/bg/q6.jpg",
-      "overwrite": false
-    },
-    {
-      "type": "image",
-      "key": "q7",
-      "url": "assets/ingame/bg/q7.jpg",
-      "overwrite": false
-    },
-    {
-      "type": "image",
-      "key": "q8",
-      "url": "assets/ingame/bg/q8.jpg",
-      "overwrite": false
-    },
-    {
-      "type": "image",
-      "key": "q9",
-      "url": "assets/ingame/bg/q9.jpg",
-      "overwrite": false
-    },
-    {
       "type": "atlas",
       "key": "PopupAtlas",
       "textureURL": "assets/ingame/atlas/PopupAtlas.png",
       "atlasURL": "assets/ingame/atlas/PopupAtlas.json",
       "format": "TEXTURE_ATLAS_JSON_ARRAY"
-    },
-    {
-      "type": "image",
-      "key": "q11",
-      "url": "assets/ingame/bg/q11.jpg",
-      "overwrite": false
-    },
-    {
-      "type": "image",
-      "key": "q12",
-      "url": "assets/ingame/bg/q12.jpg",
-      "overwrite": false
-    },
-    {
-      "type": "image",
-      "key": "q13",
-      "url": "assets/ingame/bg/q13.jpg",
-      "overwrite": false
-    },
-    {
-      "type": "image",
-      "key": "q14",
-      "url": "assets/ingame/bg/q14.jpg",
-      "overwrite": false
-    },
-    {
-      "type": "image",
-      "key": "q15",
-      "url": "assets/ingame/bg/q15.jpg",
-      "overwrite": false
-    },
-    {
-      "type": "image",
-      "key": "q16",
-      "url": "assets/ingame/bg/q16.jpg",
-      "overwrite": false
-    },
-    {
-      "type": "image",
-      "key": "q17",
-      "url": "assets/ingame/bg/q17.jpg",
-      "overwrite": false
-    },
-    {
-      "type": "image",
-      "key": "q18",
-      "url": "assets/ingame/bg/q18.jpg",
-      "overwrite": false
-    },
-    {
-      "type": "image",
-      "key": "q19",
-      "url": "assets/ingame/bg/q19.jpg",
-      "overwrite": false
-    },
-    {
-      "type": "image",
-      "key": "q20",
-      "url": "assets/ingame/bg/q20.jpg",
-      "overwrite": false
-    },
-    {
-      "type": "image",
-      "key": "q21",
-      "url": "assets/ingame/bg/q21.jpg",
-      "overwrite": false
-    },
-    {
-      "type": "image",
-      "key": "q22",
-      "url": "assets/ingame/bg/q22.jpg",
-      "overwrite": false
-    },
-    {
-      "type": "image",
-      "key": "q23",
-      "url": "assets/ingame/bg/q23.jpg",
-      "overwrite": false
-    },
-    {
-      "type": "image",
-      "key": "q24",
-      "url": "assets/ingame/bg/q24.jpg",
-      "overwrite": false
-    },
-    {
-      "type": "image",
-      "key": "q25",
-      "url": "assets/ingame/bg/q25.jpg",
-      "overwrite": false
-    },
-    {
-      "type": "image",
-      "key": "q26",
-      "url": "assets/ingame/bg/q26.jpg",
-      "overwrite": false
-    },
-    {
-      "type": "image",
-      "key": "q27",
-      "url": "assets/ingame/bg/q27.jpg",
-      "overwrite": false
-    },
-    {
-      "type": "image",
-      "key": "q28",
-      "url": "assets/ingame/bg/q28.jpg",
-      "overwrite": false
-    },
-    {
-      "type": "image",
-      "key": "q29",
-      "url": "assets/ingame/bg/q29.jpg",
-      "overwrite": false
-    },
-    {
-      "type": "image",
-      "key": "q30",
-      "url": "assets/ingame/bg/q30.jpg",
-      "overwrite": false
     },
     {
       "type": "spritesheet",
@@ -416,13 +236,109 @@
       "textureURL": "assets/ingame/atlas/resAtlas.png",
       "atlasURL": "assets/ingame/atlas/resAtlas.json",
       "format": "TEXTURE_ATLAS_JSON_ARRAY"
+    },
+    {
+      "type": "spritesheet",
+      "key": "hardstageEffect",
+      "url": "assets/ingame/hardStageEffect.png",
+      "frameWidth": 143,
+      "frameHeight": 140,
+      "frameMax": -1,
+      "margin": 0,
+      "spacing": 0
+    },
+    {
+      "type": "audio",
+      "key": "sfx_game_over_1",
+      "urls": ["assets/sound/game_over_1.wav"],
+      "autoDecode": true
+    },
+    {
+      "type": "audio",
+      "key": "sfx_game_over_2",
+      "urls": ["assets/sound/game_over_2.wav"],
+      "autoDecode": true
+    },
+    {
+      "type": "audio",
+      "key": "sfx_game_win",
+      "urls": ["assets/sound/game_win.wav"],
+      "autoDecode": true
+    },
+    {
+      "type": "audio",
+      "key": "sfx_game_over",
+      "urls": ["assets/sound/game_over.mp3"],
+      "autoDecode": true
+    },
+    {
+      "type": "audio",
+      "key": "sfx_goal_3",
+      "urls": ["assets/sound/goal_3.mp3"],
+      "autoDecode": true
+    },
+    {
+      "type": "atlas",
+      "key": "BGAtlas00",
+      "textureURL": "assets/ingame/bg/BGAtlas00.jpg",
+      "atlasURL": "assets/ingame/bg/BGAtlas00.json",
+      "format": "TEXTURE_ATLAS_JSON_ARRAY"
+    },
+    {
+      "type": "atlas",
+      "key": "BGAtlas01",
+      "textureURL": "assets/ingame/bg/BGAtlas01.jpg",
+      "atlasURL": "assets/ingame/bg/BGAtlas01.json",
+      "format": "TEXTURE_ATLAS_JSON_ARRAY"
+    },
+    {
+      "type": "atlas",
+      "key": "BGAtlas02",
+      "textureURL": "assets/ingame/bg/BGAtlas02.jpg",
+      "atlasURL": "assets/ingame/bg/BGAtlas02.json",
+      "format": "TEXTURE_ATLAS_JSON_ARRAY"
+    },
+    {
+      "type": "atlas",
+      "key": "BGAtlas03",
+      "textureURL": "assets/ingame/bg/BGAtlas03.jpg",
+      "atlasURL": "assets/ingame/bg/BGAtlas03.json",
+      "format": "TEXTURE_ATLAS_JSON_ARRAY"
+    },
+    {
+      "type": "atlas",
+      "key": "BGAtlas04",
+      "textureURL": "assets/ingame/bg/BGAtlas04.jpg",
+      "atlasURL": "assets/ingame/bg/BGAtlas04.json",
+      "format": "TEXTURE_ATLAS_JSON_ARRAY"
+    },
+    {
+      "type": "atlas",
+      "key": "BGAtlas05",
+      "textureURL": "assets/ingame/bg/BGAtlas05.jpg",
+      "atlasURL": "assets/ingame/bg/BGAtlas05.json",
+      "format": "TEXTURE_ATLAS_JSON_ARRAY"
+    },
+    {
+      "type": "atlas",
+      "key": "BGAtlas06",
+      "textureURL": "assets/ingame/bg/BGAtlas06.jpg",
+      "atlasURL": "assets/ingame/bg/BGAtlas06.json",
+      "format": "TEXTURE_ATLAS_JSON_ARRAY"
+    },
+    {
+      "type": "atlas",
+      "key": "BGAtlas07",
+      "textureURL": "assets/ingame/bg/BGAtlas07.jpg",
+      "atlasURL": "assets/ingame/bg/BGAtlas07.json",
+      "format": "TEXTURE_ATLAS_JSON_ARRAY"
     }
   ],
   "title": [
     {
       "type": "image",
       "key": "titleBG_0",
-      "url": "assets/title/img_0001elect.png",
+      "url": "assets/title/img_0001elect.jpg",
       "overwrite": false
     },
     {
@@ -469,19 +385,9 @@
       "format": "TEXTURE_ATLAS_JSON_ARRAY"
     },
     {
-      "type": "spritesheet",
-      "key": "titleDinoSpriteSheet",
-      "url": "assets/title/titleDinoSpriteSheet.png",
-      "frameWidth": 337,
-      "frameHeight": 286,
-      "frameMax": -1,
-      "margin": 0,
-      "spacing": 0
-    },
-    {
       "type": "image",
       "key": "loading",
-      "url": "assets/title/loading.png",
+      "url": "assets/title/loading.jpg",
       "overwrite": false
     },
     {
@@ -489,10 +395,43 @@
       "key": "default_thumb",
       "url": "assets/title/default_thumb.png",
       "overwrite": false
+    },
+    {
+      "type": "atlas",
+      "key": "shareAtlas",
+      "textureURL": "assets/title/shareAtlas.png",
+      "atlasURL": "assets/title/shareAtlas.json",
+      "format": "TEXTURE_ATLAS_JSON_ARRAY"
+    },
+    {
+      "type": "spritesheet",
+      "key": "dinoFullFrame",
+      "url": "assets/title/titleDinoSpriteSheet_fullframe.png",
+      "frameWidth": 169,
+      "frameHeight": 143,
+      "frameMax": -1,
+      "margin": 0,
+      "spacing": 0
+    },
+    {
+      "type": "image",
+      "key": "circle_loading",
+      "url": "assets/title/circle_loading.png",
+      "overwrite": false
+    },
+    {
+      "type": "spritesheet",
+      "key": "loadingSpriteSheet",
+      "url": "assets/title/loadingAtlas.png",
+      "frameWidth": 150,
+      "frameHeight": 150,
+      "frameMax": -1,
+      "margin": 0,
+      "spacing": 0
     }
   ],
   "meta": {
-    "generated": "1523344169998",
+    "generated": "1524452659225",
     "app": "Phaser Editor",
     "url": "http://phasereditor.boniatillo.com",
     "version": "1.0",

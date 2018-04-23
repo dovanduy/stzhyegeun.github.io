@@ -41,20 +41,20 @@ var StzTranslator_proto = function() {
     };
     
     this.translate = function(val) {
-    	if (!StaticManager.dino_thornz_locale) {
+    	if (!StaticManager.dino_runz_locale) {
     		throw new Error("No locale data!!");
     	}
     	
-    	if (!StaticManager.dino_thornz_locale.get(val)) {
+    	if (!StaticManager.dino_runz_locale.get(val)) {
     		return val;
     	}
     	
-    	if (!StaticManager.dino_thornz_locale.get(val)[this.languageCode]
-    		|| StaticManager.dino_thornz_locale.get(val)[this.languageCode] == "") {
-    		return StaticManager.dino_thornz_locale.get(val)[this.defaultLanguage];
+    	if (!StaticManager.dino_runz_locale.get(val)[this.languageCode]
+    		|| StaticManager.dino_runz_locale.get(val)[this.languageCode] == "") {
+    		return StaticManager.dino_runz_locale.get(val)[this.defaultLanguage];
     	}
     	
-    	return StaticManager.dino_thornz_locale.get(val)[this.languageCode];
+    	return StaticManager.dino_runz_locale.get(val)[this.languageCode];
     };
     
     

@@ -9,8 +9,7 @@
 /**
  * TitleUserProfile.
  * @param {Phaser.Game} aGame A reference to the currently running game.
- * @param {Phaser.Group} aParent The parent Group (or other {@link DisplayObject}) that this group will be added to.
-    If undefined/unspecified the Group will be added to the {@link Phaser.Game#world Game World}; if null the Group will not be added to any parent.
+ * @param {Phaser.Group} aParent The parent Group (or other {@link DisplayObject}) that this group will be added to.    If undefined/unspecified the Group will be added to the {@link Phaser.Game#world Game World}; if null the Group will not be added to any parent.
  * @param {string} aName A name for this group. Not used internally but useful for debugging.
  * @param {boolean} aAddToStage If true this group will be added directly to the Game.Stage instead of Game.World.
  * @param {boolean} aEnableBody If true all Sprites created with {@link #create} or {@link #createMulitple} will have a physics body created on them. Change the body type with {@link #physicsBodyType}.
@@ -27,11 +26,11 @@ function TitleUserProfile(aGame, aParent, aName, aAddToStage, aEnableBody, aPhys
 	
 	this.game.add.sprite(51, -1, 'titleAtlas', 'img_world001.png', this);
 	
-	var _userBestStage = this.game.add.text(120, 25, '9999', {"font":"bold 24px Arial","fill":"#8991e4"}, this);
-	_userBestStage.anchor.setTo(0.5, 0.5);
+	var _userBestStage = this.game.add.text(98, 21, '9999', {"font":"bold 24px Arial","fill":"#8991e4"}, this);
+	_userBestStage.anchor.setTo(0.0, 0.5);
 	
-	var _userName = this.game.add.text(104, -26, 'userName', {"font":"bold 28px Arial","fill":"#ff9100"}, this);
-	_userName.anchor.setTo(0.5, 0.5);
+	var _userName = this.game.add.text(51, -27, 'userName', {"font":"bold 28px Arial","fill":"#ff9100"}, this);
+	_userName.anchor.setTo(0.0, 0.5);
 	
 	
 	
@@ -40,7 +39,6 @@ function TitleUserProfile(aGame, aParent, aName, aAddToStage, aEnableBody, aPhys
 	this.fSprUserProfile = _sprUserProfile;
 	this.fUserBestStage = _userBestStage;
 	this.fUserName = _userName;
-	
 	/* --- post-init-begin --- */
 	var profileMask = this.game.add.graphics(0, 0, this);
 	profileMask.beginFill(0xffffff);
@@ -50,6 +48,7 @@ function TitleUserProfile(aGame, aParent, aName, aAddToStage, aEnableBody, aPhys
 	
 	this.fSprUserProfile.mask = profileMask;
 	/* --- post-init-end --- */
+	
 	
 }
 

@@ -16,13 +16,9 @@ var EServerMethod = {
 	// USER_INIT
 	USER_INIT: "/init/v1.json", //+
 	
-	SET_AD_LOG	: "/logs/advertising/log/v1.json"
-};
+	SET_AD_LOG	: "/logs/advertising/log/v1.json",
 
-var EServerLogMsg = {
-		INIT	:	'init',
-		START	:	'start',
-		end		:	'end'
+	CHATBOT_SEND_STROY	:	"/drunzchatbot/send/story/message/v1.json",
 };
 
 var ServerManager_proto = function() {
@@ -49,7 +45,7 @@ var ServerManager_proto = function() {
 			_baseUrl = "https://drunz.stzapp.net";
 		}
 		
-		var _baseLogUrl = "https://hyperlog.stzgame.net/logs";
+		var _baseLogUrl = "https://dev-hyperlog.stzgame.net/logs";
 		if (StzBuildConfig.SERVER_MODE === EServerMode.STAGE) {
 			//_baseUrl = "https://webgame-stage.stzapp.net";
 			_baseLogUrl = "https://hyperlog.stzgame.net/logs";
@@ -146,14 +142,14 @@ var ServerManager_proto = function() {
 					var message = "[ServerManager] " + inFuncName + "- Invalid parameter type: " + inParamName + " should be " + inRecommendType + " type.";
 					return message;
 				}
-			}
+			};
 		} else if (inErrorMessageType === EErrorMessageType.USER_NOT_INITIALIZED) {
 			return {
 				show: function(inPlatformId) {
 					var message = "[ServerManager] User(" + inPlatformId + ") not initialized!";
 					return message;
 				}
-			}
+			};
 		}
 		
 	};
@@ -220,6 +216,41 @@ var ServerManager_proto = function() {
 			}
 		}, this);
 	};
+
+	this.sendChatbotMessage = function(inMsgID, inDoneCallback, inFailCallback, inContext) {
+		StzLog.assert(typeof inMsgID === "string", this.ErrorLogger(EErrorMessageType.INVALID_PARAM).show("sendChatbotMessage", "inMsgID", "string"));
+		
+		var sendChatbotMessageParam = {
+				user_id: this.serverId,
+				msg_id : inMsgID
+		};
+		this.sendMessage(EServerMethod.CHATBOT_SEND_STROY, sendChatbotMessageParam, null, function(res) {
+			// DONE
+			// Check responsed data
+			if (!res.data) {
+				if (inFailCallback) {
+					inFailCallback.call(inContext, res);
+				}
+				return;
+			}
+			
+			// GameServer User Id
+			if (!res.data) {
+				if (inFailCallback) {
+					inFailCallback.call(inContext, res);
+				}
+				return;
+			}
+			if (inDoneCallback) {
+				inDoneCallback.call(inContext, res);
+			}
+		}, function(err) {
+			// FAIL
+			if (inFailCallback) {
+				inFailCallback.call(inContext, err);
+			}
+		}, this);
+	};
 	
 	/**
 	 * <setAdLog>
@@ -264,16 +295,60 @@ var ServerManager_proto = function() {
 	};
 	
 ///////////////////////// 로그 ///////////////////////////
+	this.logArray = {logs : []};
+	
 	this.setLog = function(inMsg, inVars, inDoneCallback, inFailCallback, inContext){
+		StzLog.print('[SEND_LOG] type : ' + inMsg);
+		var time = Math.floor(new Date().getTime()/1000);
+		
 		var setLogParam = {
-			logs	: {
-				game			: '29',
-				user_id			: this.serverId,
-				msg 			: inMsg,
-				vars			: inVars
-			}
+			logs	: [{
+				game			: ELOG_GAME_ID,
+			}]
 		};
-		this.sendMessage(setLogParam, setLogParam, null, null, null, this, true);
+		
+		if(StzBuildConfig.SERVER_MODE === EServerMode.DEV){
+			setLogParam.logs[0]['env'] = 'dev';
+		}
+		setLogParam.logs[0]['user_id'] = this.serverId;
+		setLogParam.logs[0]['msg'] = inMsg;
+		setLogParam.logs[0]['t'] = time;
+		
+		if(setLogParam.logs[0]){
+			for(var key in inVars){
+				setLogParam.logs[0][key] = inVars[key];
+			}
+		}
+		this.sendMessage(null, setLogParam, null, null, null, this, true);
+	};
+	
+	this.pushLogArray = function(inMsg, inVars){
+		StzLog.print('[SEND_LOG] type : ' + inMsg);
+		var time = Math.floor(new Date().getTime()/1000);
+		
+		var setLogParam = {
+				game			: ELOG_GAME_ID
+		};
+		
+		if(StzBuildConfig.SERVER_MODE === EServerMode.DEV){
+			setLogParam.env = 'dev';
+		}
+		setLogParam.user_id = this.serverId;
+		setLogParam.msg = inMsg;
+		setLogParam.t = time;
+		
+		for(var key in inVars){
+			setLogParam[key] = inVars[key];
+		}
+		
+		this.logArray.logs.push(setLogParam);
+	};
+	
+	this.sendLogArray = function(){
+		if(!this.logArray.logs || this.logArray.logs.length === 0 ){
+			return;
+		}
+		
+		this.sendMessage(null, this.logArray, null, null, null, this, true);
 	};
 };
-

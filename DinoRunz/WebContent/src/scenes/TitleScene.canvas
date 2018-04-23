@@ -51,9 +51,99 @@
               "info": {"editorName": "titleBG_"}
             },
             {
+              "type": "atlas-sprite",
+              "id": "ed355757-0203-4710-be45-44eaf9ce40cb",
+              "asset": "1",
+              "info": {
+                "editorName": "img_lightingElectric_png",
+                "x": 35,
+                "y": 57
+              }
+            },
+            {
+              "type": "atlas-sprite",
+              "id": "14a52ffb-10bf-4809-8197-5925c36b8fe3",
+              "asset": "1",
+              "info": {
+                "editorName": "img_lightingElectric_png1",
+                "x": 93,
+                "y": 755
+              }
+            },
+            {
+              "type": "atlas-sprite",
+              "id": "3f419e40-7ecf-4700-a9b5-d7b4a5b71796",
+              "asset": "1",
+              "info": {
+                "editorName": "img_lightingElectric_png2",
+                "x": 461,
+                "y": 681
+              }
+            },
+            {
+              "type": "atlas-sprite",
+              "id": "c5dbfa84-869e-464f-9a65-7d4c210a7d2c",
+              "asset": "1",
+              "info": {
+                "editorName": "img_lightingElectric_png3",
+                "x": 637,
+                "y": 156
+              }
+            },
+            {
+              "type": "atlas-sprite",
+              "id": "826f7e35-62b8-4cf8-b62e-e56529d456b4",
+              "asset": "1",
+              "info": {
+                "editorName": "img_lightingElectric_png4",
+                "x": 90,
+                "y": 392
+              }
+            },
+            {
+              "type": "atlas-sprite",
+              "id": "88830d0a-4960-4c46-95e4-820b2e5dbdf2",
+              "asset": "1",
+              "info": {
+                "editorName": "img_lightingElectric_png5",
+                "x": 122,
+                "y": 168
+              }
+            },
+            {
+              "type": "atlas-sprite",
+              "id": "c0a81ce0-f4bc-4ebe-857e-a8fb7140e346",
+              "asset": "1",
+              "info": {
+                "editorName": "img_lightingElectric_png6",
+                "x": 630,
+                "y": 520
+              }
+            },
+            {
+              "type": "atlas-sprite",
+              "id": "df059ef2-efcd-49b1-bc33-4ba100d5f040",
+              "asset": "1",
+              "info": {
+                "editorName": "img_lightingElectric_png7",
+                "x": 429,
+                "y": 432
+              }
+            },
+            {
+              "type": "atlas-sprite",
+              "id": "3ea8613e-4859-409c-8cb4-576e0254afa5",
+              "asset": "1",
+              "info": {
+                "editorName": "img_lightingElectric_png8",
+                "x": 625,
+                "y": 812
+              }
+            },
+            {
               "type": "image",
               "id": "58803f77-9d32-415c-8196-a96110fbd159",
-              "asset": "1",
+              "asset": "2",
               "info": {
                 "editorName": "moveTitleBG",
                 "editorPublic": true,
@@ -66,13 +156,13 @@
             {
               "type": "image",
               "id": "df243558-acf2-439a-aed0-2bd0bcec83c4",
-              "asset": "2",
+              "asset": "3",
               "info": {"editorName": "titleBG_2"}
             },
             {
               "type": "image",
               "id": "af7297b1-0bd4-49d6-92de-f44d86ceff79",
-              "asset": "3",
+              "asset": "4",
               "info": {
                 "editorName": "titleRoad",
                 "y": 323
@@ -81,7 +171,7 @@
             {
               "type": "image",
               "id": "96f5c25c-8376-4145-ba54-a385b11a44a1",
-              "asset": "4",
+              "asset": "5",
               "info": {
                 "editorName": "sprTitle",
                 "editorPublic": true,
@@ -91,12 +181,12 @@
             {
               "type": "atlas-sprite",
               "id": "2aec4377-e752-4dbb-91e3-633aed20df56",
-              "asset": "5",
+              "asset": "6",
               "info": {
                 "editorName": "btnPlay",
                 "editorPublic": true,
                 "x": 360,
-                "y": 880,
+                "y": 1300,
                 "anchor.x": 0.5,
                 "anchor.y": 0.5
               }
@@ -122,8 +212,8 @@
                           "prefab": "0",
                           "id": "ff7de802-e560-4c51-8f1f-1e744508271a",
                           "info": {
-                            "editorName": "group3",
-                            "x": 535,
+                            "editorName": "group1",
+                            "x": 63,
                             "y": 1210
                           }
                         },
@@ -142,8 +232,8 @@
                           "prefab": "0",
                           "id": "85b46683-caa2-44c3-8d4f-4ee91564e7bc",
                           "info": {
-                            "editorName": "group1",
-                            "x": 63,
+                            "editorName": "group3",
+                            "x": 535,
                             "y": 1210
                           }
                         }
@@ -153,7 +243,7 @@
                   {
                     "type": "atlas-sprite",
                     "id": "e35e8a8d-3d49-4279-879a-aa69b0077ecc",
-                    "asset": "6",
+                    "asset": "7",
                     "info": {
                       "editorName": "img_titleUserInfoAreaLine_png",
                       "x": 472,
@@ -165,7 +255,7 @@
                   {
                     "type": "atlas-sprite",
                     "id": "e585b0ee-58b0-423e-8352-a9df742d754d",
-                    "asset": "6",
+                    "asset": "7",
                     "info": {
                       "editorName": "img_titleUserInfoAreaLine_png1",
                       "x": 241,
@@ -191,7 +281,7 @@
                   {
                     "type": "atlas-sprite",
                     "id": "5daf3fc3-9c18-402d-b3e8-28cc2b923b1f",
-                    "asset": "7",
+                    "asset": "8",
                     "info": {
                       "editorName": "img_gem01_png",
                       "anchor.x": 0.5,
@@ -201,7 +291,7 @@
                   {
                     "type": "atlas-sprite",
                     "id": "9649b03e-b4f2-4d06-b22c-f4a860295245",
-                    "asset": "7",
+                    "asset": "8",
                     "info": {
                       "editorName": "img_gem01_png1",
                       "x": 170,
@@ -212,7 +302,7 @@
                   {
                     "type": "atlas-sprite",
                     "id": "d7387a8f-2612-4099-909f-71e045467680",
-                    "asset": "7",
+                    "asset": "8",
                     "info": {
                       "editorName": "img_gem01_png2",
                       "x": 340,
@@ -223,7 +313,7 @@
                   {
                     "type": "atlas-sprite",
                     "id": "44d0d1d7-2837-4589-8ec8-b3c6060f80a1",
-                    "asset": "7",
+                    "asset": "8",
                     "info": {
                       "editorName": "img_gem01_png3",
                       "x": 510,
@@ -236,15 +326,20 @@
             },
             {
               "type": "spritesheet",
-              "id": "7485cccc-aa1b-4dfc-8ad6-8160a45948f3",
-              "asset": "8",
+              "id": "fd79bae0-84fd-46fa-9926-0b1f5787a636",
+              "asset": "9",
               "info": {
-                "editorName": "titleDinoSpriteSheet",
-                "x": 28,
-                "y": 429,
+                "editorName": "dinoFullFrame",
+                "editorPublic": true,
+                "x": 196,
+                "y": 573,
+                "scale.x": 2,
+                "scale.y": 2,
+                "anchor.x": 0.5,
+                "anchor.y": 0.5,
                 "animations": [{
                   "name": "walk",
-                  "frameRate": 15,
+                  "frameRate": 35,
                   "loop": true,
                   "autoPlay": true,
                   "frames": [
@@ -282,18 +377,21 @@
                     "31",
                     "32",
                     "33",
-                    "34"
+                    "34",
+                    "35",
+                    "36",
+                    "37",
+                    "38",
+                    "39",
+                    "40",
+                    "41",
+                    "42",
+                    "43",
+                    "44",
+                    "45",
+                    "46"
                   ]
                 }]
-              }
-            },
-            {
-              "type": "image",
-              "id": "4e2e8e2d-3bef-400e-99a8-f10e8c24215f",
-              "asset": "9",
-              "info": {
-                "editorName": "loading",
-                "editorPublic": true
               }
             }
           ]
@@ -311,51 +409,52 @@
     "1": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "title",
-      "asset": "titleBG_1"
+      "asset": "titleAtlas",
+      "sprite": "img_lightingElectric.png"
     },
     "2": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "title",
-      "asset": "titleBG_2"
+      "asset": "titleBG_1"
     },
     "3": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "title",
-      "asset": "titleRoad"
+      "asset": "titleBG_2"
     },
     "4": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "title",
-      "asset": "titleTitleImg"
+      "asset": "titleRoad"
     },
     "5": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "title",
-      "asset": "titleAtlas",
-      "sprite": "btn_play.png"
+      "asset": "titleTitleImg"
     },
     "6": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "title",
       "asset": "titleAtlas",
-      "sprite": "img_titleUserInfoAreaLine.png"
+      "sprite": "btn_play.png"
     },
     "7": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "title",
       "asset": "titleAtlas",
-      "sprite": "img_gem01.png"
+      "sprite": "img_titleUserInfoAreaLine.png"
     },
     "8": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "title",
-      "asset": "titleDinoSpriteSheet",
-      "sprite": "0"
+      "asset": "titleAtlas",
+      "sprite": "img_gem01.png"
     },
     "9": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "title",
-      "asset": "loading"
+      "asset": "dinoFullFrame",
+      "sprite": "0"
     }
   },
   "prefab-table": {"0": "WebContent/src/prefabs/TitleUserProfile.canvas"}

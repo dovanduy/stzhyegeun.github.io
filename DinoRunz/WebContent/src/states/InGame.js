@@ -30,11 +30,14 @@ DinoRunz.ERotatePattern = {
 };
 
 DinoRunz.InGame.restartCount = 0;
-DinoRunz.InGame.recallAdRemainSeconds = 0;
+DinoRunz.InGame.showInterstitialCount = 0;
+DinoRunz.InGame.prevStageNum = 0;
 DinoRunz.InGame.overCount = 0;
 DinoRunz.InGame.getNewCharacterList = [];
 DinoRunz.InGame.isSound = true;
 DinoRunz.InGame.isMusic = true;
+DinoRunz.InGame.isFirstGame = false;
+DinoRunz.InGame.showSlowEffect = false;
 
 var InGame_proto = Object.create(Phaser.State.prototype);
 DinoRunz.InGame.prototype = InGame_proto;
@@ -65,7 +68,8 @@ DinoRunz.InGame.EGameState = {
 	END: 3, 
 	GOAL: 4,
 	EDIT: 5,
-	TUTORIAL: 6
+	TUTORIAL: 6,
+	END: 7
 };
 
 DinoRunz.InGame.EGameMode = {
@@ -126,22 +130,29 @@ DinoRunz.InGame.prototype.init = function (inGameMode, inLastClearedStage) {
 	this._gameState = (this._gameMode === DinoRunz.InGame.EGameMode.EDIT ? DinoRunz.InGame.EGameState.EDIT : DinoRunz.InGame.EGameState.MENU);
 	
 	this.getNewDinoInfo = [];
+
+	this.isStageEnd = false;
+	this.endTile = null;
 };
 
 DinoRunz.InGame.prototype.create = function () {
-	// 월드 바운드 세팅
-	this.game.world.setBounds(-1 * DinoRunz.GameConfig.width, -1 * DinoRunz.GameConfig.height, 2 * DinoRunz.GameConfig.width, 2 * DinoRunz.GameConfig.height);
-	
 	if (this._gameMode === DinoRunz.InGame.EGameMode.EDIT) {
 		this.game.camera.scale.setTo(0.5, 0.5);
 		this.path.setRotation(0);
 	} else {
 		this.fBgImage = new BackgroundView(this.game);
 		this.fBgImage.fBaseLayer.pivot.setTo(DinoRunz.GameConfig.centerX, DinoRunz.GameConfig.centerY);
+		this.fBgImage.fBaseLayer.position.setTo(DinoRunz.GameConfig.centerX, DinoRunz.GameConfig.centerY);
 	}
 
-	// tiles pool
+	// set hard stage effect
+	this.fHardStageGroup = this.game.add.group();
+	this.fHardStageGroup.classType = SkullHard;
+	this.fHardStageGroup.createMultiple(8);
+	this.fHardStageGroup.visible = false;
+	
 	this.fInGameGroup = this.game.add.group();
+	// tiles pool
 	this.path = this.game.add.path(this.game);
 	this.path.createTiles(this.fInGameGroup);
 	// DeadPositionViews pool
@@ -154,21 +165,33 @@ DinoRunz.InGame.prototype.create = function () {
 			this.showTutorial(inNextPath);
 		}
 
+		// if(inNextPath === ETileType.END) {
+		// 	this.isStageEnd = true;
+		// 	return;
+		// }
+
 	    if (inNextPath.tileType === ETileType.START) {
 	        var firstCommandPath = this.path.getFrontCommandPath();
 	        if (firstCommandPath) {
 	            firstCommandPath.setCommandEnable(true);
-	        }
+			}
+			
+			if(this.path.isHardStage) {
+				inNextPath.showHardEffect(this.currentStage);
+				this.showHardStageEffect();
+			}
 	    }
 		this.pathCount += 1;
 		
 		inNextPath.checkDeadPositionView(inPlayer);
 		
 	}, this);
+
 	this.path.onGetJewel.add(function(inPlayer, inPath) {
 		window.sounds.sound('sfx_get_jewelry').play();
 		this.score += 1;
 	}, this);
+
 	this.path.onScreenOut.add(function(inItem) {
 		if (!inItem) {
 			return;
@@ -178,22 +201,20 @@ DinoRunz.InGame.prototype.create = function () {
 			inItem.kill();
 		}
 	}, this);
+
 	this.path.onEnterGoal.add(function(player, goalPath) {
-		var goalSoundId = this.game.rnd.integerInRange(1, 2);
-		window.sounds.sound('sfx_goal_'+goalSoundId).play();
-		
 		if (this._gameMode === DinoRunz.InGame.EGameMode.EDIT) {
 			return;
 		}
+
+		this.checkUnlockDino();
 
 		var crownNum = 0;
 		var isAllJewel = (this.score >= this.currentStageMaxJewel);
 		var isAllPathClear = (this.pathCount >= this.currentStageMaxPath);
 		
-		if(isAllJewel) {
-			++crownNum;
-			if(isAllPathClear) ++crownNum;
-		}
+		if (isAllJewel) ++crownNum;
+		if (isAllPathClear) ++crownNum;
 
 		var clearData = DinoRunz.Storage.UserData.isAllClearList;
 		var i, length = clearData.length, showTutoCrown = true;
@@ -209,7 +230,24 @@ DinoRunz.InGame.prototype.create = function () {
 		
 		DinoRunz.Storage.updateIsAllClear(this.currentStage, isAllJewel, isAllPathClear);
 		
-		this.player.showGetCrownEffect(crownNum);
+		if(crownNum!==0) {
+			this.player.showGetCrownEffect(crownNum);
+			FbManager.updateAsyncByInviteUpdateView(EShareType.CROWN, {crown: crownNum, stage: this.currentStage});
+		}
+
+		Server.setLog(EServerLogMsg.END, {'p1' : this.path.mode, "p2" : this.currentStage, "p3": EStageResult.CLEAR});
+
+		switch(crownNum) {
+			case 0://don't get crown
+				window.sounds.sound("sfx_goal_2").play();
+				break;
+			case 1://get silver crown
+				window.sounds.sound("sfx_goal_1").play();
+				break;
+			case 2://get gold crown
+				window.sounds.sound("sfx_goal_3").play();
+				break;
+		}
 		
 		// add stage
 		var nextStage = this.getNextStage(this.path.lastAddedStage);
@@ -219,33 +257,56 @@ DinoRunz.InGame.prototype.create = function () {
 			DinoRunz.Storage.UserData.lastFallenBlockId = 0;
 		}
 
+		if(this.currentStage === 1) {
+			Server.setLog(EServerLogMsg.TUTORIAL, {'p1' : 'clear'});
+		}
+
 		// set currentStage
 		this.currentStage = this.getNextStage(this.currentStage);
 		this.currentStageMaxJewel = this.getMaxJewelCount(this.currentStage);
 		this.currentStageMaxPath = this.getMaxPathCount(this.currentStage);
 		this.score = 0;
 		this.pathCount = 0;
-		if (this._gameMode === DinoRunz.InGame.EGameMode.TEST || this.currentStage === 0) {
-			this.setState(DinoRunz.InGame.EGameState.GOAL);
-			this.menuScene.openMenu(this.currentStage, MenuScene.EMenuType.LIST);
+
+		Server.setLog(EServerLogMsg.START, {'p1' : this.path.mode, "p2" : this.currentStage});
+
+		if(this.currentStage === 0) {
+			//last stage clear
+			this.endTile = this.path.drawPath(null, null, null, null, true);
+			this.path.alignPositionToCenter(goalPath);
+			DinoRunz.Storage.UserData.lastFallenBlockId = 0;
+			this.isStageEnd = true;
 			return;
 		}
+
+		if (this._gameMode === DinoRunz.InGame.EGameMode.TEST || this.currentStage === 0) {
+			// this.setState(DinoRunz.InGame.EGameState.GOAL);
+			// this.menuScene.openMenu(this.currentStage, MenuScene.EMenuType.LIST, true);
+			return;
+		}
+
+		DinoRunz.InGame.prevStageNum = this.currentStage;
 		
 		// Speed Setting
+		var speed = null;
 		if (StaticManager.dino_runz_level_design.get(this.currentStage - 1) && StaticManager.dino_runz_level_design.get(this.currentStage - 1).speed) {
-		    this.player.setSpeed(StaticManager.dino_runz_level_design.get(this.currentStage - 1).speed);
+			speed = StaticManager.dino_runz_level_design.get(this.currentStage - 1).speed;
+		    this.player.setSpeed(speed);
 		} else if (DinoRunz.InGame.MAPS[this.currentStage] && DinoRunz.InGame.MAPS[this.currentStage].speed) {
+			speed = DinoRunz.InGame.MAPS[this.currentStage].speed;
 			this.player.setSpeed(DinoRunz.InGame.MAPS[this.currentStage].speed);
 		} else {
-			var speed = this.game.rnd.integerInRange(DinoRunz.GameConfig.min_speed, DinoRunz.GameConfig.max_speed);
+			speed = this.game.rnd.integerInRange(DinoRunz.GameConfig.min_speed, DinoRunz.GameConfig.max_speed);
 			this.player.setSpeed(speed);	
 		}
 		
 		// Rotation Angle Setting
+		var angle = null;
 		if (StaticManager.dino_runz_level_design.get(this.currentStage - 1) && StaticManager.dino_runz_level_design.get(this.currentStage - 1).rotation_angle >= 0) {
-            DinoRunz.InGame.STAGE_SETTING.angle = StaticManager.dino_runz_level_design.get(this.currentStage - 1).rotation_angle;
+			angle = StaticManager.dino_runz_level_design.get(this.currentStage - 1).rotation_angle; 
+            DinoRunz.InGame.STAGE_SETTING.angle = angle;
         } else {
-            var angle = this.game.rnd.integerInRange(DinoRunz.GameConfig.min_angle, DinoRunz.GameConfig.max_angle);
+            angle = this.game.rnd.integerInRange(DinoRunz.GameConfig.min_angle, DinoRunz.GameConfig.max_angle);
             DinoRunz.InGame.STAGE_SETTING.angle = angle;
         }
 		
@@ -265,8 +326,14 @@ DinoRunz.InGame.prototype.create = function () {
 		
 		DinoRunz.InGame.overCount = 0;
 
-		this.checkUnlockDino();
+		++DinoRunz.InGame.showInterstitialCount;
+
 		this.player.hideSlowEffect();
+		this.hideHardStageEffect();
+		this.showStageInfo(this.currentStage, speed, angle);
+
+		this.lastUnlockDinoStage = 0;
+		this.setLastUnlockDinoStageNum();
 	}, this);
 	
 	// 플레이어 생성
@@ -274,29 +341,33 @@ DinoRunz.InGame.prototype.create = function () {
 	DinoRunz.InGame.player = this.player;
 	this.fInGameGroup.bringToTop(this.player);
 	this.player.position.setTo(DinoRunz.GameConfig.width / 2, DinoRunz.GameConfig.height / 2);
-	//this.game.world.pivot.setTo(this.player.x, this.player.y);
-	this.fInGameGroup.pivot.setTo(this.player.x, this.player.y);
-	this.fInGamePositionGroup.pivot.setTo(this.player.x, this.player.y);
-	this.fBgImage.fBaseLayer.pivot.setTo(this.player.x, this.player.y);
-	this.game.camera.follow(this.player.getView());
 	
 	if (this.path.pathList === null || this.path.pathList.length === 0) {
 		this.path.addPathEditMode(ETileType.START, this.player);
 	}
 	
 	this.fUIGroup = this.game.add.group();
-	this.fUIGroup.position.setTo(-DinoRunz.GameConfig.centerX, -DinoRunz.GameConfig.centerY);
 	this.score = 0;
 	this.pathCount = 0;
 	
 	this.fMenuGroup = this.game.add.group();
-	this.fMenuGroup.position.setTo(-DinoRunz.GameConfig.centerX, -DinoRunz.GameConfig.centerY);
 	this.menuScene = new MenuScene(this.game, this.fMenuGroup);
 	DinoRunz.InGame.menuScene = this.menuScene;
 	this.menuScene.closeMenu();
+
+	this.fFader = this.game.add.graphics(0, 0);
+	this.fFader.beginFill(0x000000);
+	this.fFader.drawRect(0, 0, this.game.world.width, this.game.world.height);
+	
+	this.fFader.alpha = 0.7;
+	this.fFader.visible = false;
+
+	this.faderTween = null;
 	
 	if (this._gameMode !== DinoRunz.InGame.EGameMode.EDIT) {
+		DinoRunz.titleScene.destroy();
 		this.menuScene.openMenu(this.currentStage, MenuScene.EMenuType.LIST);
+		this.fadeOut(2000);
 	} else {
 		this.fBlind = this.game.add.graphics(0, 0);
 		this.fBlind.beginFill(0x000000);
@@ -305,14 +376,6 @@ DinoRunz.InGame.prototype.create = function () {
 		this.fBlind.visible = false;
 	}
 
-	this.fFader = this.game.add.graphics(0, 0);
-	this.fFader.beginFill(0x000000);
-	this.fFader.drawRect(-1 * this.game.world.width, -1 * this.game.world.height, 2 * this.game.world.width, 2 * this.game.world.height);
-	this.fFader.alpha = 0.7;
-	this.fFader.visible = false;
-
-	this.faderTween = null;
-	
 	this.deathEffect = new DinoDeath(this.game, this.fUIGroup);
 	this.deathEffect.position.x = DinoRunz.GameConfig.centerX;
 	this.deathEffect.position.y = DinoRunz.GameConfig.centerY;
@@ -321,9 +384,11 @@ DinoRunz.InGame.prototype.create = function () {
 	this.getNewCharacterEffect.position.x = DinoRunz.GameConfig.centerX;
 	this.getNewCharacterEffect.position.y = -100;
 	
-	this.getNextUnlockStage();
+	this.getNextUnlockDinoInfo();
 	
 	//tutorial
+	this.callsTutorialStartLog = false;
+
 	this.game.cache.addNinePatch("tutorialMsgBG", "TutorialAtlas", "img_tutoInfo.png", 40, 40, 40, 40);
 	this.fTutorialMsg = new Phaser.NinePatchImage(this.game, DinoRunz.GameConfig.centerX, 1100, "tutorialMsgBG");
 	this.fTutorialMsg.targetWidth = 700;
@@ -331,19 +396,22 @@ DinoRunz.InGame.prototype.create = function () {
 	this.fTutorialMsg.UpdateImageSizes();
 	this.fTutorialMsg.visible = false;
 	
-	this.fTxtTutorialMsg = this.game.add.text(0, 0, "Tap the screen and let ahua keep running!", {"font":"bold 34px Blogger Sans","fill":"#1a8aa8"});
+	this.fTxtTutorialMsg = this.game.add.text(0, 0, StzTrans.translate(StaticManager.ELocale.tutorial_play_text), {"font":"bold 50px Blogger Sans","fill":"#1a8aa8"});
+	StzUtil.setLimitTextWidth(this.fTxtTutorialMsg, 660);
 	this.fTxtTutorialMsg.anchor.setTo(0.5);
 	
 	this.fTutorialMsg.addChild(this.fTxtTutorialMsg);
 	
 	this.fTutorialBlind = this.game.add.graphics(0, 0);
 	this.fTutorialBlind.beginFill(0x000000);
-	this.fTutorialBlind.drawRect(-1 * this.game.world.width, -1 * this.game.world.height, 2 * this.game.world.width, 2 * this.game.world.height);
+	// this.fTutorialBlind.drawRect(-1 * this.game.world.width, -1 * this.game.world.height, 2 * this.game.world.width, 2 * this.game.world.height);
+	this.fTutorialBlind.drawRect(0, 0, this.game.world.width, this.game.world.height);
+	
 	this.fTutorialBlind.alpha = 0.7;
 	this.fTutorialBlind.visible = false;
 
 	this.fTutorialHand = new TutorialHand(this.game, this.fUIGroup);
-	this.fTutorialHand.position.setTo(500, 900);
+	this.fTutorialHand.position.setTo(500, 300);
 	this.fTutorialHand.visible = false;
 
 	this.fTutorialCrown = new TutorialCrown(this.game, this.fUIGroup);
@@ -353,12 +421,20 @@ DinoRunz.InGame.prototype.create = function () {
 	this.fInGameGroup.addChildAt(this.fTutorialBlind, 0);
 
 	//slow effect
-	this.fSlowIconEffect = this.game.add.sprite(0, 0, 'slowIconAnim', 0,);
+	this.fSlowIconEffect = this.game.add.sprite(DinoRunz.GameConfig.centerX, DinoRunz.GameConfig.centerY, 'slowIconAnim', 0);
 	this.fSlowIconEffect.anchor.setTo(0.5, 0.5);
 	this.fSlowIconAnim = this.fSlowIconEffect.animations.add('slowIcon', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], 15, false);
-	
-
 	this.fSlowIconEffect.visible = false;
+
+	// set stage info
+	this.fGroupStageInfo = this.game.add.group(this.fUIGroup);
+	this.fTxtStageNumber = this.game.add.text(50, 50, "number: ", {"font":"bold 26px Blogger Sans","fill":"#ffffff"}, this.fGroupStageInfo);
+	this.fTxtStageSpeed = this.game.add.text(50, 90, "speed: ", {"font":"bold 26px Blogger Sans","fill":"#ffffff"}, this.fGroupStageInfo);
+	this.fTxtStageAngle = this.game.add.text(50, 130, "angle: ", {"font":"bold 26px Blogger Sans","fill":"#ffffff"}, this.fGroupStageInfo);
+
+	this.fGroupStageInfo.visible = false;
+
+	// this.game.world.pivot.setTo(this.player.x, this.player.y);
 };
 
 DinoRunz.InGame.prototype.getNextStage = function (inStage) {
@@ -376,22 +452,36 @@ DinoRunz.InGame.prototype.newGame = function(inStartStage, slowSpeed) {
 	
 	this.path.tiles.visible = true;
 	this.path.initPath();
-	
+
 	this.currentStage = inStartStage;
+
+	if(DinoRunz.InGame.prevStageNum !== this.currentStage) {
+		DinoRunz.InGame.prevStageNum = this.currentStage;
+		DinoRunz.InGame.overCount = 0;
+	}
+
 	this.currentStageMaxJewel = this.getMaxJewelCount(this.currentStage);
 	this.currentStageMaxPath = this.getMaxPathCount(this.currentStage);
 	if (DinoRunz.InGame.MAPS.hasOwnProperty(this.currentStage)) {
-		this.path.addPathList(this.currentStage, DinoRunz.InGame.MAPS[this.currentStage].path);	
+		this.path.addPathList(this.currentStage, DinoRunz.InGame.MAPS[this.currentStage].path);
 	}
 	this.path.drawPath(null, null, true, this.currentStage);
 	this.fBgImage.setEnable(DinoRunz.InGame.STAGE_SETTING.isBgImage);
 	this.fBgImage.changeColor(this.currentStage);
+
+	if(!DinoRunz.InGame.isFirstGame) {
+		DinoRunz.InGame.isFirstGame = true;
+		Server.setLog(EServerLogMsg.INIT_STEP, {'p1' : EInitStep.GAME_START});
+	}
+
+	Server.setLog(EServerLogMsg.START, {'p1' : this.path.mode, "p2" : this.currentStage});
 	
 	// 플레이어 생성
 	if (!this.player) {
 		this.player = new PlayerView(this.game, this.fInGameGroup);
 		DinoRunz.InGame.player = this.player;
 	}
+
 	this.player.reset();
 	this.player.position.setTo(DinoRunz.GameConfig.width / 2, DinoRunz.GameConfig.height / 2);
 	this.player.currentIndex = 0;
@@ -400,13 +490,13 @@ DinoRunz.InGame.prototype.newGame = function(inStartStage, slowSpeed) {
 	this.player.setDirection(EDirection.UP);
 	this.player.alpha = 1;
 	
-	
-	
 	// Rotate angle setting
+	var angle = null;
     if (StaticManager.dino_runz_level_design.get(this.currentStage - 1) && StaticManager.dino_runz_level_design.get(this.currentStage - 1).rotation_angle >= 0) {
-        DinoRunz.InGame.STAGE_SETTING.angle = StaticManager.dino_runz_level_design.get(this.currentStage - 1).rotation_angle;
+		angle = StaticManager.dino_runz_level_design.get(this.currentStage - 1).rotation_angle;
+        DinoRunz.InGame.STAGE_SETTING.angle = angle;
     } else {
-        var angle = this.game.rnd.integerInRange(DinoRunz.GameConfig.min_angle, DinoRunz.GameConfig.max_angle);
+        angle = this.game.rnd.integerInRange(DinoRunz.GameConfig.min_angle, DinoRunz.GameConfig.max_angle);
         DinoRunz.InGame.STAGE_SETTING.angle = angle;
     }
     
@@ -418,8 +508,15 @@ DinoRunz.InGame.prototype.newGame = function(inStartStage, slowSpeed) {
     var scale = this.game.rnd.realInRange(DinoRunz.GameConfig.min_scale, DinoRunz.GameConfig.max_scale);
     DinoRunz.InGame.STAGE_SETTING.scale = scale;
 	
-	this.game.world.pivot.setTo(this.player.x, this.player.y);
+	// this.game.world.pivot.setTo(this.player.x, this.player.y);
 	this.fInGameGroup.pivot.setTo(this.player.x, this.player.y);
+	this.fInGameGroup.position.setTo(360, 640);
+
+	this.fInGamePositionGroup.pivot.setTo(this.player.x, this.player.y);
+	this.fInGamePositionGroup.position.setTo(360, 640);
+
+	this.fBgImage.setRotation(0);
+
 	this.game.camera.follow(this.player.getView());
 	
 	this.score = 0;
@@ -445,23 +542,37 @@ DinoRunz.InGame.prototype.newGame = function(inStartStage, slowSpeed) {
 	this.player.changeCharacter(DinoRunz.Storage.UserData.lastCharacterId);
 
 	// Speed Setting
+	var speed = null;
 	if(!slowSpeed) {
 	    if (StaticManager.dino_runz_level_design.get(this.currentStage - 1) && StaticManager.dino_runz_level_design.get(this.currentStage - 1).speed) {
-            this.player.setSpeed(StaticManager.dino_runz_level_design.get(this.currentStage - 1).speed);
+			speed = StaticManager.dino_runz_level_design.get(this.currentStage - 1).speed;
+            this.player.setSpeed(speed);
 	    } else if (DinoRunz.InGame.MAPS[this.currentStage] && DinoRunz.InGame.MAPS[this.currentStage].speed) {
-			this.player.setSpeed(DinoRunz.InGame.MAPS[this.currentStage].speed);
+			speed = DinoRunz.InGame.MAPS[this.currentStage].speed;
+			this.player.setSpeed(speed);
 		} else {
-			var speed = this.game.rnd.integerInRange(DinoRunz.GameConfig.min_speed, DinoRunz.GameConfig.max_speed);
+			speed = this.game.rnd.integerInRange(DinoRunz.GameConfig.min_speed, DinoRunz.GameConfig.max_speed);
 			this.player.setSpeed(speed);	
 		}
 
 		this.setState(DinoRunz.InGame.EGameState.RUN);
+
+		if(this.path.isHardStage) {
+			this.path.startPath.showHardEffect(this.currentStage);
+			this.showHardStageEffect();
+		}
 	}
 	else {
-		this.showSlowIconEffect();
+		speed = slowSpeed;
+		// this.showSlowIconEffect();
 		this.player.setSpeed(slowSpeed);
 		this.player.showSlowEffect();
 	}
+
+	// tutorial log
+	if(this.currentStage === 1) this.callsTutorialStartLog = false;
+
+	this.showStageInfo(this.currentStage, speed, angle);
 };
 
 DinoRunz.InGame.prototype.getMaxJewelCount = function(inStage) {
@@ -541,7 +652,7 @@ DinoRunz.InGame.prototype.onKeysUp = function(inKey) {
 							maxStage = currentData.stage;
 						}
 					}
-					DinoRunz.InGame.MAPS["length"] = maxStage;
+					DinoRunz.InGame.MAPS.length = maxStage;
 				}
 				this.game.input.enabled = true;
 				this.fBlind.visible = false;
@@ -574,6 +685,12 @@ DinoRunz.InGame.prototype.onTouchScreen = function() {
 	
 	if (this.getState() !== DinoRunz.InGame.EGameState.RUN 
 			&& this.getState() !== DinoRunz.InGame.EGameState.TUTORIAL) {
+		return;
+	}
+
+	if (this.player.currentTile === null) return;
+
+	if (this.player.currentTile.tileType === ETileType.GOAL || this.player.currentTile.tileType === ETileType.START || this.istageEnd) {
 		return;
 	}
 	
@@ -635,14 +752,19 @@ DinoRunz.InGame.prototype.update = function() {
 		return;
 	}
 
-	if(DinoRunz.InGame.recallAdRemainSeconds>0){
-		DinoRunz.InGame.recallAdRemainSeconds -= this.game.time.physicsElapsed;
-		
-		if(DinoRunz.InGame.recallAdRemainSeconds<0) {
-			DinoRunz.InGame.recallAdRemainSeconds = 0;
+	if (this.isStageEnd) {
+		if(this.player.position.y <= this.endTile.position.y) {
+			this.setState(DinoRunz.InGame.EGameState.END);
+			this.showEndStageEffect();
+			this.isStageEnd = false;
+			return;
 		}
 	}
-	
+
+	if (DinoRunz.InGame.showSlowEffect) {
+		DinoRunz.InGame.showSlowEffect = false;
+		this.showSlowIconEffect();
+	}
 	
 	if (this.getState() !== DinoRunz.InGame.EGameState.RUN && this.getState() !== DinoRunz.InGame.EGameState.TUTORIAL) {
 		return;
@@ -672,11 +794,11 @@ DinoRunz.InGame.prototype.update = function() {
 		}
 		
 	}
-	
+
 	this.player.updateJump(this.player.getSpeed());
 	this.path.updatePosition(this.player.direction, (this.getState() !== DinoRunz.InGame.EGameState.TUTORIAL) ? this.player.getSpeed() : 1.5);
 	
-	if (Math.abs(this.targetScale - this.path.getScale()) !== 0) {
+	if (/*Math.abs(this.targetScale - this.path.getScale())*/(this.targetScale - this.path.getScale()) !== 0) {
 		if (this.scaleOffset === 0) {
 		    this.path.setScale(this.targetScale);
 		} else if (this.scaleOffset > 0) {
@@ -689,7 +811,7 @@ DinoRunz.InGame.prototype.update = function() {
 		this.scaleOffset = (this.targetScale - this.path.getScale()) / DinoRunz.GameConfig.scale_time;
 	}
 	
-	if (Math.abs(this.targetRadian - this.path.getRotation()) !== 0) {
+	if (/*Math.abs(this.targetRadian - this.path.getRotation())*/(this.targetRadian - this.path.getRotation()) !== 0) {
 		if (this.radianOffset === 0) {
 		    this.path.setRotation(this.targetRadian);
 		} else if (this.radianOffset > 0) {
@@ -712,11 +834,12 @@ DinoRunz.InGame.prototype.update = function() {
 		    DinoRunz.Storage.UserData.lastFallenBlockId = fallenBlockId;
 		}
 		
-		++DinoRunz.InGame.overCount;
-		++DinoRunz.InGame.restartCount;
+		if(DinoRunz.InGame.prevStageNum === this.currentStage) ++DinoRunz.InGame.overCount;
+		++DinoRunz.InGame.showInterstitialCount;
 		
 		this.player.kill(function() {
 			this.deathEffect.showDeathEffect();
+			this.hideHardStageEffect();
 		}, this);
 
 		this.hideTutorial();
@@ -725,75 +848,90 @@ DinoRunz.InGame.prototype.update = function() {
 };
 
 DinoRunz.InGame.prototype.setSlow = function() {
-	function callback () {
-		var slowSpeed = DinoRunz.GameConfig.min_speed;
+	var callback = function () {
 		var inGameState = this.game.state.getCurrentState();
-		inGameState.newGame(this.currentStage, slowSpeed);
+
 		inGameState.menuScene.closeMenu();	
 		inGameState.menuScene.popupManager.adPopup.visible = false;
-	}
+		
+		var slowSpeed = DinoRunz.GameConfig.min_speed;
+		inGameState.newGame(this.currentStage, slowSpeed);
+
+		DinoRunz.InGame.showSlowEffect = true;
+	}.bind(this);
 
 	if(!FBInstant) {
-		var callbackBind = callback.bind(this);
-		callbackBind();
+		callback();
 		return;
 	}
 
 	var adModel = GGManager.getAdModelByPlacementID(EAdType.REWARDED, EAdName.REWARD_SLOW);
 	if(adModel) {
-		GGManager.setCallbackByPlacementID(EAdName.REWARD_SLOW, callback.bind(this), function() {
+		GGManager.setCallbackByPlacementID(EAdName.REWARD_SLOW, callback, function() {
 			//load success
 		}.bind(this), function() {
 			//load fail
 			var inGameState = this.game.state.getCurrentState();
 			inGameState.menuScene.popupManager.loadFailPopup.showPopup();
 		}.bind(this));
+
+		GGManager.show(EAdName.REWARD_SLOW);
+		GGManager.adLogSend(adModel.getType(), adModel.getName(), EAdUserAction.ACTION_SHOW);
 	}
-	else {
-		
-	}
-	GGManager.show(EAdName.REWARD_SLOW);
 };
 
 DinoRunz.InGame.prototype.setSkip = function() {
 	var skipStage = this.currentStage + 1;
 	if(DinoRunz.InGame.MAPS.hasOwnProperty(skipStage) === false) return;
 
-	function callback() {
+	var callback = function () {
+		var inGameState = this.game.state.getCurrentState();
+		
+		inGameState.menuScene.closeMenu();	
+		inGameState.menuScene.popupManager.adPopup.visible = false;
+
 		if(this.currentStage+1>DinoRunz.Storage.UserData.lastClearedStage){
 			DinoRunz.Storage.UserData.lastClearedStage = this.currentStage+1;
 		}
 
-		var inGameState = this.game.state.getCurrentState();
 		inGameState.newGame(this.currentStage+1);
-		inGameState.menuScene.closeMenu();	
-		inGameState.menuScene.popupManager.adPopup.visible = false;
-	}
+	}.bind(this);
 
 	if(!FBInstant){
-		var callbackBind = callback.bind(this);
-		callbackBind();
+		callback()
 		return;
 	}
 	
 	var adModel = GGManager.getAdModelByPlacementID(EAdType.REWARDED, EAdName.REWARD_SKIP);
 	
 	if(adModel) {
-		GGManager.setCallbackByPlacementID(EAdName.REWARD_SKIP, callback.bind(this), function() {
+		GGManager.setCallbackByPlacementID(EAdName.REWARD_SKIP, callback, function() {
 			//load success
 		}.bind(this), function() {
 			//load fail
 			var inGameState = this.game.state.getCurrentState();
 			inGameState.menuScene.popupManager.loadFailPopup.showPopup();
 		}.bind(this));
+
 		GGManager.show(EAdName.REWARD_SKIP);
-	}
-	else {
-		
+		GGManager.adLogSend(adModel.getType(), adModel.getName(), EAdUserAction.ACTION_SHOW);
 	}
 };
 
-DinoRunz.InGame.prototype.getNextUnlockStage = function(checkedStageNum) {
+DinoRunz.InGame.prototype.setLastUnlockDinoStageNum = function () {
+	var i, length = StaticManager.dino_runz_character.length;
+	var stageNum = 0;
+	for(i = 0 ; i < length ; ++i){
+		var curData = StaticManager.dino_runz_character.get(i+1);
+		if(curData.unlock_condition === 2){
+			stageNum = curData.unlock_value;
+		}
+	}
+
+	this.lastUnlockDinoStage = stageNum;
+};
+
+DinoRunz.InGame.prototype.getNextUnlockDinoInfo = function(checkedStageNum) {
 	var i, length = StaticManager.dino_runz_character.length;
 	if(!checkedStageNum) checkedStageNum = DinoRunz.Storage.UserData.lastClearedStage;
 	for(i = 0 ; i < length ; ++i){
@@ -810,20 +948,22 @@ DinoRunz.InGame.prototype.getNextUnlockStage = function(checkedStageNum) {
 
 DinoRunz.InGame.prototype.checkUnlockDino = function() {
 	if(this.currentStage>=this.nextUnlockStage){
-		this.getNewCharacterEffect.showGetNewCharacter(this.nextUnlockDinoId);
-		DinoRunz.InGame.getNewCharacterList.push(this.nextUnlockDinoId);
-		this.getNextUnlockStage(this.currentStage);
+		var getCharId = this.nextUnlockDinoId;
+		
+		this.getNextUnlockDinoInfo(this.currentStage);		
+
+		if(this.currentStage <= this.lastUnlockDinoStage) this.getNewCharacterEffect.showGetNewCharacter(getCharId);
+		FbManager.updateAsyncByInviteUpdateView(EShareType.CHARACTER, {charId : getCharId});
+		DinoRunz.InGame.getNewCharacterList.push(getCharId);
 	}
 };
 
 DinoRunz.InGame.prototype.interstitialRestartShowAd = function(inCallBack){
-	
-	if(DinoRunz.InGame.restartCount>=3&&DinoRunz.InGame.recallAdRemainSeconds===0
-			&&GGManager.getAdModelByPlacementID(EAdType.INTERSTITIAL, EAdName.INTERSTITIAL_INGAME_RESTART)){
+	if(DinoRunz.InGame.showInterstitialCount >= 5 && GGManager.getAdModelByPlacementID(EAdType.INTERSTITIAL, EAdName.INTERSTITIAL_INGAME_RESTART)){
+
 		GGManager.setCallbackByPlacementID(EAdName.INTERSTITIAL_INGAME_RESTART, function() {
 			//showComplete
-			DinoRunz.InGame.restartCount = 0;
-			DinoRunz.InGame.recallAdRemainSeconds = DinoRunz.GameConfig.recallAdSeconds;
+			DinoRunz.InGame.showInterstitialCount = 0;
 			
 			if(inCallBack){
 				inCallBack();
@@ -851,6 +991,11 @@ DinoRunz.InGame.prototype.showTutorial = function (inNextPath) {
 		|| inNextPath.tileType === ETileType.DIRECTION_LEFT
 		|| inNextPath.tileType === ETileType.DIRECTION_UP) {
 	
+		if(!this.callsTutorialStartLog) {
+			Server.setLog(EServerLogMsg.TUTORIAL, {'p1' : 'start'});
+			this.callsTutorialStartLog = true;
+		}
+
 		this.setState(DinoRunz.InGame.EGameState.TUTORIAL);
 			
 		this.fTutorialBlind.visible = true;
@@ -871,27 +1016,30 @@ DinoRunz.InGame.prototype.hideTutorial = function () {
 };
 
 DinoRunz.InGame.prototype.showSlowIconEffect = function () {
+	console.log("showSlowIconEffect");
 	this.fFader.visible = true;
 	this.fFader.alpha = 0.7;
 
 	this.fSlowIconEffect.visible = true;
-	this.fSlowIconEffect.alpha = 1;
 	this.fSlowIconEffect.animations.play("slowIcon", 15);
 
 	this.fSlowIconAnim.onComplete.addOnce(function () {
+		console.log("slowAnimComplete");
 		this.hideSlowIconEffect(function() {
+			console.log("hideSlowIconEffect_callback");
+			if(this.path.isHardStage) {
+				this.path.startPath.showHardEffect(this.currentStage);
+				this.showHardStageEffect();
+			}
 			this.setState(DinoRunz.InGame.EGameState.RUN);
 		}.bind(this));
 	}, this);
 };
 
 DinoRunz.InGame.prototype.hideSlowIconEffect = function (callback) {
-	this.fadeOut(1000, callback);
-	this.fSlowIconEffect.animations.stop();
-	var iconTween = this.game.add.tween(this.fSlowIconEffect).to({alpha: 1}, 1000, Phaser.Easing.Linear.None, true);
-	iconTween.onComplete.addOnce(function() {
-		this.game.tweens.remove(iconTween);
-	}, this);
+	console.log("hideSlowIconEffect");
+	this.fadeOut(1000, callback, 0.7);
+	this.fSlowIconEffect.visible = false;
 };
 
 DinoRunz.InGame.prototype.fadeIn = function (destAlpha, milliSecond, callback) {
@@ -904,11 +1052,107 @@ DinoRunz.InGame.prototype.fadeIn = function (destAlpha, milliSecond, callback) {
 	}, this);
 };
 
-DinoRunz.InGame.prototype.fadeOut = function (milliSecond, callback) {
+DinoRunz.InGame.prototype.fadeOut = function (milliSecond, callback, inAlpha) {
+	this.fFader.visible = true;
+	this.fFader.tint = 0x000000;
+	this.fFader.alpha = (inAlpha) ? inAlpha : 1;
 	this.faderTween = this.game.add.tween(this.fFader).to({alpha: 0}, milliSecond, Phaser.Easing.Linear.None, true);
 	this.faderTween.onComplete.addOnce(function() {
 		if(callback) callback();
 		this.game.tweens.remove(this.faderTween);
 		this.fFader.visible = false;
+	}, this);
+};
+
+DinoRunz.InGame.prototype.showHardStageEffect = function () {
+	this.fHardStageGroup.visible = true;
+	
+	// var skulls = this.fHardStageGroup.getAll("exists", true);
+	var skulls = this.fHardStageGroup.children;
+	var i, length = skulls.length;
+
+	for(i = 0 ; i < length ; ++i) {
+		var flagX = (i % 2 === 0) ? 100 : 500;
+		var posX = this.game.rnd.integerInRange(flagX, flagX + 200);
+
+		var posY = this.game.rnd.integerInRange((i+1) * 100, 100 + (i+1) * 120);
+
+		var delay = i * 300;
+		
+		skulls[i].play(delay, {x: posX, y: posY});
+	}
+};
+
+DinoRunz.InGame.prototype.hideHardStageEffect = function () {
+	var skulls = this.fHardStageGroup.children;
+	var i, length = skulls.length;
+
+	for(i = 0 ; i < length ; ++i) {	
+		skulls[i].deleteTweens();
+	}
+
+	this.fHardStageGroup.visible = false;
+};
+
+DinoRunz.InGame.prototype.setEndLog = function () {
+	var inVar = {};
+
+	inVar.p1 = this.path.mode;
+	inVar.p2 = this.currentStage;
+	inVar.p3 = EStageResult.FAIL;
+
+	Server.setLog(EServerLogMsg.END, inVar);
+};
+
+DinoRunz.InGame.prototype.showStageInfo = function (inStageNumber, inStageSpeed, inStageAngle) {
+	if(StzBuildConfig.SERVER_MODE !== EServerMode.DEV) {
+		this.fGroupStageInfo.visible = false;
+		return;	
+	}
+
+	this.fGroupStageInfo.visible = true;
+
+	this.fTxtStageNumber.text = "Stage: " + inStageNumber;
+	this.fTxtStageSpeed.text = "Speed: " + inStageSpeed;
+	this.fTxtStageAngle.text = "Angle: " + inStageAngle;
+};
+
+DinoRunz.InGame.prototype.unlockAllStage = function () {
+	DinoRunz.Storage.UserData.lastClearedStage = DinoRunz.InGame.MAPS.length;
+	this.menuScene.updateBtnPage();
+	this.menuScene.updateBtnStage();
+};
+
+DinoRunz.InGame.prototype.rndChangePlayerCharacter = function () {
+	var isSelected = false;
+
+	while(!isSelected) {
+		var rndNum = this.game.rnd.integerInRange(1, 10);
+
+		if(DinoRunz.Storage.UserData.isGetDinoList[rndNum-1]) {
+			isSelected = true;
+		}
+	}
+
+	DinoRunz.Storage.UserData.lastCharacterId = rndNum;
+
+	if(this.player!==null) {
+		this.player.changeCharacter(rndNum);
+	}
+	
+	this.menuScene.setCharacterIcon(rndNum);
+};
+
+DinoRunz.InGame.prototype.showEndStageEffect = function () {
+	this.fFader.visible = true;
+	this.fFader.tint = 0xFFFFFF;
+	this.fFader.alpha = 0;
+
+	var tweenFader = this.game.add.tween(this.fFader).to({alpha : 1}, 400, Phaser.Easing.Linear.None, true);
+	tweenFader.onComplete.add(function () {
+		this.menuScene.openMenu(320, MenuScene.EMenuType.LIST, true);//todo: 끝 스테이지에 맞춰서 수정.
+		this.fFader.visible = false;
+		this.game.tweens.remove(tweenFader);
+		PlayerDataManager.saveData.setUserData();
 	}, this);
 };

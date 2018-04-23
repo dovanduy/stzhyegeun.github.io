@@ -11,14 +11,45 @@ function PopupManager(aGame, aParent) {
 	aGame.cache.addNinePatch("blueBtnDisable", "PopupAtlas", "img_disableSky.png", 28, 28, 45, 45);
 
 	//popup 추가.
-    this.dinoInfoPopup = new DinoInfoPopup(aGame, aParent);
-	this.adPopup = new AdPopup(aGame, aParent);
-	this.optionPopup = new OptionPopup(aGame, aParent);
-	this.getDinoPopup = new GetDinoPopup(aGame, aParent);
-	this.loadFailPopup = new LoadFailPop(aGame, aParent);
+    this.dinoInfoPopup = new DinoInfoPopup(this, aGame, aParent);
+	this.adPopup = new AdPopup(this, aGame, aParent);
+	this.optionPopup = new OptionPopup(this, aGame, aParent);
+	this.getDinoPopup = new GetDinoPopup(this, aGame, aParent);
+	this.loadFailPopup = new LoadFailPop(this, aGame, aParent);
 }
 
-function DinoInfoPopup(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBodyType) {
+PopupManager.prototype.showPopup = function (inGame, inBG, inBlackLayer, inCallback, inContext) {
+	inBlackLayer.visible = true;
+	inBG.scale.setTo(0.4);
+	var tweenBG = inGame.add.tween(inBG.scale).to({x: 1, y: 1}, 300, Phaser.Easing.Back.Out, true);
+	tweenBG.onComplete.add(function () {
+		inGame.tweens.remove(tweenBG);
+		if(inCallback) {
+			if(inContext)
+				inCallback.call(inContext);
+			else
+				inCallback();
+		}
+	});
+};
+
+PopupManager.prototype.closePopup = function (inGame, inBG, inBlackLayer, inCallback, inContext) {
+	var tweenBG = inGame.add.tween(inBG.scale).to({x: 0, y: 0}, 200, Phaser.Easing.Linear.None, true);
+	tweenBG.onComplete.add(function () {
+		inGame.tweens.remove(tweenBG);
+		inBlackLayer.visible = false;
+		if(inCallback) {
+			if(inContext)
+				inCallback.call(inContext);
+			else
+				inCallback();
+		}
+	});
+};
+
+function DinoInfoPopup(manager, aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBodyType) {
+	this.manager = manager;
+
     Phaser.Group.call(this, aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBodyType);
     
     this.blackLayer = aGame.add.graphics();
@@ -28,25 +59,25 @@ function DinoInfoPopup(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysics
 	this.blackLayer.inputEnabled = true;
 
 	this.BG = new Phaser.NinePatchImage(this.game, 720*0.5, 1280*0.5, "popupBG");
-	this.BG.targetWidth = 456;
-	this.BG.targetHeight = 594;
+	this.BG.targetWidth = 520;
+	this.BG.targetHeight = 600;
 	this.BG.anchor.setTo(0.5, 0.5);
 	this.BG.UpdateImageSizes();
 
-	var titleLine = new Phaser.NinePatchImage(this.game, 0, -210, "popupTitleLine");
-	titleLine.targetWidth = 380;
+	var titleLine = new Phaser.NinePatchImage(this.game, 0, -195, "popupTitleLine");
+	titleLine.targetWidth = 466;
 	titleLine.targetHeight = 6;
 	titleLine.anchor.setTo(0.5, 0.5);
 	titleLine.UpdateImageSizes();
 
-	this.txtTitle = this.game.add.text(0, -240, "INFORMATION", {"font":"bold 42px Blogger Sans","fill":"#1a8aa8"});
+	this.txtTitle = this.game.add.text(0, -240, StzTrans.translate(StaticManager.ELocale.info_text_b), {"font":"bold 42px Blogger Sans","fill":"#1a8aa8"});
 	this.txtTitle.anchor.setTo(0.5);
-	this.txtDesc = this.game.add.text(0, 50, "Description", {"font":"bold 34px Blogger Sans","fill":"#4bacc6"});
+	this.txtDesc = this.game.add.text(0, 65, "Description", {"font":"bold 30px Blogger Sans","fill":"#4bacc6", "align":"center"});
 	this.txtDesc.anchor.setTo(0.5);
 
-	this.sprCharacter = this.game.add.sprite(0, -80, "auhaSheet1", 8);
+	this.sprCharacter = this.game.add.sprite(0, -80, "titleAtlas", "01.png");
 	this.sprCharacter.anchor.setTo(0.5);
-	this.sprCharacter.scale.setTo(1.5);
+	this.sprCharacter.scale.setTo(0.7);
 
 	this.btnOK = this.game.add.sprite(0, 200, "PopupAtlas", "btn_popupSkyblue.png");
 	this.btnOK.anchor.setTo(0.5);
@@ -57,7 +88,7 @@ function DinoInfoPopup(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysics
 	this.txtOK = this.game.add.text(0, 0, "OK", {"font":"bold 55px Blogger Sans","fill":"#1a8aa8"});
 	this.txtOK.anchor.setTo(0.5);
 	
-	this.sprIcon = this.game.add.sprite(-50, -5, "PopupAtlas", "icon_purplePlay.png");
+	this.sprIcon = this.game.add.sprite(-50, -2, "PopupAtlas", "icon_purplePlay.png");
 	this.sprIcon.anchor.setTo(0.5);
 
     this.add(this.blackLayer);
@@ -70,9 +101,12 @@ function DinoInfoPopup(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysics
 	this.btnOK.addChild(this.txtOK);
 	this.btnOK.addChild(this.sprIcon);
 
-	this.btnClose = this.game.add.sprite(140, -285, "PopupAtlas", "btn_close.png", this);
+	this.btnClose = this.game.add.sprite(170, -280, "PopupAtlas", "btn_close.png", this);
 	this.btnClose.inputEnabled = true;
-	this.btnClose.events.onInputUp.add(this.closePopup, this);
+	this.btnClose.events.onInputUp.add(function () {
+		window.sounds.sound('sfx_button').play();
+		this.closePopup(this.game, this.BG, this.blackLayer);
+	}, this);
 
 	this.BG.addChild(this.btnClose);
 
@@ -85,25 +119,31 @@ function DinoInfoPopup(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysics
 DinoInfoPopup.prototype = Object.create(Phaser.Group.prototype);
 DinoInfoPopup.prototype.constructor = DinoInfoPopup;
 
-DinoInfoPopup.prototype.showPopup = function(charId, lockType) {
-    this.sprCharacter.loadTexture("auhaSheet"+charId, 8);
+DinoInfoPopup.prototype.showPopup = function(charId, lockType, curValue) {
+	var spriteKey = (charId < 10) ? "0" + charId + ".png" : charId + ".png";
+    this.sprCharacter.loadTexture("titleAtlas", spriteKey);
 	this.visible = true;
 	this.charId = charId;
 	this.lockType = lockType;
+
+	var condition = null;
     
     if(lockType===ESlotLockType.video) {
     	this.btnOK.loadTexture("PopupAtlas", "btn_purple.png");
-    	this.txtOK.text = "FREE";
+    	this.txtOK.text = StzTrans.translate(StaticManager.ELocale.free_text_b);
     	this.txtOK.fill = "#6a3d8a"; 
     	this.txtOK.fontSize = 42;
     	this.txtOK.position.x = 40;
     	
 		this.sprIcon.visible = true;
 		this.btnClose.visible = true;
+
+		condition = StzUtil.strFormatObj(StzTrans.translate(StaticManager.ELocale.condition_watch_video), 
+				{N : StaticManager.dino_runz_character.get(charId).unlock_value - curValue});
     }
     else {
     	this.btnOK.loadTexture("PopupAtlas", "btn_popupSkyblue.png");
-    	this.txtOK.text = "OK";
+    	this.txtOK.text = StzTrans.translate(StaticManager.ELocale.ok_text_b);
     	this.txtOK.fill = "#1a8aa8";
     	this.txtOK.fontSize = 55;
     	this.txtOK.position.x = 0;
@@ -111,18 +151,36 @@ DinoInfoPopup.prototype.showPopup = function(charId, lockType) {
 		this.sprIcon.visible = false;
 		this.btnClose.visible = false;
 		this.btnClose.visible = (lockType===ESlotLockType.share);
-    }
+
+		if (this.lockType === ESlotLockType.level) {
+			condition = StzUtil.strFormatObj(StzTrans.translate(StaticManager.ELocale.condition_stage_clear), 
+				{N : StaticManager.dino_runz_character.get(charId).unlock_value});
+			
+		}
+		else if (this.lockType === ESlotLockType.share) {
+			condition = StzUtil.strFormatObj(StzTrans.translate(StaticManager.ELocale.condition_invite_friend), 
+				{N : StaticManager.dino_runz_character.get(charId).unlock_value});
+		}
+	}
+
+	this.txtDesc.text = StzUtil.strFormatObj(StzTrans.translate(StaticManager.ELocale.info_character_unlock_info),
+			{condition: condition, character_name: StaticManager.dino_runz_character.get(charId).name});
+
+	StzUtil.setLimitTextWidth(this.txtDesc, 422);
+
+	this.manager.showPopup(this.game, this.BG, this.blackLayer);
 };
 
 DinoInfoPopup.prototype.closePopup = function() {
-	window.sounds.sound('sfx_button').play();
-	this.visible = false;
+	this.manager.closePopup(this.game, this.BG, this.blackLayer, function () {
+		this.visible = false;
+	}, this);
 };
 
 DinoInfoPopup.prototype.btnCallback = function() {
 	window.sounds.sound('sfx_button').play();
 
-	function callback() {
+	var callback = function () {
 		var i, characterData = StaticManager.dino_runz_character.data; length = characterData.length;
 		var unlock_value = null;
 		for(i = 0 ; i < length ; ++i) {
@@ -152,40 +210,36 @@ DinoInfoPopup.prototype.btnCallback = function() {
 		DinoRunz.Storage.setUserData();
 
 		this.game.state.getCurrentState().menuScene.updateCharacterSlots();
-
-
 				
-		this.visible = false;
-	}
-	
-	if(!FBInstant) {
-		var callback_bind = callback.bind(this);
-		callback_bind();
-		return;
-	}
+		this.closePopup(this.game, this.BG, this.blackLayer);
+	}.bind(this);
 
 	if(this.lockType===ESlotLockType.video) {
+		if(!FBInstant) {
+			callback();
+			return;
+		}
+
 		var adModel = GGManager.getAdModelByPlacementID(EAdType.REWARDED, EAdName.REWARD_GET_CHARACTER);
 		if(adModel) {
-			GGManager.setCallbackByPlacementID(EAdName.REWARD_GET_CHARACTER, callback.bind(this), function() {
+			GGManager.setCallbackByPlacementID(EAdName.REWARD_GET_CHARACTER, callback, function() {
 				//load success
 			}.bind(this), function() {
 				//load fail
 				var inGameState = this.game.state.getCurrentState();
 				inGameState.menuScene.popupManager.loadFailPopup.showPopup();
 			}.bind(this));
-			GGManager.show(EAdName.REWARD_SKIP);
-		}
-		else {
-
+			GGManager.show(EAdName.REWARD_GET_CHARACTER);
 		}
 	}	
 	else {
-		this.visible = true;
+		this.closePopup(this.game, this.BG, this.blackLayer);
 	}
 };
 
-function AdPopup(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBodyType) {
+function AdPopup(manager, aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBodyType) {
+	this.manager = manager;
+
     Phaser.Group.call(this, aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBodyType);
 
 	this.type = -1;
@@ -208,21 +262,23 @@ function AdPopup(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBodyTy
 	titleLine.anchor.setTo(0.5, 0.5);
     titleLine.UpdateImageSizes();
     
-    this.txtTitle = this.game.add.text(0, -250, "TOO DIFFICULT?", {"font":"bold 44px Blogger Sans","fill":"#1a8aa8"});
+    this.txtTitle = this.game.add.text(0, -240, "TOO DIFFICULT?", {"font":"bold 44px Blogger Sans","fill":"#1a8aa8"});
 	this.txtTitle.anchor.setTo(0.5);
-	this.txtDesc = this.game.add.text(0, 70, "Description", {"font":"bold 32px Blogger Sans","fill":"#4bacc6", "align":"center"});
+	this.txtDesc = this.game.add.text(0, 84, "Description", {"font":"bold 32px Blogger Sans","fill":"#4bacc6", "align":"center"});
     this.txtDesc.anchor.setTo(0.5);
 
     this.sprIcon = this.game.add.sprite(0, -80, "PopupAtlas", "img_skip.png");
 	this.sprIcon.anchor.setTo(0.5);
     
-    this.btnFree = this.game.add.sprite(0, 200, "PopupAtlas", "btn_purple.png");
+    this.btnFree = this.game.add.sprite(0, 217, "PopupAtlas", "btn_purple.png");
 	this.btnFree.anchor.setTo(0.5);
 
 	this.btnFree.inputEnabled = true;
 	this.btnFree.events.onInputUp.add(function() {
 		window.sounds.sound('sfx_button').play();
+		
 		var inGameState = this.game.state.getCurrentState();
+
 		switch(this.type){
 			case EAdPopupType.skip:
 				inGameState.setSkip();
@@ -233,17 +289,20 @@ function AdPopup(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBodyTy
 		}
     }, this);
 
-    var sprAdIcon = this.game.add.sprite(-50, 195, "PopupAtlas", "icon_purplePlay.png");
-    sprAdIcon.anchor.setTo(0.5);
+    var sprAdIcon = this.game.add.sprite(-50, this.btnFree.position.y - 6, "PopupAtlas", "icon_purplePlay.png");
+	sprAdIcon.anchor.setTo(0.5);
     
-	this.txtFree = this.game.add.text(40, 200, "FREE", {"font":"bold 42px Blogger Sans","fill":"#6a3d8a"});
-    this.txtFree.anchor.setTo(0.5);
+	this.txtFree = this.game.add.text(40, this.btnFree.position.y - 4, "FREE", {"font":"bold 42px Blogger Sans","fill":"#6a3d8a"});
+	this.txtFree.anchor.setTo(0.5);
 
     this.btnClose = this.game.add.sprite(210, -250, "PopupAtlas", "btn_close.png");
     this.btnClose.anchor.setTo(0.5);
 
     this.btnClose.inputEnabled = true;
-    this.btnClose.events.onInputUp.add(this.closePopup, this);
+    this.btnClose.events.onInputUp.add(function () {
+		window.sounds.sound('sfx_button').play();
+		this.closePopup(this.game, this.BG, this.blackLayer);
+	}, this);
     
     this.add(this.blackLayer);
     this.add(this.BG);
@@ -265,30 +324,43 @@ AdPopup.prototype.constructor = AdPopup;
 AdPopup.prototype.showPopup = function(eType, DescKey) {
 	this.type = eType;
 
+	this.txtTitle.scale.setTo(1);
+	this.txtDesc.scale.setTo(1);
+
     switch(eType){
         case EAdPopupType.slow:
-            this.sprIcon.loadTexture("PopupAtlas", "img_slow.png");
-            this.txtDesc.text = "Please try \"SLOW\" item.\nIt is easier to move slowly.";
+			this.sprIcon.loadTexture("PopupAtlas", "img_slow.png");
+			this.txtTitle.text = StzTrans.translate(StaticManager.ELocale.slow_item_title);
+			this.txtDesc.text = StzTrans.translate(StaticManager.ELocale.slow_item_desc);
+
+			StzUtil.setLimitTextHeight(this.txtDesc, 86);
             break;
         case EAdPopupType.skip:
-            this.sprIcon.loadTexture("PopupAtlas", "img_skip.png");
-            this.txtDesc.text = "If the stage is too difficult,\n you can skip it.";
+			this.sprIcon.loadTexture("PopupAtlas", "img_skip.png");
+			this.txtTitle.text = StzTrans.translate(StaticManager.ELocale.skip_item_title);
+			this.txtDesc.text = StzTrans.translate(StaticManager.ELocale.skip_item_desc);
             break;
-    }
+	}
+
+	StzUtil.setLimitTextWidth(this.txtTitle, 299);
 
 	this.visible = true;
 	
 	leaderboard.closeLeaderboard();
+
+	this.manager.showPopup(this.game, this.BG, this.blackLayer);
 };
 
 AdPopup.prototype.closePopup = function() {
-	window.sounds.sound('sfx_button').play();
-	this.visible = false;
-	leaderboard.openLeaderboard(ELeaderboardType.FRIEND_LIST
-		, this.game.canvas.style, "restartScene");
+	this.manager.closePopup(this.game, this.BG, this.blackLayer, function () {
+		leaderboard.openLeaderboard(ELeaderboardType.FRIEND_LIST, this.game.canvas.style, "restartScene");
+		this.visible = false;
+	}, this);
 };
 
-function OptionPopup(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBodyType) {
+function OptionPopup(manager, aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBodyType) {
+	this.manager = manager;
+
 	Phaser.Group.call(this, aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBodyType);
 
 	this.blackLayer = this.game.add.graphics();
@@ -299,14 +371,15 @@ function OptionPopup(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBo
 
     this.BG = new Phaser.NinePatchImage(this.game, 720*0.5, 1280*0.5, "popupBG");
 	this.BG.targetWidth = 516;
-	this.BG.targetHeight = 740;
+	this.BG.targetHeight = 650;
 	this.BG.anchor.setTo(0.5, 0.5);
+	this.BG.position.y -= 50;
 	this.BG.UpdateImageSizes();
 
-	var txtTitle = this.game.add.text(0, -320, "SETTING", {"font":"bold 48px Blogger Sans","fill":"#1a8aa8"});
+	var txtTitle = this.game.add.text(0, -270, StzTrans.translate(StaticManager.ELocale.option_text_b), {"font":"bold 48px Blogger Sans","fill":"#1a8aa8"});
 	txtTitle.anchor.setTo(0.5);
 
-	var titleLine = new Phaser.NinePatchImage(this.game, 0, -275, "popupTitleLine");
+	var titleLine = new Phaser.NinePatchImage(this.game, 0, -220, "popupTitleLine");
 	titleLine.targetWidth = 466;
 	titleLine.targetHeight = 6;
 	titleLine.anchor.setTo(0.5, 0.5);
@@ -329,25 +402,25 @@ function OptionPopup(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBo
 		this.btn.addChild(this.text);
 	}
 	
-	this.btnSound = new OptionButton(this.game, "icon_sound01On.png", "SOUND");
-	this.btnMusic = new OptionButton(this.game, "icon_bgm02On.png", "MUSIC");
-	this.btnFanPage = new OptionButton(this.game, "icon_fanpage.png", "FANPAGE");
-	this.btnLanguage = new OptionButton(this.game, undefined, "ENGLISH", "blueBtnDisable");
+	this.btnSound = new OptionButton(this.game, "icon_sound01On.png", StzTrans.translate(StaticManager.ELocale.sound_text_b));
+	this.btnMusic = new OptionButton(this.game, "icon_bgm02On.png", StzTrans.translate(StaticManager.ELocale.music_text_b));
+	// this.btnFanPage = new OptionButton(this.game, "icon_fanpage.png", StzTrans.translate(StaticManager.ELocale.fan_page_text_b));
+	this.btnLanguage = new OptionButton(this.game, undefined, StzTrans.translate(StaticManager.ELocale.language_english), "blueBtnDisable");
 	this.btnLanguage.text.fill = "#68acb5";
 	this.btnLanguage.text.position.x = 286*0.5;
 	this.btnLanguage.text.position.y +=3;
 
-	this.btnSound.btn.position.x = this.btnMusic.btn.position.x = this.btnFanPage.btn.position.x = this.btnLanguage.btn.position.x = -286*0.5;
+	this.btnSound.btn.position.x = this.btnMusic.btn.position.x = /*this.btnFanPage.btn.position.x =*/ this.btnLanguage.btn.position.x = -286*0.5;
 	
-	var offsetY = 20, i = 0, startY= -240, height = 105; 
+	var offsetY = 20, i = 0, startY= -175, height = 105; 
 	this.btnSound.btn.position.y = startY+(height+offsetY) * i++;
 	this.btnMusic.btn.position.y = startY+(height+offsetY) * i++;
-	this.btnFanPage.btn.position.y = startY+(height+offsetY) * i++;
+	// this.btnFanPage.btn.position.y = startY+(height+offsetY) * i++;
 	this.btnLanguage.btn.position.y = startY+(height+offsetY) * i++;
 
 	this.btnSound.btn.inputEnabled = true;
 	this.btnMusic.btn.inputEnabled = true;
-	this.btnFanPage.btn.inputEnabled = true;
+	// this.btnFanPage.btn.inputEnabled = true;
 
 	this.btnSound.btn.events.onInputUp.add(function() {
 		window.sounds.sound('sfx_button').play();
@@ -363,19 +436,22 @@ function OptionPopup(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBo
 		window.sounds.toggleMusic(DinoRunz.InGame.isMusic);
 	}, this);
 
-	this.btnFanPage.btn.events.onInputUp.add(function() {
-		window.sounds.sound('sfx_button').play();
-		/**
-		 * todo : link fanpage
-		 */
-	}, this);
+	// this.btnFanPage.btn.events.onInputUp.add(function() {
+	// 	window.sounds.sound('sfx_button').play();
+	// 	/**
+	// 	 * todo : link fanpage
+	// 	 */
+	// }, this);
 
-	this.btnClose = this.game.add.sprite(200, -320, "PopupAtlas", "btn_close.png");
+	this.btnClose = this.game.add.sprite(200, -270, "PopupAtlas", "btn_close.png");
 	this.btnClose.anchor.setTo(0.5);
 	this.btnClose.inputEnabled = true;
-	this.btnClose.events.onInputUp.add(this.closePopup, this);
+	this.btnClose.events.onInputUp.add(function() {
+		window.sounds.sound('sfx_button').play();
+		this.closePopup();
+	}, this);
 
-	this.txtDesc = this.game.add.text(0, 310, "INFORMATION", {"font":"bold 20px Blogger Sans", "fill":"#8cccd4", "align":"center"});
+	this.txtDesc = this.game.add.text(0, 260, "INFORMATION", {"font":"bold 20px Blogger Sans", "fill":"#8cccd4", "align":"center"});
 	this.txtDesc.anchor.setTo(0.5);
 
 	this.add(this.blackLayer);
@@ -384,7 +460,7 @@ function OptionPopup(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBo
 	this.BG.addChild(titleLine);
 	this.BG.addChild(this.btnSound.btn);
 	this.BG.addChild(this.btnMusic.btn);
-	this.BG.addChild(this.btnFanPage.btn);
+	// this.BG.addChild(this.btnFanPage.btn);
 	this.BG.addChild(this.btnLanguage.btn);
 	this.BG.addChild(this.btnClose);
 	this.BG.addChild(this.txtDesc);
@@ -396,21 +472,28 @@ OptionPopup.prototype = Object.create(Phaser.Group.prototype);
 OptionPopup.prototype.constructor = OptionPopup;
 
 OptionPopup.prototype.showPopup = function() {
+	Server.setLog(EServerLogMsg.MENU, {'p1' : EMenuName.SETTING});
+	
 	this.visible = true;
 
-	this.txtDesc.text = "LAST UPDATE "+StzBuildConfig.LAST_UPDATE+"\n"
-		+ "VERSION " + StzBuildConfig.VERSION + "\n"
-		+ "PID " + PlayerDataManager.getPlatformId();
+	this.txtDesc.text = StzTrans.translate(StaticManager.ELocale.latest_update_text_b) + " " + StzBuildConfig.LAST_UPDATE + "\n" + 
+		StzTrans.translate(StaticManager.ELocale.version_text_b) + " " + StzBuildConfig.VERSION + "\n"+ 
+		StzTrans.translate(StaticManager.ELocale.pid_text_b) + " " + PlayerDataManager.getPlatformId() + "(" + Server.serverId + ")";
+
+	this.manager.showPopup(this.game, this.BG, this.blackLayer);
 };
 
 OptionPopup.prototype.closePopup = function() {
-	window.sounds.sound('sfx_button').play();
-	this.visible = false;
-	var curState = this.game.state.getCurrentState();
-	curState.menuScene.showOptionPopAddProcess(true);
+	this.manager.closePopup(this.game, this.BG, this.blackLayer, function () {
+		var curState = this.game.state.getCurrentState();
+		curState.menuScene.showOptionPopAddProcess(true);
+		this.visible = false;
+	}, this);
 };
 
-function GetDinoPopup(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBodyType){
+function GetDinoPopup(manager, aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBodyType){
+	this.manager = manager;
+
 	Phaser.Group.call(this, aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBodyType);
 	
 	this.blackLayer = this.game.add.graphics();
@@ -425,8 +508,9 @@ function GetDinoPopup(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsB
 	this.BG.anchor.setTo(0.5, 0.5);
 	this.BG.UpdateImageSizes();
 	
-	var txtTitle = this.game.add.text(0, -250, "GET CHARACTER", {"font":"bold 44px Blogger Sans","fill":"#1a8aa8"});
+	var txtTitle = this.game.add.text(0, -240, "GET CHARACTER", {"font":"bold 44px Blogger Sans","fill":"#1a8aa8"});
 	txtTitle.anchor.setTo(0.5);
+	StzUtil.setLimitTextWidth(txtTitle, 312);
 
 	var titleLine = new Phaser.NinePatchImage(this.game, 0, -200, "popupTitleLine");
 	titleLine.targetWidth = 466;
@@ -434,12 +518,12 @@ function GetDinoPopup(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsB
 	titleLine.anchor.setTo(0.5, 0.5);
 	titleLine.UpdateImageSizes();
 	
-	this.txtDesc = this.game.add.text(0, 70, "Description", {"font":"bold 32px Blogger Sans","fill":"#4bacc6", "align":"center"});
+	this.txtDesc = this.game.add.text(0, 85, "Description", {"font":"bold 32px Blogger Sans","fill":"#4bacc6", "align":"center"});
     this.txtDesc.anchor.setTo(0.5);
     
-    this.sprCharacter = this.game.add.sprite(0, -80, "auhaSheet1", 8);
+    this.sprCharacter = this.game.add.sprite(0, -80, "titleAtlas", "01.png");
 	this.sprCharacter.anchor.setTo(0.5);
-	this.sprCharacter.scale.setTo(2);
+	this.sprCharacter.scale.setTo(0.7);
     
     this.btnOK = this.game.add.sprite(0, 200, "PopupAtlas", "btn_popupSkyblue.png");
 	this.btnOK.anchor.setTo(0.5);
@@ -478,17 +562,25 @@ GetDinoPopup.prototype.showPopup = function(charId) {
 	if(!charId) charId = DinoRunz.InGame.getNewCharacterList.shift();
 	
 	this.visible = true;
-	this.sprCharacter.loadTexture("auhaSheet"+charId, 8);
-	this.txtDesc.text = "I GOT THE \"" + StaticManager.dino_runz_character.get(charId).name + "\"\nCHARACTER!";
+
+	var spriteKey = (charId < 10) ? "0" + charId + ".png" : charId + ".png";
+	this.sprCharacter.loadTexture("titleAtlas", spriteKey);
+	this.txtDesc.text = StzUtil.strFormatObj(StzTrans.translate(StaticManager.ELocale.get_character_text), {character_name : StaticManager.dino_runz_character.get(charId).name});
+
+	this.manager.showPopup(this.game, this.BG, this.blackLayer);
 };
 
 GetDinoPopup.prototype.closePopup = function(charId) {
 	window.sounds.sound('sfx_button').play();
 	if(DinoRunz.InGame.getNewCharacterList.length!==0) this.showPopup();
-	else this.visible = false;
+	else this.manager.closePopup(this.game, this.BG, this.blackLayer, function () {
+		this.visible = false;
+	}, this);
 };
 
-function LoadFailPop(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBodyType){
+function LoadFailPop(manager, aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBodyType){
+	this.manager = manager;
+
 	Phaser.Group.call(this, aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBodyType);
 
 	this.blackLayer = this.game.add.graphics();
@@ -498,20 +590,20 @@ function LoadFailPop(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBo
 	this.blackLayer.inputEnabled = true;
 
 	this.BG = new Phaser.NinePatchImage(this.game, 720*0.5, 1280*0.5, "popupBG");
-	this.BG.targetWidth = 456;
-	this.BG.targetHeight = 594;
+	this.BG.targetWidth = 520;
+	this.BG.targetHeight = 600;
 	this.BG.anchor.setTo(0.5, 0.5);
 	this.BG.UpdateImageSizes();
 
 	var titleLine = new Phaser.NinePatchImage(this.game, 0, -210, "popupTitleLine");
-	titleLine.targetWidth = 380;
+	titleLine.targetWidth = 466;
 	titleLine.targetHeight = 6;
 	titleLine.anchor.setTo(0.5, 0.5);
 	titleLine.UpdateImageSizes();
 
-	this.txtTitle = this.game.add.text(0, -240, "INFORMATION", {"font":"bold 42px Blogger Sans","fill":"#1a8aa8"});
+	this.txtTitle = this.game.add.text(0, -240, StzTrans.translate(StaticManager.ELocale.info_text_b), {"font":"bold 42px Blogger Sans","fill":"#1a8aa8"});
 	this.txtTitle.anchor.setTo(0.5);
-	this.txtDesc = this.game.add.text(0, 60, "An error occured.\nPlease try again.", {"font":"bold 34px Blogger Sans","fill":"#4bacc6", "align":"center"});
+	this.txtDesc = this.game.add.text(0, 60, StzTrans.translate(StaticManager.ELocale.ad_fail), {"font":"bold 34px Blogger Sans","fill":"#4bacc6", "align":"center"});
 	this.txtDesc.anchor.setTo(0.5);
 
 	this.btnOK = this.game.add.sprite(0, 200, "PopupAtlas", "btn_popupSkyblue.png");
@@ -546,8 +638,11 @@ LoadFailPop.prototype.constructor = LoadFailPop;
 
 LoadFailPop.prototype.showPopup = function () {
 	this.visible = true;
+	this.manager.showPopup(this.game, this.BG, this.blackLayer);
 };
 
 LoadFailPop.prototype.closePopup = function() {
-	this.visible = false;
+	this.manager.closePopup(this.game, this.BG, this.blackLayer, function () {
+		this.visible = false;
+	}, this);
 };

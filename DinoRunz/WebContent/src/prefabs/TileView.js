@@ -9,7 +9,8 @@ DinoRunz.viewBound = new Phaser.Rectangle(0, 0, 0, 0);
 /**
  * TileView.
  * @param {Phaser.Game} aGame A reference to the currently running game.
- * @param {Phaser.Group} aParent The parent Group (or other {@link DisplayObject}) that this group will be added to.    If undefined/unspecified the Group will be added to the {@link Phaser.Game#world Game World}; if null the Group will not be added to any parent.
+ * @param {Phaser.Group} aParent The parent Group (or other {@link DisplayObject}) that this group will be added to.
+    If undefined/unspecified the Group will be added to the {@link Phaser.Game#world Game World}; if null the Group will not be added to any parent.
  * @param {string} aName A name for this group. Not used internally but useful for debugging.
  * @param {boolean} aAddToStage If true this group will be added directly to the Game.Stage instead of Game.World.
  * @param {boolean} aEnableBody If true all Sprites created with {@link #create} or {@link #createMulitple} will have a physics body created on them. Change the body type with {@link #physicsBodyType}.
@@ -47,6 +48,18 @@ function TileView(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBodyT
 	_iconSkip.anchor.setTo(0.5, 0.5);
 	_iconSkip.animations.add('skip', [0, 1, 2, 3, 4, 5], 20, false);
 	
+	var _groupHardEffect = this.game.add.group(this);
+	
+	var _hardStageEffect = this.game.add.sprite(0, 0, 'hardstageEffect', 0, _groupHardEffect);
+	_hardStageEffect.angle = 90.0;
+	_hardStageEffect.scale.setTo(1.2, 1.2);
+	_hardStageEffect.anchor.setTo(0.5, 0.5);
+	_hardStageEffect.animations.add('hard', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], 30, false);
+	
+	var _txtHardStage = this.game.add.text(0, 0, '999', {"font":"bold 52px Blogger Sans","fill":"#ffffff"}, _groupHardEffect);
+	_txtHardStage.angle = 90.0;
+	_txtHardStage.anchor.setTo(0.5, 0.5);
+	
 	
 	
 	// public fields
@@ -58,6 +71,9 @@ function TileView(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBodyT
 	this.fText = _text;
 	this.fJewel = _jewel;
 	this.fIconSkip = _iconSkip;
+	this.fGroupHardEffect = _groupHardEffect;
+	this.fHardStageEffect = _hardStageEffect;
+	this.fTxtHardStage = _txtHardStage;
 	/* --- post-init-begin --- */
 	
 	this.prevPath = null;
@@ -72,6 +88,7 @@ function TileView(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBodyT
 	this.prevType = ETileType.NONE;
 	this.nextType = ETileType.NONE;
 	
+	this.fGroupHardEffect.visible = false;
 	/* --- post-init-end --- */
 	
 	
@@ -107,8 +124,10 @@ TileView.prototype.updateView = function() {
 	if (this.nextType === ETileType.NONE && this.prevType === ETileType.NONE) {
 		this.fTile.loadTexture("resAtlas", "road_tile_4.png");
 	} else if (this.nextType === ETileType.NONE) {
-		this.fTile.loadTexture("resAtlas", "road_tile_1.png");
-		this.fTile.scale.x = (this.tileType === ETileType.GOAL ? -5 : -1);
+		if(this.tileType !== ETileType.END) {
+			this.fTile.loadTexture("resAtlas", "road_tile_1.png");
+			this.fTile.scale.x = (this.tileType === ETileType.GOAL ? -5 : -1);
+		} 
 	} else if (this.prevType === ETileType.NONE) {
 		this.fTile.loadTexture("resAtlas", "road_tile_1.png");
 	} else {
@@ -203,7 +222,9 @@ TileView.prototype.reset = function() {
     this.prevPath = null;
     this.nextPath = null;
     this.prevType = ETileType.NONE;
-    this.nextType = ETileType.NONE;
+	this.nextType = ETileType.NONE;
+	
+	this.fGroupHardEffect.visible = false;
 };
 
 TileView.prototype.getIndex = function() {
@@ -291,6 +312,13 @@ TileView.prototype.setType = function(inTileType) {
 		this.fGoalStart.position.setTo(-427.5, 0);
 		this.fGoalEnd.position.setTo(380, 0);
 		break;
+	case ETileType.END:
+		this.visible = true;
+		this.fArrow.visible = false;
+		this.fText.visible = true;
+		this.fText.text = "END";
+		this.fTile.loadTexture("resAtlas", "road_tile_6.png");
+		break;
 	}
 };
 
@@ -375,3 +403,10 @@ TileView.prototype.setDirection = function(inDirection) {
 	}
 };
 
+TileView.prototype.showHardEffect = function (stage) {
+	this.fGroupHardEffect.visible = true;
+	this.fHardStageEffect.animations.play("hard", 30);
+	this.fTxtHardStage.text = stage;
+
+	this.fText.visible = false;
+};

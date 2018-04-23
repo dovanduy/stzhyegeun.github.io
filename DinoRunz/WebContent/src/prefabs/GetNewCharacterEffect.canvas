@@ -50,8 +50,6 @@
               "asset": "0",
               "info": {
                 "editorName": "getCharBG_png",
-                "scale.x": 2,
-                "scale.y": 2,
                 "anchor.x": 0.5,
                 "anchor.y": 0.5
               }
@@ -65,8 +63,6 @@
                 "editorPublic": true,
                 "x": -175,
                 "y": -21,
-                "scale.x": 2,
-                "scale.y": 2,
                 "anchor.x": 0.5,
                 "anchor.y": 0.5
               }
@@ -80,8 +76,6 @@
                 "editorPublic": true,
                 "x": -175,
                 "y": -21,
-                "scale.x": 1.5,
-                "scale.y": 1.5,
                 "anchor.x": 0.5,
                 "anchor.y": 0.5
               }
@@ -97,7 +91,7 @@
                 "anchor.y": 0.5,
                 "text": "GET A NEW CHARACTER!",
                 "style.font": "Blogger Sans",
-                "style.fontSize": 32,
+                "style.fontSize": 28,
                 "style.fill": "#1a8aa8"
               }
             }

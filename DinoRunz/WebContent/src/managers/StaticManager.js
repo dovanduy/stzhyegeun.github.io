@@ -11,11 +11,24 @@ var StaticManager_proto = function () {
 	this.DEBUG_MODE = true;
 	
 	this.stage = 1;
+
+	this.localeDataName = "";
+	this.ELocale = {};
 	
 	this.initWithData = function(inObj, inCallback, inContext) {
 		for (var key in inObj) {
 			if (typeof inObj[key] === 'object') {
 				this[key] = new StaticModel(key, (inObj[key].version || 1), inObj[key].data);
+
+				if(key.indexOf("locale") !== -1) {
+					if(key.indexOf("chatbot_locale") !== -1) continue;
+
+					this.localeDataName = key;
+					var data = this[key].data;
+					for(var name in this[key].data) {
+						this.ELocale[name] = name;
+					}
+				}
 			} else {
 				continue;
 			}
@@ -135,7 +148,7 @@ var StaticModel = function(staticName, staticVersion, staticData) {
 			result = inData;
 			this.length = 1;
 		} else if (typeData === '[object Array]') {
-			result = new Object();
+			result = {};
 			this.length = inData.length;
 			for (var i = 0; i < inData.length; i++) {
 				if (inData[i].hasOwnProperty('key')) {

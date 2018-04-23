@@ -26,6 +26,14 @@ DinoRunz.PathManager = function(game, parent) {
 	this.initialPosition = new Phaser.Point(this.game.width / 2, this.game.height / 2);
 	
 	this.alignHorizontalOffset = 0;
+
+	// HardStage
+	this.mode = null;
+	this.isHardStage = false;
+	this.startPath = null;
+
+	// target
+	this.targetList = [];
 };
 
 DinoRunz.PathManager.prototype = Object.create(Phaser.Plugin.prototype);
@@ -176,6 +184,7 @@ DinoRunz.PathManager.prototype.popFrontCommand = function() {
 
 DinoRunz.PathManager.prototype.checkPlayerOnPath = function(inPlayer) {
 	var targetList = this.getPathFromPlayer(inPlayer.getIndex());
+	
 	for (var i = 0; i < targetList.length; i++) {
 		var currentPath = targetList[i];
 		var currentBounds = currentPath.getViewBound();
@@ -235,7 +244,7 @@ DinoRunz.PathManager.prototype.checkPlayerOnPath = function(inPlayer) {
  * PATH
  */
 DinoRunz.PathManager.prototype.getPathFromPlayer = function(inPlayerIndex) {
-	//var child = this.tiles.iterate("exists", true, Phaser.Group.RETURN_ALL);
+
 	var child = this.tiles.getAll("exists", true);
 	return child.filter(function(item, index, origin) {
 		if (item.getIndex() >= inPlayerIndex) {
@@ -246,7 +255,7 @@ DinoRunz.PathManager.prototype.getPathFromPlayer = function(inPlayerIndex) {
 };
 
 DinoRunz.PathManager.prototype.getPathByIndex = function(inIndex) {
-	//var child = this.tiles.iterate("exists", true, Phaser.Group.RETURN_ALL);
+	
 	var child = this.tiles.getAll("exists", true);
 	return child.filter(function(item, index, origin) {
 		if (item.getIndex() === inIndex) {
@@ -256,16 +265,52 @@ DinoRunz.PathManager.prototype.getPathByIndex = function(inIndex) {
 	})[0];
 };
 
-DinoRunz.PathManager.prototype.drawPath = function(inStartIndex, inEndIndex, inCreateIfNull, inTargetStage) {
+DinoRunz.PathManager.prototype.drawPath = function(inStartIndex, inEndIndex, inCreateIfNull, inTargetStage, inIsEnd) {
 	if (!this.pathList) {
 		return;
 	}
+
 	var startIndex = inStartIndex || (this.lastDrawnIndex >= 0 ? this.lastDrawnIndex + 1 : 0);
 	var endIndex = inEndIndex || this.pathList.length - 1;
 	var isCreateIfNull = inCreateIfNull || false;
+
+	if(inIsEnd) {
+		var currentPath = ETileType.END;
+		var currentDirection = this.getDirectionByTileType(currentPath);
+
+		var currentTile = this.tiles.getFirstDead(true);
+		currentTile.reset();
+		currentTile.tileIndex = startIndex;
+		currentTile.indexInStage = 0;
+		currentTile.setType(currentPath);
+		currentTile.setDirection(currentDirection);
+
+		var parent = currentTile.parent;
+		parent.addChildAt(currentTile, parent.children.length);//depth 정리.
+		if (this.stageDict.hasOwnProperty(currentTile.tileIndex)) {
+			var stageNum = this.stageDict[currentTile.tileIndex];
+			currentTile.fText.text = stageNum;
+		}
+
+		if (this.lastDrawnPath) {
+			var currentPosition = this.lastDrawnPath.getNextPosition(currentPath);
+			currentTile.position.setTo(currentPosition.x, currentPosition.y);
+			currentTile.setPrevPath(this.lastDrawnPath);
+			this.lastDrawnPath.setNextPath(currentTile);
+		} else {
+			currentTile.position.setTo(this.initialPosition.x, this.initialPosition.y);	
+		}
+
+		this.lastDrawnPath = currentTile;
+		this.lastDrawnIndex = i;
+		return currentTile;
+	}
 	
-	// 친구의 DeadPosition 체크
 	if (inTargetStage !== undefined) {
+		//Check HardStage
+		this.checkStageMode(inTargetStage);
+		
+		// 친구의 DeadPosition 체크
 	    var friendsInStage = PlayerDataManager.getContextFriends().filter(function(item, index, origin){
 	        if (StzUtil.hasOwnProperties(item, ["bestStage", "fallenBlockId"]) === false) {
 	            return false;
@@ -304,14 +349,17 @@ DinoRunz.PathManager.prototype.drawPath = function(inStartIndex, inEndIndex, inC
 		currentTile.setDirection(currentDirection);
 
 		if (currentPath === ETileType.START) {
+			var parent = currentTile.parent;
+			parent.addChildAt(currentTile, parent.children.length);//depth 정리.
 			if (this.stageDict.hasOwnProperty(currentTile.tileIndex)) {
 				var stageNum = this.stageDict[currentTile.tileIndex];
 				currentTile.fText.text = stageNum;
 			}
+
+			this.startPath = currentTile;
 		}
 		
 		// stageNum이 플레이어의 
-		
 		if (this.lastDrawnPath) {
 			var currentPosition = this.lastDrawnPath.getNextPosition(currentPath);
 			currentTile.position.setTo(currentPosition.x, currentPosition.y);
@@ -349,9 +397,15 @@ DinoRunz.PathManager.prototype.drawPath = function(inStartIndex, inEndIndex, inC
 	}
 };
 
+DinoRunz.PathManager.prototype.checkStageMode = function (inTargetStage) {
+	this.mode = StaticManager.dino_runz_level_design.get(inTargetStage-1).mode;
+	this.isHardStage = (this.mode === EStageMode.HARD);
+};
+
 DinoRunz.PathManager.prototype.getDirectionByTileType = function(inTileType) {
 	switch (inTileType) {
 	case ETileType.START:
+	case ETileType.END:	
 	case ETileType.GOAL: 
 	case ETileType.DIRECTION_UP:
 		return EDirection.UP;
@@ -525,28 +579,9 @@ DinoRunz.PathManager.prototype.createTiles = function(inParentGroup) {
 		this.tiles = this.game.add.group(this.tileGroup);
 		this.tiles.classType = TileView;
 		this.tiles.createMultiple(DinoRunz.PathManager.MAX_TILES);
-//		for (var i = DinoRunz.PathManager.MAX_TILES; i >= 0; i--) {
-//			this.tiles.add(new TileView(this.game, this.tileGroup));
-//		}
 	}
 	this.tiles.callAllExists("kill", true);
 };
-
-
-//DinoRunz.PathManager.prototype.getTile = function(isCreateIfNull) {
-//	var result = this.tiles.getFirstExists(false);
-//	
-//	if (result) {
-//		result.reset();
-//	} else {
-//		if (isCreateIfNull) {
-//			result = new TileView(this.game, this.tileGroup);
-//			this.tiles.add(result);
-//			//console.log("new Tile created: " + this.tiles.children.length);
-//		}	
-//	} 
-//	return result;
-//};
 
 DinoRunz.PathManager.prototype.killTile = function(inTile) {
 	inTile.kill();

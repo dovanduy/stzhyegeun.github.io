@@ -33,7 +33,8 @@ function CharSelectSlot(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysic
 	var _btnDisable = this.game.add.sprite(0, 60, 'CharacterSelect', 'btn_disableBtnGray.png', this);
 	_btnDisable.anchor.setTo(0.5, 0.5);
 	
-	var _sprCharacter = this.game.add.sprite(0, -35, 'auhaSheet1', 5, this);
+	var _sprCharacter = this.game.add.sprite(0, -35, 'titleAtlas', '01.png', this);
+	_sprCharacter.scale.setTo(0.45, 0.45);
 	_sprCharacter.anchor.setTo(0.5, 0.5);
 	
 	var _txtCondition = this.game.add.text(0, 59, 'txtDisable', {"font":"bold 20px Blogger Sans","fill":"#345d76"}, this);
@@ -109,7 +110,6 @@ CharSelectSlot.prototype.checkState = function() {
 		this.curValue = DinoRunz.Storage.UserData.lastClearedStage;
 		break;
 	case ESlotLockType.video:
-	case ESlotLockType.share:
 		for(i=0;i<length;++i){
 			curData = DinoRunz.Storage.UserData.lockDinoData[i];
 			if(this.charId===curData.charId){
@@ -118,11 +118,28 @@ CharSelectSlot.prototype.checkState = function() {
 			}
 		}
 		break;
+	case ESlotLockType.share:
+		for(i=0;i<length;++i){
+			curData = DinoRunz.Storage.UserData.lockDinoData[i];
+			if(this.charId===curData.charId){
+				this.curValue = PlayerDataManager.saveData.UserData.shareCount;
+				break;
+			}
+		}
+		break;
 	}
 
 	this.setSlot();
 
-	this.isLock = (this.curValue<this.lockValue);
+	this.isLock = true; 
+	if(this.lockType === ESlotLockType.level) {
+		this.isLock = (this.curValue <= this.lockValue);
+	}
+	else {
+		this.isLock = (this.curValue < this.lockValue);
+	}
+
+	DinoRunz.Storage.setGetDinoList(this.charId, !this.isLock);
 	
 	if(!this.isLock){
 		this.fSlotBG.alpha = 1;
@@ -151,13 +168,19 @@ CharSelectSlot.prototype.selectSlots = function() {
 
 CharSelectSlot.prototype.btnDisableCallback = function() {
 	window.sounds.sound('sfx_button').play();
-	if(this.lockType !== ESlotLockType.share) DinoRunz.InGame.menuScene.popupManager.dinoInfoPopup.showPopup(this.charId, this.lockType);
+	if(this.lockType !== ESlotLockType.share) DinoRunz.InGame.menuScene.popupManager.dinoInfoPopup.showPopup(this.charId, this.lockType, this.curValue);
 	else {
-		FBManager.InviteFriend(function() {
+		FbManager.inviteFriend(function() {
 			PlayerDataManager.saveData.setUserData();
-			this.curValue = PlayerDataManager.UserData.shareCount;
-			this.game.state.getCurrentState.menuScene.updateCharacterSlots();
-		}.bind(this));
+			this.curValue = PlayerDataManager.saveData.UserData.shareCount;
+			this.game.state.getCurrentState().menuScene.updateCharacterSlots();
+		}, function() {
+			//fail
+			StzLog.print('not in context');
+			PlayerDataManager.saveData.setUserData();
+			this.curValue = PlayerDataManager.saveData.UserData.shareCount;
+			this.game.state.getCurrentState().menuScene.updateCharacterSlots();
+		}, this);
 	}
 };
 
@@ -168,7 +191,9 @@ CharSelectSlot.prototype.init = function(index) {
 	this.lockValue = characterData.unlock_value;
 	
 	this.charId = characterData.id;
-	this.fSprCharacter.loadTexture("auhaSheet"+this.charId, 8);
+
+	var spriteKey = (this.charId < 10) ? "0" + this.charId + ".png" : this.charId + ".png";
+	this.fSprCharacter.loadTexture("titleAtlas", spriteKey);
 	
 	this.setSlot();
 };

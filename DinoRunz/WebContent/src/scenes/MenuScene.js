@@ -9,8 +9,7 @@
 /**
  * MenuScene.
  * @param {Phaser.Game} aGame A reference to the currently running game.
- * @param {Phaser.Group} aParent The parent Group (or other {@link DisplayObject}) that this group will be added to.
-    If undefined/unspecified the Group will be added to the {@link Phaser.Game#world Game World}; if null the Group will not be added to any parent.
+ * @param {Phaser.Group} aParent The parent Group (or other {@link DisplayObject}) that this group will be added to.    If undefined/unspecified the Group will be added to the {@link Phaser.Game#world Game World}; if null the Group will not be added to any parent.
  * @param {string} aName A name for this group. Not used internally but useful for debugging.
  * @param {boolean} aAddToStage If true this group will be added directly to the Game.Stage instead of Game.World.
  * @param {boolean} aEnableBody If true all Sprites created with {@link #create} or {@link #createMulitple} will have a physics body created on them. Change the body type with {@link #physicsBodyType}.
@@ -24,8 +23,8 @@ function MenuScene(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBody
 	var _restartGroup = this.game.add.group(this);
 	_restartGroup.position.setTo(0, -50);
 	
-	var _txtTitle = this.game.add.text(360, 158, 'STAGE FAILED', {"font":"bold 74px Blogger Sans","fill":"#eaeff8"}, _restartGroup);
-	_txtTitle.anchor.setTo(0.5, 0.5);
+	var _txtTitleAtRestart = this.game.add.text(360, 158, 'STAGE FAILED', {"font":"bold 74px Blogger Sans","fill":"#eaeff8"}, _restartGroup);
+	_txtTitleAtRestart.anchor.setTo(0.5, 0.5);
 	
 	var _btnRestart = this.game.add.sprite(360, 388, 'MenuScene', 'btn_yellow.png', _restartGroup);
 	_btnRestart.anchor.setTo(0.5, 0.5);
@@ -33,8 +32,8 @@ function MenuScene(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBody
 	var _btnShareAtRestart = this.game.add.group(_restartGroup);
 	_btnShareAtRestart.position.setTo(95, 426);
 	
-	var _txtRestartStage1 = this.game.add.text(0, 54, 'SHARE', {"font":"bold 32px Blogger Sans","fill":"#eaeff8"}, _btnShareAtRestart);
-	_txtRestartStage1.anchor.setTo(0.5, 0.5);
+	var _txtShareAtRestart = this.game.add.text(0, 54, 'SHARE', {"font":"bold 32px Blogger Sans","fill":"#eaeff8"}, _btnShareAtRestart);
+	_txtShareAtRestart.anchor.setTo(0.5, 0.5);
 	
 	var _sprShare = this.game.add.sprite(0, 0, 'MenuScene', 'icon_share.png', _btnShareAtRestart);
 	_sprShare.anchor.setTo(0.5, 0.5);
@@ -45,8 +44,8 @@ function MenuScene(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBody
 	var _sprStage = this.game.add.sprite(0, 0, 'MenuScene', 'icon_stage.png', _btnStageAtRestart);
 	_sprStage.anchor.setTo(0.5, 0.5);
 	
-	var _txtRestartStage = this.game.add.text(0, 54, 'STAGE', {"font":"bold 32px Blogger Sans","fill":"#eaeff8"}, _btnStageAtRestart);
-	_txtRestartStage.anchor.setTo(0.5, 0.5);
+	var _txtStageAtRestart = this.game.add.text(0, 54, 'STAGE', {"font":"bold 32px Blogger Sans","fill":"#eaeff8"}, _btnStageAtRestart);
+	_txtStageAtRestart.anchor.setTo(0.5, 0.5);
 	
 	var _btnSlowAtRestart = this.game.add.group(_restartGroup);
 	_btnSlowAtRestart.position.setTo(360, 635);
@@ -54,8 +53,8 @@ function MenuScene(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBody
 	var _sprSlowAtRestart = this.game.add.sprite(0, 0, 'MenuScene', 'btn_skyblue.png', _btnSlowAtRestart);
 	_sprSlowAtRestart.anchor.setTo(0.5, 0.5);
 	
-	var _txtSlow = this.game.add.text(0, 90, 'SLOW', {"font":"bold 30px Blogger Sans","fill":"#eaeff8"}, _btnSlowAtRestart);
-	_txtSlow.anchor.setTo(0.5, 0.5);
+	var _txtSlowAtRestart = this.game.add.text(0, 90, 'SLOW', {"font":"bold 30px Blogger Sans","fill":"#eaeff8"}, _btnSlowAtRestart);
+	_txtSlowAtRestart.anchor.setTo(0.5, 0.5);
 	
 	var _sprSlowIcon = this.game.add.sprite(0, 0, 'MenuScene', 'icon_slow.png', _btnSlowAtRestart);
 	_sprSlowIcon.anchor.setTo(0.5, 0.5);
@@ -69,54 +68,23 @@ function MenuScene(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBody
 	var _sprSkip = this.game.add.sprite(0, 0, 'MenuScene', 'icon_nextLevel.png', _btnSkipAtRestart);
 	_sprSkip.anchor.setTo(0.5, 0.5);
 	
-	var _txtSkip = this.game.add.text(0, 90, 'SKIP', {"font":"bold 30px Blogger Sans","fill":"#eaeff8"}, _btnSkipAtRestart);
-	_txtSkip.anchor.setTo(0.5, 0.5);
+	var _txtSkipAtRestart = this.game.add.text(0, 90, 'SKIP', {"font":"bold 30px Blogger Sans","fill":"#eaeff8"}, _btnSkipAtRestart);
+	_txtSkipAtRestart.anchor.setTo(0.5, 0.5);
 	
 	var _btnCharacterAtRestart = this.game.add.group(_restartGroup);
 	_btnCharacterAtRestart.position.setTo(155, 635);
 	
-	var _sprCharacterAtRestart = this.game.add.sprite(0, 5, 'MenuScene', 'btn_skyblue.png', _btnCharacterAtRestart);
-	_sprCharacterAtRestart.anchor.setTo(0.5, 0.5);
+	var _sprBtnCharacterAtRestart = this.game.add.sprite(0, 5, 'MenuScene', 'btn_skyblue.png', _btnCharacterAtRestart);
+	_sprBtnCharacterAtRestart.anchor.setTo(0.5, 0.5);
 	
 	var _txtCharacterAtRestart = this.game.add.text(0, 95, 'CHARACTER', {"font":"bold 30px Blogger Sans","fill":"#eaeff8"}, _btnCharacterAtRestart);
 	_txtCharacterAtRestart.anchor.setTo(0.5, 0.5);
 	
-	var _sprCharacterAtRestart = this.game.add.sprite(0, 0, 'auhaSheet1', 8, _btnCharacterAtRestart);
+	var _sprCharacterAtRestart = this.game.add.sprite(0, 0, 'titleAtlas', '01.png', _btnCharacterAtRestart);
+	_sprCharacterAtRestart.scale.setTo(0.45, 0.45);
 	_sprCharacterAtRestart.anchor.setTo(0.5, 0.5);
 	
 	var _menuGroup = this.game.add.group(this);
-	
-	var _btnRestartAtMenu = this.game.add.sprite(360, 1122, 'MenuScene', 'btn_mainYellow.png', _menuGroup);
-	_btnRestartAtMenu.anchor.setTo(0.5, 0.5);
-	
-	var _txtRestartAtMenu = this.game.add.text(360, 1149, 'This is a text', {"font":"bold 40px Blogger Sans","fill":"#ff9100"}, _menuGroup);
-	_txtRestartAtMenu.anchor.setTo(0.5, 0.5);
-	
-	var _txtRestartAtMenuTitle = this.game.add.text(360, 1090, 'PLAY', {"font":"bold 55px Blogger Sans","fill":"#ff9100"}, _menuGroup);
-	_txtRestartAtMenuTitle.anchor.setTo(0.5, 0.5);
-	
-	var _btnInvite = this.game.add.sprite(126, 1133, 'MenuScene', 'btn_subBlue.png', _menuGroup);
-	_btnInvite.anchor.setTo(0.5, 0.5);
-	
-	var _btnSelect = this.game.add.sprite(593, 1133, 'MenuScene', 'btn_subBlue.png', _menuGroup);
-	_btnSelect.anchor.setTo(0.5, 0.5);
-	
-	var _icon_invite_png = this.game.add.sprite(128, 1130, 'MenuScene', 'icon_invite.png', _menuGroup);
-	_icon_invite_png.anchor.setTo(0.5, 0.5);
-	
-	var _sprCharacter = this.game.add.sprite(593, 1133, 'auhaSheet1', 5, _menuGroup);
-	_sprCharacter.anchor.setTo(0.5, 0.5);
-	var _sprCharacter_idle = _sprCharacter.animations.add('idle', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19], 20, true);
-	_sprCharacter_idle.play();
-	
-	var _sprGoToStage = this.game.add.sprite(597, 1132, 'CharacterSelect', 'icon_goToStageSelect.png', _menuGroup);
-	_sprGoToStage.anchor.setTo(0.5, 0.5);
-	
-	var _txtInvite = this.game.add.text(128, 1210, 'INVITE', {"font":"bold 25px Blogger Sans","fill":"#9badcd"}, _menuGroup);
-	_txtInvite.anchor.setTo(0.5, 0.5);
-	
-	var _txtCharacter = this.game.add.text(593, 1210, 'CHARACTER', {"font":"bold 25px Blogger Sans","fill":"#9badcd"}, _menuGroup);
-	_txtCharacter.anchor.setTo(0.5, 0.5);
 	
 	var _sprNaviBG = this.game.add.sprite(360, 54, 'MenuScene', 'img_bgNavi.png', _menuGroup);
 	_sprNaviBG.scale.setTo(360.0, 1.0);
@@ -136,8 +104,8 @@ function MenuScene(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBody
 	var _btnOption = this.game.add.sprite(619, 59, 'MenuScene', 'icon_option.png', _stageSelectGroup);
 	_btnOption.anchor.setTo(0.5, 0.5);
 	
-	var _icon_world01_png = this.game.add.sprite(135, 46, 'MenuScene', 'icon_world01.png', _stageSelectGroup);
-	_icon_world01_png.anchor.setTo(0.5, 0.5);
+	var _sprWorldIcon = this.game.add.sprite(135, 46, 'MenuScene', 'icon_world01.png', _stageSelectGroup);
+	_sprWorldIcon.anchor.setTo(0.5, 0.5);
 	
 	var _dotLineGroup = this.game.add.group(_stageSelectGroup);
 	_dotLineGroup.position.setTo(182, 47);
@@ -199,14 +167,50 @@ function MenuScene(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBody
 	var _worldProfile0 = new WorldUserProfile(this.game, _stageSelectGroup);
 	_worldProfile0.position.setTo(252, 47);
 	
-	var _recomandJoinMsg = this.game.add.text(304, 20, 'Join the chat room.\nPlay with friends!', {"font":"bold 25px Blogger Sans","fill":"#8b9dca"}, _stageSelectGroup);
+	var _groupStageButtons = this.game.add.group(_stageSelectGroup);
+	
+	var _recomandJoinMsg = this.game.add.text(309, 28, 'Join the chat room.\nPlay with friends!', {"font":"bold 22px Blogger Sans","fill":"#8b9dca"}, _stageSelectGroup);
 	
 	var _charcterSelectGroup = this.game.add.group(_menuGroup);
+	
+	var _groupCharacterSlots = this.game.add.group(_charcterSelectGroup);
 	
 	var _txtCharTitle = this.game.add.text(360, 60, 'CHARACTER', {"font":"bold 74px Blogger Sans","fill":"#ffffff"}, _charcterSelectGroup);
 	_txtCharTitle.anchor.setTo(0.5, 0.5);
 	
-	var _group1 = this.game.add.group(_menuGroup);
+	var _threeButtons = this.game.add.group(_menuGroup);
+	
+	var _btnSelect = this.game.add.sprite(593, 1133, 'MenuScene', 'btn_subBlue.png', _threeButtons);
+	_btnSelect.anchor.setTo(0.5, 0.5);
+	
+	var _btnInvite = this.game.add.sprite(126, 1133, 'MenuScene', 'btn_subBlue.png', _threeButtons);
+	_btnInvite.anchor.setTo(0.5, 0.5);
+	
+	var _txtCharacter = this.game.add.text(593, 1210, 'CHARACTER', {"font":"bold 25px Blogger Sans","fill":"#9badcd"}, _threeButtons);
+	_txtCharacter.anchor.setTo(0.5, 0.5);
+	
+	var _txtInvite = this.game.add.text(128, 1210, 'INVITE', {"font":"bold 25px Blogger Sans","fill":"#9badcd"}, _threeButtons);
+	_txtInvite.anchor.setTo(0.5, 0.5);
+	
+	var _sprGoToStage = this.game.add.sprite(597, 1132, 'CharacterSelect', 'icon_goToStageSelect.png', _threeButtons);
+	_sprGoToStage.anchor.setTo(0.5, 0.5);
+	
+	var _sprCharacter = this.game.add.sprite(593, 1133, 'auhaSheet1', 5, _threeButtons);
+	_sprCharacter.anchor.setTo(0.5, 0.5);
+	var _sprCharacter_idle = _sprCharacter.animations.add('idle', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19], 20, true);
+	_sprCharacter_idle.play();
+	
+	var _icon_invite_png = this.game.add.sprite(128, 1130, 'MenuScene', 'icon_invite.png', _threeButtons);
+	_icon_invite_png.anchor.setTo(0.5, 0.5);
+	
+	var _btnRestartAtMenu = this.game.add.sprite(360, 1122, 'MenuScene', 'btn_mainYellow.png', _threeButtons);
+	_btnRestartAtMenu.anchor.setTo(0.5, 0.5);
+	
+	var _txtRestartAtMenuTitle = this.game.add.text(360, 1090, 'PLAY', {"font":"bold 55px Blogger Sans","fill":"#ff9100"}, _threeButtons);
+	_txtRestartAtMenuTitle.anchor.setTo(0.5, 0.5);
+	
+	var _txtRestartAtMenu = this.game.add.text(360, 1149, 'This is a text', {"font":"bold 40px Blogger Sans","fill":"#ff9100"}, _threeButtons);
+	_txtRestartAtMenu.anchor.setTo(0.5, 0.5);
 	
 	
 	
@@ -214,36 +218,73 @@ function MenuScene(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBody
 	
 	this.fBlindGroup = _blindGroup;
 	this.fRestartGroup = _restartGroup;
+	this.fTxtTitleAtRestart = _txtTitleAtRestart;
 	this.fBtnRestart = _btnRestart;
 	this.fBtnShareAtRestart = _btnShareAtRestart;
+	this.fTxtShareAtRestart = _txtShareAtRestart;
 	this.fBtnStageAtRestart = _btnStageAtRestart;
+	this.fTxtStageAtRestart = _txtStageAtRestart;
 	this.fBtnSlowAtRestart = _btnSlowAtRestart;
-	this.fTxtSlow = _txtSlow;
+	this.fTxtSlowAtRestart = _txtSlowAtRestart;
 	this.fSprSlowIcon = _sprSlowIcon;
 	this.fBtnSkipAtRestart = _btnSkipAtRestart;
+	this.fTxtSkipAtRestart = _txtSkipAtRestart;
 	this.fBtnCharacterAtRestart = _btnCharacterAtRestart;
+	this.fTxtCharacterAtRestart = _txtCharacterAtRestart;
 	this.fSprCharacterAtRestart = _sprCharacterAtRestart;
 	this.fMenuGroup = _menuGroup;
-	this.fBtnRestartAtMenu = _btnRestartAtMenu;
-	this.fTxtRestartAtMenu = _txtRestartAtMenu;
-	this.fBtnInvite = _btnInvite;
-	this.fBtnSelect = _btnSelect;
-	this.fSprCharacter = _sprCharacter;
-	this.fSprGoToStage = _sprGoToStage;
-	this.fTxtCharacter = _txtCharacter;
 	this.fStageSelectGroup = _stageSelectGroup;
 	this.fBtnNextPage = _btnNextPage;
 	this.fBtnPrevPage = _btnPrevPage;
 	this.fTxtWorld = _txtWorld;
 	this.fBtnOption = _btnOption;
-	this.fIcon_world01_png = _icon_world01_png;
+	this.fSprWorldIcon = _sprWorldIcon;
 	this.fDotLineGroup = _dotLineGroup;
 	this.fWorldProfile2 = _worldProfile2;
 	this.fWorldProfile1 = _worldProfile1;
 	this.fWorldProfile0 = _worldProfile0;
+	this.fGroupStageButtons = _groupStageButtons;
 	this.fRecomandJoinMsg = _recomandJoinMsg;
 	this.fCharcterSelectGroup = _charcterSelectGroup;
+	this.fGroupCharacterSlots = _groupCharacterSlots;
+	this.fTxtCharTitle = _txtCharTitle;
+	this.fThreeButtons = _threeButtons;
+	this.fBtnSelect = _btnSelect;
+	this.fBtnInvite = _btnInvite;
+	this.fTxtCharacter = _txtCharacter;
+	this.fTxtInvite = _txtInvite;
+	this.fSprGoToStage = _sprGoToStage;
+	this.fSprCharacter = _sprCharacter;
+	this.fBtnRestartAtMenu = _btnRestartAtMenu;
+	this.fTxtRestartAtMenuTitle = _txtRestartAtMenuTitle;
+	this.fTxtRestartAtMenu = _txtRestartAtMenu;
 	/* --- post-init-begin --- */
+	//set text
+	this.fTxtInvite.text = StzTrans.translate(StaticManager.ELocale.invite_text_b);
+	this.fTxtRestartAtMenuTitle.text = StzTrans.translate(StaticManager.ELocale.play_text_b);
+	this.fTxtCharTitle.text = StzTrans.translate(StaticManager.ELocale.character_text_b);
+	this.fRecomandJoinMsg.text = StzTrans.translate(StaticManager.ELocale.chat_room);
+	// this.fTxtTitleAtRestart.text = //todo: 결과 화면 타이틀 메시지 추가 요청.
+	this.fTxtShareAtRestart.text = StzTrans.translate(StaticManager.ELocale.share_text_b);
+	this.fTxtStageAtRestart.text = StzTrans.translate(StaticManager.ELocale.stage_text_b);
+	this.fTxtSlowAtRestart.text = StzTrans.translate(StaticManager.ELocale.slow_text_b);
+	this.fTxtSkipAtRestart.text = StzTrans.translate(StaticManager.ELocale.skip_text_b);
+	this.fTxtCharacterAtRestart.text = StzTrans.translate(StaticManager.ELocale.character_text_b);
+
+	//cheat start
+	this.fSprWorldIcon.inputEnabled = true;
+	this.fSprWorldIcon.events.onInputUp.add(function() {
+		var curState = this.game.state.getCurrentState();
+		curState.unlockAllStage();
+	}, this);
+
+	this.fTxtCharTitle.inputEnabled = true;
+	this.fTxtCharTitle.events.onInputUp.add(function() {
+		//cheat
+		PlayerDataManager.saveData.resetUserData();
+		this.game.state.restart(true, false);
+	}, this);
+	//cheat end
 	
 	this.curCharId = 1;//기본 아우하 인덱스 : 1;
 	this.fSprGoToStage.visible = false;
@@ -266,12 +307,12 @@ function MenuScene(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBody
 	for (index = 0; index < this.maxSlotNum; index++) {
 		row = Math.floor(index / flagCol);
 		col = index % flagCol;
-		temp = new ButtonStage(this.game, this.fStageSelectGroup);
+		temp = new ButtonStage(this.game, this.fGroupStageButtons);
 		tempWidth = temp.getWidth();
 		tempHeight = temp.getHeight();
 		offsetCol = 55;
 		offsetRow = 80;
-		startY = 300;
+		startY = 280;
 		
 		temp.position.setTo((tempWidth+offsetCol) * (col + 1), startY + (row * (tempHeight+offsetRow)));
 		temp.setStage(this.page * this.maxSlotNum + index + 1);
@@ -279,11 +320,12 @@ function MenuScene(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBody
 	}
 	
 	if(FBInstant) {
-		function setButtonProfile() {
+		var setButtonProfile = function () {
 			for (index = 0; index < this.maxSlotNum; index++) {
                 this.buttonList[index].setUserPhoto(PlayerDataManager.profileInfo.getImageKey());
 			}
-		}
+		};
+
         PlayerDataManager.profileInfo.loadProfileImage(this.game, setButtonProfile, this);
 	}
 	
@@ -293,7 +335,7 @@ function MenuScene(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBody
 	for (index = 0; index < 10;++index){
 		row = Math.floor(index / flagCol);
 		col = index % flagCol;
-		temp = new CharSelectSlot(this.game, this.fCharcterSelectGroup);
+		temp = new CharSelectSlot(this.game, this.fGroupCharacterSlots);
 		tempWidth = temp.getWidth();
 		tempHeight = temp.getHeight();	
 		
@@ -316,15 +358,17 @@ function MenuScene(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBody
 	leaderboard.addBtn("restartScene", {id:"stz-btnSkipArea", btn:this.fBtnSkipAtRestart});
 
 	leaderboard.onClickStageSelect = function () {
-		this.showStageSelect();
+		this.showStageSelect(true);
 	}.bind(this);
 
 	leaderboard.onClickShare = function () {
-		//todo : share기능 추가.
+		window.sounds.sound('sfx_button').play();
+		var curState = this.game.state.getCurrentState();
+		FbManager.shareResult({charId : DinoRunz.Storage.UserData.lastCharacterId, stage : curState.currentStage});
 	}.bind(this);
 
 	leaderboard.onClickCharacterSelect = function () {
-		this.showCharacterSelect();
+		this.showCharacterSelect(true);
 	}.bind(this);
 
 	leaderboard.onClickSlow = function () {
@@ -343,8 +387,8 @@ function MenuScene(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBody
 
 	this.prevHitArea.beginFill(0x000000);
 	this.prevHitArea.alpha = 0;
-	this.prevHitArea.drawRect(this.fBtnPrevPage.position.x-this.fBtnPrevPage.width*0.5, this.fBtnPrevPage.position.y-this.fBtnPrevPage.height*0.5
-			, this.fBtnPrevPage.width, this.fBtnPrevPage.height);
+	this.prevHitArea.drawRect(this.fBtnPrevPage.position.x-this.fBtnPrevPage.width*0.5, this.fBtnPrevPage.position.y-this.fBtnPrevPage.height*0.5, 
+		this.fBtnPrevPage.width, this.fBtnPrevPage.height);
 	
 	this.prevHitArea.events.onInputUp.add(function() {
 		window.sounds.sound('sfx_button').play();
@@ -361,8 +405,8 @@ function MenuScene(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBody
 	
 	this.nextHitArea.beginFill(0x000000);
 	this.nextHitArea.alpha = 0;
-	this.nextHitArea.drawRect(this.fBtnNextPage.position.x-this.fBtnNextPage.width*0.5, this.fBtnNextPage.position.y-this.fBtnNextPage.height*0.5
-			, this.fBtnNextPage.width, this.fBtnNextPage.height);
+	this.nextHitArea.drawRect(this.fBtnNextPage.position.x-this.fBtnNextPage.width*0.5, this.fBtnNextPage.position.y-this.fBtnNextPage.height*0.5, 
+		this.fBtnNextPage.width, this.fBtnNextPage.height);
 	
 	this.nextHitArea.events.onInputUp.add(function() {
 		window.sounds.sound('sfx_button').play();
@@ -436,26 +480,24 @@ MenuScene.prototype.updateBtnStage = function() {
 		} else {
 			currentButton.visible = false;
 		}
-
-		if (currentButton.stage === DinoRunz.Storage.UserData.lastClearedStage) {
-			currentButton.fBtnStage.tint = 0xffff00;	
-		} else {
-			currentButton.fBtnStage.tint = 0xffffff;
-		}
 	}
 };
 
 MenuScene.prototype.updateBtnPage = function() {
 	if (this.page === 0) {
 		this.prevHitArea.inputEnabled = false;
+		this.fBtnPrevPage.visible = false;
 	} else {
 		this.prevHitArea.inputEnabled = true;
+		this.fBtnPrevPage.visible = true;
 	}
 	
 	if (DinoRunz.InGame.MAPS.length <= (this.page + 1) * this.maxSlotNum) {
 		this.nextHitArea.inputEnabled = false;
+		this.fBtnNextPage.visible = false;
 	} else {
 		this.nextHitArea.inputEnabled = true;
+		this.fBtnNextPage.visible = true;
 	}
 };
 
@@ -472,38 +514,100 @@ MenuScene.prototype.setCharacterIcon = function(charId) {
 	this.curCharId = charId;
 	var textureKey = "auhaSheet" + charId;
 	this.fSprCharacter.loadTexture(textureKey, null, false);
-	this.fSprCharacterAtRestart.loadTexture(textureKey, 8);
+
+	var spriteKey = (charId < 10) ? "0" + charId + ".png" : charId + ".png";
+	this.fSprCharacterAtRestart.loadTexture("titleAtlas", spriteKey);
 };
 
-MenuScene.prototype.showStageSelect = function() {
+MenuScene.prototype.showStageSelect = function(tween3Buttons) {
+	if(!DinoRunz.InGame.isFirstGame) Server.setLog(EServerLogMsg.INIT_STEP, {'p1' : EInitStep.LOBBY});
+
+	if (tween3Buttons === undefined) tween3Buttons = false;
+
 	this.fMenuGroup.visible = true;
 	this.fRestartGroup.visible = false;
 	this.fStageSelectGroup.visible = true;
 	this.fCharcterSelectGroup.visible = false;
 	this.fSprCharacter.visible = true;
 	this.fSprGoToStage.visible = false;
+
+	this.stageSelectShowTweens(tween3Buttons);
 	
 	var curState = this.game.state.getCurrentState(); 
 	curState.path.tiles.visible = false;
 	curState.player.alpha = 0;
 	
-	this.fTxtCharacter.text = "CHARACTER";
+	this.fTxtCharacter.text = StzTrans.translate(StaticManager.ELocale.character_text_b);
 };
 
-MenuScene.prototype.showCharacterSelect = function(prevScene) {
+MenuScene.prototype.stageSelectShowTweens = function (shouldTween3Buttons) {
+	if (shouldTween3Buttons === undefined) shouldTween3Buttons = false;
+
+	this.fGroupStageButtons.position.y = 1280;
+	var tweenGroupStageButtons = this.game.add.tween(this.fGroupStageButtons).to({y:0}, 300, Phaser.Easing.Linear.None, true);
+	tweenGroupStageButtons.onComplete.add(function() {
+		this.game.tweens.remove(tweenGroupStageButtons);
+	}, this);
+
+	if (shouldTween3Buttons) {
+		this.fThreeButtons.position.x = 1280;
+		var tween3Buttons = this.game.add.tween(this.fThreeButtons).to({ x: 0 }, 200, Phaser.Easing.Linear.None, true, 300);
+
+		tween3Buttons.onComplete.add(function () {
+			this.game.tweens.remove(tween3Buttons);
+		}, this);
+	}
+	else {
+		this.fThreeButtons.position.y = 0;
+	}
+};
+
+MenuScene.prototype.showCharacterSelect = function (shouldTween3Buttons) {
+	Server.setLog(EServerLogMsg.MENU, {'p1' : EMenuName.CHARACTER});
+
+	if (shouldTween3Buttons === undefined) shouldTween3Buttons = false;
+
 	this.fMenuGroup.visible = true;
 	this.fRestartGroup.visible = false;
 	this.fStageSelectGroup.visible = false;
 	this.fCharcterSelectGroup.visible = true;
 	this.fSprCharacter.visible = false;
 	this.fSprGoToStage.visible = true;
-	
-	this.fTxtCharacter.text = "STAGE";
 
-	this.updateCharacterSlots();
+	this.characterSelectShowTweens(shouldTween3Buttons);
+	
+	this.fTxtCharacter.text = StzTrans.translate(StaticManager.ELocale.stage_text_b);
+
+	this.popupManager.getDinoPopup.showPopup();
 	
 	var charId = DinoRunz.Storage.UserData.lastCharacterId;
 	this.characterSlotList[charId].selectSignal.dispatch();
+};
+
+MenuScene.prototype.characterSelectShowTweens = function (shouldTween3Buttons) {
+	if (shouldTween3Buttons === undefined) shouldTween3Buttons = false;
+	
+	this.fTxtCharTitle.position.x = -700;
+	var tweenCharTitle = this.game.add.tween(this.fTxtCharTitle).to({ x: 360 }, 300, Phaser.Easing.Linear.None, true);
+
+	this.fGroupCharacterSlots.position.y = 1280;
+	var tweenGroupCharacterSlots = this.game.add.tween(this.fGroupCharacterSlots).to({ y: 0 }, 300, Phaser.Easing.Linear.None, true, 200);
+	tweenGroupCharacterSlots.onComplete.add(function () {
+		this.game.tweens.remove(tweenGroupCharacterSlots);
+		this.game.tweens.remove(tweenCharTitle);
+	}, this);
+
+	if (shouldTween3Buttons) {
+		this.fThreeButtons.position.x = 1280;
+		var tween3Buttons = this.game.add.tween(this.fThreeButtons).to({ x: 0 }, 200, Phaser.Easing.Linear.None, true, 300);
+
+		tween3Buttons.onComplete.add(function () {
+			this.game.tweens.remove(tween3Buttons);
+		}, this);
+	}
+	else {
+		this.fThreeButtons.position.y = 0;
+	}
 };
 
 MenuScene.prototype.updateCharacterSlots = function() {
@@ -511,36 +615,69 @@ MenuScene.prototype.updateCharacterSlots = function() {
 	for(i=0;i<length;++i){
 		this.characterSlotList[i].checkState();
 	}
-
-	this.popupManager.getDinoPopup.showPopup();
 };
 
-MenuScene.prototype.showRestart = function() {
+MenuScene.prototype.showRestart = function(inCurrentStage) {
+	this.fTxtTitleAtRestart.text = StzUtil.strFormatObj(StzTrans.translate(StaticManager.ELocale.stage_fail_text_b),
+		{stage_num : inCurrentStage});
+
 	this.fMenuGroup.visible = false;
 	this.fRestartGroup.visible = true;
 	this.fRestartGroup.ignoreChildInput = false;
+
+	this.fBtnStageAtRestart.visible = false;
+	this.fBtnShareAtRestart.visible = false;
+	this.fBtnRestart.scale.setTo(0);
+	var tweenBtnRestart = this.game.add.tween(this.fBtnRestart.scale).to({x: 1, y: 1}, 200, Phaser.Easing.Linear.None, true);
+	tweenBtnRestart.onComplete.add(function () {
+		this.fBtnShareAtRestart.visible = true;
+		this.fBtnStageAtRestart.visible = true;
+		this.game.tweens.remove(tweenBtnRestart);
+	}, this);
+
+	this.fBtnCharacterAtRestart.scale.setTo(0);
+	var tweenBtnCharacter = this.game.add.tween(this.fBtnCharacterAtRestart.scale).to({x: 1, y: 1}, 200, Phaser.Easing.Linear.None, true);
 	
-	var popup = this.popupManager.adPopup;
-	if(DinoRunz.InGame.overCount%DinoRunz.GameConfig.showSkipPopCount===0) {
-		popup.showPopup(EAdPopupType.skip);
-	}
-	else if(DinoRunz.InGame.overCount%DinoRunz.GameConfig.showSlowPopCount===0) {
-		popup.showPopup(EAdPopupType.slow);
-	}
-	else {
-		leaderboard.openLeaderboard(ELeaderboardType.FRIEND_LIST
-				, this.game.canvas.style, "restartScene");
-	}
+	this.fBtnSlowAtRestart.scale.setTo(0);
+	var tweenBtnSlow = this.game.add.tween(this.fBtnSlowAtRestart.scale).to({x: 1, y: 1}, 200, Phaser.Easing.Linear.None, true);
+
+	this.fBtnSkipAtRestart.scale.setTo(0);
+	var tweenBtnSkip = this.game.add.tween(this.fBtnSkipAtRestart.scale).to({x: 1, y: 1}, 200, Phaser.Easing.Linear.None, true);
+
+	tweenBtnSkip.onComplete.add(function () {
+		this.game.tweens.remove(tweenBtnCharacter);
+		this.game.tweens.remove(tweenBtnSlow);
+		this.game.tweens.remove(tweenBtnSkip);
+
+		var popup = this.popupManager.adPopup;
+		if(DinoRunz.InGame.overCount%DinoRunz.GameConfig.showSkipPopCount===0) {
+			popup.showPopup(EAdPopupType.skip);
+			DinoRunz.InGame.overCount = 0;
+		}
+		else if(DinoRunz.InGame.overCount%DinoRunz.GameConfig.showSlowPopCount===0) {
+			popup.showPopup(EAdPopupType.slow);
+		}
+		else {
+			leaderboard.openLeaderboard(ELeaderboardType.FRIEND_LIST, this.game.canvas.style, "restartScene");
+		}
+	}, this);
 	
 	//ad
 	var curState = this.game.state.getCurrentState();
 	curState.interstitialRestartShowAd();
+	curState.setEndLog();
 };
 
-MenuScene.prototype.openMenu = function(inCurrentStage, inMenuType) {
-	// window.sounds.allStop();
+MenuScene.prototype.openMenu = function(inCurrentStage, inMenuType, bFadeOut) {
+	//check get dino state
+	this.updateCharacterSlots();
+
 	var lobbySound = window.sounds.sound("bgm_lobby");
-	if(!lobbySound.isPlaying) lobbySound.play("", 0, DinoRunz.InGame.isMusic, true);
+	var inGameSound = window.sounds.sound("bgm_ingame");
+	if(!lobbySound.isPlaying) {
+		if(inGameSound.isPlaying) inGameSound.stop();
+		lobbySound.play("", 0, DinoRunz.InGame.isMusic, true);
+	}
 	
 	var currentIndex = inCurrentStage || 1;
 	
@@ -551,17 +688,23 @@ MenuScene.prototype.openMenu = function(inCurrentStage, inMenuType) {
 	// setting menuGroup
 	this.page = Math.floor((DinoRunz.Storage.UserData.lastClearedStage - 1) / this.maxSlotNum);
 	
-	
-
 	this.fBtnInvite.inputEnabled = true;
 	this.fBtnInvite.events.onInputUp.removeAll();
 	this.fBtnInvite.events.onInputUp.add(function() {
 		window.sounds.sound('sfx_button').play();
-		DinoRunz.InGame.STAGE_SETTING.isBgImage = !DinoRunz.InGame.STAGE_SETTING.isBgImage;
+		FbManager.inviteFriend(function(){
+			// this.game.state.restart(true, false);
+			if(PlayerDataManager.getContextFriends().length < 3) {
+				PlayerDataManager.initContextFriendsLocal();
+				PlayerDataManager.sortContextFriends("bestStage", PlayerDataManager.ESortOrder.DESCEND);				
+			}
+			this.setWorldProfiles();
+			PlayerDataManager.saveData.setUserData();
+		}.bind(this), null, this);
 	}, this);
 	
 	var stageNum = currentIndex;
-	this.fTxtRestartAtMenu.text = "STAGE " + stageNum;
+	this.fTxtRestartAtMenu.text = StzTrans.translate(StaticManager.ELocale.stage_text_b) + " " + stageNum;
 
 	leaderboard.onClickReplayGame = null;
 	leaderboard.onClickReplayGame = function() {
@@ -570,6 +713,7 @@ MenuScene.prototype.openMenu = function(inCurrentStage, inMenuType) {
 			this.closeMenu();
 			return;
 		} 
+		this.game.state.getCurrentState().rndChangePlayerCharacter();
 		this.game.state.getCurrentState().newGame(currentIndex);
 	}.bind(this);
 	
@@ -591,15 +735,18 @@ MenuScene.prototype.openMenu = function(inCurrentStage, inMenuType) {
 	this.setWorldProfiles();
 	
 	// setting restartGroup
-	this.fBtnRestart.events.onInputUp.removeAll();
-	this.fBtnRestart.events.onInputUp.addOnce(function() {
-		this.game.state.getCurrentState().newGame(currentIndex);
-	}, this);
+	// this.fBtnRestart.events.onInputUp.removeAll();
+	// this.fBtnRestart.events.onInputUp.addOnce(function() {
+	// 	window.sounds.sound('sfx_button').play();
+	// 	var curState = this.game.state.getCurrentState();
+	// 	curState.rndChangePlayerCharacter();
+	// 	curState.getCurrentState().newGame(currentIndex);
+	// }, this);
 	
 	DinoRunz.Storage.setUserData(/*DinoRunz.Storage.UserData.lastClearedStage, DinoRunz.Storage.UserData.jewelCountList*/).then(function() {
-		this.visible = true;
+		// this.visible = true;
 	}.bind(this)).catch(function() {
-		this.visible = true;
+		// this.visible = true;
 	}.bind(this));
 	
 	this.updateBtnPage();
@@ -611,8 +758,10 @@ MenuScene.prototype.openMenu = function(inCurrentStage, inMenuType) {
 		this.showStageSelect();
 	}
 	else {
-		this.showRestart();
+		this.showRestart(currentIndex);
 	}
+
+	this.visible = true;
 };
 
 MenuScene.prototype.closeMenu = function() {
@@ -620,7 +769,18 @@ MenuScene.prototype.closeMenu = function() {
 };
 
 MenuScene.prototype.setWorldProfiles = function() {
-	var i, contextFriendsList = PlayerDataManager.getContextFriends();
+	var i = null;
+	
+	var contextFriendsList = PlayerDataManager.getContextFriends().filter(function (item, index, origin) {
+		if (item.profileInfo.getPlatformId() === PlayerDataManager.profileInfo.getPlatformId()) {
+			//leaderboard의 정보 중 플레이어의 데이터는 제외.
+			return false;
+		}
+		
+		return true;
+	});
+
+
 	var length = contextFriendsList.length;
 	var myStage = DinoRunz.Storage.UserData.lastClearedStage;
 	var frinedProfile = null;
@@ -657,7 +817,7 @@ MenuScene.prototype.setWorldProfiles = function() {
 			this.fWorldProfile2.visible = true;
 			
 			for(i = 0 ; i < length ; ++i){
-				if(myStage > contextFriendsList[i].bestStage){
+				if(myStage >= contextFriendsList[i].bestStage){
 					lower = contextFriendsList[i];
 					break;
 				}

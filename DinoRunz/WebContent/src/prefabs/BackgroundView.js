@@ -23,12 +23,12 @@ function BackgroundView(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysic
 	
 	var _baseLayer = this.game.add.group(this);
 	
-	var _backgroundTile2 = this.game.add.sprite(360, 640, 'q2', null, _baseLayer);
-	_backgroundTile2.scale.setTo(2.0, 2.0);
+	var _backgroundTile2 = this.game.add.sprite(360, 640, 'BGAtlas00', 'q2.jpg', _baseLayer);
+	_backgroundTile2.scale.setTo(4.0, 4.0);
 	_backgroundTile2.anchor.setTo(0.5, 0.5);
 	
-	var _backgroundTile1 = this.game.add.sprite(360, 640, 'q1', null, _baseLayer);
-	_backgroundTile1.scale.setTo(2.0, 2.0);
+	var _backgroundTile1 = this.game.add.sprite(360, 640, 'BGAtlas00', 'q1.jpg', _baseLayer);
+	_backgroundTile1.scale.setTo(4.0, 4.0);
 	_backgroundTile1.anchor.setTo(0.5, 0.5);
 	
 	
@@ -58,6 +58,8 @@ function BackgroundView(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysic
 	
 	
 	/* --- post-init-end --- */
+	
+	
 }
 
 /** @type Phaser.Group */
@@ -69,12 +71,14 @@ BackgroundView.prototype.constructor = BackgroundView;
 // -- user code here --
 
 BackgroundView.LayerColors = [0xb0cf64, 0x64cf9c, 0xc14ec8, 0x7a4bc7, 0x4f4bc7, 0x4b82c7, 0x4bb2c7, 0x884bc7];
-BackgroundView.SpriteName = ["q1", "q2", "q3", "q4", "q5", "q6", "q7", "q8", "q9", "q10"
-, "q11", "q12", "q13", "q14", "q15", "q16", "q17", "q18", "q19", "q20"
-, "q21", "q22", "q23", "q24", "q25", "q26", "q27", "q28", "q29", "q30"];
+BackgroundView.SpriteName = ["q1", "q2", "q3", "q4", "q5", "q6", "q7", "q8", "q9", "q10", "q11", "q12", "q14", "q15", "q16", "q17", "q18", "q19", "q21", "q22", "q24", "q25", "q26", "q27", "q28", "q29"];
+BackgroundView.SpriteIndex = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 15, 16, 17, 18, 19, 21, 22, 24, 25, 26, 27, 28, 29]
+BackgroundView.HardStageBG = ["q13", "q20", "q23", "q30"];
+BackgroundView.HardBGIndex = [13, 20, 23, 30];
 
 BackgroundView.prototype.changeColor = function(inStageNum) {
-	
+	var isHardStage = (StaticManager.dino_runz_level_design.get(inStageNum-1).mode === EStageMode.HARD);
+
 	var targetObject = null;
 	if (DinoRunz.InGame.STAGE_SETTING.isBgImage === false) {
 		if (this.fBgFirst.alpha > 0) {
@@ -91,29 +95,66 @@ BackgroundView.prototype.changeColor = function(inStageNum) {
 			targetObject = this.fBgSecond;
 		}	
 	} else {
-		inStageNum = inStageNum || 1;
-//		var imageIndex = Math.floor(inStageNum / 10) % 10;
-		var imageIndex = this.game.rnd.integerInRange(0, BackgroundView.SpriteName.length-1);
+		var imageIndex = null;
+		if(!isHardStage) imageIndex = this.game.rnd.integerInRange(0, BackgroundView.SpriteName.length-1);
+		else imageIndex = this.game.rnd.integerInRange(0, BackgroundView.HardStageBG.length-1);
+
+		// var bgKey = (isHardStage) ? "HardStageBG" : "SpriteName";
+		var bgKey = (isHardStage) ? "HardBGIndex" : "SpriteIndex";
+		var imageKeyValue = BackgroundView[bgKey][(imageIndex >= BackgroundView[bgKey].length ? 0 : imageIndex)];
+		var atlasKeyValue = 0;
+
+		if(imageKeyValue <= 4) {
+			atlasKeyValue = 0;
+		}
+		else if(4 < imageKeyValue && imageKeyValue <= 8) {
+			atlasKeyValue = 1;
+		}
+		else if(8 < imageKeyValue && imageKeyValue <= 12) {
+			atlasKeyValue = 2;
+		}
+		else if(12 < imageKeyValue && imageKeyValue <= 16) {
+			atlasKeyValue = 3;
+		}
+		else if(16 < imageKeyValue && imageKeyValue <= 20) {
+			atlasKeyValue = 4;
+		}
+		else if(20 < imageKeyValue && imageKeyValue <= 24) {
+			atlasKeyValue = 5;
+		}
+		else if(24 < imageKeyValue && imageKeyValue <= 28) {
+			atlasKeyValue = 6;
+		}
+		else if(28 < imageKeyValue && imageKeyValue <= 32) {
+			atlasKeyValue = 7;
+		}
+		
+		var atlasName = "BGAtlas" + (atlasKeyValue < 10 ? "0" + atlasKeyValue : atlasKeyValue);
+		var imageName = "q" + imageKeyValue + ".jpg";
+		
 		if (this.fBackgroundTile1.alpha > 0) {
-			if (this.fBackgroundTile1.key === BackgroundView.SpriteName[imageIndex]) {
-				return;
-			}
+			// if (this.fBackgroundTile1.key === BackgroundView[bgKey][imageIndex]) {
+			// 	imageIndex = BackgroundView[bgKey].indexOf(this.fBackgroundTile1.key) + 1;
+			// }
 			this.fBaseLayer.bringToTop(this.fBackgroundTile1);
-			imageIndex = BackgroundView.SpriteName.indexOf(this.fBackgroundTile1.key) + 1;
-			this.fBackgroundTile2.loadTexture(BackgroundView.SpriteName[(imageIndex > 29 ? 0 : imageIndex)]);
+			// this.fBackgroundTile2.loadTexture(BackgroundView[bgKey][(imageIndex >= BackgroundView[bgKey].length ? 0 : imageIndex)]);
+			
+			this.fBackgroundTile2.loadTexture(atlasName, imageName);
 			this.fBackgroundTile2.alpha = 1;
 			targetObject = this.fBackgroundTile1;
 			
 		} else {
-			if (this.fBackgroundTile2.key === BackgroundView.SpriteName[imageIndex]) {
-				return;
-			}
+			// if (this.fBackgroundTile2.key === BackgroundView[bgKey][imageIndex]) {
+			// 	imageIndex = BackgroundView[bgKey].indexOf(this.fBackgroundTile2.key) + 1;
+			// }
 			this.fBaseLayer.bringToTop(this.fBackgroundTile2);
-			imageIndex = BackgroundView.SpriteName.indexOf(this.fBackgroundTile2.key) + 1;
-			this.fBackgroundTile1.loadTexture(BackgroundView.SpriteName[(imageIndex > 29 ? 0 : imageIndex)]);
+			// this.fBackgroundTile1.loadTexture(BackgroundView[bgKey][(imageIndex >= BackgroundView[bgKey].length ? 0 : imageIndex)]);
+			
+			this.fBackgroundTile1.loadTexture(atlasName, imageName);
 			this.fBackgroundTile1.alpha = 1;
 			targetObject = this.fBackgroundTile2;
 		}
+
 	}
 	
 	this.alphaTween = this.game.add.tween(targetObject);
@@ -124,13 +165,11 @@ BackgroundView.prototype.changeColor = function(inStageNum) {
 	}, this);
 };
 
-
 BackgroundView.prototype.setEnable = function(inValue) {
 	this.fBaseLayer.visible = inValue;
 };
 
 BackgroundView.prototype.setRotation = function(inValue) {
-	
 	if (DinoRunz.InGame.STAGE_SETTING.isBgImage === false) {
 		return;
 	}
