@@ -283,6 +283,9 @@ function AdPopup(manager, aGame, aParent, aName, aAddToStage, aEnableBody, aPhys
 			case EAdPopupType.skip:
 				inGameState.setSkip();
 				if(this.openStage !== -1) {
+					var skipStage = this.openStage + 1;
+					if(DinoRunz.InGame.MAPS.hasOwnProperty(skipStage) === false) break;
+					
 					Server.setLog(EServerLogMsg.RESOURCE, {'p1' : "use", "p2" : "skip", "p3" : this.openStage, "p4": (this.clickOpen) ? "result_menu" : "recommend"});
 				}
 				break;

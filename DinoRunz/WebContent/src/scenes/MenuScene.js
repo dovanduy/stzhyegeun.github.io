@@ -672,6 +672,9 @@ MenuScene.prototype.showRestart = function(inCurrentStage) {
 };
 
 MenuScene.prototype.openMenu = function(inCurrentStage, inMenuType, bFadeOut) {
+	if (DinoRunz.Storage.UserData.lastClearedStage < currentIndex) {
+		DinoRunz.Storage.UserData.lastClearedStage = currentIndex;
+	}
 	//check get dino state
 	this.updateCharacterSlots();
 
@@ -683,10 +686,6 @@ MenuScene.prototype.openMenu = function(inCurrentStage, inMenuType, bFadeOut) {
 	}
 	
 	var currentIndex = inCurrentStage || 1;
-	
-	if (DinoRunz.Storage.UserData.lastClearedStage < currentIndex) {
-		DinoRunz.Storage.UserData.lastClearedStage = currentIndex;
-	}
 	
 	// setting menuGroup
 	this.page = Math.floor((DinoRunz.Storage.UserData.lastClearedStage - 1) / this.maxSlotNum);
