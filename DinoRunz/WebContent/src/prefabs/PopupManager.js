@@ -282,9 +282,15 @@ function AdPopup(manager, aGame, aParent, aName, aAddToStage, aEnableBody, aPhys
 		switch(this.type){
 			case EAdPopupType.skip:
 				inGameState.setSkip();
+				if(this.openStage !== -1) {
+					Server.setLog(EServerLogMsg.RESOURCE, {'p1' : "use", "p2" : "skip", "p3" : this.openStage, "p4": (this.clickOpen) ? "result_menu" : "recommend"});
+				}
 				break;
 			case EAdPopupType.slow:
 				inGameState.setSlow();
+				if(this.openStage !== -1) {
+					Server.setLog(EServerLogMsg.RESOURCE, {'p1' : "use", "p2" : "slow", "p3" : this.openStage, "p4": (this.clickOpen) ? "result_menu" : "recommend"});
+				}
 				break;
 		}
     }, this);
@@ -313,7 +319,10 @@ function AdPopup(manager, aGame, aParent, aName, aAddToStage, aEnableBody, aPhys
 	this.BG.addChild(this.btnFree);
     this.BG.addChild(this.txtFree);
     this.BG.addChild(this.btnClose);
-    this.BG.addChild(sprAdIcon);
+	this.BG.addChild(sprAdIcon);
+	
+	this.clickOpen = false;
+	this.openStage = -1;
 
 	this.visible = false;
 }
@@ -321,7 +330,13 @@ function AdPopup(manager, aGame, aParent, aName, aAddToStage, aEnableBody, aPhys
 AdPopup.prototype = Object.create(Phaser.Group.prototype);
 AdPopup.prototype.constructor = AdPopup;
 
-AdPopup.prototype.showPopup = function(eType, DescKey) {
+AdPopup.prototype.showPopup = function(eType, InClickOpen, InCurrentStage) {
+	this.clickOpen = InClickOpen;
+	if(this.clickOpen === undefined) this.clickOpen = false;
+
+	this.openStage = -1;
+	if(InCurrentStage !== undefined) this.openStage = InCurrentStage;
+
 	this.type = eType;
 
 	this.txtTitle.scale.setTo(1);

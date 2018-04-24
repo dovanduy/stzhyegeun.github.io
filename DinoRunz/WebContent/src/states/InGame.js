@@ -15,7 +15,7 @@ DinoRunz.GameConfig = {
 	
 	recallAdSeconds : 60,
 	
-	basicTile_WH : 95
+	basicTile_WH : 98
 };
 
 DinoRunz.InGame = function () {
@@ -1016,7 +1016,7 @@ DinoRunz.InGame.prototype.hideTutorial = function () {
 };
 
 DinoRunz.InGame.prototype.showSlowIconEffect = function () {
-	console.log("showSlowIconEffect");
+	// console.log("showSlowIconEffect");
 	this.fFader.visible = true;
 	this.fFader.alpha = 0.7;
 
@@ -1024,9 +1024,9 @@ DinoRunz.InGame.prototype.showSlowIconEffect = function () {
 	this.fSlowIconEffect.animations.play("slowIcon", 15);
 
 	this.fSlowIconAnim.onComplete.addOnce(function () {
-		console.log("slowAnimComplete");
+		// console.log("slowAnimComplete");
 		this.hideSlowIconEffect(function() {
-			console.log("hideSlowIconEffect_callback");
+			// console.log("hideSlowIconEffect_callback");
 			if(this.path.isHardStage) {
 				this.path.startPath.showHardEffect(this.currentStage);
 				this.showHardStageEffect();
@@ -1037,7 +1037,7 @@ DinoRunz.InGame.prototype.showSlowIconEffect = function () {
 };
 
 DinoRunz.InGame.prototype.hideSlowIconEffect = function (callback) {
-	console.log("hideSlowIconEffect");
+	// console.log("hideSlowIconEffect");
 	this.fadeOut(1000, callback, 0.7);
 	this.fSlowIconEffect.visible = false;
 };
@@ -1156,3 +1156,8 @@ DinoRunz.InGame.prototype.showEndStageEffect = function () {
 		PlayerDataManager.saveData.setUserData();
 	}, this);
 };
+
+// DinoRunz.InGame.prototype.render = function () {
+// 	this.game.debug.text("living : " + this.path.tiles.countLiving(), 32, 32);
+// 	this.game.debug.text("dead : " + this.path.tiles.countDead(), 32, 64);
+// }

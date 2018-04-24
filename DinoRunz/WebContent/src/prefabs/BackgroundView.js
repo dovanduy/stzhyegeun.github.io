@@ -9,8 +9,7 @@
 /**
  * BackgroundView.
  * @param {Phaser.Game} aGame A reference to the currently running game.
- * @param {Phaser.Group} aParent The parent Group (or other {@link DisplayObject}) that this group will be added to.
-    If undefined/unspecified the Group will be added to the {@link Phaser.Game#world Game World}; if null the Group will not be added to any parent.
+ * @param {Phaser.Group} aParent The parent Group (or other {@link DisplayObject}) that this group will be added to.    If undefined/unspecified the Group will be added to the {@link Phaser.Game#world Game World}; if null the Group will not be added to any parent.
  * @param {string} aName A name for this group. Not used internally but useful for debugging.
  * @param {boolean} aAddToStage If true this group will be added directly to the Game.Stage instead of Game.World.
  * @param {boolean} aEnableBody If true all Sprites created with {@link #create} or {@link #createMulitple} will have a physics body created on them. Change the body type with {@link #physicsBodyType}.
@@ -24,11 +23,11 @@ function BackgroundView(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysic
 	var _baseLayer = this.game.add.group(this);
 	
 	var _backgroundTile2 = this.game.add.sprite(360, 640, 'BGAtlas00', 'q2.jpg', _baseLayer);
-	_backgroundTile2.scale.setTo(4.0, 4.0);
+	_backgroundTile2.scale.setTo(2.0, 2.0);
 	_backgroundTile2.anchor.setTo(0.5, 0.5);
 	
 	var _backgroundTile1 = this.game.add.sprite(360, 640, 'BGAtlas00', 'q1.jpg', _baseLayer);
-	_backgroundTile1.scale.setTo(4.0, 4.0);
+	_backgroundTile1.scale.setTo(2.0, 2.0);
 	_backgroundTile1.anchor.setTo(0.5, 0.5);
 	
 	

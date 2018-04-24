@@ -9,7 +9,8 @@
 /**
  * InviteUpdateView.
  * @param {Phaser.Game} aGame A reference to the currently running game.
- * @param {Phaser.Group} aParent The parent Group (or other {@link DisplayObject}) that this group will be added to.    If undefined/unspecified the Group will be added to the {@link Phaser.Game#world Game World}; if null the Group will not be added to any parent.
+ * @param {Phaser.Group} aParent The parent Group (or other {@link DisplayObject}) that this group will be added to.
+    If undefined/unspecified the Group will be added to the {@link Phaser.Game#world Game World}; if null the Group will not be added to any parent.
  * @param {string} aName A name for this group. Not used internally but useful for debugging.
  * @param {boolean} aAddToStage If true this group will be added directly to the Game.Stage instead of Game.World.
  * @param {boolean} aEnableBody If true all Sprites created with {@link #create} or {@link #createMulitple} will have a physics body created on them. Change the body type with {@link #physicsBodyType}.
@@ -95,8 +96,6 @@ InviteUpdateView.prototype.setData = function(inType, inData){
 	this.fResultContainer.visible = false;
 	this.fCrownContainer.visible = false;
 	this.fClearContainer.visible = false;
-
-	// console.log("inviteUpdateView");
 	
 	if(inType === EShareType.INVITE){
 		this.fInviteContainer.visible = true;
@@ -125,19 +124,11 @@ InviteUpdateView.prototype.setData = function(inType, inData){
 
 		this.fTxtCrown.text = StzUtil.strFormatObj(StzTrans.translate(StaticManager.ELocale.share_msg_crown_img),
 		{stage_num: inData.stage, crown_grade: (inData.crown === 2) ? StzTrans.translate(StaticManager.ELocale.gold_crown) : StzTrans.translate(StaticManager.ELocale.silver_crown)});
-
-		// console.log("CROWN");
-		// console.log("text: "+this.fTxtCrown.text);
 	}
 	else if (inType === EShareType.CLEAR) {
 		this.fClearContainer.visible = true;
 		this.fSprClearCharacter.loadTexture("titleAtlas", (inData.charId < 10) ? ("0"+inData.charId + ".png") : (inData.charId.toString() + ".png"));
 		this.fTxtClear.text = StzUtil.strFormatObj(StzTrans.translate(StaticManager.ELocale.share_msg_clear_img),
 		{stage_num: inData.stage});
-
-		// console.log("CLEAR");
-		// console.log("text: "+this.fTxtClear.text);
 	}
-
-	// console.log("==========");
 };

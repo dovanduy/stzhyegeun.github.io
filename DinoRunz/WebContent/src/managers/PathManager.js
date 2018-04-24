@@ -40,13 +40,13 @@ DinoRunz.PathManager.prototype = Object.create(Phaser.Plugin.prototype);
 DinoRunz.PathManager.prototype.constructor = DinoRunz.PathManager;
 
 DinoRunz.PathManager.COUNT_DEAD_VIEWS = 3;
-DinoRunz.PathManager.MAX_TILES = 100;
+DinoRunz.PathManager.MAX_TILES = 200;
 DinoRunz.PathManager.TILE_WIDTH = 95;
 DinoRunz.PathManager.TILE_HEIGHT = 95;
 
 DinoRunz.PathManager.SCREEN_OFFSET = 300;
-DinoRunz.PathManager.SCREEN_BOUNDS = new Phaser.Rectangle(-1 * DinoRunz.PathManager.SCREEN_OFFSET, -1 * DinoRunz.PathManager.SCREEN_OFFSET, DinoRunz.GameConfig.width + DinoRunz.PathManager.SCREEN_OFFSET, DinoRunz.GameConfig.height + DinoRunz.PathManager.SCREEN_OFFSET); 
-
+// DinoRunz.PathManager.SCREEN_BOUNDS = new Phaser.Rectangle(-1 * DinoRunz.PathManger.SCREEN_OFFSET, -1 * DinoRunz.PathManager.SCREEN_OFFSET, DinoRunz.GameConfig.width + DinoRunz.PathManager.SCREEN_OFFSET, DinoRunz.GameConfig.height + DinoRunz.PathManager.SCREEN_OFFSET); 
+DinoRunz.PathManager.SCREEN_BOUNDS = new Phaser.Rectangle(-240, -160, 1200, 1800); 
 
 DinoRunz.PathManager.prototype.init = function() {};
 
@@ -76,7 +76,9 @@ DinoRunz.PathManager.prototype.alignPositionToCenter = function(inPath) {
 
 DinoRunz.PathManager.alignSpeed = 1;
 DinoRunz.PathManager.prototype.updatePosition = function(inPlayerDirection, inPlayerSpeed) {
-	var childList = this.tiles.getAll("exists", true);
+	// var childList = this.tiles.getAll("exists", true);
+	var childList = this.tiles.children;
+	
 	var offsetX = 0 + (inPlayerDirection === EDirection.LEFT ? inPlayerSpeed : 0) - (inPlayerDirection === EDirection.RIGHT ? inPlayerSpeed : 0);
 	if (this.alignHorizontalOffset !== 0) {
 		
@@ -245,7 +247,9 @@ DinoRunz.PathManager.prototype.checkPlayerOnPath = function(inPlayer) {
  */
 DinoRunz.PathManager.prototype.getPathFromPlayer = function(inPlayerIndex) {
 
-	var child = this.tiles.getAll("exists", true);
+	// var child = this.tiles.getAll("exists", true);
+	var child = this.tiles.children;
+	
 	return child.filter(function(item, index, origin) {
 		if (item.getIndex() >= inPlayerIndex) {
 			return true;
@@ -256,7 +260,9 @@ DinoRunz.PathManager.prototype.getPathFromPlayer = function(inPlayerIndex) {
 
 DinoRunz.PathManager.prototype.getPathByIndex = function(inIndex) {
 	
-	var child = this.tiles.getAll("exists", true);
+	// var child = this.tiles.getAll("exists", true);
+	var child = this.tiles.children;
+
 	return child.filter(function(item, index, origin) {
 		if (item.getIndex() === inIndex) {
 			return true;

@@ -9,7 +9,8 @@
 /**
  * MenuScene.
  * @param {Phaser.Game} aGame A reference to the currently running game.
- * @param {Phaser.Group} aParent The parent Group (or other {@link DisplayObject}) that this group will be added to.    If undefined/unspecified the Group will be added to the {@link Phaser.Game#world Game World}; if null the Group will not be added to any parent.
+ * @param {Phaser.Group} aParent The parent Group (or other {@link DisplayObject}) that this group will be added to.
+    If undefined/unspecified the Group will be added to the {@link Phaser.Game#world Game World}; if null the Group will not be added to any parent.
  * @param {string} aName A name for this group. Not used internally but useful for debugging.
  * @param {boolean} aAddToStage If true this group will be added directly to the Game.Stage instead of Game.World.
  * @param {boolean} aEnableBody If true all Sprites created with {@link #create} or {@link #createMulitple} will have a physics body created on them. Change the body type with {@link #physicsBodyType}.
@@ -372,11 +373,13 @@ function MenuScene(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBody
 	}.bind(this);
 
 	leaderboard.onClickSlow = function () {
-		this.popupManager.adPopup.showPopup(EAdPopupType.slow);
+		var curStage = this.game.state.getCurrentState().currentStage;
+		this.popupManager.adPopup.showPopup(EAdPopupType.slow, true, curStage);
 	}.bind(this);
 
 	leaderboard.onClickSkip = function () {
-		this.popupManager.adPopup.showPopup(EAdPopupType.skip);
+		var curStage = this.game.state.getCurrentState().currentStage;
+		this.popupManager.adPopup.showPopup(EAdPopupType.skip, true, curStage);
 	}.bind(this);
 	
 	// 페이지 이동 버튼 생성
@@ -651,11 +654,11 @@ MenuScene.prototype.showRestart = function(inCurrentStage) {
 
 		var popup = this.popupManager.adPopup;
 		if(DinoRunz.InGame.overCount%DinoRunz.GameConfig.showSkipPopCount===0) {
-			popup.showPopup(EAdPopupType.skip);
+			popup.showPopup(EAdPopupType.skip, false, inCurrentStage);
 			DinoRunz.InGame.overCount = 0;
 		}
 		else if(DinoRunz.InGame.overCount%DinoRunz.GameConfig.showSlowPopCount===0) {
-			popup.showPopup(EAdPopupType.slow);
+			popup.showPopup(EAdPopupType.slow, false, inCurrentStage);
 		}
 		else {
 			leaderboard.openLeaderboard(ELeaderboardType.FRIEND_LIST, this.game.canvas.style, "restartScene");

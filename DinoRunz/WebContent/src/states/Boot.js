@@ -17,7 +17,7 @@ DinoRunz.Boot.prototype = {
 
         if (this.game.device.desktop)
         {
-        	console.log("desktop mode");
+        	// console.log("desktop mode");
         }
         this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
         this.scale.pageAlignHorizontally = true;
@@ -81,7 +81,7 @@ window.onload = function() {
 	game.state.add('InGame', DinoRunz.InGame);
 
 	if(window.location.href.indexOf("instant-bundle") == -1 && window.location.href.indexOf("https://localhost") == -1) {
-		console.log("FBInstant is null");
+		// console.log("FBInstant is null");
 	    window.FBInstant = null;
 	}
 
@@ -105,9 +105,9 @@ window.onload = function() {
 				 strategy: "IMMEDIATE", 
 				 notification: "PUSH"
 			 }).then(function() {
-				 console.log("invite message sent.");
+				//  console.log("invite message sent.");
 			 }).catch(function(e) {
-				 console.log("updateAsync error: " + JSON.stringify(e));
+				//  console.log("updateAsync error: " + JSON.stringify(e));
 			 });
 		};
 		leaderboard.onClickPlayGameButton = function() {

@@ -160,7 +160,7 @@ $("#leaderboardContainer").load("stz_leaderboard/stz-lb-template.html", function
 	            }
 				
 				FBInstant.context.chooseAsync().then(function() {
-					console.log("Invite friends.");
+					// console.log("Invite friends.");
 					if (this.onInviteFriendCallback) {
 						this.onInviteFriendCallback();
 					}
@@ -187,9 +187,9 @@ $("#leaderboardContainer").load("stz_leaderboard/stz-lb-template.html", function
 	                    	this.onPlayWithFriendCallback(inFriend, this.board_type);
 	                    }
 	                    
-	                    console.log("Play with " + inFriend.name);
+	                    // console.log("Play with " + inFriend.name);
 	                }.bind(this)).catch(function(e){
-	                	console.log("createAsync error: " + JSON.stringify(e))
+	                	// console.log("createAsync error: " + JSON.stringify(e));
 	                    if (this.onPlayWithFriendCallback) {
 	                    	this.onPlayWithFriendCallback();
 	                    }

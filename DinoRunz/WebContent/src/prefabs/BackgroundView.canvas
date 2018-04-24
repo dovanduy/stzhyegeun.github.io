@@ -71,8 +71,8 @@
                       "editorPublic": true,
                       "x": 360,
                       "y": 640,
-                      "scale.x": 4,
-                      "scale.y": 4,
+                      "scale.x": 2,
+                      "scale.y": 2,
                       "anchor.x": 0.5,
                       "anchor.y": 0.5
                     }
@@ -86,8 +86,8 @@
                       "editorPublic": true,
                       "x": 360,
                       "y": 640,
-                      "scale.x": 4,
-                      "scale.y": 4,
+                      "scale.x": 2,
+                      "scale.y": 2,
                       "anchor.x": 0.5,
                       "anchor.y": 0.5
                     }
