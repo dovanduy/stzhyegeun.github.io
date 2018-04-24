@@ -672,6 +672,7 @@ MenuScene.prototype.showRestart = function(inCurrentStage) {
 };
 
 MenuScene.prototype.openMenu = function(inCurrentStage, inMenuType, bFadeOut) {
+	var currentIndex = inCurrentStage || 1;
 	if (DinoRunz.Storage.UserData.lastClearedStage < currentIndex) {
 		DinoRunz.Storage.UserData.lastClearedStage = currentIndex;
 	}
@@ -685,7 +686,7 @@ MenuScene.prototype.openMenu = function(inCurrentStage, inMenuType, bFadeOut) {
 		lobbySound.play("", 0, DinoRunz.InGame.isMusic, true);
 	}
 	
-	var currentIndex = inCurrentStage || 1;
+	
 	
 	// setting menuGroup
 	this.page = Math.floor((DinoRunz.Storage.UserData.lastClearedStage - 1) / this.maxSlotNum);
