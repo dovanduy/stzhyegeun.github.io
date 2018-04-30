@@ -56,7 +56,7 @@ TutorialHand.prototype.showHand = function () {
 
 	this.fSprHand.position.setTo(20, 20);
 
-	this.handTween = this.game.add.tween(this.fSprHand).to({x:0, y:0}, 600, Phaser.Easing.Linear.None, true, 0, 500, true);
+	this.handTween = this.game.add.tween(this.fSprHand).to({x:0, y:0}, 300, Phaser.Easing.Linear.None, true, 0, 500, true);
 	this.handTween.onRepeat.add(function () {
 		++this.repeatCount;
 		if(this.repeatCount % 2 === 0) return;

@@ -102,44 +102,24 @@ CharSelectSlot.prototype.setSelected = function(isSelected) {
 	this.fSprUnselected.visible = !isSelected;
 };
 
-CharSelectSlot.prototype.checkState = function() {
+CharSelectSlot.prototype.checkState = function(inCharacterData) {
 	var i, length = DinoRunz.Storage.UserData.lockDinoData.length;
-	var curData;
-	switch(this.lockType){
-	case ESlotLockType.level:
-		this.curValue = DinoRunz.Storage.UserData.lastClearedStage;
-		break;
-	case ESlotLockType.video:
-		for(i=0;i<length;++i){
-			curData = DinoRunz.Storage.UserData.lockDinoData[i];
-			if(this.charId===curData.charId){
-				this.curValue = curData.curValue;
-				break;
-			}
-		}
-		break;
-	case ESlotLockType.share:
-		for(i=0;i<length;++i){
-			curData = DinoRunz.Storage.UserData.lockDinoData[i];
-			if(this.charId===curData.charId){
-				this.curValue = PlayerDataManager.saveData.UserData.shareCount;
-				break;
-			}
-		}
-		break;
-	}
 
-	this.setSlot();
+	var unlockCondition = inCharacterData.unlockCondition;
+	var unlockValue = inCharacterData.unlockValue;
+	var curValue = inCharacterData.curValue;
 
-	this.isLock = true; 
-	if(this.lockType === ESlotLockType.level) {
-		this.isLock = (this.curValue <= this.lockValue);
+	this.setSlot(unlockCondition, unlockValue, curValue);
+
+	this.isLock = true;
+	if(inCharacterData.unlockCondition === ECharacter.UnlockCondition.LEVEL) {
+		this.isLock = (curValue <= unlockValue);
 	}
 	else {
-		this.isLock = (this.curValue < this.lockValue);
+		this.isLock = (curValue < unlockValue);
 	}
 
-	DinoRunz.Storage.setGetDinoList(this.charId, !this.isLock);
+	// DinoRunz.Storage.setGetDinoList(this.charId, !this.isLock);
 	
 	if(!this.isLock){
 		this.fSlotBG.alpha = 1;
@@ -148,13 +128,13 @@ CharSelectSlot.prototype.checkState = function() {
 		this.fSprIcon.visible = false;
 		this.fBtnDisable.visible = false;
 		this.fTxtCondition.visible = false;
-		this.fSprUnselected.visible = (this.charId !== DinoRunz.Storage.UserData.lastCharacterId);
+		this.fSprUnselected.visible = (inCharacterData.id !== DinoRunz.Storage.UserData.lastCharacterId);
 	}
 	else {
 		this.fSlotBG.alpha = 0.7;
 		this.fSprCharacter.alpha = 0.5;
 	
-		this.fSprIcon.visible = (this.lockType!==ESlotLockType.level);
+		this.fSprIcon.visible = (inCharacterData.unlockCondition !== ECharacter.UnlockCondition.LEVEL);
 		this.fBtnDisable.visible = true;
 		this.fTxtCondition.visible = true;
 	}
@@ -168,56 +148,63 @@ CharSelectSlot.prototype.selectSlots = function() {
 
 CharSelectSlot.prototype.btnDisableCallback = function() {
 	window.sounds.sound('sfx_button').play();
-	if(this.lockType !== ESlotLockType.share) DinoRunz.InGame.menuScene.popupManager.dinoInfoPopup.showPopup(this.charId, this.lockType, this.curValue);
+	var dinoData = CharacterManager.getCharacterData(this.charId);
+	if(dinoData.unlockCondition !== ECharacter.UnlockCondition.SHARE) DinoRunz.InGame.menuScene.popupManager.dinoInfoPopup.showPopup(dinoData.id, dinoData.unlockCondition, dinoData.curValue);
 	else {
 		FbManager.inviteFriend(function() {
-			PlayerDataManager.saveData.setUserData();
-			this.curValue = PlayerDataManager.saveData.UserData.shareCount;
+			DinoRunz.Storage.setUserData();
 			this.game.state.getCurrentState().menuScene.updateCharacterSlots();
 		}, function() {
 			//fail
 			StzLog.print('not in context');
-			PlayerDataManager.saveData.setUserData();
-			this.curValue = PlayerDataManager.saveData.UserData.shareCount;
+			DinoRunz.Storage.setUserData();
 			this.game.state.getCurrentState().menuScene.updateCharacterSlots();
 		}, this);
 	}
 };
 
-CharSelectSlot.prototype.init = function(index) {
-	var characterData = StaticManager.dino_runz_character.get(index+1);
-	
-	this.lockType = characterData.unlock_condition;
-	this.lockValue = characterData.unlock_value;
-	
-	this.charId = characterData.id;
+CharSelectSlot.prototype.init = function(inCharacterData) {
+	this.lockType = inCharacterData.unlock_condition;
+	this.lockValue = inCharacterData.unlock_value;
 
-	var spriteKey = (this.charId < 10) ? "0" + this.charId + ".png" : this.charId + ".png";
+	var unlockType = inCharacterData.unlock_condition;
+	var unlockValue = inCharacterData.unlock_value;
+	
+	this.charId = inCharacterData.id;
+
+	var charId = inCharacterData.id;
+
+	var spriteKey = (charId < 10) ? "0" + charId + ".png" : charId + ".png";
 	this.fSprCharacter.loadTexture("titleAtlas", spriteKey);
 	
-	this.setSlot();
+	this.setSlot(unlockType, unlockValue);
 };
 
-CharSelectSlot.prototype.setSlot = function(){
-	switch(this.lockType){
-		case ESlotLockType.level://stage
+CharSelectSlot.prototype.setSlot = function(unlockType, unlockValue, curValue){
+	switch(unlockType){
+		case ECharacter.UnlockCondition.LEVEL://stage
 			this.fSprIcon.visible = false;
-			this.fTxtCondition.text = "STAGE "+this.lockValue;
+			this.fTxtCondition.text = "STAGE "+unlockValue;
 			this.fTxtCondition.position.x = 0;
 			break;
-		case ESlotLockType.video://ad
+		case ECharacter.UnlockCondition.VIDEO://ad
 			this.fSprIcon.visible = true;
 			this.fSprIcon.loadTexture("CharacterSelect", "icon_adLock.png");
-			this.fTxtCondition.text = this.curValue + "/" + this.lockValue;
+			this.fTxtCondition.text = curValue + "/" + unlockValue;
 			this.fTxtCondition.position.x = 23;
 			break;
-		case ESlotLockType.share://invite
+		case ECharacter.UnlockCondition.SHARE://invite
 			this.fSprIcon.visible = true;
 			this.fSprIcon.loadTexture("CharacterSelect", "icon_inviteLock.png");
-			this.fTxtCondition.text = this.curValue + "/" + this.lockValue;
+			this.fTxtCondition.text = curValue + "/" + unlockValue;
 			this.fTxtCondition.position.x = 23;
 			break;
-		case ESlotLockType.gift:
+		case ECharacter.UnlockCondition.GOLD_CROWN:
+			/**
+			 * 추후 적용.
+			 * */
+			break;
+		case ECharacter.UnlockCondition.GIFT:
 			/**
 			 * 이미지 없음.
 			 * */
@@ -227,7 +214,7 @@ CharSelectSlot.prototype.setSlot = function(){
 
 CharSelectSlot.prototype.selectCharacter = function() {
 	window.sounds.sound('sfx_button').play();
-	if(this.isLock)return;
+	if(this.isLock) return;
 	if(this.charId===DinoRunz.Storage.UserData.lastCharacterId) return;
 	
 	DinoRunz.Storage.UserData.lastCharacterId = this.charId;

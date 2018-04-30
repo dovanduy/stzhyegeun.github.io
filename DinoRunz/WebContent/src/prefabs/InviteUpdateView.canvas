@@ -51,7 +51,6 @@
                 "editorName": "characterContainer",
                 "editorPick": false,
                 "editorPublic": true,
-                "editorShow": false,
                 "setAll": [],
                 "children": [
                   {
@@ -67,9 +66,9 @@
                     "info": {
                       "editorName": "sprCharacter",
                       "editorPublic": true,
-                      "x": 492,
-                      "y": 184,
-                      "rotation": 4.1887902047863905,
+                      "x": 494,
+                      "y": 182,
+                      "rotation": 4.328416544945937,
                       "anchor.x": 0.5,
                       "anchor.y": 0.5
                     }
@@ -149,7 +148,6 @@
                 "editorName": "clearContainer",
                 "editorPick": false,
                 "editorPublic": true,
-                "editorShow": false,
                 "setAll": [],
                 "children": [
                   {
@@ -160,13 +158,13 @@
                   },
                   {
                     "type": "atlas-sprite",
-                    "id": "7bed92ed-8912-45b7-a52b-69b3d84b11b3",
-                    "asset": "1",
+                    "id": "1dcf926d-d7df-4d28-8d13-c0fe49c59b72",
+                    "asset": "6",
                     "info": {
                       "editorName": "sprClearCharacter",
                       "editorPublic": true,
-                      "x": 517,
-                      "y": 152,
+                      "x": 521,
+                      "y": 146,
                       "rotation": 4.153883619746504,
                       "anchor.x": 0.5,
                       "anchor.y": 0.5
@@ -198,12 +196,13 @@
                 "editorName": "resultContainer",
                 "editorPick": false,
                 "editorPublic": true,
+                "editorShow": false,
                 "setAll": [],
                 "children": [
                   {
                     "type": "atlas-sprite",
                     "id": "2b12b3e9-7712-42fc-9025-2aa6ee85f0a9",
-                    "asset": "6",
+                    "asset": "7",
                     "info": {"editorName": "IMONSTAGE_png"}
                   },
                   {
@@ -225,13 +224,13 @@
                   {
                     "type": "atlas-sprite",
                     "id": "d51a3cfd-a4b3-45b3-a1bc-6d8c2ea2cfe3",
-                    "asset": "1",
+                    "asset": "8",
                     "info": {
                       "editorName": "sprResultCharacter",
                       "editorPublic": true,
                       "x": 521,
-                      "y": 155,
-                      "rotation": 4.171336912266447,
+                      "y": 146,
+                      "rotation": 4.153883619746504,
                       "anchor.x": 0.5,
                       "anchor.y": 0.5
                     }
@@ -285,8 +284,20 @@
     "6": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "title",
+      "asset": "titleAtlas",
+      "sprite": "02.png"
+    },
+    "7": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "title",
       "asset": "shareAtlas",
       "sprite": "IMONSTAGE.png"
+    },
+    "8": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "title",
+      "asset": "titleAtlas",
+      "sprite": "09.png"
     }
   },
   "prefab-table": {}

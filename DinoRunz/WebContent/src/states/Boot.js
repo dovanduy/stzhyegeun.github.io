@@ -46,6 +46,23 @@ DinoRunz.Boot.prototype = {
 				//매니저 init
 				GGManager.init(this.game);
 				FbManager.init(this.game);
+				CharacterManager.init(this.game, StaticManager.dino_runz_character);
+
+				var length = StaticManager.dino_runz_level_design.length;
+				DinoRunz.InGame.MAPS = StaticManager.dino_runz_level_design.data;
+				DinoRunz.InGame.MAPS.length = length;
+
+				for(var i = 0 ; i < length ; ++i) {
+					DinoRunz.InGame.MAPS[i].path = JSON.parse(DinoRunz.InGame.MAPS[i].path);
+				}
+
+				DinoRunz.InGame.STAGE_LIST = Object.keys(DinoRunz.InGame.MAPS).filter(function(inItem) {
+					return (inItem !== "length");
+				}).sort(function(a, b) {
+					return Number(a) - Number(b);
+				}).map(function(inItem) {
+					return Number(inItem);
+				});
 				
 				StzLog.print("Static load completed.");
 				
@@ -67,11 +84,12 @@ DinoRunz.Boot.prototype = {
 window.onload = function() {
     window.FbManager = new FbManager_proto();
     window.GGManager = new GGManager_proto();
-    window.PlayerDataManager = new PlayerDataManager_proto();
+	window.PlayerDataManager = new PlayerDataManager_proto();
     window.Server = new ServerManager_proto();
     window.StaticManager = new StaticManager_proto();
 	window.StzTrans = new StzTranslator_proto();
 	window.ChatbotManager = new ChatbotManager_proto();
+	window.CharacterManager = new CharacterManager_proto();
     
 	var game = new Phaser.Game(720, 1280, Phaser.CANVAS, 'gameContainer');
 

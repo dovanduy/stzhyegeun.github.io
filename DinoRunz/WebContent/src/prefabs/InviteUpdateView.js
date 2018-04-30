@@ -9,8 +9,7 @@
 /**
  * InviteUpdateView.
  * @param {Phaser.Game} aGame A reference to the currently running game.
- * @param {Phaser.Group} aParent The parent Group (or other {@link DisplayObject}) that this group will be added to.
-    If undefined/unspecified the Group will be added to the {@link Phaser.Game#world Game World}; if null the Group will not be added to any parent.
+ * @param {Phaser.Group} aParent The parent Group (or other {@link DisplayObject}) that this group will be added to.    If undefined/unspecified the Group will be added to the {@link Phaser.Game#world Game World}; if null the Group will not be added to any parent.
  * @param {string} aName A name for this group. Not used internally but useful for debugging.
  * @param {boolean} aAddToStage If true this group will be added directly to the Game.Stage instead of Game.World.
  * @param {boolean} aEnableBody If true all Sprites created with {@link #create} or {@link #createMulitple} will have a physics body created on them. Change the body type with {@link #physicsBodyType}.
@@ -23,8 +22,8 @@ function InviteUpdateView(aGame, aParent, aName, aAddToStage, aEnableBody, aPhys
 	
 	this.game.add.sprite(0, 0, 'shareAtlas', 'GET.png', _characterContainer);
 	
-	var _sprCharacter = this.game.add.sprite(492, 184, 'titleAtlas', '01.png', _characterContainer);
-	_sprCharacter.angle = 239.99999999999997;
+	var _sprCharacter = this.game.add.sprite(494, 182, 'titleAtlas', '01.png', _characterContainer);
+	_sprCharacter.angle = 248.0;
 	_sprCharacter.anchor.setTo(0.5, 0.5);
 	
 	var _inviteContainer = this.game.add.group(this);
@@ -45,7 +44,7 @@ function InviteUpdateView(aGame, aParent, aName, aAddToStage, aEnableBody, aPhys
 	
 	this.game.add.sprite(0, 0, 'shareAtlas', 'STAGECLEAR.png', _clearContainer);
 	
-	var _sprClearCharacter = this.game.add.sprite(517, 152, 'titleAtlas', '01.png', _clearContainer);
+	var _sprClearCharacter = this.game.add.sprite(521, 146, 'titleAtlas', '02.png', _clearContainer);
 	_sprClearCharacter.angle = 238.0;
 	_sprClearCharacter.anchor.setTo(0.5, 0.5);
 	
@@ -59,8 +58,8 @@ function InviteUpdateView(aGame, aParent, aName, aAddToStage, aEnableBody, aPhys
 	var _txtResult = this.game.add.text(360, 325, 'I\'M ON STAGE 999', {"font":"bold 50px Blogger Sans","fill":"#ffffff"}, _resultContainer);
 	_txtResult.anchor.setTo(0.5, 0.5);
 	
-	var _sprResultCharacter = this.game.add.sprite(521, 155, 'titleAtlas', '01.png', _resultContainer);
-	_sprResultCharacter.angle = 238.99999999999997;
+	var _sprResultCharacter = this.game.add.sprite(521, 146, 'titleAtlas', '09.png', _resultContainer);
+	_sprResultCharacter.angle = 238.0;
 	_sprResultCharacter.anchor.setTo(0.5, 0.5);
 	
 	

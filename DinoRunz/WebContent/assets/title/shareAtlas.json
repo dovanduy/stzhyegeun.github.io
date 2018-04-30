@@ -43,10 +43,10 @@
 "meta": {
 	"app": "https://www.codeandweb.com/texturepacker",
 	"version": "1.0",
-	"image": "shareAtlas.png",
-	"format": "RGBA8888",
+	"image": "shareAtlas.jpg",
+	"format": "RGB888",
 	"size": {"w":722,"h":1910},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:ee1771c68224210b4db628e0d831dfea:a8bf68b5ec9f9d345829bd2668cfb577:eeff94bb6222a02271ad3a0a12365583$"
+	"smartupdate": "$TexturePacker:SmartUpdate:2a050ce5b6cc32f7480ca5ab6c3ac4a4:a8bf68b5ec9f9d345829bd2668cfb577:f23ea9eaa6522bfc92410165fcb54354$"
 }
 }

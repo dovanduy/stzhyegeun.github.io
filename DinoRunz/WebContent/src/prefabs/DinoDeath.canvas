@@ -1,7 +1,7 @@
 {
   "canvas-version": 2,
   "settings": {
-    "className": "dinoDeath",
+    "className": "DinoDeath",
     "sceneWidth": 640,
     "sceneHeight": 360,
     "generateOnSave": true,
@@ -33,55 +33,31 @@
   },
   "world": {
     "type": "group",
-    "id": "1fd6bcd0-b172-4181-9b56-3ad4e08c73fd",
+    "id": "c87d20d1-9a13-45c5-a8f8-bf4dd3ace046",
     "info": {
-      "editorName": "dinoDeath",
+      "editorName": "DinoDeath",
       "setAll": [],
       "children": [{
         "type": "group",
-        "id": "3bb10828-72ff-471c-9218-bf9ee485bd8f",
+        "id": "adb1256e-be0d-4fb6-80e8-c09128a48f96",
         "info": {
           "editorName": "group",
           "setAll": [],
           "children": [
             {
               "type": "spritesheet",
-              "id": "8f3dd9c3-90f0-4e5b-a558-fbddf6c81188",
+              "id": "58b3f4b5-5042-48b1-81c2-680166a24042",
               "asset": "0",
-              "info": {
-                "editorName": "x_icon",
-                "editorPublic": true,
-                "anchor.x": 0.5,
-                "anchor.y": 0.5,
-                "animations": [{
-                  "name": "death",
-                  "frameRate": 20,
-                  "frames": [
-                    "0",
-                    "1",
-                    "2",
-                    "3",
-                    "4",
-                    "5",
-                    "6"
-                  ]
-                }]
-              }
-            },
-            {
-              "type": "spritesheet",
-              "id": "3ab63f4d-d354-4be9-bb5c-e8b0331e0af3",
-              "asset": "1",
               "info": {
                 "editorName": "ghost",
                 "editorPublic": true,
-                "x": 22,
-                "y": -80,
+                "x": 50,
+                "y": -51,
                 "anchor.x": 0.5,
                 "anchor.y": 0.5,
                 "animations": [{
                   "name": "ghost",
-                  "frameRate": 20,
+                  "frameRate": 25,
                   "frames": [
                     "0",
                     "1",
@@ -96,6 +72,42 @@
                   ]
                 }]
               }
+            },
+            {
+              "type": "spritesheet",
+              "id": "2c9328a7-15b5-45da-95c5-65f164c26a96",
+              "asset": "1",
+              "info": {
+                "editorName": "dinoSkeleton",
+                "editorPublic": true,
+                "anchor.x": 0.5,
+                "anchor.y": 0.5,
+                "animations": [{
+                  "name": "skeleton",
+                  "frameRate": 32,
+                  "frames": [
+                    "0",
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                    "6",
+                    "7",
+                    "8",
+                    "9",
+                    "10",
+                    "11",
+                    "12",
+                    "13",
+                    "14",
+                    "15",
+                    "16",
+                    "17",
+                    "18"
+                  ]
+                }]
+              }
             }
           ]
         }
@@ -107,13 +119,13 @@
     "0": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "ingame",
-      "asset": "commandFail",
+      "asset": "dinoDeath",
       "sprite": "0"
     },
     "1": {
       "file": "WebContent/assets/assets-pack.json",
       "section": "ingame",
-      "asset": "dinoDeath",
+      "asset": "dinoSkeleton",
       "sprite": "0"
     }
   },

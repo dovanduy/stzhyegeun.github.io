@@ -260,3 +260,13 @@ PlayerView.prototype.hideSlowEffect = function() {
 
 	this.game.tweens.remove(this.circleTween);
 };
+
+PlayerView.prototype.move = function (inPlayerDirection, inPlayerSpeed) {
+	// inPlayerDirection = this.direction;
+
+	var offsetX = 0 + (inPlayerDirection === EDirection.RIGHT ? inPlayerSpeed : 0) - (inPlayerDirection === EDirection.LEFT ? inPlayerSpeed : 0);
+	var offsetY = 0 + (inPlayerDirection === EDirection.DOWN ? inPlayerSpeed : 0) - (inPlayerDirection === EDirection.UP ? inPlayerSpeed : 0);
+
+	this.position.x += offsetX;
+	this.position.y += offsetY;
+};

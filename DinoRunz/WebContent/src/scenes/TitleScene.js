@@ -107,7 +107,6 @@ function TitleScene(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBod
 	this.isLoadResComplete = false;
 
 	this.game.add.tween(this.fSprTitle.position).to({y:-57}, 1000, Phaser.Easing.Linear.None, true, 0, -1, true);
-	// this.game.add.tween(this.fBtnPlay.position).to({y:870}, 1500, Phaser.Easing.Linear.None, true, 0, -1, true);
 	
 	window.sounds.sound('bgm_lobby').play("", 0, DinoRunz.InGame.isMusic, true);
 	
@@ -123,7 +122,7 @@ function TitleScene(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBod
 			this.isLoadResComplete = true;
 		}, this);
 		
-		// this.fLoading.visible = true;
+		
 	}, this);
 	
 	this.game.add.tween(this.fGemGroup.position).to({x:223, y:556}, 350, Phaser.Easing.Linear.None, true, 0, -1, false);
@@ -178,7 +177,7 @@ function TitleScene(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBod
 			}
 			
 			this.setTitleShowingObject(PlayerDataManager.getContextFriends(), false);
-			PlayerDataManager.saveData.setUserData();
+			DInoRunz.Storage.setUserData();
 		}.bind(this), null, this);
 	}
 	
@@ -207,9 +206,6 @@ function TitleScene(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBod
 	this.prevAngle = 0;
 	this.moveBGTween = null;
 	this.moveBG();
-
-	// this.addChildAt(this.fLoading, this.children.length - 1);//depth 정리.
-	// this.fLoading.inputEnabled = true;
 
 	this.fFader = this.game.add.graphics(0, 0, this);
 	this.fFader.beginFill(0x000000);
@@ -334,7 +330,6 @@ TitleScene.prototype.startGame = function (inCompleteCallback) {
 		this.game.tweens.remove(fadeTween);
 		window.sounds.createSound(this.game);
 		this.game.state.start("InGame", true, false, DinoRunz.InGame.EGameMode.RUN, DinoRunz.Storage.UserData.lastClearedStage);
-		// this.destroy();
 	}, this);
 	
 };

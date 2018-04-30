@@ -215,7 +215,7 @@ StzUtil.getScreenCapture = function(inGameContext, inX, inY, inWidth, inHeight, 
 			bmd.drawGroup(inTargetCanvas);
 			//captureBMD.copy(bmd, captureX, captureY, captureWidth, captureHeight,  captureXOffset / 2,0, captureWidth, captureHeight, null, null, null, captureScale, captureScale);
 			captureBMD.draw(bmd, captureX, captureY, captureWidth, captureHeight, captureXOffset / 2, captureYOffset / 2, captureWidth, captureHeight, null, null, null, captureScale, captureScale);
-			inTargetCanvas.destroy();
+			inTargetCanvas.destroy(); //default
 		}
 		else{
 			inGameContext.crossOrigin = 'Anonymous';

@@ -130,18 +130,7 @@ function FbManager_proto () {
 			var captureCanvas = new InviteUpdateView(this.game);
 			captureCanvas.setData(inType, inData);
 
-			// var offsetPos = {x:0, y:0};
-			
-			// if(this.game.world.bounds.x !== 0) offsetPos.x = this.game.world.bounds.x * -1;//worldTransform이 변했으면 변한 값만큼 보정.
-			// if(this.game.world.bounds.y !== 0) offsetPos.y = this.game.world.bounds.y * -1;//worldTransform이 변했으면 변한 값만큼 보정.
-
-			// if(this.game.world.pivot.x !== 0) offsetPos.x = this.game.world.pivot.x * -1;//worldTransform이 변했으면 변한 값만큼 보정.
-			// if(this.game.world.pivot.y !== 0) offsetPos.y = this.game.world.pivot.y * -1;//worldTransform이 변했으면 변한 값만큼 보정.
-
-			// captureCanvas.position.x = offsetPos.x;
-			// captureCanvas.position.y = offsetPos.y;
-
-			var captured = StzUtil.getScreenCapture(this.game, 0, 0, captureCanvas.width, captureCanvas.height, null, captureCanvas);
+			var captured = StzUtil.getScreenCapture(this.game, 0, 0, captureCanvas.width, 380, null, captureCanvas); //캐릭터 앵글을 돌리면 스프라이트 영역이 커지면서 캐릭터를 적절한 위치에 놓을 시 배경 이미지의 높이 380을 넘어버려 (넘은 값 - 380) 영역만큼 검은 배경이 더 그려져서 380으로 고정.
 			FBInstant.updateAsync({
 				action: "CUSTOM", 
 				template: "invite", 

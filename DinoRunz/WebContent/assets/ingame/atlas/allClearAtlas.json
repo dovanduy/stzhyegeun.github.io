@@ -1,0 +1,52 @@
+{"frames": [
+
+{
+	"filename": "BG_2.png",
+	"frame": {"x":332,"y":1,"w":4,"h":862},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":4,"h":862},
+	"sourceSize": {"w":4,"h":862}
+},
+{
+	"filename": "door.png",
+	"frame": {"x":1,"y":486,"w":280,"h":304},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":280,"h":304},
+	"sourceSize": {"w":280,"h":304}
+},
+{
+	"filename": "light_1.png",
+	"frame": {"x":1,"y":199,"w":329,"h":285},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":329,"h":285},
+	"sourceSize": {"w":329,"h":285}
+},
+{
+	"filename": "light_2.png",
+	"frame": {"x":38,"y":1,"w":229,"h":196},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":229,"h":196},
+	"sourceSize": {"w":229,"h":196}
+},
+{
+	"filename": "particle.png",
+	"frame": {"x":1,"y":1,"w":35,"h":36},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":35,"h":36},
+	"sourceSize": {"w":35,"h":36}
+}],
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "allClearAtlas.png",
+	"format": "RGBA8888",
+	"size": {"w":337,"h":864},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:c0314e9f608372979a269d8ee2cf804d:0ebada95fcc0817b5c879e36acfe8bee:ef95baba3728318610da3140e70d9689$"
+}
+}

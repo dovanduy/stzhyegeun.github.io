@@ -265,6 +265,7 @@ function MenuScene(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBody
 	this.fTxtRestartAtMenuTitle.text = StzTrans.translate(StaticManager.ELocale.play_text_b);
 	this.fTxtCharTitle.text = StzTrans.translate(StaticManager.ELocale.character_text_b);
 	this.fRecomandJoinMsg.text = StzTrans.translate(StaticManager.ELocale.chat_room);
+	this.fTxtWorld.text = StzTrans.translate(StaticManager.ELocale.name_world_1);
 	// this.fTxtTitleAtRestart.text = //todo: 결과 화면 타이틀 메시지 추가 요청.
 	this.fTxtShareAtRestart.text = StzTrans.translate(StaticManager.ELocale.share_text_b);
 	this.fTxtStageAtRestart.text = StzTrans.translate(StaticManager.ELocale.stage_text_b);
@@ -276,13 +277,13 @@ function MenuScene(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBody
 	this.fSprWorldIcon.inputEnabled = true;
 	this.fSprWorldIcon.events.onInputUp.add(function() {
 		var curState = this.game.state.getCurrentState();
-		curState.unlockAllStage();
+		curState.unlockStage();
 	}, this);
 
 	this.fTxtCharTitle.inputEnabled = true;
 	this.fTxtCharTitle.events.onInputUp.add(function() {
 		//cheat
-		PlayerDataManager.saveData.resetUserData();
+		DinoRunz.Storage.resetUserData();
 		this.game.state.restart(true, false);
 	}, this);
 	//cheat end
@@ -332,8 +333,8 @@ function MenuScene(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBody
 	
 	// 캐릭터 선택 슬롯 생성
 	this.characterSlotList = [];
-
-	for (index = 0; index < 10;++index){
+	var characterNum = 10;//todo : 캐릭터 데이터에 맞춰 길이 조절.(현재(180426) 데이터는 추가되어있지만 리소스는 추가되지 않음)
+	for (index = 0 ; index < characterNum ; ++index){
 		row = Math.floor(index / flagCol);
 		col = index % flagCol;
 		temp = new CharSelectSlot(this.game, this.fGroupCharacterSlots);
@@ -346,7 +347,7 @@ function MenuScene(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBody
 		startY = 240;
 		
 		temp.position.setTo(startX + (tempWidth+offsetCol) * col, startY + (row * (tempHeight+offsetRow)));
-		temp.init(index);
+		temp.init(CharacterManager.getCharacterData(index+1));
 		this.characterSlotList.push(temp);
 	}
 	
@@ -365,7 +366,7 @@ function MenuScene(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBody
 	leaderboard.onClickShare = function () {
 		window.sounds.sound('sfx_button').play();
 		var curState = this.game.state.getCurrentState();
-		FbManager.shareResult({charId : DinoRunz.Storage.UserData.lastCharacterId, stage : curState.currentStage});
+		FbManager.shareResult({charId : DinoRunz.Storage.UserData.lastCharacterId, stage : curState.currentStage});//default
 	}.bind(this);
 
 	leaderboard.onClickCharacterSelect = function () {
@@ -584,7 +585,7 @@ MenuScene.prototype.showCharacterSelect = function (shouldTween3Buttons) {
 	this.popupManager.getDinoPopup.showPopup();
 	
 	var charId = DinoRunz.Storage.UserData.lastCharacterId;
-	this.characterSlotList[charId].selectSignal.dispatch();
+	this.characterSlotList[charId-1].selectSignal.dispatch();
 };
 
 MenuScene.prototype.characterSelectShowTweens = function (shouldTween3Buttons) {
@@ -615,8 +616,9 @@ MenuScene.prototype.characterSelectShowTweens = function (shouldTween3Buttons) {
 
 MenuScene.prototype.updateCharacterSlots = function() {
 	var i, length = this.characterSlotList.length;
+	CharacterManager.updateDataCurValues();
 	for(i=0;i<length;++i){
-		this.characterSlotList[i].checkState();
+		this.characterSlotList[i].checkState(CharacterManager.getCharacterData(i+1));
 	}
 };
 
@@ -686,8 +688,6 @@ MenuScene.prototype.openMenu = function(inCurrentStage, inMenuType, bFadeOut) {
 		lobbySound.play("", 0, DinoRunz.InGame.isMusic, true);
 	}
 	
-	
-	
 	// setting menuGroup
 	this.page = Math.floor((DinoRunz.Storage.UserData.lastClearedStage - 1) / this.maxSlotNum);
 	
@@ -702,7 +702,7 @@ MenuScene.prototype.openMenu = function(inCurrentStage, inMenuType, bFadeOut) {
 				PlayerDataManager.sortContextFriends("bestStage", PlayerDataManager.ESortOrder.DESCEND);				
 			}
 			this.setWorldProfiles();
-			PlayerDataManager.saveData.setUserData();
+			DinoRunz.Storage.setUserData();
 		}.bind(this), null, this);
 	}, this);
 	
@@ -716,7 +716,7 @@ MenuScene.prototype.openMenu = function(inCurrentStage, inMenuType, bFadeOut) {
 			this.closeMenu();
 			return;
 		} 
-		this.game.state.getCurrentState().rndChangePlayerCharacter();
+		// this.game.state.getCurrentState().rndChangePlayerCharacter();//캐릭터 랜덤으로 바뀌지 않도록 수정하여 주석 처리.
 		this.game.state.getCurrentState().newGame(currentIndex);
 	}.bind(this);
 	

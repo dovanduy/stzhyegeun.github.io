@@ -38,11 +38,13 @@ var ServerManager_proto = function() {
 		// SETTINGS
 		//var _baseUrl = (StzBuildConfig.SERVER_MODE === EServerMode.STAGE ? "https://webgame-stage.stzapp.net" : "https://webgame.stzapp.net");
 		var _baseUrl = "https://drunz.stzapp.net";
+		// var _baseUrl = "https://drunz.stzgame.com";//test//live서버
+		
 		if (StzBuildConfig.SERVER_MODE === EServerMode.STAGE) {
 			//_baseUrl = "https://webgame-stage.stzapp.net";
 			_baseUrl = "https://drunz.stzapp.net";
 		} else if (StzBuildConfig.SERVER_MODE === EServerMode.LIVE) {
-			_baseUrl = "https://drunz.stzapp.net";
+			_baseUrl = "https://drunz.stzgame.com";
 		}
 		
 		var _baseLogUrl = "https://dev-hyperlog.stzgame.net/logs";

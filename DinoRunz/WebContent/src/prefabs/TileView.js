@@ -9,8 +9,7 @@ DinoRunz.viewBound = new Phaser.Rectangle(0, 0, 0, 0);
 /**
  * TileView.
  * @param {Phaser.Game} aGame A reference to the currently running game.
- * @param {Phaser.Group} aParent The parent Group (or other {@link DisplayObject}) that this group will be added to.
-    If undefined/unspecified the Group will be added to the {@link Phaser.Game#world Game World}; if null the Group will not be added to any parent.
+ * @param {Phaser.Group} aParent The parent Group (or other {@link DisplayObject}) that this group will be added to.    If undefined/unspecified the Group will be added to the {@link Phaser.Game#world Game World}; if null the Group will not be added to any parent.
  * @param {string} aName A name for this group. Not used internally but useful for debugging.
  * @param {boolean} aAddToStage If true this group will be added directly to the Game.Stage instead of Game.World.
  * @param {boolean} aEnableBody If true all Sprites created with {@link #create} or {@link #createMulitple} will have a physics body created on them. Change the body type with {@link #physicsBodyType}.
@@ -60,6 +59,28 @@ function TileView(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBodyT
 	_txtHardStage.angle = 90.0;
 	_txtHardStage.anchor.setTo(0.5, 0.5);
 	
+	var _groupEnding = this.game.add.group(this);
+	
+	var _sprLight01 = this.game.add.sprite(-1, -9, 'allClearAtlas', 'light_1.png', _groupEnding);
+	_sprLight01.angle = 90.0;
+	_sprLight01.anchor.setTo(0.5, 0.5);
+	
+	var _door_png = this.game.add.sprite(0, 0, 'allClearAtlas', 'door.png', _groupEnding);
+	_door_png.angle = 90.0;
+	_door_png.anchor.setTo(0.5, 0.5);
+	
+	var _sprLight02 = this.game.add.sprite(-6, -8, 'allClearAtlas', 'light_2.png', _groupEnding);
+	_sprLight02.angle = 90.0;
+	_sprLight02.anchor.setTo(0.5, 0.5);
+	
+	var _particle_png2 = this.game.add.sprite(-11, -111, 'allClearAtlas', 'particle.png', _groupEnding);
+	_particle_png2.scale.setTo(0.6, 0.6);
+	
+	var _particle_png1 = this.game.add.sprite(16, 65, 'allClearAtlas', 'particle.png', _groupEnding);
+	_particle_png1.scale.setTo(0.8, 0.8);
+	
+	this.game.add.sprite(80, 32, 'allClearAtlas', 'particle.png', _groupEnding);
+	
 	
 	
 	// public fields
@@ -74,6 +95,9 @@ function TileView(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBodyT
 	this.fGroupHardEffect = _groupHardEffect;
 	this.fHardStageEffect = _hardStageEffect;
 	this.fTxtHardStage = _txtHardStage;
+	this.fGroupEnding = _groupEnding;
+	this.fSprLight01 = _sprLight01;
+	this.fSprLight02 = _sprLight02;
 	/* --- post-init-begin --- */
 	
 	this.prevPath = null;
@@ -82,13 +106,14 @@ function TileView(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBodyT
 	this.direction = EDirection.RIGHT;
 	this.tileType = ETileType.NONE;
 	
-	this.tileIndex = 0;
-	this.indexInStage = 0;
+	this.tileIndex = -1;
+	this.indexInStage = -1;
 	
 	this.prevType = ETileType.NONE;
 	this.nextType = ETileType.NONE;
 	
 	this.fGroupHardEffect.visible = false;
+	this.fGroupEnding.visible = false;
 	/* --- post-init-end --- */
 	
 	
@@ -225,6 +250,7 @@ TileView.prototype.reset = function() {
 	this.nextType = ETileType.NONE;
 	
 	this.fGroupHardEffect.visible = false;
+	this.fGroupEnding.visible = false;
 };
 
 TileView.prototype.getIndex = function() {
@@ -315,9 +341,10 @@ TileView.prototype.setType = function(inTileType) {
 	case ETileType.END:
 		this.visible = true;
 		this.fArrow.visible = false;
-		this.fText.visible = true;
-		this.fText.text = "END";
-		this.fTile.loadTexture("resAtlas", "road_tile_6.png");
+		this.fText.visible = false;
+		this.fTile.visible = false;
+		this.fGroupEnding.visible = true;
+		
 		break;
 	}
 };

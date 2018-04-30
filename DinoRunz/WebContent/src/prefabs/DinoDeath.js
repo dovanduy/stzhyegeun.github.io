@@ -7,10 +7,9 @@
 
 
 /**
- * dinoDeath.
+ * DinoDeath.
  * @param {Phaser.Game} aGame A reference to the currently running game.
- * @param {Phaser.Group} aParent The parent Group (or other {@link DisplayObject}) that this group will be added to.
-    If undefined/unspecified the Group will be added to the {@link Phaser.Game#world Game World}; if null the Group will not be added to any parent.
+ * @param {Phaser.Group} aParent The parent Group (or other {@link DisplayObject}) that this group will be added to.    If undefined/unspecified the Group will be added to the {@link Phaser.Game#world Game World}; if null the Group will not be added to any parent.
  * @param {string} aName A name for this group. Not used internally but useful for debugging.
  * @param {boolean} aAddToStage If true this group will be added directly to the Game.Stage instead of Game.World.
  * @param {boolean} aEnableBody If true all Sprites created with {@link #create} or {@link #createMulitple} will have a physics body created on them. Change the body type with {@link #physicsBodyType}.
@@ -19,21 +18,20 @@
 function DinoDeath(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBodyType) {
 	
 	Phaser.Group.call(this, aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBodyType);
-	var _x_icon = this.game.add.sprite(0, 0, 'commandFail', 0, this);
-	_x_icon.anchor.setTo(0.5, 0.5);
-	_x_icon.animations.add('death', [0, 1, 2, 3, 4, 5, 6], 20, false);
-	
-	var _ghost = this.game.add.sprite(22, -80, 'dinoDeath', 0, this);
+	var _ghost = this.game.add.sprite(50, -51, 'dinoDeath', 0, this);
 	_ghost.anchor.setTo(0.5, 0.5);
-	_ghost.animations.add('ghost', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 20, false);
+	_ghost.animations.add('ghost', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 25, false);
+	
+	var _dinoSkeleton = this.game.add.sprite(0, 0, 'dinoSkeleton', 0, this);
+	_dinoSkeleton.anchor.setTo(0.5, 0.5);
+	_dinoSkeleton.animations.add('skeleton', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 32, false);
 	
 	
 	
 	// public fields
 	
-	this.fX_icon = _x_icon;
 	this.fGhost = _ghost;
-	
+	this.fDinoSkeleton = _dinoSkeleton;
 	/* --- post-init-begin --- */
 	var animGhost = this.fGhost.animations.getAnimation("ghost");
 	animGhost.onComplete.add(function() {
@@ -53,25 +51,41 @@ function DinoDeath(aGame, aParent, aName, aAddToStage, aEnableBody, aPhysicsBody
 			this.hideDeathEffect();	
 		}, this);
 	}, this);
+
+	// var animSkeleton = this.fDinoSkeleton.animations.getAnimation("skeleton");
+	// animSkeleton.onComplete.add(function () {
+	// 	this.fGhost.visible = true;
+	// 	this.fGhost.animations.play("ghost", 25);
+	// }, this);
 	
 	this.visible = false;
 	/* --- post-init-end --- */
+	
+	
 }
 
 /** @type Phaser.Group */
-var dinoDeath_proto = Object.create(Phaser.Group.prototype);
-DinoDeath.prototype = dinoDeath_proto;
+var DinoDeath_proto = Object.create(Phaser.Group.prototype);
+DinoDeath.prototype = DinoDeath_proto;
 DinoDeath.prototype.constructor = DinoDeath;
 
 /* --- end generated code --- */
 // -- user code here --
-DinoDeath.prototype.showDeathEffect = function() {
-	this.scale.setTo(1);
+
+
+DinoDeath.prototype.showDeathEffect = function (inShowTime) {
 	this.visible = true;
-	this.fX_icon.animations.play("death", 25);
-	this.fGhost.animations.play("ghost", 25);
+	this.fGhost.visible = false;
+	this.scale.setTo(1);
+	this.fDinoSkeleton.animations.play("skeleton", 32);
+
+	var showFrame = 13;
+	setTimeout(function () {
+		this.fGhost.visible = true;
+		this.fGhost.animations.play("ghost", 27);
+	}.bind(this), inShowTime * showFrame);
 };
 
-DinoDeath.prototype.hideDeathEffect = function() {
+DinoDeath.prototype.hideDeathEffect = function () {
 	this.visible = false;
 };

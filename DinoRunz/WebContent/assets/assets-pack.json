@@ -332,6 +332,29 @@
       "textureURL": "assets/ingame/bg/BGAtlas07.jpg",
       "atlasURL": "assets/ingame/bg/BGAtlas07.json",
       "format": "TEXTURE_ATLAS_JSON_ARRAY"
+    },
+    {
+      "type": "atlas",
+      "key": "allClearAtlas",
+      "textureURL": "assets/ingame/atlas/allClearAtlas.png",
+      "atlasURL": "assets/ingame/atlas/allClearAtlas.json",
+      "format": "TEXTURE_ATLAS_JSON_ARRAY"
+    },
+    {
+      "type": "image",
+      "key": "endingCurtain",
+      "url": "assets/ingame/BG_2.png",
+      "overwrite": false
+    },
+    {
+      "type": "spritesheet",
+      "key": "dinoSkeleton",
+      "url": "assets/ingame/dinoSkeleton.png",
+      "frameWidth": 90,
+      "frameHeight": 74,
+      "frameMax": -1,
+      "margin": 0,
+      "spacing": 0
     }
   ],
   "title": [
@@ -399,7 +422,7 @@
     {
       "type": "atlas",
       "key": "shareAtlas",
-      "textureURL": "assets/title/shareAtlas.png",
+      "textureURL": "assets/title/shareAtlas.jpg",
       "atlasURL": "assets/title/shareAtlas.json",
       "format": "TEXTURE_ATLAS_JSON_ARRAY"
     },
@@ -431,7 +454,7 @@
     }
   ],
   "meta": {
-    "generated": "1524452659225",
+    "generated": "1524792882773",
     "app": "Phaser Editor",
     "url": "http://phasereditor.boniatillo.com",
     "version": "1.0",

@@ -56,7 +56,7 @@ DinoRunz.Storage = {
 			var isAllClearListItem = [];
 			var isCurGetValueList = [];
 			if (typeof(Storage) !== "undefined") {
-				lastStageItem = Number(localStorage.getItem("lastClearedStage"));
+				lastStageItem = parseInt(localStorage.getItem("lastClearedStage"));
 				lastStageItem = (isNaN(lastStageItem) === true ? 1 : lastStageItem);
 				isAllClearListItem = JSON.parse(localStorage.getItem("isAllClearList"));
 				lastCharacterId = parseInt(localStorage.getItem("lastCharacterId"));
@@ -77,7 +77,8 @@ DinoRunz.Storage = {
 					var i, length = StaticManager.dino_runz_character.length;
 					for(i=0;i<length;++i){
 						var curData = StaticManager.dino_runz_character.get(i+1);
-						if(curData.unlock_condition===3||curData.unlock_condition===4){
+						if(curData.unlock_condition === ECharacter.UnlockCondition.VIDEO){
+
 							isCurGetValueList.push((i+1)+"|"+0);
 						}
 					}
@@ -95,14 +96,14 @@ DinoRunz.Storage = {
 			
 			if (window.FBInstant) {
 				FBInstant.player.getDataAsync(["lastClearedStage", "isAllClearList", "lastFallenBlockId", "shareCount", "isCurGetValueList"]).then(function(data) {
-					var fbLastStage = Number(data["lastClearedStage"]);
+					var fbLastStage = parseInt(data.lastClearedStage);
 					fbLastStage = (isNaN(fbLastStage) === true ? 1 : fbLastStage);
 					if (fbLastStage > result.lastClearedStage) {
 						result.lastClearedStage = fbLastStage;
 					}
 					
 					if (data.hasOwnProperty("isAllClearList")) {
-						var fbIsAllClearList = JSON.parse(data["isAllClearList"]);
+						var fbIsAllClearList = JSON.parse(data.isAllClearList);
 						if (fbIsAllClearList !== null && fbIsAllClearList.length > result.isAllClearList.length) {
 							result.isAllClearList = fbIsAllClearList;
 						}
@@ -124,6 +125,7 @@ DinoRunz.Storage = {
 				if (!DinoRunz.Storage.UserData.isAllClearList) {
 					DinoRunz.Storage.UserData.isAllClearList = [];
 				}
+
 				DinoRunz.Storage.UserData.isAllClearList = DinoRunz.Storage.UserData.isAllClearList.map(function(inItem) {
 					if (inItem === null || inItem === undefined) {
 						return 0;
@@ -176,13 +178,13 @@ DinoRunz.Storage = {
 		this.UserData.isCurGetValueList = [],//공룡을 얻기 위해 조건을 수행한 카운트 저장.
 		
 		this.UserData.isGetDinoList = [],//서버 저장 안함.
-		this.UserData.lockDinoData = []//서버 저장 안함.
+		this.UserData.lockDinoData = [];//서버 저장 안함.
 					
 		var i, length = StaticManager.dino_runz_character.length;
 		var curData = null;
 		for(i=0;i<length;++i){
 			curData = StaticManager.dino_runz_character.get(i+1);
-			if(curData.unlock_condition===3||curData.unlock_condition===4){
+			if(curData.unlock_condition === ECharacter.UnlockCondition.VIDEO){
 				this.UserData.isCurGetValueList.push((i+1)+"|"+0);
 			}
 		}
@@ -404,7 +406,7 @@ DinoRunz.Preloader.prototype.create = function() {
 			for(i=0;i<length;++i){
 				curData = inUserData.isCurGetValueList[i];
 				curData = curData.split("|");
-				DinoRunz.Storage.UserData.lockDinoData[i] = {charId:parseInt(curData[0]), curValue:parseInt(curData[1])};
+				DinoRunz.Storage.UserData.lockDinoData[i] = {charId : parseInt(curData[0]), curValue : parseInt(curData[1])};
 			}
 
 			if (false) {

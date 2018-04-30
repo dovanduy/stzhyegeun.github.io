@@ -185,19 +185,6 @@ var PlayerDataManager_proto  = function() {
 					StzLog.print(JSON.stringify(err));
 				});
 			}
-
-			// if(resolve){
-			// 	if(this.contextLederBoardData) {
-			// 		Promise.all([leaderBoardSetData, contextLeaderBoardSetData]).then(function() {
-			// 			resolve();
-			// 		});
-			// 	}
-			// 	else {
-			// 		Promise.all([leaderBoardSetData]).then(function() {
-			// 			resolve();
-			// 		});
-			// 	}
-			// }
 		}
 	};
 

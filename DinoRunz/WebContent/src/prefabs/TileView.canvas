@@ -208,6 +208,90 @@
                   }
                 ]
               }
+            },
+            {
+              "type": "group",
+              "id": "e75840ce-4b17-454a-ae1c-e9264c9521bd",
+              "info": {
+                "editorName": "groupEnding",
+                "editorPublic": true,
+                "setAll": [],
+                "children": [
+                  {
+                    "type": "atlas-sprite",
+                    "id": "0dbede94-b1df-4709-8c15-47d5d8c4f025",
+                    "asset": "6",
+                    "info": {
+                      "editorName": "sprLight01",
+                      "editorPublic": true,
+                      "x": -1,
+                      "y": -9,
+                      "rotation": 1.5707963267948966,
+                      "anchor.x": 0.5,
+                      "anchor.y": 0.5
+                    }
+                  },
+                  {
+                    "type": "atlas-sprite",
+                    "id": "f484c9a2-6ad0-4051-9a6b-6cd608fa858b",
+                    "asset": "7",
+                    "info": {
+                      "editorName": "door_png",
+                      "rotation": 1.5707963267948966,
+                      "anchor.x": 0.5,
+                      "anchor.y": 0.5
+                    }
+                  },
+                  {
+                    "type": "atlas-sprite",
+                    "id": "d7d25967-ce4d-4884-907e-1b0666d7c31a",
+                    "asset": "8",
+                    "info": {
+                      "editorName": "sprLight02",
+                      "editorPublic": true,
+                      "x": -6,
+                      "y": -8,
+                      "rotation": 1.5707963267948966,
+                      "anchor.x": 0.5,
+                      "anchor.y": 0.5
+                    }
+                  },
+                  {
+                    "type": "atlas-sprite",
+                    "id": "97ffad0c-1aa2-454c-b3b1-a72de00d5efc",
+                    "asset": "9",
+                    "info": {
+                      "editorName": "particle_png2",
+                      "x": -11,
+                      "y": -111,
+                      "scale.x": 0.6,
+                      "scale.y": 0.6
+                    }
+                  },
+                  {
+                    "type": "atlas-sprite",
+                    "id": "d30722da-ce79-4577-bcb5-51509b536d02",
+                    "asset": "9",
+                    "info": {
+                      "editorName": "particle_png1",
+                      "x": 16,
+                      "y": 65,
+                      "scale.x": 0.8,
+                      "scale.y": 0.8
+                    }
+                  },
+                  {
+                    "type": "atlas-sprite",
+                    "id": "b8b2b5ca-d8b1-4c17-a1d8-05d4ac4bcbf0",
+                    "asset": "9",
+                    "info": {
+                      "editorName": "particle_png",
+                      "x": 80,
+                      "y": 32
+                    }
+                  }
+                ]
+              }
             }
           ]
         }
@@ -251,6 +335,30 @@
       "section": "ingame",
       "asset": "hardstageEffect",
       "sprite": "0"
+    },
+    "6": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "allClearAtlas",
+      "sprite": "light_1.png"
+    },
+    "7": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "allClearAtlas",
+      "sprite": "door.png"
+    },
+    "8": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "allClearAtlas",
+      "sprite": "light_2.png"
+    },
+    "9": {
+      "file": "WebContent/assets/assets-pack.json",
+      "section": "ingame",
+      "asset": "allClearAtlas",
+      "sprite": "particle.png"
     }
   },
   "prefab-table": {}
